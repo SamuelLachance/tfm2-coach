@@ -617,116 +617,24 @@
     }
   }
 
-  const REASON_KIND_LABELS = {
-    plan: "Plan",
-    synergy: "Synergie",
-    counter: "Counter",
-    blind: "Anti-blind",
-    tier: "Tier",
-    other: "Note",
-  };
-
-  function reasonKind(reason) {
-    const r = (reason || "").toLowerCase();
-    if (/shell |plan |win condition|complète|comble|hypercarry|front-to-back/i.test(reason)) return "plan";
-    if (/synergie|combo|duo|pairing|mutuel|cohérence|mtg|famille/i.test(r)) return "synergy";
-    if (/counter|vs |deny|menace|engage|dive|retirer/i.test(r)) return "counter";
-    if (/blind|counterable|spécialiste|flex|anchor|ancre/i.test(r)) return "blind";
-    if (/tier/i.test(r)) return "tier";
-    return "other";
-  }
-
-  function renderReasonTags(reasons, limit = 3) {
-    return (reasons || [])
-      .slice(0, limit)
-      .map((reason) => {
-        const kind = reasonKind(reason);
-        return `<span class="draft-reason-tag draft-reason-tag--${kind}" title="${coach.escapeHtml(reason)}">${coach.escapeHtml(REASON_KIND_LABELS[kind])}: ${coach.escapeHtml(reason)}</span>`;
-      })
-      .join("");
-  }
-
-  function renderScoreBreakdown(item) {
-    const layers = item.layers;
-    if (!layers) return "";
-    const rows = [
-      ["Δ comp", layers.delta],
-      ["Tier", layers.tier],
-      ["Synergie", layers.synergy],
-      ["Counter", layers.counter],
-      ["Shell", layers.plan],
-      ["Squelette", layers.skeleton],
-    ].filter(([, v]) => v != null && v !== 0);
-    if (!rows.length) return "";
-    return `
-      <details class="draft-score-breakdown">
-        <summary>Détail score</summary>
-        <ul class="draft-score-layers">
-          ${rows.map(([label, val]) => `<li><span>${label}</span><strong>${val > 0 ? "+" : ""}${val}</strong></li>`).join("")}
-        </ul>
-      </details>`;
-  }
-
-  function renderDraftInsightPanel(session, rec) {
-    const metaMap = draftMetaMap();
-    const insight = rec?.insight || window.TFM2Draft.getDraftInsight?.(session, coach.state.byName, metaMap);
-    if (!insight) return "";
-    const our = insight.our || {};
-    const enemy = insight.enemy || {};
-    const pct = Math.max(0, Math.min(100, insight.winProgress || our.completeness || 0));
-    const shellName = our.label ? `Shell ${our.label}` : "Détection…";
-    const enemyName = enemy.label ? `Shell ${enemy.label}` : "—";
-    const gaps = (our.gaps || []).slice(0, 2).join(", ");
-    const actionLabel = rec?.type === "ban" ? "Suggestions ban" : rec?.type === "pick" ? "Suggestions pick" : "Coach";
-    return `
-      <div class="draft-insight-panel" aria-label="Analyse draft coach">
-        <div class="draft-insight-top">
-          <span class="draft-phase-badge draft-phase-badge--${insight.phase || "opening"}">${coach.escapeHtml(rec?.phaseLabel || insight.phaseLabel || "Draft")}</span>
-          <span class="draft-insight-action muted">${actionLabel}</span>
-        </div>
-        <div class="draft-plan-grid">
-          <div class="draft-plan-card draft-plan-card--ours">
-            <span class="draft-plan-card-label">Notre shell</span>
-            <span class="draft-plan-card-name">${coach.escapeHtml(shellName)}${our.completeness ? ` · ${our.completeness}%` : ""}</span>
-            <div class="draft-win-bar" title="Progression win condition"><div class="draft-win-bar-fill" style="width:${pct}%"></div></div>
-            <span class="draft-plan-card-pct">${pct}% complété</span>
-            ${gaps ? `<span class="draft-plan-gaps muted">Manque : ${coach.escapeHtml(gaps)}</span>` : ""}
-          </div>
-          <div class="draft-plan-card draft-plan-card--enemy">
-            <span class="draft-plan-card-label">Shell adverse</span>
-            <span class="draft-plan-card-name">${coach.escapeHtml(enemyName)}</span>
-            <div class="draft-win-bar draft-win-bar--enemy"><div class="draft-win-bar-fill" style="width:${Math.max(0, Math.min(100, enemy.completeness || 0))}%"></div></div>
-            <span class="draft-plan-card-pct">${enemy.completeness || 0}%</span>
-          </div>
-        </div>
-      </div>`;
-  }
-
   function buildSuggestChipsHtml(session, rec) {
-    if (!rec?.items?.length) return renderDraftInsightPanel(session, rec);
-    const isBan = rec.type === "ban";
+    if (!rec?.items?.length) return "";
     return `
-      ${renderDraftInsightPanel(session, rec)}
       <div class="draft-suggest-wrap">
         <div class="draft-suggest-head">
-          <span class="draft-suggest-title">${isBan ? "Coach ban" : "Coach pick"}</span>
-          <span class="draft-suggest-hint muted">${rec.coachHint ? coach.escapeHtml(rec.coachHint) : "Top picks · tier · synergie · shell"}</span>
+          <span class="draft-suggest-title">Suggestions coach</span>
+          <span class="draft-suggest-hint muted">${rec.coachHint ? coach.escapeHtml(rec.coachHint) : "Top picks · tier · synergie · MTG"}</span>
         </div>
-        <div id="draft-suggest-host" class="draft-suggest-row draft-suggest-row--rich" aria-label="Suggestions coach">
+        <div id="draft-suggest-host" class="draft-suggest-row" aria-label="Suggestions coach">
           ${rec.items
             .map(
               (item, i) => `
-          <button type="button" class="draft-suggest-chip draft-suggest-chip--rich" data-champ="${coach.escapeHtml(item.champion.name)}"${item.slot ? ` data-slot="${coach.escapeHtml(item.slot)}"` : ""}>
-            <div class="draft-suggest-chip-head">
-              <span class="draft-suggest-rank">#${i + 1}</span>
-              ${coach.championIconHtml(item.champion, { size: "coach" })}
-              <span class="draft-suggest-name">${coach.escapeHtml(item.champion.name)}</span>
-              ${item.score != null ? `<span class="draft-suggest-score">${Math.round(item.score)}</span>` : ""}
-              ${item.slot ? `<span class="draft-suggest-slot">${coach.escapeHtml(item.slot)}</span>` : ""}
-              ${item.denyLabel ? `<span class="draft-deny-badge draft-deny-badge--${coach.escapeHtml(item.denyType || "pool")}">${coach.escapeHtml(item.denyLabel)}</span>` : ""}
-            </div>
-            <div class="draft-reason-tags">${renderReasonTags(item.reasons, 3)}</div>
-            ${renderScoreBreakdown(item)}
+          <button type="button" class="draft-suggest-chip" data-champ="${coach.escapeHtml(item.champion.name)}"${item.slot ? ` data-slot="${coach.escapeHtml(item.slot)}"` : ""} title="${coach.escapeHtml((item.reasons || []).slice(0, 3).join(" · "))}">
+            <span class="draft-suggest-rank">#${i + 1}</span>
+            ${coach.championIconHtml(item.champion, { size: "coach" })}
+            <span class="draft-suggest-name">${coach.escapeHtml(item.champion.name)}</span>
+            ${item.score != null ? `<span class="draft-suggest-score">${Math.round(item.score)}</span>` : ""}
+            ${item.slot ? `<span class="draft-suggest-slot">${coach.escapeHtml(item.slot)}</span>` : ""}
           </button>`
             )
             .join("")}
