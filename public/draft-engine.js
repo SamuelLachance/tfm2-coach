@@ -215,11 +215,36 @@
     return preferredBlindSlot(s, side);
   }
 
+  const DRAFT_PHASE_LABELS = {
+    ban: "Phase bans",
+    opening: "Ouverture",
+    core: "Milieu de draft",
+    closing: "Fermeture",
+  };
+
   function draftPhase(s) {
+    const step = getStep(s);
+    if (step?.type === "ban") return "ban";
     const d = sidePicks(s, "blue").length + sidePicks(s, "red").length;
     if (d <= 2) return "opening";
     if (d <= 6) return "core";
     return "closing";
+  }
+
+  function getDraftInsight(s, byName, meta) {
+    const Core = global.TFM2DraftCore;
+    const ourNames = sidePicks(s, ourSide(s)).map((p) => p.name);
+    const enNames = sidePicks(s, enemySide(s)).map((p) => p.name);
+    const our = Core?.detectCompShell?.(ourNames, meta) || { label: "", completeness: 0, gaps: [] };
+    const enemy = Core?.detectCompShell?.(enNames, meta) || { label: "", completeness: 0, gaps: [] };
+    const phase = draftPhase(s);
+    return {
+      phase,
+      phaseLabel: DRAFT_PHASE_LABELS[phase] || phase,
+      our,
+      enemy,
+      winProgress: our.completeness,
+    };
   }
 
   function invalidateRecommendationCache() { recommendationCache = null; }
@@ -332,7 +357,7 @@
       reasons = [`Blind ${SLOT_LABELS[nextBlindSlot(s, side)] || nextBlindSlot(s, side)} requis`, ...reasons].slice(0, 8);
       slot = nextBlindSlot(s, side);
     }
-    return { score, reasons, slot, eval: result.eval || null, pickMeta: result.pickMeta };
+    return { score, reasons, slot, eval: result.eval || null, pickMeta: result.pickMeta, layers: result.layers };
   }
 
   function openSlotsForPick(s, side, excludeName = null) {
@@ -398,16 +423,27 @@
     if (recommendationCache?.key === cacheKey && recommendationCache.limit >= limit) {
       return { ...recommendationCache.result, items: recommendationCache.result.items.slice(0, limit) };
     }
+    const insight = getDraftInsight(s, byName, meta);
+
     if (step?.type === "ban") {
       const items = avail
         .map((c) => {
-          const { score, reasons } = scoreBan(c, s, side, byName, meta, all);
-          return { champion: c, score, reasons };
+          const { score, reasons, denyType, denyLabel } = scoreBan(c, s, side, byName, meta, all);
+          return { champion: c, score, reasons, denyType, denyLabel };
         })
         .sort((a, b) => b.score - a.score)
         .slice(0, limit);
       const coachHint = getDraftCoachHint(s, side, byName, meta, all);
-      const result = { type: "ban", side, items, forSide: side, coachHint };
+      const result = {
+        type: "ban",
+        side,
+        items,
+        forSide: side,
+        coachHint,
+        insight,
+        phase: insight.phase,
+        phaseLabel: insight.phaseLabel,
+      };
       recommendationCache = { key: cacheKey, limit, result };
       return result;
     }
@@ -415,8 +451,8 @@
     const items = avail
       .map((c) => {
         try {
-          const { score, reasons, slot, eval: ev } = scoreCandidate(s, side, c, byName, meta, hintSlot || hint || null, all);
-          return { champion: c, score, reasons, slot, eval: ev };
+          const { score, reasons, slot, eval: ev, layers } = scoreCandidate(s, side, c, byName, meta, hintSlot || hint || null, all);
+          return { champion: c, score, reasons, slot, eval: ev, layers };
         } catch (err) {
           console.warn("scorePick failed", c?.name, err);
           const open = openSlots(s, side);
@@ -438,6 +474,9 @@
       items,
       forSide: side,
       coachHint,
+      insight,
+      phase: insight.phase,
+      phaseLabel: insight.phaseLabel,
     };
     recommendationCache = { key: cacheKey, limit, result };
     return result;
@@ -875,6 +914,8 @@
     evaluateTeam,
     phaseWeights,
     draftPhase,
+    DRAFT_PHASE_LABELS,
+    getDraftInsight,
     compareComps,
     teamColorSummary,
     MTG_COLORS,

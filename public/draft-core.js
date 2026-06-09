@@ -157,6 +157,21 @@
     scaling: "Scaling late",
   };
 
+  const BAN_DENY_LABELS = {
+    "synergy-break": "Casse synergie",
+    "target-ban": "Ban ciblé",
+    "flex-ban": "Ban flex",
+    "pool-deny": "Retrait pool",
+  };
+
+  function classifyBanDeny(reasons) {
+    const joined = (reasons || []).join(" ").toLowerCase();
+    if (/casse duo|deny synergie|synergy break/i.test(joined)) return "synergy-break";
+    if (/target ban|counter carry|anti-dive|dive vs|complète|renforce plan/i.test(joined)) return "target-ban";
+    if (/flex ban|deny flex|cache intent|anchor meta/i.test(joined)) return "flex-ban";
+    return "pool-deny";
+  }
+
   /** Shell TFM2 : front-to-back, dive, kite — adapté des comps MOBA. */
   function detectCompShell(allies, metaMap) {
     if (!allies.length) return { shell: null, label: "", completeness: 0, gaps: [], carry: null };
@@ -725,12 +740,22 @@
     };
     score = global.TFM2Adaptive?.enrichDraftPickScore?.(score, champName, slot, draftCtx, beforeEv, afterEv) ?? score;
 
+    const layers = {
+      delta: Math.round(delta),
+      tier: Math.round((tierLayer.score || 0) * pm.tier * LAYER.tier),
+      synergy: Math.round(((syn.bonus || 0) + (pair.bonus || 0)) * pm.synergy),
+      counter: Math.round((ctr.score || 0) * pm.counter),
+      plan: Math.round((winCond.bonus || 0) * (pm.plan || 1)),
+      skeleton: Math.round((tags.bonus || 0) + (roleGap.bonus || 0)),
+    };
+
     return {
       score: Math.round(score * 10) / 10,
       slot,
       reasons: [...new Set(reasons)].slice(0, 8),
       eval: afterEv,
       role: draftRole,
+      layers,
     };
   }
 
@@ -895,7 +920,14 @@
       metaMap
     ) ?? 0;
 
-    return { score: Math.round(score * 10) / 10, reasons: [...new Set(reasons)].slice(0, 7) };
+    const uniqueReasons = [...new Set(reasons)].slice(0, 7);
+    const denyType = classifyBanDeny(uniqueReasons);
+    return {
+      score: Math.round(score * 10) / 10,
+      reasons: uniqueReasons,
+      denyType,
+      denyLabel: BAN_DENY_LABELS[denyType] || denyType,
+    };
   }
 
   function compareComps(ourComp, enemyComp, byName, metaMap) {
@@ -949,6 +981,8 @@
     TAG_NEEDS,
     LAYER,
     SHELL_LABELS,
+    BAN_DENY_LABELS,
+    classifyBanDeny,
     detectCompShell,
     scoreWinConditionBonus,
     counterabilityPenalty,
