@@ -1,5 +1,5 @@
 /**
- * Smoke test — moteur guide TFM2 (shell Sniper vs dive adverse).
+ * Smoke test — moteur guide TFM2 (shell Sniper vs dive + Safe vs Scaling).
  */
 const fs = require("fs");
 const vm = require("vm");
@@ -57,7 +57,7 @@ const picks = ["Mage de glace", "Tireur", "Combattant", "Archer", "Moine", "Pyro
       openSlots: ["Mid", "Bot", "Support"],
       ...ctx,
     });
-    return { n, score: r.score, slot: r.slot, reasons: r.reasons.slice(0, 4) };
+    return { n, score: r.score, slot: r.slot, reasons: r.reasons.slice(0, 4), pickMeta: r.pickMeta };
   })
   .sort((a, b) => b.score - a.score);
 
@@ -70,10 +70,62 @@ if (archerVsTireur && tireurPick && tireurPick.score <= archerVsTireur.score) {
   console.error("FAIL: Archer ne doit pas battre Tireur dans shell Sniper");
   process.exit(1);
 }
-console.log("\nOK: Tireur > Archer pour shell Sniper");
+console.log("\nOK: Tireur > Archer pour shell Sniper (mid-game shell)");
+
+// --- Safe vs Scaling: B1 prefer safe blind over Tireur ---
+const b1Ctx = { allies: [], oppNames: [], sessionIndex: 0, banCount: 6, metaMap, byName };
+const b1Candidates = ["Épéiste", "Archer", "Lancier", "Prêtre", "Tireur"].map((n) => {
+  const r = g.TFM2GuideDraftEngine.scorePickCandidate(n, {
+    ...b1Ctx,
+    openSlots: ["Top", "Jungle", "Mid", "Bot", "Support"],
+  });
+  return { n, score: r.score, pickMeta: r.pickMeta };
+});
+b1Candidates.sort((a, b) => b.score - a.score);
+console.log("\nB1 SAFE vs SCALING:");
+b1Candidates.forEach((p) =>
+  console.log(`  ${p.n}: ${p.score} [${p.pickMeta?.safeVsScaling}/${p.pickMeta?.pickTypeLabelFr}]`)
+);
+
+const b1Best = b1Candidates[0];
+const tireurB1 = b1Candidates.find((p) => p.n === "Tireur");
+const safeTop = b1Candidates.find((p) => ["Épéiste", "Archer", "Lancier", "Prêtre"].includes(p.n));
+if (!safeTop || !tireurB1 || tireurB1.score >= safeTop.score) {
+  console.error("FAIL: B1 safe blind doit battre Tireur");
+  process.exit(1);
+}
+if (b1Best.n === "Tireur") {
+  console.error("FAIL: Tireur ne doit pas être #1 en B1");
+  process.exit(1);
+}
+console.log(`OK: B1 safe (${safeTop.n}) > Tireur (${tireurB1.score})`);
+
+// --- Tireur penalized without peel ---
+const noPeelCtx = { allies: ["Chevalier de cavalerie", "Lancier"], oppNames: [], metaMap, byName };
+const withPeelCtx = { allies: ["Chevalier de cavalerie", "Lancier", "Prêtre"], oppNames: [], metaMap, byName };
+const tireurNoPeel = g.TFM2GuideDraftEngine.scorePickCandidate("Tireur", {
+  ...noPeelCtx,
+  openSlots: ["Mid", "Bot", "Support"],
+}).score;
+const tireurWithPeel = g.TFM2GuideDraftEngine.scorePickCandidate("Tireur", {
+  ...withPeelCtx,
+  openSlots: ["Mid", "Bot"],
+}).score;
+console.log(`\nTireur sans peel: ${tireurNoPeel} | avec peel: ${tireurWithPeel}`);
+if (tireurNoPeel >= tireurWithPeel) {
+  console.error("FAIL: Tireur doit être pénalisé sans peel");
+  process.exit(1);
+}
+const trapMeta = g.TFM2GuideDraftEngine.getPickMeta("Tireur", { allies: noPeelCtx.allies, oppNames: [] });
+if (!trapMeta.trapWarnings?.length) {
+  console.error("FAIL: trap warnings attendus pour Tireur sans peel");
+  process.exit(1);
+}
+console.log("OK: Tireur pénalisé sans peel —", trapMeta.trapWarnings[0].messageFr);
 
 const plan = g.TFM2GuideDraftEngine.getDraftPlan({ ourNames, enemyNames: oppNames, ...ctx });
 console.log("\nPLAN:", plan.shell, "| prochain:", plan.nextPick);
+console.log("Safe hint:", plan.safeHint?.slice(0, 60));
 console.log("Serpent:", plan.serpen?.slice(0, 80));
 console.log("Morgard:", plan.morgard?.slice(0, 80));
 

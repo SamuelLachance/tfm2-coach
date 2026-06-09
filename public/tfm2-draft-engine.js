@@ -21,6 +21,307 @@
     return guide?.championCounters?.[name] || null;
   }
 
+  function getChampionLabel(name) {
+    return guide?.championLabels?.[name] || null;
+  }
+
+  function getPickTypes(name) {
+    const label = getChampionLabel(name);
+    if (label?.pickTypes?.length) return label.pickTypes;
+    const types = [];
+    for (const [typeId, def] of Object.entries(guide?.pickTypes || {})) {
+      if (def.champions?.includes(name)) types.push(typeId);
+    }
+    return types;
+  }
+
+  function pickTypeLabelFr(typeId) {
+    return guide?.pickTypes?.[typeId]?.labelFr || typeId;
+  }
+
+  const PEEL_CHAMPS = () =>
+    new Set(guide?.scalingRules?.peelChampions || ["Prêtre", "Mage de glace", "Moine", "Porteur de bouclier", "Esprit gardien"]);
+  const SCALING_CARRIES = () => new Set(guide?.scalingRules?.scalingCarries || ["Tireur", "Archer", "Soldat"]);
+  const HARD_CC_ENEMY = () => new Set(["Moine", "Porteur de bouclier", "Prêtre", "Mage de glace", "Esprit gardien"]);
+  const DIVE_ENEMY = () => new Set(["Ninja", "Démon", "Exécuteur", "Bombardier"]);
+  const FRAGILE_CARRY = () => new Set(["Archer", "Tireur", "Soldat", "Joueur", "Pyromancien"]);
+
+  function teamTags(names) {
+    const tags = new Set();
+    for (const n of names) (getChampionGuide(n)?.tags || []).forEach((t) => tags.add(t));
+    return tags;
+  }
+
+  function hasPeel(names) {
+    return names.some((n) => PEEL_CHAMPS().has(n) || getChampionGuide(n)?.tags?.includes("peel"));
+  }
+
+  function hasFrontline(names) {
+    return names.some((n) => {
+      const t = getChampionGuide(n)?.tags || [];
+      return t.includes("frontline") || t.includes("engage");
+    });
+  }
+
+  function hasScalingCarry(names) {
+    return names.some((n) => SCALING_CARRIES().has(n) || getChampionGuide(n)?.tags?.includes("scaling"));
+  }
+
+  /** Situation draft pour decision table + trap risk. */
+  function analyzeDraftSituation(ctx = {}) {
+    const allies = ctx.allies || ctx.ourNames || [];
+    const opp = ctx.oppNames || ctx.enemyNames || [];
+    const tags = teamTags(allies);
+    const oppTags = teamTags(opp);
+
+    const firstPick = !allies.length;
+    const unknownEnemy = opp.length <= 1;
+    const scalingCarry = hasScalingCarry(allies);
+    const peelReady = hasPeel(allies);
+    const frontReady = hasFrontline(allies);
+    const enemyDive = opp.some((n) => DIVE_ENEMY().has(n));
+    const enemyHeavyPeel = opp.filter((n) => PEEL_CHAMPS().has(n)).length >= 2;
+    const enemyHardCc = opp.some((n) => HARD_CC_ENEMY().has(n));
+    const enemyFragileBackline = opp.some((n) => FRAGILE_CARRY().has(n));
+    const lacksDamage = allies.length >= 2 && !tags.has("marksman") && !tags.has("mage_burst") && !tags.has("burst");
+    const lacksEarlyObjective =
+      allies.length >= 2 &&
+      !allies.some((n) => guide?.safePickJobs?.objective_tempo?.champions?.includes(n)) &&
+      !tags.has("lane_priority") &&
+      !tags.has("aggressive_jungle");
+    const losingBeforeScaling = scalingCarry && !frontReady && allies.length >= 2;
+
+    return {
+      firstPick,
+      unknownEnemy,
+      hasScalingCarry: scalingCarry,
+      scalingWithoutPeel: scalingCarry && !peelReady,
+      scalingWithoutFront: scalingCarry && !frontReady,
+      enemyHeavyDive: enemyDive,
+      enemyHeavyPeel,
+      enemyHardCc,
+      enemyFragileBackline,
+      lacksDamage,
+      lacksEarlyObjective,
+      losingBeforeScaling,
+      peelReady,
+      frontReady,
+      oppTags,
+      tags,
+    };
+  }
+
+  function conditionMatches(ruleWhen, sit) {
+    const map = {
+      scalingWithoutPeel: sit.scalingWithoutPeel,
+      scalingWithoutFront: sit.scalingWithoutFront,
+      enemyHardCc: sit.enemyHardCc,
+      enemyHeavyPeel: sit.enemyHeavyPeel,
+    };
+    return Boolean(map[ruleWhen]);
+  }
+
+  function evaluateTrapRisks(champName, sit, allies = []) {
+    const warnings = [];
+    let penalty = 0;
+    for (const rule of guide?.trapRiskRules || []) {
+      if (rule.champion && rule.champion !== champName) continue;
+      const applies =
+        (rule.when === "trapRiskCandidate" && getPickTypes(champName).includes("scaling_carry") && !sit.frontReady && !sit.peelReady) ||
+        conditionMatches(rule.when, sit) ||
+        (rule.when === "scalingWithoutPeel" && champName === "Tireur" && !hasPeel(allies) && !hasPeel([champName])) ||
+        (rule.when === "scalingWithoutFront" && champName === "Tireur" && !hasFrontline(allies) && !hasFrontline([champName]));
+      if (!applies) continue;
+      penalty += rule.penalty || -40;
+      warnings.push({ id: rule.id, messageFr: rule.messageFr });
+    }
+    if (sit.firstPick && getPickTypes(champName).includes("scaling_carry")) {
+      penalty -= 50;
+      warnings.push({ id: "blind_scaling", messageFr: "Ne pas blind-pick scaling sans shell" });
+    }
+    if (sit.firstPick && getPickTypes(champName).includes("counter_pick")) {
+      penalty -= 28;
+      warnings.push({ id: "early_counter", messageFr: "Counter-pick trop tôt en blind" });
+    }
+    return { penalty, warnings };
+  }
+
+  function applyDecisionTable(champName, sit, score, reasons) {
+    const types = getPickTypes(champName);
+    let delta = 0;
+    const rationale = [];
+
+    for (const rule of guide?.decisionTable || []) {
+      let active = false;
+      switch (rule.condition) {
+        case "firstPick":
+          active = sit.firstPick;
+          break;
+        case "unknownEnemy":
+          active = sit.unknownEnemy;
+          break;
+        case "hasScalingCarry":
+          active = sit.hasScalingCarry;
+          break;
+        case "enemyFragileBackline":
+          active = sit.enemyFragileBackline;
+          break;
+        case "enemyHeavyDive":
+          active = sit.enemyHeavyDive;
+          break;
+        case "lacksDamage":
+          active = sit.lacksDamage;
+          break;
+        case "lacksEarlyObjective":
+          active = sit.lacksEarlyObjective;
+          break;
+        case "losingBeforeScaling":
+          active = sit.losingBeforeScaling;
+          break;
+        case "trapRiskCandidate":
+          active = getPickTypes(champName).includes("scaling_carry") && !sit.frontReady && !sit.peelReady;
+          break;
+        default:
+          active = false;
+      }
+      if (!active) continue;
+
+      const preferType = rule.preferTypes?.some((t) => types.includes(t));
+      const avoidType = rule.avoidTypes?.some((t) => types.includes(t));
+      const preferChamp = rule.preferChampions?.includes(champName);
+      const avoidChamp = rule.avoidChampions?.includes(champName);
+
+      if (preferType || preferChamp) {
+        delta += rule.bonus || 24;
+        if (rule.rationaleFr && rationale.length < 4) rationale.push(rule.rationaleFr);
+      } else if (avoidType || avoidChamp) {
+        delta += rule.penalty || -20;
+        if (rule.rationaleFr && rationale.length < 4) rationale.push(rule.rationaleFr);
+      } else if (rule.penalty && rule.condition === "trapRiskCandidate") {
+        delta += rule.penalty;
+        if (rule.rationaleFr) rationale.push(rule.rationaleFr);
+      }
+    }
+
+    return { delta, rationale };
+  }
+
+  function getSniperDraftState(ctx = {}) {
+    const allies = ctx.allies || ctx.ourNames || [];
+    const sit = analyzeDraftSituation(ctx);
+    const taken = ctx.takenNames || new Set();
+    const peelBanned = [...PEEL_CHAMPS()].some((n) => taken.has(n) && !allies.includes(n));
+    const frontBanned = ["Chevalier de cavalerie", "Porteur de bouclier", "Combattant", "Moine"].some(
+      (n) => taken.has(n) && !allies.includes(n)
+    );
+    const volatile =
+      ctx.playerTraits?.includes("high_aggression") || ctx.playerTraits?.includes("volatile_mental");
+
+    if (sit.firstPick || (sit.unknownEnemy && !sit.frontReady)) return { state: "risky_blind", ...guide?.sniperStates?.risky_blind };
+    if (!hasPeel(allies) || sit.enemyHeavyDive) return { state: "trap_risk", ...guide?.sniperStates?.trap_risk };
+    if (peelBanned || frontBanned) return { state: "ban_dependent", ...guide?.sniperStates?.ban_dependent };
+    if (volatile) return { state: "player_fit_problem", ...guide?.sniperStates?.player_fit_problem };
+    if (hasFrontline(allies) && hasPeel(allies)) return { state: "good_scaling_pick", ...guide?.sniperStates?.good_scaling_pick };
+    return { state: "risky_blind", ...guide?.sniperStates?.risky_blind };
+  }
+
+  /** Patterns multi-sessions pour rotation shell / adaptation IA. */
+  function analyzeSessionPatterns(allSessions = [], opts = {}) {
+    const ourSide = opts.ourSide || "blue";
+    const patterns = {
+      ourShellIds: [],
+      ourOpeners: [],
+      enemyFirstPicks: [],
+      ourBanStreak: [],
+      adaptations: [],
+    };
+    if (!allSessions?.length) return patterns;
+
+    for (const sess of allSessions) {
+      const picks = sess.picks?.[ourSide] || [];
+      const names = picks.map((p) => p.name);
+      if (names.length) {
+        patterns.ourOpeners.push(names[0]);
+        const det = detectShell(names);
+        if (det?.shell?.id) patterns.ourShellIds.push(det.shell.id);
+      }
+      const enemySide = ourSide === "blue" ? "red" : "blue";
+      const enPicks = sess.picks?.[enemySide] || [];
+      if (enPicks[0]?.name) patterns.enemyFirstPicks.push(enPicks[0].name);
+      const lastBan = (sess.bans?.[ourSide] || []).filter(Boolean).slice(-1)[0];
+      if (lastBan) patterns.ourBanStreak.push(lastBan);
+    }
+
+    const streak = (arr, val) => {
+      let c = 0;
+      for (let i = arr.length - 1; i >= 0; i--) {
+        if (arr[i] === val) c++;
+        else break;
+      }
+      return c;
+    };
+
+    for (const pat of guide?.aiAdaptationPatterns || []) {
+      if (pat.detect?.enemyFirstPicks) {
+        const count = patterns.enemyFirstPicks.filter((n) => pat.detect.enemyFirstPicks.includes(n)).length;
+        if (count >= (pat.detect.minCount || 2)) patterns.adaptations.push(pat);
+      }
+      if (pat.detect?.ourOpeners) {
+        const opener = pat.detect.ourOpeners[0];
+        if (streak(patterns.ourOpeners, opener) >= (pat.detect.streakMin || 3)) patterns.adaptations.push(pat);
+      }
+      if (pat.detect?.sameBanStreak && patterns.ourBanStreak.length >= 2) {
+        const last = patterns.ourBanStreak[patterns.ourBanStreak.length - 1];
+        if (streak(patterns.ourBanStreak, last) >= (pat.detect.sameBanStreak || 3)) patterns.adaptations.push(pat);
+      }
+      if (pat.detect?.ourShellStreak) {
+        const ids = pat.detect.ourShellStreak;
+        const recent = patterns.ourShellIds.slice(-(pat.detect.streakMin || 3));
+        if (recent.length >= (pat.detect.streakMin || 3) && recent.every((id) => ids.includes(id))) {
+          patterns.adaptations.push(pat);
+        }
+      }
+    }
+
+    patterns.adaptations = [...new Map(patterns.adaptations.map((a) => [a.id, a])).values()];
+    return patterns;
+  }
+
+  function getPickMeta(champName, ctx = {}) {
+    const label = getChampionLabel(champName);
+    const types = getPickTypes(champName);
+    const sit = analyzeDraftSituation(ctx);
+    const trap = evaluateTrapRisks(champName, sit, ctx.allies || ctx.ourNames || []);
+    const decision = applyDecisionTable(champName, sit, 0, []);
+    const primaryType = label?.earlyLabel || types[0] || "flex";
+    const safeVsScaling =
+      types.includes("scaling_carry") || primaryType === "scaling_carry"
+        ? "scaling"
+        : types.includes("safe_blind") || types.includes("objective_pick")
+          ? "safe"
+          : types.includes("counter_pick")
+            ? "counter"
+            : "flex";
+
+    let sniperState = null;
+    if (champName === "Tireur") sniperState = getSniperDraftState(ctx);
+
+    return {
+      pickTypes: types,
+      pickTypeLabelFr: pickTypeLabelFr(primaryType),
+      primaryType,
+      safeVsScaling,
+      earlyLabel: label?.earlyLabel,
+      whyItFits: label?.whyItFits,
+      draftWith: label?.draftWith,
+      watchOutFor: label?.watchOutFor,
+      trapWarnings: trap.warnings,
+      decisionRationale: decision.rationale,
+      sniperState,
+      situation: sit,
+    };
+  }
+
   function getReplacementChain(coreName) {
     const cg = getChampionGuide(coreName);
     return (
@@ -59,14 +360,42 @@
     };
   }
 
-  /** Sélection shell : en cours > contre adverse > rotation B1 (pas tier). */
+  /** Sélection shell : en cours > adaptation session > contre adverse > rotation B1. */
   function recommendShell(enemyNames, ourNames, ctx = {}) {
     const ourDet = detectShell(ourNames);
     if (ourDet && ourDet.confidence >= 0.35) {
       return { shell: ourDet.shell, reason: `Shell en cours — ${ourDet.shell.labelFr}`, source: "ours" };
     }
 
+    const patterns = ctx.sessionPatterns || analyzeSessionPatterns(ctx.allSessions, { ourSide: ctx.ourSide });
+    const adaptation = patterns.adaptations?.[0];
+    if (adaptation?.rotateShells?.length) {
+      const shellIds = adaptation.rotateShells.filter((id) => guide?.compShells?.[id]);
+      const rot = (ctx.sessionIndex ?? 0) + (ctx.banCount ?? 0);
+      const pickId = shellIds[rot % shellIds.length];
+      const shell = guide.compShells[pickId];
+      if (shell) {
+        return {
+          shell,
+          reason: adaptation.responseFr || `Rotation — ${shell.labelFr}`,
+          source: "adapt",
+          adaptation,
+        };
+      }
+    }
+
     const enemyDet = detectShell(enemyNames);
+    if (enemyNames.some((n) => n === "Tireur") && !ourNames.length) {
+      const safeShell = guide.compShells?.safe_objective || guide.compShells?.archer_priest_kite;
+      if (safeShell) {
+        return {
+          shell: safeShell,
+          reason: "Adv. Tireur visible → opener safe / anti-dive",
+          source: "counter_sniper",
+        };
+      }
+    }
+
     if (enemyDet?.shell?.style && guide?.shellCounters?.[enemyDet.shell.style]) {
       const counterId = guide.shellCounters[enemyDet.shell.style];
       const counterShell = guide.compShells?.[counterId];
@@ -80,6 +409,13 @@
       }
     }
 
+    if (hasScalingCarry(enemyNames) && !ourNames.length) {
+      const anti = guide.compShells?.anti_scaling;
+      if (anti) {
+        return { shell: anti, reason: "Carry scaling adverse → shell anti-scaling", source: "anti_scaling" };
+      }
+    }
+
     const shellIds = Object.keys(guide?.compShells || {});
     const rot = (ctx.sessionIndex ?? 0) + (ctx.banCount ?? 0) + (ctx.draftSeed ?? 0);
     const pickId = shellIds[rot % shellIds.length];
@@ -90,6 +426,7 @@
       reason: `Rotation shell — B1 ${anchor || shell.champions[0]} (${shell.labelFr})`,
       source: "rotate",
       b1Anchor: anchor,
+      sessionPatterns: patterns,
     };
   }
 
@@ -147,15 +484,29 @@
       sessionIndex = 0,
       banCount = 0,
       draftSeed = 0,
+      allSessions,
+      sessionPatterns,
+      ourSide,
     } = ctx;
 
     let score = 0;
     const reasons = [];
-    const rec = recommendShell(oppNames, allies, { sessionIndex, banCount, draftSeed });
+    const pickCtx = { allies, oppNames, ourNames: allies, enemyNames: oppNames, takenNames, playerTraits, allSessions, ourSide };
+    const sit = analyzeDraftSituation(pickCtx);
+    const pickMeta = getPickMeta(champName, pickCtx);
+
+    const rec = recommendShell(oppNames, allies, {
+      sessionIndex,
+      banCount,
+      draftSeed,
+      allSessions,
+      sessionPatterns,
+      ourSide,
+    });
     const shell = rec.shell;
     const cg = getChampionGuide(champName);
 
-    if (!shell) return { score: tierTiebreaker(champName, metaMap), reasons: ["Pas de shell"] };
+    if (!shell) return { score: tierTiebreaker(champName, metaMap), reasons: ["Pas de shell"], pickMeta };
 
     const distinctPen = shellDistinctPenalty(shell, champName);
     if (distinctPen < 0) {
@@ -184,15 +535,49 @@
       reasons.push(anchorIdx === rotIdx ? `B1 rotation — ${champName}` : "Ancre shell flex");
     }
 
+    if (pickMeta.pickTypeLabelFr) {
+      reasons.push(`Type: ${pickMeta.pickTypeLabelFr}`);
+    }
+
+    const decision = applyDecisionTable(champName, sit, score, reasons);
+    score += decision.delta;
+    decision.rationale.forEach((r) => {
+      if (reasons.length < 7) reasons.push(r);
+    });
+
+    const trap = evaluateTrapRisks(champName, sit, allies);
+    score += trap.penalty;
+    trap.warnings.slice(0, 2).forEach((w) => reasons.push(`⚠ ${w.messageFr}`));
+
+    if (sit.hasScalingCarry && getPickTypes(champName).includes("scaling_carry") && champName !== "Tireur") {
+      score -= 25;
+      reasons.push("Déjà un carry scaling");
+    }
+
+    if (shell.id === "sniper_scaling" && champName === "Tireur" && sit.frontReady && sit.peelReady) {
+      score += 35;
+      reasons.push("Shell Tireur scaling complet");
+    }
+
+    if (shell.id === "safe_objective" && guide?.safePickJobs) {
+      for (const job of Object.values(guide.safePickJobs)) {
+        if (job.champions?.includes(champName)) {
+          score += 14;
+          if (reasons.length < 8) reasons.push(`Job safe: ${job.labelFr}`);
+          break;
+        }
+      }
+    }
+
     if (cg) {
       for (const e of oppNames) {
         if (cg.goodInto?.includes(e)) {
           score += 26;
-          if (reasons.length < 5) reasons.push(`Fort vs ${e}`);
+          if (reasons.length < 8) reasons.push(`Fort vs ${e}`);
         }
         if (cg.watchOut?.includes(e)) {
           score -= 32;
-          if (reasons.length < 6) reasons.push(`⚠ ${e} counter`);
+          if (reasons.length < 9) reasons.push(`⚠ ${e} counter`);
         }
       }
     }
@@ -237,7 +622,13 @@
 
     score += tierTiebreaker(champName, metaMap) * 0.35;
 
-    return { score: Math.round(score * 10) / 10, reasons: [...new Set(reasons)].slice(0, 6), shell: rec };
+    return {
+      score: Math.round(score * 10) / 10,
+      reasons: [...new Set(reasons)].slice(0, 8),
+      shell: rec,
+      pickMeta,
+      situation: sit,
+    };
   }
 
   function scoreThreatBan(champName, ourNames, enemyNames, ctx = {}) {
@@ -359,8 +750,10 @@
     return {
       score: Math.round(score * 10) / 10,
       slot: bestSlot,
-      reasons: [...new Set(reasons)].slice(0, 7),
+      reasons: [...new Set(reasons)].slice(0, 8),
       shell: gp.shell,
+      pickMeta: gp.pickMeta,
+      situation: gp.situation,
     };
   }
 
@@ -408,10 +801,12 @@
   }
 
   function coachDraftHint(ctx = {}) {
-    const { ourNames = [], enemyNames = [], stepType, playerTraits } = ctx;
+    const { ourNames = [], enemyNames = [], stepType, playerTraits, allSessions, ourSide } = ctx;
     const parts = [];
-    const rec = recommendShell(enemyNames, ourNames, ctx);
+    const patterns = ctx.sessionPatterns || analyzeSessionPatterns(allSessions, { ourSide });
+    const rec = recommendShell(enemyNames, ourNames, { ...ctx, sessionPatterns: patterns });
     const enemyDet = detectShell(enemyNames);
+    const sit = analyzeDraftSituation({ allies: ourNames, oppNames: enemyNames });
 
     if (stepType === "ban") {
       parts.push(guide?.banPhilosophy?.principle || "Ban menaces — pas le meta");
@@ -425,6 +820,14 @@
     }
 
     parts.push(rec.reason);
+    if (sit.firstPick) parts.push("B1 → pick safe (Épéiste/Archer/Lancier/Prêtre)");
+    else if (sit.hasScalingCarry && !sit.peelReady) parts.push("Priorité peel / front");
+    else if (sit.enemyFragileBackline) parts.push("Fenêtre counter-pick");
+
+    if (patterns.adaptations?.[0]?.responseFr) {
+      parts.push(`Adapt: ${patterns.adaptations[0].responseFr}`);
+    }
+
     if (enemyDet && enemyDet.confidence >= 0.3) {
       parts.push(`Adv. shell: ${enemyDet.shell.labelFr}`);
     }
@@ -446,7 +849,7 @@
 
     if (playerTraits?.length) parts.push(`Traits: ${playerTraits.slice(0, 2).join(", ")}`);
 
-    return parts.slice(0, 6).join(" · ");
+    return parts.slice(0, 7).join(" · ");
   }
 
   function validateChecklist(ourNames, enemyNames, ctx = {}) {
@@ -524,9 +927,27 @@
   }
 
   function getDraftPlan(ctx = {}) {
-    const { ourNames = [], enemyNames = [] } = ctx;
-    const rec = recommendShell(enemyNames, ourNames, ctx);
+    const { ourNames = [], enemyNames = [], allSessions, ourSide } = ctx;
+    const patterns = ctx.sessionPatterns || analyzeSessionPatterns(allSessions, { ourSide });
+    const rec = recommendShell(enemyNames, ourNames, { ...ctx, sessionPatterns: patterns });
     const shell = rec.shell;
+    const sit = analyzeDraftSituation({ allies: ourNames, oppNames: enemyNames });
+    const safeHint = sit.firstPick
+      ? "Safe blind recommandé (Épéiste, Archer, Lancier, Prêtre)"
+      : sit.hasScalingCarry && !sit.peelReady
+        ? "Scaling en cours → compléter peel / front"
+        : sit.unknownEnemy
+          ? "Adversaire flou → structure safe"
+          : null;
+    const scalingHint = guide?.scalingRules?.ruleBlind || null;
+    const trapWarnings = [];
+    if (ourNames.includes("Tireur") && !hasPeel(ourNames)) {
+      trapWarnings.push("Tireur sans peel — risque trap");
+    }
+    if (sit.enemyHeavyDive && !hasPeel(ourNames)) {
+      trapWarnings.push("Dive adverse sans réponse peel");
+    }
+
     return {
       shell: shell?.labelFr,
       shellId: shell?.id,
@@ -537,6 +958,14 @@
       serpen: serpenHint(shell, ourNames),
       morgard: morgardHint(shell),
       checklist: validateChecklist(ourNames, enemyNames, ctx),
+      safeHint,
+      scalingHint,
+      trapWarnings,
+      situation: sit,
+      sessionAdaptation: patterns.adaptations?.[0]?.responseFr || null,
+      sniperState: ourNames.includes("Tireur") || shell?.id?.includes("sniper")
+        ? getSniperDraftState({ allies: ourNames, oppNames: enemyNames, takenNames: ctx.takenNames })
+        : null,
     };
   }
 
@@ -544,9 +973,17 @@
     setGuideData,
     shells,
     getChampionGuide,
+    getChampionLabel,
+    getPickTypes,
+    getPickMeta,
     getReplacementChain,
     detectShell,
     recommendShell,
+    analyzeDraftSituation,
+    analyzeSessionPatterns,
+    evaluateTrapRisks,
+    getSniperDraftState,
+    pickTypeLabelFr,
     scoreGuidePick,
     scoreThreatBan,
     scorePickCandidate,

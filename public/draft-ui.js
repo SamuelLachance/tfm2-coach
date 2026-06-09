@@ -507,13 +507,35 @@
     const en = window.TFM2Draft.sidePicks(session, window.TFM2Draft.enemySide(session)).map((p) => p.name);
     try {
       const taken = window.TFM2Draft.takenNames(session, allSessions());
-      const ctx = { takenNames: taken, sessionIndex: allSessions().indexOf(session) };
+      const ctx = {
+        takenNames: taken,
+        sessionIndex: allSessions().indexOf(session),
+        allSessions: allSessions(),
+        ourSide: window.TFM2Draft.ourSide(session),
+      };
       const plan = GE.getDraftPlan({ ourNames: our, enemyNames: en, ...ctx });
       const step = window.TFM2Draft.getStep(session);
       const lines = [];
 
       if (plan.shell) lines.push(`<strong>Shell:</strong> ${coach.escapeHtml(plan.shell)}`);
       if (plan.reason) lines.push(`<span>${coach.escapeHtml(plan.reason)}</span>`);
+      if (plan.safeHint) {
+        lines.push(`<span class="draft-safe-hint">Safe: ${coach.escapeHtml(plan.safeHint)}</span>`);
+      }
+      if (plan.scalingHint && (plan.shellId?.includes("sniper") || plan.sniperState)) {
+        lines.push(`<span class="draft-scaling-hint">Scaling: ${coach.escapeHtml(plan.scalingHint)}</span>`);
+      }
+      if (plan.sniperState?.labelFr) {
+        lines.push(`<span class="draft-sniper-state">Tireur: ${coach.escapeHtml(plan.sniperState.labelFr)}</span>`);
+      }
+      if (plan.sessionAdaptation) {
+        lines.push(`<span class="draft-adapt-hint">Rotation: ${coach.escapeHtml(plan.sessionAdaptation)}</span>`);
+      }
+      if (plan.trapWarnings?.length) {
+        plan.trapWarnings.forEach((w) => {
+          lines.push(`<span class="draft-trap-warn">⚠ ${coach.escapeHtml(w)}</span>`);
+        });
+      }
       if (plan.nextPick) lines.push(`<span>Prochain pick: <strong>${coach.escapeHtml(plan.nextPick)}</strong></span>`);
 
       if (step?.type === "ban" && plan.banPriority?.length) {
@@ -645,19 +667,57 @@
     }
   }
 
+  function safeScalingBadge(pickMeta) {
+    if (!pickMeta?.safeVsScaling) return "";
+    const map = {
+      safe: { cls: "pick-safe", label: "Safe" },
+      scaling: { cls: "pick-scaling", label: "Scaling" },
+      counter: { cls: "pick-counter", label: "Counter" },
+      flex: { cls: "pick-flex", label: "Flex" },
+    };
+    const b = map[pickMeta.safeVsScaling] || map.flex;
+    return `<span class="draft-pick-badge ${b.cls}">${b.label}</span>`;
+  }
+
+  function pickTypeBadge(pickMeta) {
+    if (!pickMeta?.pickTypeLabelFr) return "";
+    return `<span class="draft-pick-type">${coach.escapeHtml(pickMeta.pickTypeLabelFr)}</span>`;
+  }
+
+  function trapWarningHtml(pickMeta) {
+    if (!pickMeta?.trapWarnings?.length) return "";
+    const msg = pickMeta.trapWarnings.map((w) => w.messageFr).slice(0, 1).join("");
+    return `<span class="draft-trap-chip" title="${coach.escapeHtml(msg)}">⚠</span>`;
+  }
+
   function buildSuggestChipsHtml(session, rec) {
     if (!rec?.items?.length) return "";
     return `
       <div id="draft-suggest-host" class="draft-suggest-row" aria-label="Suggestions coach">
         ${rec.items
           .map(
-            (item, i) => `
-          <button type="button" class="draft-suggest-chip" data-champ="${coach.escapeHtml(item.champion.name)}"${item.slot ? ` data-slot="${coach.escapeHtml(item.slot)}"` : ""} title="${coach.escapeHtml((item.reasons || []).slice(0, 4).join(" · ") || item.champion.name)}">
+            (item, i) => {
+              const pm = item.pickMeta;
+              const rationale = (pm?.decisionRationale || item.reasons || []).slice(0, 3).join(" · ");
+              const title = [
+                pm?.pickTypeLabelFr,
+                pm?.whyItFits,
+                rationale,
+                pm?.trapWarnings?.map((w) => w.messageFr).join(" · "),
+              ]
+                .filter(Boolean)
+                .join(" · ");
+              return `
+          <button type="button" class="draft-suggest-chip${pm?.trapWarnings?.length ? " has-trap" : ""}" data-champ="${coach.escapeHtml(item.champion.name)}"${item.slot ? ` data-slot="${coach.escapeHtml(item.slot)}"` : ""} title="${coach.escapeHtml(title || item.champion.name)}">
             <span class="draft-suggest-rank">#${i + 1}</span>
             ${coach.championIconHtml(item.champion, { size: "coach" })}
             <span class="draft-suggest-name">${coach.escapeHtml(item.champion.name)}</span>
+            ${pickTypeBadge(pm)}
+            ${safeScalingBadge(pm)}
+            ${trapWarningHtml(pm)}
             ${item.slot ? `<span class="draft-suggest-slot">${coach.escapeHtml(item.slot)}</span>` : ""}
-          </button>`
+          </button>`;
+            }
           )
           .join("")}
       </div>`;

@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "source": "Early Access Ban Pick Guide",
   "draftFormat": {
     "bansPerTeam": 3,
@@ -154,6 +154,128 @@
           "objectiveFinish": "Priorité d'Élimination"
         },
         "draftNeeds": ["dive", "assassin", "burst", "mobility"]
+      }
+    },
+    "safe_objective": {
+      "id": "safe_objective",
+      "labelFr": "Objectif safe",
+      "style": "safe_objective",
+      "relatedShells": ["archer_priest_kite"],
+      "winCondition": "Serpent early, lanes stables, risque limité",
+      "champions": ["Chevalier de cavalerie", "Lancier", "Mage de glace", "Archer", "Prêtre"],
+      "pickOrder": ["Chevalier de cavalerie", "Lancier", "Mage de glace", "Archer", "Prêtre"],
+      "altSlots": { "Top": ["Épéiste"] },
+      "slots": {
+        "Top": "Chevalier de cavalerie",
+        "Jungle": "Lancier",
+        "Mid": "Mage de glace",
+        "Bot": "Archer",
+        "Support": "Prêtre"
+      },
+      "firstPickAnchors": ["Épéiste", "Chevalier de cavalerie", "Lancier", "Prêtre"],
+      "cannotAnswer": ["Ninja", "Démon"],
+      "banPriority": ["Ninja", "Démon", "Exécuteur", "Bombardier"],
+      "serpen": {
+        "plan": "fight_early",
+        "label": "Serpent early — lanes + jungle",
+        "champions": ["Lancier", "Mage de glace", "Épéiste", "Chevalier de cavalerie"],
+        "checks": ["jungler_alive", "correct_side", "lanes_mobile", "early_damage_cc"],
+        "tactics": {
+          "earlyJungle": "Gank",
+          "earlySerpent": "Toujours Essayer",
+          "objectiveCombat": "Engage Fort"
+        }
+      },
+      "morgard": {
+        "plan": "force_5v5",
+        "label": "Structure safe → 5v5 contrôlé",
+        "tactics": { "morgard": "Se Regrouper à 5" },
+        "draftNeeds": ["frontline", "peel", "wave_clear", "marksman"]
+      }
+    },
+    "sniper_scaling": {
+      "id": "sniper_scaling",
+      "labelFr": "Tireur scaling (shell)",
+      "style": "scaling_front_to_back",
+      "relatedShells": ["sniper_front_to_back"],
+      "winCondition": "Front + peel → Tireur scale, Morgard 5v5",
+      "champions": ["Chevalier de cavalerie", "Lancier", "Mage de glace", "Tireur", "Prêtre"],
+      "pickOrder": ["Chevalier de cavalerie", "Lancier", "Mage de glace", "Tireur", "Prêtre"],
+      "altSlots": {
+        "Top": ["Porteur de bouclier"],
+        "Jungle": ["Combattant"],
+        "Support": ["Esprit gardien"]
+      },
+      "slots": {
+        "Top": "Chevalier de cavalerie",
+        "Jungle": "Lancier",
+        "Mid": "Mage de glace",
+        "Bot": "Tireur",
+        "Support": "Prêtre"
+      },
+      "firstPickAnchors": ["Chevalier de cavalerie", "Porteur de bouclier", "Lancier", "Mage de glace"],
+      "cannotAnswer": ["Ninja", "Démon", "Exécuteur"],
+      "banPriority": ["Ninja", "Démon", "Exécuteur", "Moine"],
+      "distinctFrom": { "Archer": "Tireur requis — Archer ≠ Tireur" },
+      "requiresBeforeBlind": ["frontline", "peel"],
+      "serpen": {
+        "plan": "delay_trade",
+        "label": "Stabilité early — pas force Serpent aveugle",
+        "champions": ["Lancier", "Mage de glace", "Chevalier de cavalerie"],
+        "checks": ["jungler_alive", "peel_ready", "lanes_can_trade"],
+        "tactics": {
+          "earlyJungle": "Farm/Couverture",
+          "earlySerpent": "Flexible",
+          "objectiveCombat": "Poker / Garder ses Distances"
+        }
+      },
+      "morgard": {
+        "plan": "force_5v5",
+        "label": "Force 5v5 front-to-back",
+        "tactics": { "morgard": "Se Regrouper à 5" },
+        "draftNeeds": ["frontline", "peel", "marksman", "wave_clear"]
+      }
+    },
+    "anti_scaling": {
+      "id": "anti_scaling",
+      "labelFr": "Anti-scaling dive",
+      "style": "anti_scaling",
+      "relatedShells": ["ninja_executioner_dive"],
+      "winCondition": "Punir carries fragiles avant qu'ils scale",
+      "champions": ["Berserker", "Ninja", "Bombardier", "Exécuteur", "Combattant"],
+      "pickOrder": ["Moine", "Ninja", "Pyromancien", "Exécuteur", "Combattant"],
+      "altSlots": {
+        "Top": ["Moine", "Berserker"],
+        "Jungle": ["Démon", "Ninja"],
+        "Mid": ["Pyromancien", "Bombardier"],
+        "Support": ["Combattant"]
+      },
+      "slots": {
+        "Top": "Berserker",
+        "Jungle": "Ninja",
+        "Mid": "Bombardier",
+        "Bot": "Exécuteur",
+        "Support": "Combattant"
+      },
+      "firstPickAnchors": ["Moine", "Berserker", "Ninja"],
+      "cannotAnswer": ["Moine", "Porteur de bouclier", "Esprit gardien", "Prêtre"],
+      "banPriority": ["Moine", "Porteur de bouclier", "Prêtre", "Esprit gardien"],
+      "serpen": {
+        "plan": "punish_pick",
+        "label": "Picks + punition carry early",
+        "champions": ["Ninja", "Exécuteur", "Berserker"],
+        "checks": ["jungler_alive", "backline_access", "follow_up_cc"],
+        "tactics": {
+          "earlyJungle": "Gank",
+          "earlySerpent": "Flexible",
+          "objectiveFinish": "Priorité d'Élimination"
+        }
+      },
+      "morgard": {
+        "plan": "pick_first",
+        "label": "Pick first — ne pas laisser scale",
+        "tactics": { "morgard": "Split 1-4", "objectiveFinish": "Priorité d'Élimination" },
+        "draftNeeds": ["dive", "assassin", "burst"]
       }
     }
   },
@@ -432,9 +554,325 @@
   },
   "shellCounters": {
     "front_to_back": "ninja_executioner_dive",
+    "scaling_front_to_back": "anti_scaling",
     "kite_poke": "ninja_executioner_dive",
-    "dive_pick": "sniper_front_to_back"
+    "dive_pick": "sniper_front_to_back",
+    "safe_objective": "ninja_executioner_dive",
+    "anti_scaling": "sniper_scaling"
   },
+  "pickTypes": {
+    "safe_blind": {
+      "labelFr": "Pick safe (blind)",
+      "champions": ["Épéiste", "Archer", "Prêtre", "Mage de glace"],
+      "description": "Plafond plus bas, moins de chemins de collapse"
+    },
+    "scaling_carry": {
+      "labelFr": "Carry scaling",
+      "champions": ["Tireur"],
+      "description": "Besoin protection + stabilité early — ne pas blind sans shell"
+    },
+    "objective_pick": {
+      "labelFr": "Pick objectif",
+      "champions": ["Lancier", "Épéiste", "Mage de glace"],
+      "description": "Tempo Serpent / contrôle map early"
+    },
+    "counter_pick": {
+      "labelFr": "Counter-pick",
+      "champions": ["Ninja", "Démon", "Exécuteur"],
+      "description": "Fort avec info adverse — faible trop tôt en blind"
+    },
+    "flex_front": {
+      "labelFr": "Front stable",
+      "champions": ["Chevalier de cavalerie", "Porteur de bouclier", "Combattant", "Moine"]
+    },
+    "flex_damage": {
+      "labelFr": "Dégâts flex",
+      "champions": ["Pyromancien", "Bombardier", "Joueur"]
+    }
+  },
+  "championLabels": {
+    "Épéiste": {
+      "earlyLabel": "safe_blind",
+      "pickTypes": ["safe_blind", "objective_pick"],
+      "whyItFits": "Lane prio fiable, peu de dépendances, bon Serpent early",
+      "draftWith": ["Lancier", "Prêtre", "Archer", "Mage de glace"],
+      "watchOutFor": ["Mage de glace", "Pyromancien", "Ninja"],
+      "playerFit": "Joueur stable, bon en blind B1"
+    },
+    "Archer": {
+      "earlyLabel": "safe_blind",
+      "pickTypes": ["safe_blind"],
+      "whyItFits": "Dégâts ranged fiables, kite sans peel lourd",
+      "draftWith": ["Prêtre", "Lancier", "Épéiste", "Pyromancien"],
+      "watchOutFor": ["Ninja", "Démon", "Exécuteur"],
+      "playerFit": "Positionnement solide, patient"
+    },
+    "Joueur": {
+      "earlyLabel": "safe_blind",
+      "pickTypes": ["safe_blind", "flex_damage"],
+      "whyItFits": "Burst/poke early, moins fragile que Tireur",
+      "draftWith": ["Lancier", "Prêtre", "Épéiste"],
+      "watchOutFor": ["Ninja", "Démon", "Lancier"],
+      "playerFit": "Joueur agressif mais pas hyper-carry"
+    },
+    "Prêtre": {
+      "earlyLabel": "safe_blind",
+      "pickTypes": ["safe_blind"],
+      "whyItFits": "Peel + sustain, sécurise carries et objectifs",
+      "draftWith": ["Archer", "Tireur", "Épéiste", "Lancier"],
+      "watchOutFor": ["Démon", "Bombardier", "Exécuteur"],
+      "playerFit": "Support réactif, bon en blind si front connu"
+    },
+    "Mage de glace": {
+      "earlyLabel": "safe_blind",
+      "pickTypes": ["safe_blind", "objective_pick"],
+      "whyItFits": "CC/waveclear, contrôle Serpent et peel mid",
+      "draftWith": ["Lancier", "Chevalier de cavalerie", "Tireur", "Prêtre"],
+      "watchOutFor": ["Ninja", "Démon", "Lancier"],
+      "playerFit": "Mid utilitaire, bon en structure safe"
+    },
+    "Lancier": {
+      "earlyLabel": "objective_pick",
+      "pickTypes": ["objective_pick", "safe_blind"],
+      "whyItFits": "Tempo jungle + Serpent early, engage contrôlé",
+      "draftWith": ["Mage de glace", "Épéiste", "Prêtre", "Chevalier de cavalerie"],
+      "watchOutFor": ["Moine", "Porteur de bouclier", "Exorciste"],
+      "playerFit": "Jungler proactif map/objectif"
+    },
+    "Combattant": {
+      "earlyLabel": "flex_front",
+      "pickTypes": ["flex_front"],
+      "whyItFits": "Engage front, flex support ou top selon shell",
+      "draftWith": ["Lancier", "Ninja", "Bombardier", "Tireur"],
+      "watchOutFor": ["Pyromancien", "Tireur", "Joueur"],
+      "playerFit": "Frontline qui engage au bon moment"
+    },
+    "Tireur": {
+      "earlyLabel": "scaling_carry",
+      "pickTypes": ["scaling_carry"],
+      "whyItFits": "Hyper-carry late — exige front + peel + stabilité",
+      "draftWith": ["Chevalier de cavalerie", "Porteur de bouclier", "Mage de glace", "Prêtre", "Esprit gardien"],
+      "watchOutFor": ["Ninja", "Démon", "Moine", "Clown"],
+      "playerFit": "Carry patient — pas un blind B1 sans shell"
+    },
+    "Esprit gardien": {
+      "earlyLabel": "flex_front",
+      "pickTypes": ["flex_front"],
+      "whyItFits": "Peel scaling anti-dive pour Tireur/Archer",
+      "draftWith": ["Tireur", "Archer", "Chevalier de cavalerie"],
+      "watchOutFor": ["Bombardier", "Joueur", "Pyromancien"],
+      "playerFit": "Support défensif, protège le carry"
+    },
+    "Porteur de bouclier": {
+      "earlyLabel": "flex_front",
+      "pickTypes": ["flex_front"],
+      "whyItFits": "Front peel anti-assassin, ancre shell scaling",
+      "draftWith": ["Tireur", "Mage de glace", "Lancier"],
+      "watchOutFor": ["Mage de glace", "Pyromancien", "Bombardier"],
+      "playerFit": "Front tanky, bon vs dive"
+    },
+    "Ninja": {
+      "earlyLabel": "counter_pick",
+      "pickTypes": ["counter_pick"],
+      "whyItFits": "Punir backline fragile — garder pour info ou counter",
+      "draftWith": ["Exécuteur", "Démon", "Bombardier", "Combattant"],
+      "watchOutFor": ["Moine", "Porteur de bouclier", "Prêtre", "Esprit gardien"],
+      "playerFit": "Assassin — pas B1 sans plan dive complet"
+    },
+    "Démon": {
+      "earlyLabel": "counter_pick",
+      "pickTypes": ["counter_pick"],
+      "whyItFits": "Dive mobilité vs carries immobiles",
+      "draftWith": ["Ninja", "Exécuteur", "Bombardier"],
+      "watchOutFor": ["Moine", "Prêtre", "Porteur de bouclier"],
+      "playerFit": "Joueur agressif, meilleur en réponse"
+    },
+    "Exécuteur": {
+      "earlyLabel": "counter_pick",
+      "pickTypes": ["counter_pick"],
+      "whyItFits": "Burst backline vs peel léger",
+      "draftWith": ["Ninja", "Démon", "Combattant"],
+      "watchOutFor": ["Moine", "Porteur de bouclier", "Chevalier de cavalerie"],
+      "playerFit": "Finisseur — counter-pick privilégié"
+    },
+    "Berserker": {
+      "earlyLabel": "flex_front",
+      "pickTypes": ["flex_front", "objective_pick"],
+      "whyItFits": "Jungle agressif early — risque vs CC lourd",
+      "draftWith": ["Ninja", "Bombardier", "Exécuteur"],
+      "watchOutFor": ["Moine", "Porteur de bouclier", "Prêtre", "Mage de glace"],
+      "playerFit": "Agressif — éviter si peel/CC adverse visible"
+    },
+    "Pyromancien": {
+      "earlyLabel": "safe_blind",
+      "pickTypes": ["safe_blind", "flex_damage", "objective_pick"],
+      "whyItFits": "Lane prio + waveclear, poke Serpent",
+      "draftWith": ["Lancier", "Épéiste", "Prêtre", "Archer"],
+      "watchOutFor": ["Ninja", "Démon", "Lancier"],
+      "playerFit": "Mid poke, bon blind safe"
+    },
+    "Bombardier": {
+      "earlyLabel": "flex_damage",
+      "pickTypes": ["flex_damage"],
+      "whyItFits": "Poke/waveclear mid, complète comps dive",
+      "draftWith": ["Ninja", "Exécuteur", "Combattant"],
+      "watchOutFor": ["Ninja", "Démon", "Lancier"],
+      "playerFit": "Mid zone control"
+    },
+    "Chevalier de cavalerie": {
+      "earlyLabel": "flex_front",
+      "pickTypes": ["flex_front"],
+      "whyItFits": "Front engage mobile, ancre shells safe et scaling",
+      "draftWith": ["Lancier", "Mage de glace", "Tireur", "Prêtre"],
+      "watchOutFor": ["Ninja", "Moine", "Mage de glace"],
+      "playerFit": "Top/front engage fiable"
+    },
+    "Moine": {
+      "earlyLabel": "flex_front",
+      "pickTypes": ["flex_front", "counter_pick"],
+      "whyItFits": "Anti-dive peel, counter shell assassins",
+      "draftWith": ["Archer", "Tireur", "Pyromancien"],
+      "watchOutFor": ["Bombardier", "Joueur", "Pyromancien"],
+      "playerFit": "Front défensif vs dive adverse"
+    }
+  },
+  "safePickJobs": {
+    "lane_priority": { "labelFr": "Prio lane", "champions": ["Épéiste", "Pyromancien"] },
+    "reliable_ranged_damage": { "labelFr": "Dégâts ranged fiables", "champions": ["Archer", "Joueur"] },
+    "peel_control": { "labelFr": "Peel / contrôle", "champions": ["Mage de glace", "Prêtre"] },
+    "objective_tempo": { "labelFr": "Tempo objectif", "champions": ["Lancier"] },
+    "stable_frontline": { "labelFr": "Front stable", "champions": ["Chevalier de cavalerie", "Porteur de bouclier"] }
+  },
+  "scalingRules": {
+    "needs": ["frontline", "peel", "early_stability", "secondary_damage", "objective_patience"],
+    "scalingCarries": ["Tireur", "Archer", "Soldat"],
+    "frontlineTags": ["frontline", "engage"],
+    "peelChampions": ["Prêtre", "Mage de glace", "Moine", "Porteur de bouclier", "Esprit gardien"],
+    "secondaryDamage": ["Pyromancien", "Bombardier", "Joueur", "Mage de glace"],
+    "ruleBlind": "Ne pas blind-pick scaling sans shell (front + peel planifiés)"
+  },
+  "sniperStates": {
+    "good_scaling_pick": {
+      "labelFr": "Bon pick scaling",
+      "when": "Front + peel + stabilité early en place"
+    },
+    "risky_blind": {
+      "labelFr": "Blind risqué",
+      "when": "B1 ou adversaire inconnu sans shell"
+    },
+    "trap_risk": {
+      "labelFr": "Risque trap",
+      "when": "Pas de peel / dive adverse visible"
+    },
+    "ban_dependent": {
+      "labelFr": "Dépend des bans",
+      "when": "Peel ou front clé banni"
+    },
+    "player_fit_problem": {
+      "labelFr": "Mauvais fit joueur",
+      "when": "Traits volatils / agressifs sans discipline"
+    }
+  },
+  "decisionTable": [
+    { "id": "first_pick", "condition": "firstPick", "preferTypes": ["safe_blind", "objective_pick"], "preferChampions": ["Épéiste", "Archer", "Lancier", "Prêtre"], "avoidTypes": ["scaling_carry", "counter_pick"], "bonus": 38, "penalty": -48, "rationaleFr": "B1 → pick safe blind" },
+    { "id": "unknown_enemy", "condition": "unknownEnemy", "preferTypes": ["safe_blind", "flex_front"], "bonus": 28, "penalty": -22, "rationaleFr": "Adversaire inconnu → structure safe" },
+    { "id": "has_scaling_carry", "condition": "hasScalingCarry", "preferTypes": ["flex_front"], "preferChampions": ["Prêtre", "Mage de glace", "Porteur de bouclier", "Esprit gardien", "Moine"], "avoidTypes": ["scaling_carry"], "bonus": 42, "penalty": -35, "rationaleFr": "Carry scaling présent → protection / front" },
+    { "id": "enemy_fragile_backline", "condition": "enemyFragileBackline", "preferTypes": ["counter_pick"], "preferChampions": ["Ninja", "Démon", "Exécuteur"], "bonus": 36, "rationaleFr": "Backline fragile adverse → counter-pick" },
+    { "id": "enemy_heavy_dive", "condition": "enemyHeavyDive", "preferTypes": ["safe_blind"], "preferChampions": ["Prêtre", "Mage de glace", "Moine", "Porteur de bouclier"], "bonus": 34, "penalty": -30, "rationaleFr": "Dive adverse → peel" },
+    { "id": "lacks_damage", "condition": "lacksDamage", "preferChampions": ["Archer", "Tireur", "Pyromancien", "Bombardier"], "bonus": 32, "rationaleFr": "Manque dégâts → ranged / burst" },
+    { "id": "lacks_early_objective", "condition": "lacksEarlyObjective", "preferChampions": ["Lancier", "Épéiste", "Pyromancien"], "bonus": 30, "rationaleFr": "Manque tempo Serpent → objectif" },
+    { "id": "losing_before_scaling", "condition": "losingBeforeScaling", "preferTypes": ["safe_blind", "objective_pick"], "bonus": 26, "penalty": -20, "rationaleFr": "Structure trop lente → safer" },
+    { "id": "trap_risk_help", "condition": "trapRiskCandidate", "penalty": -55, "rationaleFr": "Champion demande trop d'aide sans support" }
+  ],
+  "trapRiskRules": [
+    {
+      "id": "sniper_no_peel",
+      "champion": "Tireur",
+      "when": "scalingWithoutPeel",
+      "penalty": -58,
+      "messageFr": "Tireur sans peel — risque trap"
+    },
+    {
+      "id": "sniper_no_front",
+      "champion": "Tireur",
+      "when": "scalingWithoutFront",
+      "penalty": -42,
+      "messageFr": "Tireur sans frontline — blind dangereux"
+    },
+    {
+      "id": "berserker_vs_hard_cc",
+      "champion": "Berserker",
+      "when": "enemyHardCc",
+      "penalty": -38,
+      "messageFr": "Berserker vs CC lourd adverse"
+    },
+    {
+      "id": "ninja_vs_heavy_peel",
+      "champion": "Ninja",
+      "when": "enemyHeavyPeel",
+      "penalty": -44,
+      "messageFr": "Ninja vs peel lourd — counter-pick raté"
+    },
+    {
+      "id": "demon_vs_heavy_peel",
+      "champion": "Démon",
+      "when": "enemyHeavyPeel",
+      "penalty": -40,
+      "messageFr": "Démon vs peel lourd"
+    },
+    {
+      "id": "executioner_vs_heavy_peel",
+      "champion": "Exécuteur",
+      "when": "enemyHeavyPeel",
+      "penalty": -36,
+      "messageFr": "Exécuteur vs peel lourd"
+    }
+  ],
+  "aiAdaptationPatterns": [
+    {
+      "id": "enemy_sniper_first",
+      "detect": { "enemyFirstPicks": ["Tireur"], "minCount": 2 },
+      "responseFr": "Adv. first-pick Tireur → prévoir dive, opener safe (Épéiste/Archer/Lancier)",
+      "rotateShells": ["safe_objective", "archer_priest_kite", "anti_scaling"],
+      "avoidOpeners": ["Tireur", "sniper_scaling"]
+    },
+    {
+      "id": "enemy_sniper_no_peel",
+      "detect": { "enemyHas": ["Tireur"], "enemyLacksTags": ["peel"] },
+      "responseFr": "Tireur adverse sans peel → reach carry, picks protection",
+      "preferChampions": ["Ninja", "Démon", "Exécuteur"]
+    },
+    {
+      "id": "our_lancer_every_draft",
+      "detect": { "ourOpeners": ["Lancier"], "streakMin": 3 },
+      "responseFr": "Lancier B1 répété → varier shells (safe_objective / sniper_scaling / kite)",
+      "rotateShells": ["safe_objective", "sniper_scaling", "archer_priest_kite"]
+    },
+    {
+      "id": "our_ninja_demon_loop",
+      "detect": { "ourCompTags": ["assassin", "dive"], "streakMin": 2 },
+      "responseFr": "Comp dive répétée → adversaire stack peel, garder dive pour backline fragile",
+      "delayChampions": ["Ninja", "Démon"],
+      "rotateShells": ["safe_objective", "sniper_scaling"]
+    },
+    {
+      "id": "same_ban_habit",
+      "detect": { "sameBanStreak": 3 },
+      "responseFr": "Même ban répété → ban par faiblesse comp adverse",
+      "adaptBan": true
+    },
+    {
+      "id": "always_front_to_back",
+      "detect": { "ourShellStreak": ["sniper_front_to_back", "sniper_scaling"], "streakMin": 3 },
+      "responseFr": "Toujours front-to-back → rotation shells visible",
+      "rotateShells": ["safe_objective", "archer_priest_kite", "anti_scaling"]
+    },
+    {
+      "id": "rotate_plan_not_champ",
+      "ruleFr": "Rotation du PLAN (shell), pas d'un seul champion — revue 3 drafts",
+      "streakReview": 3
+    }
+  ],
   "finalChecklist": {
     "items": [
       { "id": "win_condition", "labelFr": "Condition de victoire (shell + style)" },

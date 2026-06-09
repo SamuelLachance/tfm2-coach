@@ -246,12 +246,17 @@
       banCount: g.banCount,
       takenNames: g.takenNames,
       playerTraits: g.playerTraits,
+      allSessions: all,
+      sessionPatterns: g.sessionPatterns,
+      ourSide: s.ourSide,
     });
   }
 
   function guideCtx(s, side, all, byName, meta) {
     const opp = side === "blue" ? "red" : "blue";
     const bans = (s.bans.blue || []).concat(s.bans.red || []).filter(Boolean);
+    const GE = guideEngine();
+    const sessionPatterns = GE?.analyzeSessionPatterns?.(all, { ourSide: s.ourSide }) || null;
     return {
       sessionIndex: (all || []).indexOf(s),
       banCount: bans.length,
@@ -259,6 +264,9 @@
       playerTraits: s.playerTraits || [],
       oppNames: sidePicks(s, opp).map((p) => p.name),
       ourNames: sidePicks(s, side).map((p) => p.name),
+      allSessions: all || [],
+      sessionPatterns,
+      ourSide: s.ourSide,
       byName,
       metaMap: meta,
     };
@@ -321,8 +329,8 @@
     const items = avail
       .map((c) => {
         try {
-          const { score, reasons, slot } = scoreCandidate(s, side, c, byName, meta, hintSlot || null, all);
-          return { champion: c, score, reasons, slot };
+          const { score, reasons, slot, pickMeta } = scoreCandidate(s, side, c, byName, meta, hintSlot || null, all);
+          return { champion: c, score, reasons, slot, pickMeta };
         } catch (err) {
           console.warn("scorePick failed", c?.name, err);
           const open = openSlots(s, side);
@@ -350,6 +358,9 @@
       takenNames: gPick.takenNames,
       sessionIndex: gPick.sessionIndex,
       banCount: gPick.banCount,
+      allSessions: all,
+      sessionPatterns: gPick.sessionPatterns,
+      ourSide: s.ourSide,
     });
     const result = {
       type: "pick",
