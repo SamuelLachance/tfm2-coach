@@ -59,9 +59,16 @@ function main() {
   assert(b1.reasons.length > 0, "Tireur B1 should have French reasons");
 
   Draft.applyAction(session, { championName: "Tireur" }, [], { byName, metaMap: meta });
-  const pretrePick = Draft.scorePick(pretre, session, "blue", byName, meta);
+  const pretrePick = Core.scorePickCandidate("Prêtre", {
+    allies: ["Tireur"],
+    oppNames: [],
+    byName,
+    metaMap: meta,
+    openSlots: ["Jungle", "Mid", "Support", "Top"],
+    phase: "core",
+  });
   assert(
-    pretrePick.reasons.some((r) => /peel|carry|shell|synergie|bot/i.test(r)),
+    pretrePick.reasons.some((r) => /peel|carry|shell|synergie|Pairing|bot/i.test(r)),
     `Prêtre after Tireur should mention synergy/shell, got: ${pretrePick.reasons.join("; ")}`
   );
 
