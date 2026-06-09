@@ -18,7 +18,7 @@
     beatdown: 1,
     banMtg: 1,
     banAbility: 1,
-    guide: 1,
+    guide: 0,
   };
 
   const TAG_NEEDS = [
@@ -431,24 +431,11 @@
 
   function firstPickBonus(champName, metaMap, byName, ctx = {}) {
     const core = MC();
-    const DG = global.TFM2DraftGuide;
     let bonus = tierVal(champName, metaMap) * 0.08;
     const reasons = [];
 
-    if (DG) {
-      const gp = DG.scoreGuidePick(champName, {
-        allies: [],
-        oppNames: ctx.oppNames || [],
-        phase: "opening",
-        sessionIndex: ctx.sessionIndex ?? 0,
-        banCount: ctx.banCount ?? 0,
-        takenNames: ctx.takenNames,
-        playerTraits: ctx.playerTraits,
-      });
-      bonus += gp.score * 0.55;
-      reasons.push(...gp.reasons.slice(0, 2));
-    } else if (core?.isDedicatedSupport?.(champName, metaMap)) {
-      bonus -= 100;
+    if (core?.isDedicatedSupport?.(champName, metaMap)) {
+      bonus -= 140;
       reasons.push("Pas support pure en B1");
     } else if (FLEX_ANCHORS.has(champName)) {
       bonus += 42;
@@ -461,12 +448,22 @@
       reasons.push("Ancre carry Bot/Mid");
     }
 
-    if (!DG && tierVal(champName, metaMap) >= 76) {
+    if (tierVal(champName, metaMap) >= 76) {
       bonus += 18;
       reasons.push("Tier S/A");
     }
 
     const opts = cOptimalSlots(champName, byName, metaMap);
+    if (opts.includes("Bot") && (draftProfile(champName, metaMap).dpsWeight ?? 0) >= 0.5) {
+      bonus += 48;
+      reasons.push("Blind ADC / carry Bot");
+    } else if (opts.includes("Jungle")) {
+      bonus += 28;
+      reasons.push("Blind Jungle flex");
+    } else if (opts.includes("Mid")) {
+      bonus += 18;
+      reasons.push("Blind Mid flex");
+    }
     if (opts[0] && !reasons.some((r) => r.includes(opts[0]))) reasons.push(`Profil ${opts[0]}`);
     return { bonus, reasons };
   }
@@ -541,7 +538,6 @@
     score += threat.pen;
 
     let fpReasons = [];
-    const DG = global.TFM2DraftGuide;
     if (!allies.length) {
       const fp = firstPickBonus(champName, metaMap, byName, {
         oppNames,
@@ -552,21 +548,6 @@
       });
       score += fp.bonus * pm.tier;
       fpReasons = fp.reasons;
-    }
-
-    if (DG) {
-      const guidePick = DG.scoreGuidePick(champName, {
-        allies,
-        oppNames,
-        phase,
-        sessionIndex: ctx.sessionIndex,
-        banCount: ctx.banCount,
-        takenNames: ctx.takenNames,
-        playerTraits: ctx.playerTraits,
-      });
-      const guideW = (phase === "opening" ? 1.5 : phase === "closing" ? 1.1 : 1.35) * LAYER.guide;
-      score += guidePick.score * guideW * (pm.guide ?? 1);
-      fpReasons.push(...guidePick.reasons.slice(0, 2));
     }
 
     const tierLayer = tierPickLayer(champName, metaMap, phase, allies);
@@ -650,9 +631,16 @@
     const core = MC();
     if (!core) return { score: 0, slot: SLOTS()[0], reasons: ["Engine indisponible"], eval: null };
 
-    const { openSlots, hintSlot } = ctx;
-    const slots = (openSlots?.length ? openSlots : SLOTS()).slice();
+    const { openSlots, hintSlot, allies = [] } = ctx;
+    let slots = (openSlots?.length ? openSlots : SLOTS()).slice();
     if (!slots.length) slots.push(SLOTS()[0]);
+
+    /** LoL B1 : scorer uniquement le prochain blind (Bot → Jungle → Mid). */
+    if (!allies.length && (ctx.phase === "opening" || ctx.phase === undefined)) {
+      const blindOrder = ["Bot", "Jungle", "Mid"];
+      const nextBlind = blindOrder.find((s) => slots.includes(s));
+      if (nextBlind) slots = [nextBlind];
+    }
 
     let best = null;
     for (const slot of slots) {
@@ -682,21 +670,9 @@
       reasons.push(...banRole.reasons.slice(0, 3));
     }
 
-    const DG = global.TFM2DraftGuide;
-    if (DG?.scoreThreatBan) {
-      const threat = DG.scoreThreatBan(champName, ourNames, oppNames, {
-        phase,
-        sessionIndex: ctx.sessionIndex,
-        banCount: ctx.banCount,
-      });
-      const threatW = phase === "opening" ? 2.35 : phase === "closing" ? 1.85 : 2.05;
-      score += threat.score * threatW * LAYER.guide;
-      reasons.unshift(...threat.reasons.slice(0, 3));
-    }
-
     const tierLabel = meta(champName, metaMap).tierMeta;
     const tierBonus = tierVal(champName, metaMap) >= 76 ? (phase === "opening" ? 38 : 26) : 0;
-    if (tierBonus && !DG) {
+    if (tierBonus) {
       score += tierBonus;
       reasons.push(`Tier ${tierLabel} meta`);
     } else if (tierVal(champName, metaMap) >= 54 && phase === "opening" && reasons.length < 2) {

@@ -415,6 +415,26 @@
     });
   }
 
+  function renderTeamColorBar(side, session) {
+    const names = window.TFM2Draft.sidePicks(session, side).map((p) => p.name);
+    if (!names.length) return "";
+    if (coach.mtgTeamPanelHtml) {
+      return coach.mtgTeamPanelHtml(names, `Couleur MTG · ${side === "blue" ? "Bleu" : "Rouge"}`);
+    }
+    const summary = window.TFM2Draft.teamColorSummary(names, coach.state.byName, draftMetaMap());
+    const bars = summary.bars
+      .map(
+        (b) =>
+          `<span class="draft-color-seg draft-color-seg--${b.code.toLowerCase()}" style="flex:${Math.max(0.08, b.value)}" title="${b.label}"></span>`
+      )
+      .join("");
+    return `
+      <div class="draft-color-bar" aria-label="Identité couleur ${summary.identity}">
+        <div class="draft-color-track">${bars}</div>
+        <span class="draft-color-id">${summary.identity || ""}</span>
+      </div>`;
+  }
+
   function renderBanRow(side, session) {
     const bans = session.bans[side];
     const count = session.bansPerTeam === 2 ? 2 : 3;
@@ -476,7 +496,10 @@
           <h3>${coach.escapeHtml(label)}</h3>
           ${sideActive ? '<span class="draft-turn-pulse">Au tour</span>' : ""}
         </div>
+        <div class="draft-section-label">Bans</div>
         <div class="draft-bans-row">${renderBanRow(side, session)}</div>
+        ${renderTeamColorBar(side, session)}
+        <div class="draft-section-label">Picks · ordre blind ADC→Jgl→Mid</div>
         <div class="draft-slots-grid">${slots}</div>
       </div>`;
   }
@@ -500,77 +523,6 @@
     });
   }
 
-  function renderShellPlanPanel(session) {
-    const GE = window.TFM2GuideDraftEngine || window.TFM2DraftGuide;
-    if (!GE?.getDraftPlan) return "";
-    const our = window.TFM2Draft.sidePicks(session, window.TFM2Draft.ourSide(session)).map((p) => p.name);
-    const en = window.TFM2Draft.sidePicks(session, window.TFM2Draft.enemySide(session)).map((p) => p.name);
-    try {
-      const taken = window.TFM2Draft.takenNames(session, allSessions());
-      const ctx = {
-        takenNames: taken,
-        sessionIndex: allSessions().indexOf(session),
-        allSessions: allSessions(),
-        ourSide: window.TFM2Draft.ourSide(session),
-      };
-      const plan = GE.getDraftPlan({ ourNames: our, enemyNames: en, ...ctx });
-      const step = window.TFM2Draft.getStep(session);
-      const lines = [];
-
-      if (plan.shell) lines.push(`<strong>Shell:</strong> ${coach.escapeHtml(plan.shell)}`);
-      if (plan.reason) lines.push(`<span>${coach.escapeHtml(plan.reason)}</span>`);
-      if (plan.safeHint) {
-        lines.push(`<span class="draft-safe-hint">Safe: ${coach.escapeHtml(plan.safeHint)}</span>`);
-      }
-      if (plan.scalingHint && (plan.shellId?.includes("sniper") || plan.sniperState)) {
-        lines.push(`<span class="draft-scaling-hint">Scaling: ${coach.escapeHtml(plan.scalingHint)}</span>`);
-      }
-      if (plan.sniperState?.labelFr) {
-        lines.push(`<span class="draft-sniper-state">Tireur: ${coach.escapeHtml(plan.sniperState.labelFr)}</span>`);
-      }
-      if (plan.sessionAdaptation) {
-        lines.push(`<span class="draft-adapt-hint">Rotation: ${coach.escapeHtml(plan.sessionAdaptation)}</span>`);
-      }
-      if (plan.trapWarnings?.length) {
-        plan.trapWarnings.forEach((w) => {
-          lines.push(`<span class="draft-trap-warn">⚠ ${coach.escapeHtml(w)}</span>`);
-        });
-      }
-      if (plan.nextPick) lines.push(`<span>Prochain pick: <strong>${coach.escapeHtml(plan.nextPick)}</strong></span>`);
-
-      if (step?.type === "ban" && plan.banPriority?.length) {
-        lines.push(`<span>Bans menace: ${plan.banPriority.slice(0, 3).map((n) => coach.escapeHtml(n)).join(", ")}</span>`);
-      }
-
-      if (plan.serpen) lines.push(`<span>Serpent: ${coach.escapeHtml(plan.serpen)}</span>`);
-      if (plan.morgard) lines.push(`<span>Morgard: ${coach.escapeHtml(plan.morgard)}</span>`);
-
-      const banned = GE.bannedCores?.(our, taken) || [];
-      if (banned[0]) {
-        const pivot = banned[0].chain.filter((n) => n !== banned[0].core).slice(0, 2);
-        if (pivot.length) {
-          lines.push(`<span>Pivot ${coach.escapeHtml(banned[0].core)} → ${pivot.map((n) => coach.escapeHtml(n)).join(" / ")}</span>`);
-        }
-      }
-
-      if (plan.checklist?.items?.length) {
-        const chk = plan.checklist.items
-          .map((i) => `<span class="${i.ok ? "chk-ok" : "chk-pending"}">${i.ok ? "✓" : "○"} ${coach.escapeHtml(i.labelFr)}</span>`)
-          .join("");
-        lines.push(`<div class="draft-checklist">${chk}</div>`);
-      }
-
-      if (!lines.length) return "";
-      return `
-        <div class="draft-shell-plan coach-hint" aria-label="Plan draft guide">
-          ${lines.map((l) => `<div>${l}</div>`).join("")}
-        </div>`;
-    } catch (err) {
-      console.warn("renderShellPlanPanel", err);
-      return "";
-    }
-  }
-
   function renderBoard() {
     const el = coach.els.draftBoard;
     const session = getActiveSession();
@@ -580,7 +532,6 @@
     const enemySideId = window.TFM2Draft.enemySide(session);
     const complete = window.TFM2Draft.isComplete(session);
     const focusHint = window.TFM2Draft.actionLabel(session, coach.state.byName, draftMetaMap(), allSessions());
-    const shellPanel = renderShellPlanPanel(session);
 
     el.classList.toggle("draft-layout-ready", complete);
     el.innerHTML = `
@@ -595,7 +546,6 @@
           }
           <span>${focusHint ? coach.escapeHtml(focusHint) : "1. Case · 2. Champion"}</span>
         </div>
-        ${shellPanel}
       </div>
       ${renderTeamColumn(enemySideId, session, "Adversaire")}
     `;
@@ -667,82 +617,48 @@
     }
   }
 
-  function safeScalingBadge(pickMeta) {
-    if (!pickMeta?.safeVsScaling) return "";
-    const map = {
-      safe: { cls: "pick-safe", label: "Safe" },
-      scaling: { cls: "pick-scaling", label: "Scaling" },
-      counter: { cls: "pick-counter", label: "Counter" },
-      flex: { cls: "pick-flex", label: "Flex" },
-    };
-    const b = map[pickMeta.safeVsScaling] || map.flex;
-    return `<span class="draft-pick-badge ${b.cls}">${b.label}</span>`;
-  }
-
-  function pickTypeBadge(pickMeta) {
-    if (!pickMeta?.pickTypeLabelFr) return "";
-    return `<span class="draft-pick-type">${coach.escapeHtml(pickMeta.pickTypeLabelFr)}</span>`;
-  }
-
-  function trapWarningHtml(pickMeta) {
-    if (!pickMeta?.trapWarnings?.length) return "";
-    const msg = pickMeta.trapWarnings.map((w) => w.messageFr).slice(0, 1).join("");
-    return `<span class="draft-trap-chip" title="${coach.escapeHtml(msg)}">⚠</span>`;
-  }
-
   function buildSuggestChipsHtml(session, rec) {
     if (!rec?.items?.length) return "";
     return `
-      <div id="draft-suggest-host" class="draft-suggest-row" aria-label="Suggestions coach">
-        ${rec.items
-          .map(
-            (item, i) => {
-              const pm = item.pickMeta;
-              const rationale = (pm?.decisionRationale || item.reasons || []).slice(0, 3).join(" · ");
-              const title = [
-                pm?.pickTypeLabelFr,
-                pm?.whyItFits,
-                rationale,
-                pm?.trapWarnings?.map((w) => w.messageFr).join(" · "),
-              ]
-                .filter(Boolean)
-                .join(" · ");
-              return `
-          <button type="button" class="draft-suggest-chip${pm?.trapWarnings?.length ? " has-trap" : ""}" data-champ="${coach.escapeHtml(item.champion.name)}"${item.slot ? ` data-slot="${coach.escapeHtml(item.slot)}"` : ""} title="${coach.escapeHtml(title || item.champion.name)}">
+      <div class="draft-suggest-wrap">
+        <div class="draft-suggest-head">
+          <span class="draft-suggest-title">Suggestions coach</span>
+          <span class="draft-suggest-hint muted">${rec.coachHint ? coach.escapeHtml(rec.coachHint) : "Top picks · tier · synergie · MTG"}</span>
+        </div>
+        <div id="draft-suggest-host" class="draft-suggest-row" aria-label="Suggestions coach">
+          ${rec.items
+            .map(
+              (item, i) => `
+          <button type="button" class="draft-suggest-chip" data-champ="${coach.escapeHtml(item.champion.name)}"${item.slot ? ` data-slot="${coach.escapeHtml(item.slot)}"` : ""} title="${coach.escapeHtml((item.reasons || []).slice(0, 3).join(" · "))}">
             <span class="draft-suggest-rank">#${i + 1}</span>
             ${coach.championIconHtml(item.champion, { size: "coach" })}
             <span class="draft-suggest-name">${coach.escapeHtml(item.champion.name)}</span>
-            ${pickTypeBadge(pm)}
-            ${safeScalingBadge(pm)}
-            ${trapWarningHtml(pm)}
+            ${item.score != null ? `<span class="draft-suggest-score">${Math.round(item.score)}</span>` : ""}
             ${item.slot ? `<span class="draft-suggest-slot">${coach.escapeHtml(item.slot)}</span>` : ""}
-          </button>`;
-            }
-          )
-          .join("")}
+          </button>`
+            )
+            .join("")}
+        </div>
       </div>`;
   }
 
   function renderSuggestChips(session) {
-    return `<div id="draft-suggest-host"></div>`;
+    return `<div class="draft-suggest-wrap"><div id="draft-suggest-host"></div></div>`;
   }
 
   function fillSuggestChips(session, rec) {
-    let host = document.getElementById("draft-suggest-host");
-    if (!host) {
-      const pool = coach.els.draftPool;
-      if (!pool) return;
-      pool.insertAdjacentHTML("afterbegin", `<div id="draft-suggest-host"></div>`);
-      host = document.getElementById("draft-suggest-host");
-      if (!host) return;
-    }
+    const host = document.getElementById("draft-suggest-host");
+    const wrap = document.querySelector(".draft-suggest-wrap");
     const run = () => {
       if (getActiveSession()?.id !== session.id) return;
       const html = buildSuggestChipsHtml(session, rec ?? getSessionRecommendations(session, 6));
-      if (html) {
-        host.outerHTML = html;
+      if (wrap) wrap.outerHTML = html || "";
+      else if (host) {
+        if (html) host.outerHTML = html;
+        else host.innerHTML = `<p class="muted draft-suggest-empty">Aucune suggestion pour cette étape.</p>`;
       } else {
-        host.innerHTML = `<p class="muted draft-suggest-empty">Aucune suggestion pour cette étape.</p>`;
+        const pool = coach.els.draftPool;
+        if (pool && html) pool.insertAdjacentHTML("afterbegin", html);
       }
     };
     if (typeof requestIdleCallback === "function") {

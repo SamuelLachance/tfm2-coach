@@ -1,10 +1,15 @@
 /**
- * TFM2 Draft Engine v27 — session draft + scoring TFM2GuideDraftEngine (guide Early Access uniquement).
+ * TFM2 Draft Engine v28 — architecture LoL (delta eval, blind pick, tier/synergy/counter/MTG).
+ * Scoring primaire : TFM2DraftCore + TFM2MatchCore (pas le guide shells).
  */
 (function (global) {
   const MC = () => global.TFM2MatchCore;
   const SLOTS = MC()?.SLOTS || ["Top", "Jungle", "Mid", "Bot", "Support"];
-  const SLOT_LABELS = MC()?.SLOT_LABELS || { Top: "Top", Jungle: "Jungle", Mid: "Mid", Bot: "Bot", Support: "Support" };
+  const SLOT_LABELS = MC()?.SLOT_LABELS || { Top: "Top", Jungle: "Jungle", Mid: "Mid", Bot: "ADC", Support: "Support" };
+
+  /** Blind pick TFM2 : carry Bot → tempo Jungle → flex Mid ; Top/Sup counter quand matchup connu. */
+  const BLIND_PICK_SLOTS = ["Bot", "Jungle", "Mid"];
+  const LATE_MATCHUP_SLOTS = ["Support", "Top"];
 
   const PICK_STEPS = [
     { type: "pick", side: "blue" }, { type: "pick", side: "red" },
@@ -139,6 +144,77 @@
     return Math.min(1, (sidePicks(s, "blue").length + sidePicks(s, "red").length) / 10);
   }
 
+  function sidePickCount(s, side) {
+    return sidePicks(s, side).length;
+  }
+
+  function enemyPickBySlot(s, side) {
+    const opp = side === "blue" ? "red" : "blue";
+    return pickBySlot(s, opp);
+  }
+
+  function isLaneMatchupKnown(s, side, slot) {
+    const enemy = enemyPickBySlot(s, side);
+    if (slot === "Top") return Boolean(enemy.Top);
+    if (slot === "Support") return Boolean(enemy.Support) || Boolean(enemy.Bot);
+    return true;
+  }
+
+  function isBlindPickPhase(s, side) {
+    return nextBlindSlot(s, side) !== null;
+  }
+
+  function nextBlindSlotFrom(by) {
+    for (const slot of BLIND_PICK_SLOTS) {
+      if (!by[slot]) return slot;
+    }
+    return null;
+  }
+
+  function nextBlindSlot(s, side) {
+    return nextBlindSlotFrom(pickBySlot(s, side));
+  }
+
+  function pickBySlotExcluding(s, side, excludeName) {
+    const m = {};
+    for (const p of sidePicks(s, side)) {
+      if (p.name === excludeName) continue;
+      if (p.slot) m[p.slot] = p.name;
+    }
+    return m;
+  }
+
+  function openSlotsFrom(by) {
+    return SLOTS.filter((sl) => !by[sl]);
+  }
+
+  function allowedSlotsForNextPick(s, side, excludeName = null) {
+    const by = excludeName ? pickBySlotExcluding(s, side, excludeName) : pickBySlot(s, side);
+    const open = openSlotsFrom(by);
+    const nextBlind = nextBlindSlotFrom(by);
+    if (nextBlind && open.includes(nextBlind)) return [nextBlind];
+    const allowed = open.filter((sl) => BLIND_PICK_SLOTS.includes(sl));
+    for (const slot of LATE_MATCHUP_SLOTS) {
+      if (open.includes(slot) && isLaneMatchupKnown(s, side, slot)) allowed.push(slot);
+    }
+    return allowed.length ? allowed : open;
+  }
+
+  function preferredBlindSlot(s, side, excludeName = null) {
+    const allowed = allowedSlotsForNextPick(s, side, excludeName);
+    if (allowed.length) return allowed[0];
+    const by = excludeName ? pickBySlotExcluding(s, side, excludeName) : pickBySlot(s, side);
+    return openSlotsFrom(by)[0] || "Top";
+  }
+
+  function isTeamFirstPick(s, side) {
+    return sidePickCount(s, side) === 0;
+  }
+
+  function recommendedSlotForPick(s, side) {
+    return preferredBlindSlot(s, side);
+  }
+
   function draftPhase(s) {
     const d = sidePicks(s, "blue").length + sidePicks(s, "red").length;
     if (d <= 2) return "opening";
@@ -222,41 +298,52 @@
     return true;
   }
 
-  function guideEngine() {
-    return global.TFM2GuideDraftEngine || global.TFM2DraftGuide;
+  function scoringEngine() {
+    return global.TFM2DraftCore;
   }
 
   function scorePick(champ, s, side, byName, meta, hintSlot = null, all = []) {
-    const GE = guideEngine();
+    const SE = scoringEngine();
     const g = guideCtx(s, side, all, byName, meta);
     const allies = sidePicks(s, side).map((p) => p.name).filter((n) => n !== champ.name);
-    const open = openSlots(s, side);
-    if (!GE?.scorePickCandidate) {
-      return { score: 0, reasons: ["Moteur guide indisponible"], slot: hintSlot || open[0] || SLOTS[0] };
+    const open = openSlotsForPick(s, side, champ.name);
+    if (!SE?.scorePickCandidate) {
+      return { score: 0, reasons: ["Moteur draft indisponible"], slot: hintSlot || open[0] || SLOTS[0] };
     }
-    return GE.scorePickCandidate(champ.name, {
+    const preferred = preferredBlindSlot(s, side, champ.name);
+    const slotHint = hintSlot || (open.includes(preferred) ? preferred : null);
+    const result = SE.scorePickCandidate(champ.name, {
       allies,
       oppNames: g.oppNames,
+      oppComp: pickBySlot(s, side === "blue" ? "red" : "blue"),
       byName,
       metaMap: meta,
-      openSlots: open,
-      hintSlot,
+      openSlots: open.length ? open : allowedSlotsForNextPick(s, side, champ.name),
+      hintSlot: slotHint,
       phase: draftPhase(s),
       sessionIndex: g.sessionIndex,
       banCount: g.banCount,
       takenNames: g.takenNames,
       playerTraits: g.playerTraits,
-      allSessions: all,
-      sessionPatterns: g.sessionPatterns,
-      ourSide: s.ourSide,
     });
+    let { score, reasons, slot } = result;
+    if (isBlindPickPhase(s, side) && slot && !BLIND_PICK_SLOTS.includes(slot) && nextBlindSlot(s, side)) {
+      score -= 80;
+      reasons = [`Blind ${SLOT_LABELS[nextBlindSlot(s, side)] || nextBlindSlot(s, side)} requis`, ...reasons].slice(0, 8);
+      slot = nextBlindSlot(s, side);
+    }
+    return { score, reasons, slot, eval: result.eval || null, pickMeta: result.pickMeta };
+  }
+
+  function openSlotsForPick(s, side, excludeName = null) {
+    const allowed = allowedSlotsForNextPick(s, side, excludeName);
+    const open = excludeName ? openSlotsFrom(pickBySlotExcluding(s, side, excludeName)) : openSlots(s, side);
+    return allowed.length ? allowed.filter((sl) => open.includes(sl)) : open;
   }
 
   function guideCtx(s, side, all, byName, meta) {
     const opp = side === "blue" ? "red" : "blue";
     const bans = (s.bans.blue || []).concat(s.bans.red || []).filter(Boolean);
-    const GE = guideEngine();
-    const sessionPatterns = GE?.analyzeSessionPatterns?.(all, { ourSide: s.ourSide }) || null;
     return {
       sessionIndex: (all || []).indexOf(s),
       banCount: bans.length,
@@ -264,8 +351,6 @@
       playerTraits: s.playerTraits || [],
       oppNames: sidePicks(s, opp).map((p) => p.name),
       ourNames: sidePicks(s, side).map((p) => p.name),
-      allSessions: all || [],
-      sessionPatterns,
       ourSide: s.ourSide,
       byName,
       metaMap: meta,
@@ -273,12 +358,12 @@
   }
 
   function scoreBan(champ, s, side, byName, meta, all = []) {
-    const GE = guideEngine();
+    const SE = scoringEngine();
     const g = guideCtx(s, side, all, byName, meta);
-    if (!GE?.scoreBanCandidate) {
-      return { score: 0, reasons: ["Moteur guide indisponible"] };
+    if (!SE?.scoreBanCandidate) {
+      return { score: 0, reasons: ["Moteur draft indisponible"] };
     }
-    return GE.scoreBanCandidate(champ.name, {
+    return SE.scoreBanCandidate(champ.name, {
       sessionSide: side,
       oppNames: g.oppNames,
       ourNames: g.ourNames,
@@ -326,51 +411,33 @@
       recommendationCache = { key: cacheKey, limit, result };
       return result;
     }
+    const hint = recommendedSlotForPick(s, side);
     const items = avail
       .map((c) => {
         try {
-          const { score, reasons, slot, pickMeta } = scoreCandidate(s, side, c, byName, meta, hintSlot || null, all);
-          return { champion: c, score, reasons, slot, pickMeta };
+          const { score, reasons, slot, eval: ev } = scoreCandidate(s, side, c, byName, meta, hintSlot || hint || null, all);
+          return { champion: c, score, reasons, slot, eval: ev };
         } catch (err) {
           console.warn("scorePick failed", c?.name, err);
           const open = openSlots(s, side);
           return {
             champion: c,
             score: 0,
-            reasons: ["Erreur scoring guide"],
-            slot: hintSlot || open[0] || SLOTS[0],
+            reasons: ["Erreur scoring"],
+            slot: hintSlot || hint || open[0] || SLOTS[0],
           };
         }
       })
       .sort((a, b) => b.score - a.score)
       .slice(0, limit);
     const coachHint = getDraftCoachHint(s, side, byName, meta, all);
-    const gPick = guideCtx(s, side, all, byName, meta);
-    const GE = guideEngine();
-    const shellAnalysis = GE?.analyzeShellMatchup?.(
-      gPick.ourNames,
-      gPick.oppNames,
-      { takenNames: gPick.takenNames, sessionIndex: gPick.sessionIndex, banCount: gPick.banCount }
-    );
-    const draftPlan = GE?.getDraftPlan?.({
-      ourNames: gPick.ourNames,
-      enemyNames: gPick.oppNames,
-      takenNames: gPick.takenNames,
-      sessionIndex: gPick.sessionIndex,
-      banCount: gPick.banCount,
-      allSessions: all,
-      sessionPatterns: gPick.sessionPatterns,
-      ourSide: s.ourSide,
-    });
     const result = {
       type: "pick",
       side,
-      slot: items[0]?.slot,
+      slot: hint,
       items,
       forSide: side,
       coachHint,
-      shellAnalysis,
-      draftPlan,
     };
     recommendationCache = { key: cacheKey, limit, result };
     return result;
@@ -577,31 +644,57 @@
   }
 
   function getDraftCoachHint(s, side, byName, meta, all = []) {
-    const GE = guideEngine();
-    const step = getStep(s);
-    const allies = sidePicks(s, side).map((p) => p.name);
-    const oppNames = sidePicks(s, side === "blue" ? "red" : "blue").map((p) => p.name);
-    const g = guideCtx(s, side, all, byName, meta);
+    const slot = preferredBlindSlot(s, side);
+    const label = SLOT_LABELS[slot] || slot;
+    const n = sidePickCount(s, side) + 1;
+    const parts = [];
+    const core = MC();
 
-    if (GE?.coachDraftHint) {
-      try {
-        const guideHint = GE.coachDraftHint({
-          ourNames: allies,
-          enemyNames: oppNames,
-          phase: draftPhase(s),
-          stepType: step?.type,
-          takenNames: g.takenNames,
-          sessionIndex: g.sessionIndex,
-          banCount: g.banCount,
-          playerTraits: g.playerTraits,
-        });
-        if (guideHint) return guideHint;
-      } catch (err) {
-        console.warn("getDraftCoachHint guide", err);
-      }
+    if (byName && meta && core?.evaluateTeam) {
+      const allies = sidePicks(s, side).map((p) => p.name);
+      const opp = side === "blue" ? "red" : "blue";
+      const oppNames = sidePicks(s, opp).map((p) => p.name);
+      const ev = core.evaluateTeam(allies, {
+        byName,
+        metaMap: meta,
+        oppNames,
+        slotsLeft: openSlots(s, side).length,
+      });
+      if (ev.color?.combination?.name) parts.push(ev.color.combination.name);
+      else if (ev.color?.identity) parts.push(`Couleurs ${ev.color.identity}`);
+      if (ev.gaps?.[0]) parts.push(`Manque ${ev.gaps[0]}`);
     }
 
-    return GE?.GUIDE?.()?.banPhilosophy?.principle || "Draft guide Early Access — shells & menaces";
+    const step = getStep(s);
+    if (step?.type === "ban") {
+      const base = "Ban menace — tier flex · deny MTG · counter notre comp";
+      return parts.length ? `${parts.join(" · ")} · ${base}` : base;
+    }
+
+    if (isTeamFirstPick(s, side)) {
+      return parts.length
+        ? `${parts.join(" · ")} · Blind 1 : ADC · Top/Sup counter only`
+        : "Blind 1 : ADC obligatoire · Top/Sup = counter pick uniquement";
+    }
+    if (isBlindPickPhase(s, side)) {
+      const blind =
+        slot === "Bot"
+          ? `Blind ${n} : ADC (dur à punir)`
+          : slot === "Jungle"
+            ? `Blind ${n} : Jungle · Top/Sup interdits`
+            : slot === "Mid"
+              ? `Blind ${n} : Mid · Top/Sup après matchup adverse`
+              : `Blind ${n} : ${label} · Top/Sup = counter only`;
+      return parts.length ? `${parts.join(" · ")} · ${blind}` : blind;
+    }
+    if (LATE_MATCHUP_SLOTS.includes(slot)) {
+      const lane = isLaneMatchupKnown(s, side, slot)
+        ? `Pick ${label} : matchup révélé · counter possible`
+        : `Pick ${label} · blind ADC/Jgl/Mid épuisés`;
+      return parts.length ? `${parts.join(" · ")} · ${lane}` : lane;
+    }
+    const base = `Pick : ${label} · Synergies · Trinité MTG · skeleton`;
+    return parts.length ? `${parts.join(" · ")} · ${base}` : base;
   }
 
   function actionLabel(s, byName, meta, all = []) {
@@ -642,15 +735,24 @@
   }
 
   function suggestSlot(s, side, meta, byName, all = []) {
-    const GE = guideEngine();
-    const g = guideCtx(s, side, all, byName, meta);
     const open = openSlots(s, side);
-    if (!GE || !open.length) return open[0] || "Top";
-    const rec = GE.recommendShell(g.oppNames, g.ourNames, g);
-    const next = GE.nextPickInOrder(rec.shell, g.ourNames);
-    if (next) {
-      const slot = GE.slotForChampion(rec.shell, next);
-      if (slot && open.includes(slot)) return slot;
+    const preferred = preferredBlindSlot(s, side);
+    if (preferred && open.includes(preferred)) return preferred;
+
+    if (isBlindPickPhase(s, side)) {
+      for (const sl of BLIND_PICK_SLOTS) {
+        if (open.includes(sl)) return sl;
+      }
+    }
+
+    const core = MC();
+    const names = sidePicks(s, side).map((p) => p.name);
+    if (core?.evaluateTeam && names.length) {
+      const ev = core.evaluateTeam(names, { metaMap: meta, byName, slotsLeft: open.length });
+      const skel = ev.skeleton || {};
+      if (!skel.frontline && open.includes("Top") && isLaneMatchupKnown(s, side, "Top")) return "Top";
+      if (!skel.enchanter && open.includes("Support") && isLaneMatchupKnown(s, side, "Support")) return "Support";
+      if (!skel.wave_clear && open.includes("Mid")) return "Mid";
     }
     return open[0] || "Top";
   }
@@ -677,31 +779,27 @@
   }
 
   function analyzeLive(s, meta, byName, all = []) {
-    const GE = guideEngine();
+    const core = MC();
     const our = sidePicks(s, ourSide(s)).map((p) => p.name);
     const en = sidePicks(s, enemySide(s)).map((p) => p.name);
     const notes = [];
-    const g = guideCtx(s, ourSide(s), all, byName, meta);
 
-    if (GE?.analyzeShellMatchup) {
-      try {
-        const shell = GE.analyzeShellMatchup(our, en, {
-          takenNames: g.takenNames,
-          sessionIndex: g.sessionIndex,
-          banCount: g.banCount,
-        });
-        notes.push(...(shell.notes || []).slice(0, 5));
-        if (shell.checklist?.items?.length) {
-          const chk = shell.checklist.items
-            .map((i) => `${i.ok ? "✓" : "○"} ${i.labelFr}`)
-            .join(" · ");
-          notes.push(`Checklist: ${chk}`);
-        }
-      } catch (err) {
-        console.warn("analyzeLive shell", err);
-      }
+    if (core?.evaluateTeam) {
+      const ev = core.evaluateTeam(our, {
+        metaMap: meta,
+        byName,
+        oppNames: en,
+        slotsLeft: 5 - our.length,
+      });
+      const b = ev.breakdown || {};
+      if (b.counter > 40) notes.push("Avantage counter vs adversaire");
+      else if (b.counter < -15 && en.length >= 2) notes.push("Comp adverse favorisée");
+      if (b.synergy >= 90) notes.push("Synergie paires forte");
+      else if (our.length >= 3 && b.synergy < 35) notes.push("Synergie insuffisante");
+      if (ev.color?.combination?.name) notes.push(`Identité ${ev.color.combination.name}`);
+      for (const g of (ev.gaps || []).slice(0, 3)) notes.push(`Manque ${g}`);
     }
-    return { ourTags: [], enemyTags: [], notes: notes.slice(0, 9) };
+    return { ourTags: [], enemyTags: [], notes: notes.slice(0, 8) };
   }
 
   function stepLabel(s) {
@@ -716,11 +814,13 @@
 
   function formatSummary(s) {
     normalizeSession(s);
-    return [`${s.bansPerTeam} bans/équipe · draft TFM2`, s.fearless ? "Fearless" : null].filter(Boolean).join(" · ");
+    return [`${s.bansPerTeam} bans · algo LoL/MTG`, s.fearless ? "Fearless" : null].filter(Boolean).join(" · ");
   }
 
   global.TFM2Draft = {
     SLOTS,
+    BLIND_PICK_SLOTS,
+    LATE_MATCHUP_SLOTS,
     PICK_STEPS,
     PLAN_VS_ENEMY,
     ENEMY_PLAN_ANSWERS,
@@ -742,6 +842,12 @@
     enemySide,
     isOurTurn,
     canEditFormat,
+    isTeamFirstPick,
+    isBlindPickPhase,
+    nextBlindSlot,
+    allowedSlotsForNextPick,
+    preferredBlindSlot,
+    recommendedSlotForPick,
     suggestSlot,
     bestSlotForChampion,
     resolvePickSlot,
