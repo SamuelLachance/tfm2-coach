@@ -766,6 +766,18 @@
         "Fragment de corne du géant"
       ],
       "tierMeta": "B",
+      "draftJob": "support",
+      "roleTags": [
+        "frontline",
+        "peel"
+      ],
+      "viableSlots": [
+        "Top",
+        "Mid"
+      ],
+      "optimalSlots": [
+        "Support"
+      ],
       "tierNote": "Bon tank + save allié ; plus fort qu'avant.",
       "worstMatchups": [
         "Ninja",
@@ -832,6 +844,18 @@
         "Lame perforante"
       ],
       "tierMeta": "A",
+      "draftJob": "carry",
+      "roleTags": [
+        "scaling",
+        "poke"
+      ],
+      "viableSlots": [
+        "Mid",
+        "Top"
+      ],
+      "optimalSlots": [
+        "Bot"
+      ],
       "tierNote": "Beaucoup plus jouable avec l'IA ; ult one-shot. Positionnement empêche de monter plus haut.",
       "worstMatchups": [
         "Ninja",
@@ -898,6 +922,16 @@
         "Fragment de corne du géant"
       ],
       "tierMeta": "D",
+      "draftJob": "support",
+      "roleTags": [
+        "peel"
+      ],
+      "viableSlots": [
+        "Mid"
+      ],
+      "optimalSlots": [
+        "Support"
+      ],
       "tierNote": "Seulement draft 5 statiques spell-DPS ; sinon trop niche.",
       "worstMatchups": [
         "Ninja",
@@ -967,6 +1001,19 @@
         "Fragment de corne du géant"
       ],
       "tierMeta": "B",
+      "draftJob": "frontline",
+      "roleTags": [
+        "aggressive_jungle",
+        "split",
+        "engage"
+      ],
+      "viableSlots": [
+        "Mid"
+      ],
+      "optimalSlots": [
+        "Top",
+        "Jungle"
+      ],
       "tierNote": "Fort mais inutile vs 3+ cibles qui se battent.",
       "worstMatchups": [
         "Chaman vaudou",
@@ -1035,6 +1082,20 @@
         "Cristal chrono"
       ],
       "tierMeta": "S",
+      "draftJob": "carry",
+      "roleTags": [
+        "poke",
+        "mage_burst",
+        "wave_clear"
+      ],
+      "viableSlots": [
+        "Mid",
+        "Top",
+        "Jungle"
+      ],
+      "optimalSlots": [
+        "Bot"
+      ],
       "tierNote": "Gros dégâts, bon TF, farm rapide, jouable sur toute position sauf Support ; demande un minimum de positionnement.",
       "worstMatchups": [
         "Ninja",
@@ -1104,6 +1165,18 @@
         "Forteresse imprenable"
       ],
       "tierMeta": "A",
+      "draftJob": "engage",
+      "roleTags": [
+        "aggressive_jungle",
+        "engage",
+        "wave_clear"
+      ],
+      "viableSlots": [
+        "Jungle"
+      ],
+      "optimalSlots": [
+        "Top"
+      ],
       "tierNote": "Ganks dès lvl 1, burst TF en survivant. Difficile sous mass CC.",
       "worstMatchups": [
         "Soldat",
@@ -1170,6 +1243,17 @@
         "Orbe vital"
       ],
       "tierMeta": "D",
+      "draftJob": "control",
+      "roleTags": [
+        "mage_burst",
+        "wave_clear"
+      ],
+      "viableSlots": [
+        "Support"
+      ],
+      "optimalSlots": [
+        "Mid"
+      ],
       "tierNote": "Jamais réalisé malgré 12 buffs d'affilée.",
       "worstMatchups": [
         "Ninja",
@@ -1238,6 +1322,19 @@
         "Lame perforante"
       ],
       "tierMeta": "A",
+      "draftJob": "engage",
+      "roleTags": [
+        "pick_jungle",
+        "dive",
+        "assassin"
+      ],
+      "viableSlots": [
+        "Mid",
+        "Top"
+      ],
+      "optimalSlots": [
+        "Jungle"
+      ],
       "tierNote": "Assassin agréable ; ult aide les TF ; 3 dash intégrés = punissable.",
       "worstMatchups": [
         "Porteur de bouclier",
@@ -1305,6 +1402,17 @@
         "Lame perforante"
       ],
       "tierMeta": "A",
+      "draftJob": "carry",
+      "roleTags": [
+        "poke"
+      ],
+      "viableSlots": [
+        "Mid",
+        "Top"
+      ],
+      "optimalSlots": [
+        "Bot"
+      ],
       "tierNote": "Relativement stable ; les autres se positionnent mieux → relativité, pas perte absolue de puissance.",
       "worstMatchups": [
         "Mage de barrière",
@@ -1372,7 +1480,19 @@
         "Lame de vol de vie"
       ],
       "tierMeta": "S",
-      "tierNote": "Énorme gain de positionnement, gros dégâts, peut « saler » la game (rare). Cible prioritaire #3 (avec Mage blanc et Maître du fouet).",
+      "draftJob": "carry",
+      "roleTags": [
+        "poke",
+        "scaling"
+      ],
+      "viableSlots": [
+        "Mid"
+      ],
+      "optimalSlots": [
+        "Support",
+        "Bot"
+      ],
+      "tierNote": "Énorme gain de positionnement, gros dégâts, peut « saler » la game (rare). Cible prioritaire #3.",
       "worstMatchups": [
         "Ninja",
         "Chasseur",
@@ -1440,6 +1560,17 @@
         "Voile d'annihilation"
       ],
       "tierMeta": "D",
+      "draftJob": "support",
+      "roleTags": [
+        "frontline",
+        "wave_clear"
+      ],
+      "viableSlots": [
+        "Top"
+      ],
+      "optimalSlots": [
+        "Support"
+      ],
       "tierNote": "Faible à toutes les phases.",
       "worstMatchups": [
         "Ninja",
@@ -1498,15 +1629,28 @@
       "type": "Guerrier (Tank)",
       "tags": [
         "engage",
-        "frontline"
+        "frontline",
+        "peel"
       ],
       "build": [
         "Forteresse imprenable",
         "Fragment de corne du géant",
         "Jugement final du seigneur de guerre"
       ],
-      "tierMeta": "C",
-      "tierNote": "Faible avant buffs ; avec 2 fronts = TF gagnables.",
+      "tierMeta": "B",
+      "draftJob": "frontline",
+      "roleTags": [
+        "frontline",
+        "engage"
+      ],
+      "viableSlots": [
+        "Mid"
+      ],
+      "optimalSlots": [
+        "Top",
+        "Support"
+      ],
+      "tierNote": "Tank stable ; wiki v0.4.11 B+ frontline — meilleur avec 2 fronts en TF.",
       "worstMatchups": [
         "Chaman vaudou",
         "Maître du fouet",
@@ -1534,29 +1678,30 @@
         "tankWeight": 1.25
       },
       "colorIdentity": {
-        "W": 8,
-        "U": 3,
-        "B": 1,
-        "R": 7,
+        "W": 5,
+        "U": 2,
+        "B": 2,
+        "R": 10,
         "G": 5,
         "dominant": [
-          "W",
-          "R"
+          "R",
+          "W"
         ],
-        "identity": "WR",
+        "identity": "RW",
         "vector": [
-          0.3333333333333333,
-          0.125,
-          0.041666666666666664,
-          0.2916666666666667,
+          0.20833333333333334,
+          0.08333333333333333,
+          0.08333333333333333,
+          0.4166666666666667,
           0.20833333333333334
         ],
-        "family": "tank_engage"
+        "family": "support_engage"
       },
-      "family": "tank_engage",
-      "familyLabel": "Tank engage",
+      "family": "support_engage",
+      "familyLabel": "Support engage",
       "compTypes": [
-        "teamfight_engage"
+        "teamfight_engage",
+        "all_in"
       ]
     },
     "Chevalier de cavalerie": {
@@ -1574,7 +1719,22 @@
         "Fragment de corne du géant"
       ],
       "tierMeta": "A",
-      "tierNote": "Gros dégâts early, excellent TF sous ult, kills stables. Ordre de valeur : Jungle → Top → Bot → Mid → Support. Item PV obligatoire slot 1–2.",
+      "draftJob": "frontline",
+      "roleTags": [
+        "aggressive_jungle",
+        "engage",
+        "split"
+      ],
+      "viableSlots": [
+        "Mid",
+        "Support"
+      ],
+      "optimalSlots": [
+        "Jungle",
+        "Top",
+        "Bot"
+      ],
+      "tierNote": "Gros dégâts early, excellent TF sous ult. Ordre : Jungle → Top → Bot → Mid → Support.",
       "worstMatchups": [
         "Mage de glace",
         "Porteur de bouclier",
@@ -1631,6 +1791,7 @@
       "id": "chevalier-magique",
       "type": "Guerrier (Mage)",
       "tags": [
+        "engage",
         "frontline",
         "mage_burst"
       ],
@@ -1639,8 +1800,20 @@
         "Voile d'annihilation",
         "Fragment de corne du géant"
       ],
-      "tierMeta": "C",
-      "tierNote": "Tue Ogre sans MR ; poubelle sous mass stun ; dépend des lanes pour le late.",
+      "tierMeta": "B",
+      "draftJob": "frontline",
+      "roleTags": [
+        "frontline",
+        "mage_burst"
+      ],
+      "viableSlots": [
+        "Jungle"
+      ],
+      "optimalSlots": [
+        "Mid",
+        "Top"
+      ],
+      "tierNote": "Bruiser/mage menaçant ; wiki B+ — vulnérable mass stun et burst.",
       "worstMatchups": [
         "Ninja",
         "Chasseur",
@@ -1709,6 +1882,20 @@
         "Bâton du sorcier"
       ],
       "tierMeta": "B",
+      "draftJob": "engage",
+      "roleTags": [
+        "pick_jungle",
+        "aggressive_jungle",
+        "dive",
+        "assassin"
+      ],
+      "viableSlots": [
+        "Top"
+      ],
+      "optimalSlots": [
+        "Jungle",
+        "Mid"
+      ],
       "tierNote": "Mid burst, quasi toujours 1 kill ; situatif : max 1 front, ennemis squishy.",
       "worstMatchups": [
         "Porteur de bouclier",
@@ -1777,6 +1964,20 @@
         "Fragment de corne du géant"
       ],
       "tierMeta": "A",
+      "draftJob": "frontline",
+      "roleTags": [
+        "aggressive_jungle",
+        "engage",
+        "frontline"
+      ],
+      "viableSlots": [
+        "Jungle",
+        "Mid"
+      ],
+      "optimalSlots": [
+        "Top",
+        "Support"
+      ],
       "tierNote": "Contre la majorité des héros ; DPS + survie → montée en A.",
       "worstMatchups": [
         "Soldat",
@@ -1844,7 +2045,19 @@
         "Lame perforante"
       ],
       "tierMeta": "B",
-      "tierNote": "Lane IA prudente → plus faible. Avant : A-tier carry ; 3 premiers kills critiques ; encore plus dur maintenant.",
+      "draftJob": "carry",
+      "roleTags": [
+        "scaling",
+        "dive"
+      ],
+      "viableSlots": [
+        "Mid",
+        "Top"
+      ],
+      "optimalSlots": [
+        "Bot"
+      ],
+      "tierNote": "Lane IA prudente → plus faible. 3 premiers kills critiques.",
       "worstMatchups": [
         "Ninja",
         "Chasseur",
@@ -1911,6 +2124,16 @@
         "Forteresse imprenable"
       ],
       "tierMeta": "C",
+      "draftJob": "frontline",
+      "roleTags": [
+        "engage"
+      ],
+      "viableSlots": [
+        "Jungle"
+      ],
+      "optimalSlots": [
+        "Top"
+      ],
       "tierNote": "Fort early, TF difficile ; espace = menace.",
       "worstMatchups": [
         "Chaman vaudou",
@@ -1978,7 +2201,19 @@
         "Lame perforante"
       ],
       "tierMeta": "S",
-      "tierNote": "Toujours excellent en lane, gros dégâts, et ne meurt plus autant après les patchs. Très bon pick.",
+      "draftJob": "engage",
+      "roleTags": [
+        "engage",
+        "dive"
+      ],
+      "viableSlots": [
+        "Mid"
+      ],
+      "optimalSlots": [
+        "Jungle",
+        "Top"
+      ],
+      "tierNote": "Toujours excellent en lane, gros dégâts, ne meurt plus autant après les patchs.",
       "worstMatchups": [
         "Porteur de bouclier",
         "Moine",
@@ -2045,7 +2280,19 @@
         "Voile d'annihilation"
       ],
       "tierMeta": "A",
-      "tierNote": "Jouable partout, meilleur Top ; le micro-contrôle du joueur se ressent : high micro = très fort. Stable.",
+      "draftJob": "control",
+      "roleTags": [
+        "farm_jungle",
+        "split"
+      ],
+      "viableSlots": [
+        "Mid"
+      ],
+      "optimalSlots": [
+        "Top",
+        "Jungle"
+      ],
+      "tierNote": "Jouable partout, meilleur Top ; micro-contrôle joueur = très fort.",
       "worstMatchups": [
         "Ninja",
         "Pyromancien",
@@ -2113,7 +2360,19 @@
         "Lame perforante"
       ],
       "tierMeta": "A",
-      "tierNote": "Crits + survie = 800+ DPS sans magie ; peut sembler immortel ; très vulnérable aux stuns → pas S.",
+      "draftJob": "engage",
+      "roleTags": [
+        "pick_jungle",
+        "dive"
+      ],
+      "viableSlots": [
+        "Mid",
+        "Top"
+      ],
+      "optimalSlots": [
+        "Jungle"
+      ],
+      "tierNote": "Crits + survie ; très vulnérable aux stuns → pas S.",
       "worstMatchups": [
         "Porteur de bouclier",
         "Moine",
@@ -2180,6 +2439,17 @@
         "Prophète de l'abîme"
       ],
       "tierMeta": "D",
+      "draftJob": "support",
+      "roleTags": [
+        "peel",
+        "scaling"
+      ],
+      "viableSlots": [
+        "Mid"
+      ],
+      "optimalSlots": [
+        "Support"
+      ],
       "tierNote": "Deep late, picks isolés.",
       "worstMatchups": [
         "Ninja",
@@ -2245,6 +2515,16 @@
         "Prophète de l'abîme"
       ],
       "tierMeta": "D",
+      "draftJob": "support",
+      "roleTags": [
+        "peel"
+      ],
+      "viableSlots": [
+        "Mid"
+      ],
+      "optimalSlots": [
+        "Support"
+      ],
       "tierNote": "Trois sorts faibles vs Pythonisse / Mage de barrière.",
       "worstMatchups": [
         "Ninja",
@@ -2310,6 +2590,16 @@
         "Fragment de corne du géant"
       ],
       "tierMeta": "C",
+      "draftJob": "support",
+      "roleTags": [
+        "peel"
+      ],
+      "viableSlots": [
+        "Mid"
+      ],
+      "optimalSlots": [
+        "Support"
+      ],
       "tierNote": "Sort 1 et ult faibles ; slot mieux utilisé ailleurs.",
       "worstMatchups": [
         "Chaman vaudou",
@@ -2376,6 +2666,18 @@
         "Lame de vol de vie"
       ],
       "tierMeta": "B",
+      "draftJob": "engage",
+      "roleTags": [
+        "poke",
+        "frontline"
+      ],
+      "viableSlots": [
+        "Mid"
+      ],
+      "optimalSlots": [
+        "Jungle",
+        "Top"
+      ],
       "tierNote": "B en contrepick S-tier ; D seul ; B en draft anti.",
       "worstMatchups": [
         "Ninja",
@@ -2444,6 +2746,18 @@
         "Lame perforante"
       ],
       "tierMeta": "B",
+      "draftJob": "control",
+      "roleTags": [
+        "farm_jungle",
+        "scaling"
+      ],
+      "viableSlots": [
+        "Mid",
+        "Top"
+      ],
+      "optimalSlots": [
+        "Jungle"
+      ],
       "tierNote": "Moins d'erreurs ; moins puni sur HP. Fort seulement bonne draft.",
       "worstMatchups": [
         "Porteur de bouclier",
@@ -2511,6 +2825,18 @@
         "Jugement final du seigneur de guerre"
       ],
       "tierMeta": "C",
+      "draftJob": "frontline",
+      "roleTags": [
+        "frontline",
+        "engage"
+      ],
+      "viableSlots": [
+        "Mid"
+      ],
+      "optimalSlots": [
+        "Top",
+        "Jungle"
+      ],
       "tierNote": "Fort mais catch plus fréquent avec IA.",
       "worstMatchups": [
         "Porteur de bouclier",
@@ -2578,6 +2904,19 @@
         "Bâton du sorcier"
       ],
       "tierMeta": "B",
+      "draftJob": "control",
+      "roleTags": [
+        "engage",
+        "mage_burst",
+        "wave_clear"
+      ],
+      "viableSlots": [
+        "Top"
+      ],
+      "optimalSlots": [
+        "Mid",
+        "Support"
+      ],
       "tierNote": "IA meilleure sur sorts et position ; bon contrôle ; ult en mêlée = TF gagnable.",
       "worstMatchups": [
         "Ninja",
@@ -2645,7 +2984,18 @@
         "Voile d'annihilation"
       ],
       "tierMeta": "B",
-      "tierNote": "Stable, favori perso. Ex. sous buff Morgard : push seul, ult repousse 5 ennemis, push tour.",
+      "draftJob": "frontline",
+      "roleTags": [
+        "frontline",
+        "engage"
+      ],
+      "viableSlots": [
+        "Jungle"
+      ],
+      "optimalSlots": [
+        "Top"
+      ],
+      "tierNote": "Stable, favori perso. Ult repousse 5 ennemis sous buff Morgard.",
       "worstMatchups": [
         "Chaman vaudou",
         "Maître du fouet",
@@ -2713,7 +3063,21 @@
         "Lame perforante"
       ],
       "tierMeta": "A",
-      "tierNote": "Le plus fort quand tu domines ; gros dégâts, snowball. Si tu perds la lane et le jungle n'a pas d'avantage (slot jungle habituel) : TRÈS dur à jouer.",
+      "draftJob": "engage",
+      "roleTags": [
+        "aggressive_jungle",
+        "pick_jungle",
+        "dive",
+        "assassin"
+      ],
+      "viableSlots": [
+        "Mid",
+        "Top"
+      ],
+      "optimalSlots": [
+        "Jungle"
+      ],
+      "tierNote": "Le plus fort quand tu domines ; gros dégâts, snowball.",
       "worstMatchups": [
         "Porteur de bouclier",
         "Moine",
@@ -2779,6 +3143,16 @@
         "Voile d'annihilation"
       ],
       "tierMeta": "C",
+      "draftJob": "support",
+      "roleTags": [
+        "peel"
+      ],
+      "viableSlots": [
+        "Mid"
+      ],
+      "optimalSlots": [
+        "Support"
+      ],
       "tierNote": "Pas assez fort vs autres supports ; aurait été haut B si meta Top inchangée.",
       "worstMatchups": [
         "Ninja",
@@ -2836,6 +3210,7 @@
       "id": "jiangshi",
       "type": "Guerrier",
       "tags": [
+        "engage",
         "frontline",
         "peel"
       ],
@@ -2844,8 +3219,20 @@
         "Forteresse imprenable",
         "Voile d'annihilation"
       ],
-      "tierMeta": "C",
-      "tierNote": "Complément only, jamais solo carry.",
+      "tierMeta": "B",
+      "draftJob": "support",
+      "roleTags": [
+        "frontline",
+        "peel"
+      ],
+      "viableSlots": [
+        "Mid"
+      ],
+      "optimalSlots": [
+        "Top",
+        "Support"
+      ],
+      "tierNote": "Complément peel ; wiki v0.4.11 B+ support — jamais solo carry.",
       "worstMatchups": [
         "Chaman vaudou",
         "Maître du fouet",
@@ -2913,7 +3300,19 @@
         "Lame perforante"
       ],
       "tierMeta": "A",
-      "tierNote": "Moins fort : l'IA se positionne mieux ; fort en TF/contrôle, finitions au retournement difficiles.",
+      "draftJob": "control",
+      "roleTags": [
+        "poke",
+        "engage"
+      ],
+      "viableSlots": [
+        "Top"
+      ],
+      "optimalSlots": [
+        "Bot",
+        "Mid"
+      ],
+      "tierNote": "Moins fort : l'IA se positionne mieux ; fort en TF/contrôle.",
       "worstMatchups": [
         "Ninja",
         "Chasseur",
@@ -2980,7 +3379,19 @@
         "Lame perforante"
       ],
       "tierMeta": "S",
-      "tierNote": "Excellent burst, lane agréable, scale bien en late (surtout avec mod d'augmentation d'objets).",
+      "draftJob": "engage",
+      "roleTags": [
+        "dive",
+        "assassin"
+      ],
+      "viableSlots": [
+        "Mid",
+        "Top"
+      ],
+      "optimalSlots": [
+        "Jungle"
+      ],
+      "tierNote": "Excellent burst, lane agréable, scale bien en late.",
       "worstMatchups": [
         "Porteur de bouclier",
         "Moine",
@@ -3048,7 +3459,20 @@
         "Fragment de corne du géant"
       ],
       "tierMeta": "S",
-      "tierNote": "Bon lane, peut burst les range, DPS constant ; build survie = impact.",
+      "draftJob": "engage",
+      "roleTags": [
+        "aggressive_jungle",
+        "engage",
+        "frontline"
+      ],
+      "viableSlots": [
+        "Mid"
+      ],
+      "optimalSlots": [
+        "Jungle",
+        "Top"
+      ],
+      "tierNote": "Bon lane, burst range, DPS constant ; tempo Serpent/objectifs.",
       "worstMatchups": [
         "Mage de glace",
         "Porteur de bouclier",
@@ -3115,7 +3539,18 @@
         "Lame de vol de vie"
       ],
       "tierMeta": "A",
-      "tierNote": "Plus fort avec l'IA ; faible TF comme Berserker ; comeback dur si behind comme Inquisiteur.",
+      "draftJob": "engage",
+      "roleTags": [
+        "pick_jungle",
+        "dive"
+      ],
+      "viableSlots": [
+        "Top"
+      ],
+      "optimalSlots": [
+        "Jungle"
+      ],
+      "tierNote": "Plus fort avec l'IA ; faible TF comme Berserker.",
       "worstMatchups": [
         "Porteur de bouclier",
         "Moine",
@@ -3183,7 +3618,19 @@
         "Cristal chrono"
       ],
       "tierMeta": "S",
-      "tierNote": "Sort 1 : gros dégâts + farm ; sort 2 bonus en TF. Ult la plus forte des mages si bien réalisée. 4e mage en puissance.",
+      "draftJob": "control",
+      "roleTags": [
+        "mage_burst",
+        "poke",
+        "wave_clear"
+      ],
+      "viableSlots": [
+        "Support"
+      ],
+      "optimalSlots": [
+        "Mid"
+      ],
+      "tierNote": "Sort 1 : gros dégâts + farm ; ult la plus forte des mages si bien réalisée.",
       "worstMatchups": [
         "Ninja",
         "Chasseur",
@@ -3250,6 +3697,17 @@
         "Prophète de l'abîme"
       ],
       "tierMeta": "A",
+      "draftJob": "support",
+      "roleTags": [
+        "peel",
+        "frontline"
+      ],
+      "viableSlots": [
+        "Mid"
+      ],
+      "optimalSlots": [
+        "Support"
+      ],
       "tierNote": "Contre la plupart des projectiles ; faible vs mêlée. Meilleur support après Pythonisse.",
       "worstMatchups": [
         "Ninja",
@@ -3317,6 +3775,18 @@
         "Cristal chrono"
       ],
       "tierMeta": "C",
+      "draftJob": "control",
+      "roleTags": [
+        "mage_burst",
+        "poke",
+        "wave_clear"
+      ],
+      "viableSlots": [
+        "Top"
+      ],
+      "optimalSlots": [
+        "Mid"
+      ],
       "tierNote": "Bon lane, ult faible ; surtout double-tank draft.",
       "worstMatchups": [
         "Ninja",
@@ -3385,7 +3855,19 @@
         "Cristal chrono"
       ],
       "tierMeta": "S",
-      "tierNote": "2e–3e mage du jeu. Avec l'IA améliorée, ne meurt que si le jungler gank ; seuls contres lane : Mage du vent, Guerrier de perche, Mage des ombres. En TF : énorme dégâts ; les alliés ne le vendent plus et peuvent trade ou save au retournement (pas toujours).",
+      "draftJob": "control",
+      "roleTags": [
+        "mage_burst",
+        "engage",
+        "wave_clear"
+      ],
+      "viableSlots": [
+        "Support"
+      ],
+      "optimalSlots": [
+        "Mid"
+      ],
+      "tierNote": "2e–3e mage ; énorme dégâts TF ; anti-dive.",
       "worstMatchups": [
         "Ninja",
         "Chasseur",
@@ -3452,7 +3934,18 @@
         "Cristal chrono"
       ],
       "tierMeta": "S",
-      "tierNote": "Top mages avec Mage de glace. Énorme dégâts, stun, combo avec Double lame (immobilisation), bon contrôle ult.",
+      "draftJob": "control",
+      "roleTags": [
+        "mage_burst",
+        "pick_jungle"
+      ],
+      "viableSlots": [
+        "Jungle"
+      ],
+      "optimalSlots": [
+        "Mid"
+      ],
+      "tierNote": "Top mages avec Mage de glace. Énorme dégâts, stun, combo Double lame.",
       "worstMatchups": [
         "Ninja",
         "Chasseur",
@@ -3520,7 +4013,19 @@
         "Bâton du sorcier"
       ],
       "tierMeta": "S",
-      "tierNote": "Toujours le mage #1. Lane via sort 1, contrôle sort 2 ; en mêlée il peut burst avec le sort 2. Ult pas énorme, mais en TF où les stuns s'alignent, il peut stun à distance — game-winning.",
+      "draftJob": "control",
+      "roleTags": [
+        "mage_burst",
+        "poke",
+        "wave_clear"
+      ],
+      "viableSlots": [
+        "Support"
+      ],
+      "optimalSlots": [
+        "Mid"
+      ],
+      "tierNote": "Toujours le mage #1. Ult game-winning en TF aligné.",
       "worstMatchups": [
         "Ninja",
         "Chasseur",
@@ -3587,6 +4092,17 @@
         "Bâton du sorcier"
       ],
       "tierMeta": "C",
+      "draftJob": "control",
+      "roleTags": [
+        "mage_burst",
+        "poke"
+      ],
+      "viableSlots": [
+        "Support"
+      ],
+      "optimalSlots": [
+        "Mid"
+      ],
       "tierNote": "IA plus smart ; outclassé lane/TF par d'autres mages.",
       "worstMatchups": [
         "Ninja",
@@ -3656,7 +4172,19 @@
         "Lame perforante"
       ],
       "tierMeta": "S",
-      "tierNote": "DPS incomparable ; ult ≈ +1 kill ; impossible à nerf à cause des dégâts % PV max. Contre : survie + dash (Guerrier de perche, Combattant, parfois Épéiste).",
+      "draftJob": "carry",
+      "roleTags": [
+        "aggressive_jungle",
+        "pick_jungle"
+      ],
+      "viableSlots": [
+        "Top",
+        "Mid"
+      ],
+      "optimalSlots": [
+        "Bot"
+      ],
+      "tierNote": "DPS incomparable ; ult ≈ +1 kill ; dégâts % PV max.",
       "worstMatchups": [
         "Ninja",
         "Chasseur",
@@ -3714,6 +4242,7 @@
       "id": "moine",
       "type": "Support de combat",
       "tags": [
+        "engage",
         "frontline",
         "peel"
       ],
@@ -3722,8 +4251,20 @@
         "Fragment de corne du géant",
         "Forteresse imprenable"
       ],
-      "tierMeta": "C",
-      "tierNote": "Occupe le slot de meilleurs supports ; pas devenu génie avec l'IA.",
+      "tierMeta": "B",
+      "draftJob": "support",
+      "roleTags": [
+        "peel",
+        "frontline"
+      ],
+      "viableSlots": [
+        "Top"
+      ],
+      "optimalSlots": [
+        "Support",
+        "Mid"
+      ],
+      "tierNote": "Bruiser engage AoE ; wiki v0.4.11 B+ support — occupe slot des meilleurs supports.",
       "worstMatchups": [
         "Chaman vaudou",
         "Maître du fouet",
@@ -3751,29 +4292,30 @@
         "tankWeight": 1.22
       },
       "colorIdentity": {
-        "W": 13,
-        "U": 5,
+        "W": 8,
+        "U": 4,
         "B": 0,
-        "R": 0,
-        "G": 6,
+        "R": 7,
+        "G": 5,
         "dominant": [
           "W",
-          "G"
+          "R"
         ],
-        "identity": "WG",
+        "identity": "WR",
         "vector": [
-          0.5416666666666666,
-          0.20833333333333334,
+          0.3333333333333333,
+          0.16666666666666666,
           0.0,
-          0.0,
-          0.25
+          0.2916666666666667,
+          0.20833333333333334
         ],
-        "family": "support_enchanter"
+        "family": "support_engage"
       },
-      "family": "support_enchanter",
-      "familyLabel": "Support enchanter",
+      "family": "support_engage",
+      "familyLabel": "Support engage",
       "compTypes": [
-        "hypercarry"
+        "teamfight_engage",
+        "all_in"
       ]
     },
     "Médecin de la peste": {
@@ -3790,6 +4332,17 @@
         "Fragment de corne du géant"
       ],
       "tierMeta": "D",
+      "draftJob": "support",
+      "roleTags": [
+        "engage",
+        "frontline"
+      ],
+      "viableSlots": [
+        "Mid"
+      ],
+      "optimalSlots": [
+        "Support"
+      ],
       "tierNote": "Jouable post-patch ; ult peut ruiner ; besoin 5 strong en mêlée groupée.",
       "worstMatchups": [
         "Ninja",
@@ -3859,7 +4412,18 @@
         "Souverain de la tempête"
       ],
       "tierMeta": "A",
-      "tierNote": "Le plus fort des A ; jungle only — 30 games d'affilée, 2 ruines ; peut solo 3 kills au retournement. Contres : Infanterie lourde, Moine. Pas S car il force 3–4 picks TF sur le reste de la draft.",
+      "draftJob": "engage",
+      "roleTags": [
+        "pick_jungle",
+        "dive",
+        "assassin",
+        "split"
+      ],
+      "viableSlots": [],
+      "optimalSlots": [
+        "Jungle"
+      ],
+      "tierNote": "Le plus fort des A ; jungle only — peut solo 3 kills au retournement.",
       "worstMatchups": [
         "Porteur de bouclier",
         "Moine",
@@ -3928,6 +4492,19 @@
         "Cristal chrono"
       ],
       "tierMeta": "D",
+      "draftJob": "control",
+      "roleTags": [
+        "scaling",
+        "farm_jungle",
+        "wave_clear"
+      ],
+      "viableSlots": [
+        "Top"
+      ],
+      "optimalSlots": [
+        "Mid",
+        "Support"
+      ],
       "tierNote": "Injouable avant buffs ; nerf goules ; comp mono-DPS only.",
       "worstMatchups": [
         "Pyromancien",
@@ -3996,6 +4573,19 @@
         "Voile d'annihilation"
       ],
       "tierMeta": "C",
+      "draftJob": "frontline",
+      "roleTags": [
+        "farm_jungle",
+        "frontline",
+        "scaling"
+      ],
+      "viableSlots": [
+        "Mid"
+      ],
+      "optimalSlots": [
+        "Top",
+        "Jungle"
+      ],
       "tierNote": "Joueur agressif only ; fort tank mais faible si la team ne joue pas autour.",
       "worstMatchups": [
         "Chaman vaudou",
@@ -4062,6 +4652,17 @@
         "Voile d'annihilation"
       ],
       "tierMeta": "B",
+      "draftJob": "support",
+      "roleTags": [
+        "frontline",
+        "peel"
+      ],
+      "viableSlots": [
+        "Top"
+      ],
+      "optimalSlots": [
+        "Support"
+      ],
       "tierNote": "Tank stable, bonne survie, c'est tout.",
       "worstMatchups": [
         "Chaman vaudou",
@@ -4127,6 +4728,15 @@
         "Jugement final du seigneur de guerre"
       ],
       "tierMeta": "D",
+      "draftJob": "frontline",
+      "roleTags": [
+        "frontline"
+      ],
+      "viableSlots": [],
+      "optimalSlots": [
+        "Top",
+        "Jungle"
+      ],
       "tierNote": "Chair à canon.",
       "worstMatchups": [
         "Soldat",
@@ -4192,7 +4802,17 @@
         "Prophète de l'abîme"
       ],
       "tierMeta": "D",
-      "tierNote": "Avec Pythonisse pour fronts immortels → Pythonisse Mid, pas Mage de glace / Mage du vent Mid.",
+      "draftJob": "support",
+      "roleTags": [
+        "peel"
+      ],
+      "viableSlots": [
+        "Mid"
+      ],
+      "optimalSlots": [
+        "Support"
+      ],
+      "tierNote": "Sustain scaling ; Steam D car Pythonisse Mid > Mage glace/vent pour fronts immortels.",
       "worstMatchups": [
         "Ninja",
         "Chasseur",
@@ -4260,7 +4880,20 @@
         "Cristal chrono"
       ],
       "tierMeta": "S",
-      "tierNote": "Chute avec l'IA (court sous tour plus que les autres). Un des S les plus faibles ; lane et dégâts OK, mais les autres mages apportent plus. Toujours fort, mais plus comme avant :(",
+      "draftJob": "carry",
+      "roleTags": [
+        "poke",
+        "mage_burst",
+        "wave_clear"
+      ],
+      "viableSlots": [
+        "Top",
+        "Bot"
+      ],
+      "optimalSlots": [
+        "Mid"
+      ],
+      "tierNote": "Chute avec l'IA ; lane et dégâts OK, moins dominant qu'avant.",
       "worstMatchups": [
         "Ninja",
         "Chasseur",
@@ -4328,7 +4961,19 @@
         "Voile d'annihilation"
       ],
       "tierMeta": "S",
-      "tierNote": "Du plus faible champion du jeu au plus fort support (selon l'auteur). Excellent lane grâce aux sorts 1 et 2. En late, l'ult impacte énormément. Avec la nouvelle IA, ne se expose plus : peut infliger jusqu'à ~20k dégâts et ~40k soins par game (build double PM + PV) ; pick le plus populaire. Apprend à se soigner quand on la focus — ça sauve des games.",
+      "draftJob": "control",
+      "roleTags": [
+        "peel",
+        "mage_burst",
+        "wave_clear"
+      ],
+      "viableSlots": [
+        "Mid"
+      ],
+      "optimalSlots": [
+        "Support"
+      ],
+      "tierNote": "Du plus faible au plus fort support ; ~20k dégâts + ~40k soins par game.",
       "worstMatchups": [
         "Ninja",
         "Chasseur",
@@ -4398,7 +5043,23 @@
         "Lame perforante"
       ],
       "tierMeta": "S",
-      "tierNote": "Avec bons front lanes : quasi impossible à tuer, DPS énorme ; ult dévaste. Positionnement requis, mais peut solo kill.",
+      "draftJob": "carry",
+      "roleTags": [
+        "scaling",
+        "poke",
+        "frontline",
+        "wave_clear",
+        "split"
+      ],
+      "viableSlots": [
+        "Jungle",
+        "Mid"
+      ],
+      "optimalSlots": [
+        "Top",
+        "Bot"
+      ],
+      "tierNote": "Avec bons front lanes : quasi impossible à tuer, DPS énorme ; ult dévaste.",
       "worstMatchups": [
         "Ninja",
         "Chasseur",
@@ -4464,6 +5125,15 @@
         "Fragment de corne du géant"
       ],
       "tierMeta": "D",
+      "draftJob": "support",
+      "roleTags": [
+        "peel"
+      ],
+      "viableSlots": [],
+      "optimalSlots": [
+        "Support",
+        "Mid"
+      ],
       "tierNote": "Disable agréable mais pas worth un slot sur 5.",
       "worstMatchups": [
         "Ninja",
@@ -4531,7 +5201,19 @@
         "Lame perforante"
       ],
       "tierMeta": "B",
-      "tierNote": "Meilleur B perso ; dur à punir ; 2–3 fronts = trop d'impact.",
+      "draftJob": "carry",
+      "roleTags": [
+        "scaling",
+        "poke"
+      ],
+      "viableSlots": [
+        "Mid"
+      ],
+      "optimalSlots": [
+        "Bot",
+        "Top"
+      ],
+      "tierNote": "Meilleur B perso ; scaling carry — besoin 2–3 fronts.",
       "worstMatchups": [
         "Ninja",
         "Chasseur",
@@ -4599,7 +5281,19 @@
         "Lame perforante"
       ],
       "tierMeta": "A",
-      "tierNote": "Du plus faible au ~#2 A : gros DPS, peu d'erreurs ; combo dash + burst + Tueur à gages. Très fort carry.",
+      "draftJob": "carry",
+      "roleTags": [
+        "pick_jungle",
+        "assassin"
+      ],
+      "viableSlots": [
+        "Mid"
+      ],
+      "optimalSlots": [
+        "Jungle",
+        "Bot"
+      ],
+      "tierNote": "Du plus faible au ~#2 A : gros DPS, peu d'erreurs ; très fort carry.",
       "worstMatchups": [
         "Porteur de bouclier",
         "Ogre",
@@ -4668,7 +5362,20 @@
         "Bâton du sorcier"
       ],
       "tierMeta": "A",
-      "tierNote": "Toujours le roi du late ; l'IA combo (ult Infanterie lourde + sort 2 Vampire + ult Vampire ; sort 2 Chevalier magique + stun + sort 2 Vampire). Très agréable, tendance à feed.",
+      "draftJob": "control",
+      "roleTags": [
+        "split",
+        "scaling",
+        "frontline"
+      ],
+      "viableSlots": [
+        "Jungle"
+      ],
+      "optimalSlots": [
+        "Top",
+        "Mid"
+      ],
+      "tierNote": "Toujours le roi du late ; l'IA combo ult Infanterie + sorts.",
       "worstMatchups": [
         "Chaman vaudou",
         "Maître du fouet",
@@ -4736,7 +5443,20 @@
         "Lame de vol de vie"
       ],
       "tierMeta": "S",
-      "tierNote": "Bon early ; l'IA réalise l'ult en 5v5 puis finit. Lane faible sans CC : s'il est catch, il meurt.",
+      "draftJob": "frontline",
+      "roleTags": [
+        "engage",
+        "split",
+        "wave_clear"
+      ],
+      "viableSlots": [
+        "Mid"
+      ],
+      "optimalSlots": [
+        "Top",
+        "Jungle"
+      ],
+      "tierNote": "Bon early ; l'IA réalise l'ult en 5v5. Lane faible sans CC.",
       "worstMatchups": [
         "Porteur de bouclier",
         "Mage de glace",

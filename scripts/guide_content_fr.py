@@ -245,6 +245,22 @@ Sur toute difficulté et tout paramètre (sauf skip recrutement), c'est le meill
                 "name": "Danseuse",
                 "text": "Lane IA prudente → plus faible. Avant : A-tier carry ; 3 premiers kills critiques ; encore plus dur maintenant.",
             },
+            {
+                "name": "Chevalier",
+                "text": "Tank stable ; wiki v0.4.11 B+ frontline — meilleur avec 2 fronts en TF.",
+            },
+            {
+                "name": "Chevalier magique",
+                "text": "Bruiser/mage menaçant ; wiki B+ — vulnérable mass stun et burst.",
+            },
+            {
+                "name": "Jiangshi",
+                "text": "Complément peel ; wiki v0.4.11 B+ support — jamais solo carry.",
+            },
+            {
+                "name": "Moine",
+                "text": "Bruiser engage AoE ; wiki v0.4.11 B+ support — occupe slot des meilleurs supports.",
+            },
         ],
     },
     {
@@ -256,16 +272,8 @@ Sur toute difficulté et tout paramètre (sauf skip recrutement), c'est le meill
                 "text": "Fort early, TF difficile ; espace = menace.",
             },
             {
-                "name": "Chevalier magique",
-                "text": "Tue **Ogre** sans MR ; poubelle sous mass stun ; dépend des lanes pour le late.",
-            },
-            {
                 "name": "Guerrier de perche",
                 "text": "Fort mais catch plus fréquent avec IA.",
-            },
-            {
-                "name": "Moine",
-                "text": "Occupe le slot de meilleurs supports ; pas devenu génie avec l'IA.",
             },
             {
                 "name": "Ogre",
@@ -280,16 +288,8 @@ Sur toute difficulté et tout paramètre (sauf skip recrutement), c'est le meill
                 "text": "Bon lane, ult faible ; surtout double-tank draft.",
             },
             {
-                "name": "Chevalier",
-                "text": "Faible avant buffs ; avec 2 fronts = TF gagnables.",
-            },
-            {
                 "name": "Mage noir",
                 "text": "IA plus smart ; outclassé lane/TF par d'autres mages.",
-            },
-            {
-                "name": "Jiangshi",
-                "text": "Complément only, jamais solo carry.",
             },
             {
                 "name": "Exorciste",

@@ -1,6 +1,8 @@
 {
-  "version": "2026-06",
+  "version": "2026-06-v0.4.11",
+  "patchRef": "v0.4.11",
   "source": "C:\\Users\\Admin\\.cursor\\skills\\teamfight-manager-2\\champions-abilities.md",
+  "sourceNotes": "Steam guide IA patch (3736370046) — tiers S–D ; TFM2 Wiki v0.4.11 (2026-06-09) — rôles draft ; DQ7 Ban-Pick / Personal Tier — positions viables",
   "championCount": 60,
   "champions": [
     {
@@ -10,6 +12,15 @@
       "positions": "Toutes · optimal : Support",
       "optimalSlots": [
         "Support"
+      ],
+      "viableSlots": [
+        "Top",
+        "Mid"
+      ],
+      "draftJob": "support",
+      "roleTags": [
+        "frontline",
+        "peel"
       ],
       "raison": "Boucliers alliés + téléport peel ; aucun besoin d'or/XP.",
       "stats": null,
@@ -90,9 +101,9 @@
       ],
       "computedBestPairings": [
         "Bombardier",
+        "Tireur",
         "Archer",
         "Chasseur de boomerang",
-        "Tireur",
         "Soldat"
       ],
       "draftProfile": {
@@ -116,7 +127,16 @@
       "optimalSlots": [
         "Bot"
       ],
-      "raison": "Marksman AD  ; +20 % or recommandé.",
+      "viableSlots": [
+        "Mid",
+        "Top"
+      ],
+      "draftJob": "carry",
+      "roleTags": [
+        "scaling",
+        "poke"
+      ],
+      "raison": "**Type** : À distance (Marksman)",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -221,7 +241,14 @@
       "optimalSlots": [
         "Support"
       ],
-      "raison": "Buffs AS/CDR alliés ; zéro scaling carry.",
+      "viableSlots": [
+        "Mid"
+      ],
+      "draftJob": "support",
+      "roleTags": [
+        "peel"
+      ],
+      "raison": "**Type** : Support de combat",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -301,8 +328,8 @@
       "computedBestPairings": [
         "Chasseur de boomerang",
         "Joueur",
-        "Archer",
         "Soldat",
+        "Archer",
         "Bombardier"
       ],
       "draftProfile": {
@@ -324,9 +351,19 @@
       "type": "Guerrier (DPS / Bruiser)",
       "positions": "Toutes · optimal : Top · Jungle",
       "optimalSlots": [
-        "Top"
+        "Top",
+        "Jungle"
       ],
-      "raison": "Top : bruiser sustain + regen % sur longs trades. Jungle alt : dash + MS jungle.",
+      "viableSlots": [
+        "Mid"
+      ],
+      "draftJob": "frontline",
+      "roleTags": [
+        "aggressive_jungle",
+        "split",
+        "engage"
+      ],
+      "raison": "**Type** : Guerrier (DPS / Bruiser)",
       "stats": null,
       "worstMatchups": [
         "Chaman vaudou",
@@ -431,7 +468,18 @@
       "optimalSlots": [
         "Bot"
       ],
-      "raison": "Artillerie AD item-dépendante  ; +20 % or recommandé.",
+      "viableSlots": [
+        "Mid",
+        "Top",
+        "Jungle"
+      ],
+      "draftJob": "carry",
+      "roleTags": [
+        "poke",
+        "mage_burst",
+        "wave_clear"
+      ],
+      "raison": "**Type** : À distance (Artillerie)",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -536,7 +584,16 @@
       "optimalSlots": [
         "Top"
       ],
-      "raison": "Waveclear mêlée + bonus structures ; slot lane solo.",
+      "viableSlots": [
+        "Jungle"
+      ],
+      "draftJob": "engage",
+      "roleTags": [
+        "aggressive_jungle",
+        "engage",
+        "wave_clear"
+      ],
+      "raison": "**Type** : Guerrier (Anti-structure)",
       "stats": null,
       "worstMatchups": [
         "Soldat",
@@ -641,7 +698,15 @@
       "optimalSlots": [
         "Mid"
       ],
-      "raison": "PM + DoT % PV max ; +20 % XP scale les sorts.",
+      "viableSlots": [
+        "Support"
+      ],
+      "draftJob": "control",
+      "roleTags": [
+        "mage_burst",
+        "wave_clear"
+      ],
+      "raison": "**Type** : Mage (Contrôle / DoT)",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -715,8 +780,8 @@
         "Soldat",
         "Mage noir",
         "Nécromancien",
-        "Vampire",
-        "Chevalier magique"
+        "Chevalier magique",
+        "Vampire"
       ],
       "computedBestPairings": [
         "Enchanteur",
@@ -744,7 +809,17 @@
       "optimalSlots": [
         "Jungle"
       ],
-      "raison": "Téléport + reset ult ; MS jungle + exécute épiques.",
+      "viableSlots": [
+        "Mid",
+        "Top"
+      ],
+      "draftJob": "engage",
+      "roleTags": [
+        "pick_jungle",
+        "dive",
+        "assassin"
+      ],
+      "raison": "**Type** : Assassin",
       "stats": null,
       "worstMatchups": [
         "Porteur de bouclier",
@@ -817,8 +892,8 @@
       "computedWorstMatchups": [
         "Jiangshi",
         "Prêtre",
-        "Androïde",
         "Moine",
+        "Androïde",
         "Dokkaebi"
       ],
       "computedBestPairings": [
@@ -826,7 +901,7 @@
         "Mage des ombres",
         "Mage noir",
         "Mage blanc",
-        "Druide"
+        "Chevalier magique"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -849,7 +924,15 @@
       "optimalSlots": [
         "Bot"
       ],
-      "raison": "Scaling AD sur rebonds  ; +20 % or recommandé. Pas de regen Top utile.",
+      "viableSlots": [
+        "Mid",
+        "Top"
+      ],
+      "draftJob": "carry",
+      "roleTags": [
+        "poke"
+      ],
+      "raison": "**Type** : À distance",
       "stats": null,
       "worstMatchups": [
         "Mage de barrière",
@@ -952,9 +1035,18 @@
       "type": "À distance (Poison)",
       "positions": "Toutes · optimal : Support · Bot",
       "optimalSlots": [
-        "Support"
+        "Support",
+        "Bot"
       ],
-      "raison": "Support : ult poison sur alliés. Bot alt : carry AD empoisonneur.",
+      "viableSlots": [
+        "Mid"
+      ],
+      "draftJob": "carry",
+      "roleTags": [
+        "poke",
+        "scaling"
+      ],
+      "raison": "**Type** : À distance (Poison)",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -976,7 +1068,7 @@
         "Lame de vol de vie"
       ],
       "tierMeta": "S",
-      "tierNote": "Énorme gain de positionnement, gros dégâts, peut « saler » la game (rare). Cible prioritaire #3 (avec Mage blanc et Maître du fouet).",
+      "tierNote": "Énorme gain de positionnement, gros dégâts, peut « saler » la game (rare). Cible prioritaire #3.",
       "abilities": [
         {
           "slot": "Ability 1",
@@ -1032,11 +1124,11 @@
         "Clown"
       ],
       "computedBestPairings": [
-        "Maître du fouet",
         "Moine",
+        "Maître du fouet",
+        "Chevalier de cavalerie",
         "Bombardier",
-        "Danseuse",
-        "Prêtre"
+        "Danseuse"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -1059,7 +1151,15 @@
       "optimalSlots": [
         "Support"
       ],
-      "raison": "Soins + buff +50 % PV max allié ; funnel or au carry voisin.",
+      "viableSlots": [
+        "Top"
+      ],
+      "draftJob": "support",
+      "roleTags": [
+        "frontline",
+        "wave_clear"
+      ],
+      "raison": "**Type** : Support de combat",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -1140,8 +1240,8 @@
         "Bombardier",
         "Archer",
         "Chasseur de boomerang",
-        "Joueur",
-        "Chasseur de fléchettes empoisonnées"
+        "Chasseur de fléchettes empoisonnées",
+        "Joueur"
       ],
       "draftProfile": {
         "damage": "AP",
@@ -1160,11 +1260,20 @@
       "id": "chevalier",
       "name": "Chevalier",
       "type": "Guerrier (Tank)",
-      "positions": "Toutes · optimal : Support",
+      "positions": "Toutes · optimal : Top · Support",
       "optimalSlots": [
+        "Top",
         "Support"
       ],
-      "raison": "Provocation + zone -dégâts ; kit peel pur.",
+      "viableSlots": [
+        "Mid"
+      ],
+      "draftJob": "frontline",
+      "roleTags": [
+        "frontline",
+        "engage"
+      ],
+      "raison": "**Type** : Guerrier (Tank)",
       "stats": "AD 80→146 | PM 0 | HP 1100→2420 | Arm 40→150 | RM 30→85 | Portée 25 | MS 60→66.6",
       "worstMatchups": [
         "Chaman vaudou",
@@ -1185,8 +1294,8 @@
         "Fragment de corne du géant",
         "Jugement final du seigneur de guerre"
       ],
-      "tierMeta": "C",
-      "tierNote": "Faible avant buffs ; avec 2 fronts = TF gagnables.",
+      "tierMeta": "B",
+      "tierNote": "Tank stable ; wiki v0.4.11 B+ frontline — meilleur avec 2 fronts en TF.",
       "abilities": [
         {
           "slot": "Ability 1",
@@ -1215,24 +1324,24 @@
       "gridCol": 2,
       "icon": "icons/chevalier.png",
       "colorIdentity": {
-        "W": 8,
-        "U": 3,
-        "B": 1,
-        "R": 7,
+        "W": 5,
+        "U": 2,
+        "B": 2,
+        "R": 10,
         "G": 5,
         "dominant": [
-          "W",
-          "R"
+          "R",
+          "W"
         ],
-        "identity": "WR",
+        "identity": "RW",
         "vector": [
-          0.3333333333333333,
-          0.125,
-          0.041666666666666664,
-          0.2916666666666667,
+          0.20833333333333334,
+          0.08333333333333333,
+          0.08333333333333333,
+          0.4166666666666667,
           0.20833333333333334
         ],
-        "family": "tank_engage"
+        "family": "support_engage"
       },
       "computedWorstMatchups": [
         "Archer",
@@ -1242,11 +1351,11 @@
         "Exorciste"
       ],
       "computedBestPairings": [
-        "Mage blanc",
-        "Mage du vent",
         "Chasseur de boomerang",
         "Joueur",
-        "Mage de foudre"
+        "Soldat",
+        "Bombardier",
+        "Archer"
       ],
       "draftProfile": {
         "damage": "Mixed",
@@ -1265,11 +1374,23 @@
       "id": "chevalier-de-cavalerie",
       "name": "Chevalier de cavalerie",
       "type": "Guerrier (Charge)",
-      "positions": "Toutes · optimal : Jungle · Top",
+      "positions": "Toutes · optimal : Jungle · Top · Bot",
       "optimalSlots": [
-        "Jungle"
+        "Jungle",
+        "Top",
+        "Bot"
       ],
-      "raison": "Jungle : charge + MS jungle + exécute. Top alt : front secondaire.",
+      "viableSlots": [
+        "Mid",
+        "Support"
+      ],
+      "draftJob": "frontline",
+      "roleTags": [
+        "aggressive_jungle",
+        "engage",
+        "split"
+      ],
+      "raison": "**Type** : Guerrier (Charge)",
       "stats": null,
       "worstMatchups": [
         "Mage de glace",
@@ -1291,7 +1412,7 @@
         "Fragment de corne du géant"
       ],
       "tierMeta": "A",
-      "tierNote": "Gros dégâts early, excellent TF sous ult, kills stables. Ordre de valeur : Jungle → Top → Bot → Mid → Support. Item PV obligatoire slot 1–2.",
+      "tierNote": "Gros dégâts early, excellent TF sous ult. Ordre : Jungle → Top → Bot → Mid → Support.",
       "abilities": [
         {
           "slot": "Ability 1",
@@ -1370,11 +1491,20 @@
       "id": "chevalier-magique",
       "name": "Chevalier magique",
       "type": "Guerrier (Mage)",
-      "positions": "Toutes · optimal : Mid",
+      "positions": "Toutes · optimal : Mid · Top",
       "optimalSlots": [
-        "Mid"
+        "Mid",
+        "Top"
       ],
-      "raison": "PM + ult range/AS ; +20 % XP.",
+      "viableSlots": [
+        "Jungle"
+      ],
+      "draftJob": "frontline",
+      "roleTags": [
+        "frontline",
+        "mage_burst"
+      ],
+      "raison": "**Type** : Guerrier (Mage)",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -1395,8 +1525,8 @@
         "Voile d'annihilation",
         "Fragment de corne du géant"
       ],
-      "tierMeta": "C",
-      "tierNote": "Tue Ogre sans MR ; poubelle sous mass stun ; dépend des lanes pour le late.",
+      "tierMeta": "B",
+      "tierNote": "Bruiser/mage menaçant ; wiki B+ — vulnérable mass stun et burst.",
       "abilities": [
         {
           "slot": "Ability 1",
@@ -1455,8 +1585,8 @@
         "Mage noir",
         "Nécromancien",
         "Mage blanc",
-        "Mage de foudre",
-        "Mage du vent"
+        "Mage du vent",
+        "Mage de foudre"
       ],
       "draftProfile": {
         "damage": "Mixed",
@@ -1475,11 +1605,22 @@
       "id": "clown",
       "name": "Clown",
       "type": "Assassin",
-      "positions": "Toutes · optimal : Jungle",
+      "positions": "Toutes · optimal : Jungle · Mid",
       "optimalSlots": [
-        "Jungle"
+        "Jungle",
+        "Mid"
       ],
-      "raison": "Téléport + frénésie ; mobilité jungle.",
+      "viableSlots": [
+        "Top"
+      ],
+      "draftJob": "engage",
+      "roleTags": [
+        "pick_jungle",
+        "aggressive_jungle",
+        "dive",
+        "assassin"
+      ],
+      "raison": "**Type** : Assassin",
       "stats": null,
       "worstMatchups": [
         "Porteur de bouclier",
@@ -1561,7 +1702,7 @@
         "Bombardier",
         "Mage des ombres",
         "Mage blanc",
-        "Druide"
+        "Chevalier magique"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -1580,11 +1721,22 @@
       "id": "combattant",
       "name": "Combattant",
       "type": "Guerrier",
-      "positions": "Toutes · optimal : Top",
+      "positions": "Toutes · optimal : Top · Support",
       "optimalSlots": [
-        "Top"
+        "Top",
+        "Support"
       ],
-      "raison": "Charge CC + knockup AoE ; front lane + regen %.",
+      "viableSlots": [
+        "Jungle",
+        "Mid"
+      ],
+      "draftJob": "frontline",
+      "roleTags": [
+        "aggressive_jungle",
+        "engage",
+        "frontline"
+      ],
+      "raison": "**Type** : Guerrier",
       "stats": null,
       "worstMatchups": [
         "Soldat",
@@ -1662,11 +1814,11 @@
         "Exorciste"
       ],
       "computedBestPairings": [
-        "Mage blanc",
-        "Mage du vent",
         "Chasseur de boomerang",
         "Soldat",
-        "Mage de foudre"
+        "Bombardier",
+        "Mage blanc",
+        "Mage du vent"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -1689,7 +1841,16 @@
       "optimalSlots": [
         "Bot"
       ],
-      "raison": "Stacks chakram = scaling AD ; +20 % or recommandé.",
+      "viableSlots": [
+        "Mid",
+        "Top"
+      ],
+      "draftJob": "carry",
+      "roleTags": [
+        "scaling",
+        "dive"
+      ],
+      "raison": "**Type** : À distance",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -1711,7 +1872,7 @@
         "Lame perforante"
       ],
       "tierMeta": "B",
-      "tierNote": "Lane IA prudente → plus faible. Avant : A-tier carry ; 3 premiers kills critiques ; encore plus dur maintenant.",
+      "tierNote": "Lane IA prudente → plus faible. 3 premiers kills critiques.",
       "abilities": [
         {
           "slot": "Ability 1",
@@ -1794,7 +1955,14 @@
       "optimalSlots": [
         "Top"
       ],
-      "raison": "Waveclear mêlée + bouclier/réduction ; bruiser lane.",
+      "viableSlots": [
+        "Jungle"
+      ],
+      "draftJob": "frontline",
+      "roleTags": [
+        "engage"
+      ],
+      "raison": "**Type** : Guerrier",
       "stats": null,
       "worstMatchups": [
         "Chaman vaudou",
@@ -1897,9 +2065,18 @@
       "type": "Guerrier",
       "positions": "Toutes · optimal : Jungle · Top",
       "optimalSlots": [
-        "Jungle"
+        "Jungle",
+        "Top"
       ],
-      "raison": "Jungle : dash + combo immobilise. Top alt : bruiser mêlée.",
+      "viableSlots": [
+        "Mid"
+      ],
+      "draftJob": "engage",
+      "roleTags": [
+        "engage",
+        "dive"
+      ],
+      "raison": "**Type** : Guerrier",
       "stats": null,
       "worstMatchups": [
         "Porteur de bouclier",
@@ -1921,7 +2098,7 @@
         "Lame perforante"
       ],
       "tierMeta": "S",
-      "tierNote": "Toujours excellent en lane, gros dégâts, et ne meurt plus autant après les patchs. Très bon pick.",
+      "tierNote": "Toujours excellent en lane, gros dégâts, ne meurt plus autant après les patchs.",
       "abilities": [
         {
           "slot": "Ability 1",
@@ -1971,8 +2148,8 @@
       },
       "computedWorstMatchups": [
         "Jiangshi",
-        "Moine",
         "Prêtre",
+        "Moine",
         "Androïde",
         "Porteur de bouclier"
       ],
@@ -2000,11 +2177,20 @@
       "id": "druide",
       "name": "Druide",
       "type": "Mage (Invocation)",
-      "positions": "Toutes · optimal : Mid",
+      "positions": "Toutes · optimal : Top · Jungle",
       "optimalSlots": [
+        "Top",
+        "Jungle"
+      ],
+      "viableSlots": [
         "Mid"
       ],
-      "raison": "Invocations PM ; +20 % XP scale durées/soins.",
+      "draftJob": "control",
+      "roleTags": [
+        "farm_jungle",
+        "split"
+      ],
+      "raison": "**Type** : Mage (Invocation)",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -2026,7 +2212,7 @@
         "Voile d'annihilation"
       ],
       "tierMeta": "A",
-      "tierNote": "Jouable partout, meilleur Top ; le micro-contrôle du joueur se ressent : high micro = très fort. Stable.",
+      "tierNote": "Jouable partout, meilleur Top ; micro-contrôle joueur = très fort.",
       "abilities": [
         {
           "slot": "Ability 1",
@@ -2109,7 +2295,16 @@
       "optimalSlots": [
         "Jungle"
       ],
-      "raison": "Swap + peur ; burst mobile.",
+      "viableSlots": [
+        "Mid",
+        "Top"
+      ],
+      "draftJob": "engage",
+      "roleTags": [
+        "pick_jungle",
+        "dive"
+      ],
+      "raison": "**Type** : Assassin",
       "stats": null,
       "worstMatchups": [
         "Porteur de bouclier",
@@ -2131,7 +2326,7 @@
         "Lame perforante"
       ],
       "tierMeta": "A",
-      "tierNote": "Crits + survie = 800+ DPS sans magie ; peut sembler immortel ; très vulnérable aux stuns → pas S.",
+      "tierNote": "Crits + survie ; très vulnérable aux stuns → pas S.",
       "abilities": [
         {
           "slot": "Ability 1",
@@ -2182,16 +2377,16 @@
       "computedWorstMatchups": [
         "Jiangshi",
         "Prêtre",
+        "Moine",
         "Androïde",
-        "Porteur de bouclier",
-        "Moine"
+        "Porteur de bouclier"
       ],
       "computedBestPairings": [
         "Bombardier",
         "Mage des ombres",
         "Mage noir",
         "Mage blanc",
-        "Druide"
+        "Chevalier magique"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -2214,7 +2409,15 @@
       "optimalSlots": [
         "Support"
       ],
-      "raison": "Buff portée/objets/immunité CC alliés.",
+      "viableSlots": [
+        "Mid"
+      ],
+      "draftJob": "support",
+      "roleTags": [
+        "peel",
+        "scaling"
+      ],
+      "raison": "**Type** : Support de combat",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -2288,11 +2491,11 @@
         "Prêtre"
       ],
       "computedBestPairings": [
+        "Tireur",
         "Archer",
         "Chasseur de boomerang",
-        "Joueur",
-        "Tireur",
-        "Chasseur de fléchettes empoisonnées"
+        "Chasseur de fléchettes empoisonnées",
+        "Joueur"
       ],
       "draftProfile": {
         "damage": "AP",
@@ -2315,7 +2518,14 @@
       "optimalSlots": [
         "Support"
       ],
-      "raison": "Soins + sanctuaire ; utility pure.",
+      "viableSlots": [
+        "Mid"
+      ],
+      "draftJob": "support",
+      "roleTags": [
+        "peel"
+      ],
+      "raison": "**Type** : Support de combat",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -2395,9 +2605,9 @@
       "computedBestPairings": [
         "Archer",
         "Chasseur de boomerang",
+        "Chasseur de fléchettes empoisonnées",
         "Joueur",
-        "Bombardier",
-        "Chasseur de fléchettes empoisonnées"
+        "Soldat"
       ],
       "draftProfile": {
         "damage": "AP",
@@ -2420,7 +2630,14 @@
       "optimalSlots": [
         "Support"
       ],
-      "raison": "Cleanse + heal burst allié ; buff sans or.",
+      "viableSlots": [
+        "Mid"
+      ],
+      "draftJob": "support",
+      "roleTags": [
+        "peel"
+      ],
+      "raison": "**Type** : Support de combat",
       "stats": null,
       "worstMatchups": [
         "Chaman vaudou",
@@ -2496,8 +2713,8 @@
       "computedBestPairings": [
         "Archer",
         "Chasseur de boomerang",
-        "Joueur",
         "Chasseur de fléchettes empoisonnées",
+        "Joueur",
         "Soldat"
       ],
       "draftProfile": {
@@ -2519,9 +2736,18 @@
       "type": "Guerrier",
       "positions": "Toutes · optimal : Jungle · Top",
       "optimalSlots": [
-        "Jungle"
+        "Jungle",
+        "Top"
       ],
-      "raison": "Jungle : hook pick + MS + exécute épiques. Top alt : saignement front.",
+      "viableSlots": [
+        "Mid"
+      ],
+      "draftJob": "engage",
+      "roleTags": [
+        "poke",
+        "frontline"
+      ],
+      "raison": "**Type** : Guerrier",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -2626,7 +2852,16 @@
       "optimalSlots": [
         "Jungle"
       ],
-      "raison": "Stacks AS/ms sur kills ; reset dash jungle.",
+      "viableSlots": [
+        "Mid",
+        "Top"
+      ],
+      "draftJob": "control",
+      "roleTags": [
+        "farm_jungle",
+        "scaling"
+      ],
+      "raison": "**Type** : Assassin",
       "stats": null,
       "worstMatchups": [
         "Porteur de bouclier",
@@ -2699,8 +2934,8 @@
       "computedWorstMatchups": [
         "Jiangshi",
         "Prêtre",
-        "Androïde",
         "Moine",
+        "Androïde",
         "Dokkaebi"
       ],
       "computedBestPairings": [
@@ -2708,7 +2943,7 @@
         "Mage des ombres",
         "Mage noir",
         "Mage blanc",
-        "Druide"
+        "Chevalier magique"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -2727,11 +2962,20 @@
       "id": "guerrier-de-perche",
       "name": "Guerrier de perche",
       "type": "Guerrier",
-      "positions": "Toutes · optimal : Jungle",
+      "positions": "Toutes · optimal : Top · Jungle",
       "optimalSlots": [
+        "Top",
         "Jungle"
       ],
-      "raison": "Sauts + charge ult 120 ; MS jungle.",
+      "viableSlots": [
+        "Mid"
+      ],
+      "draftJob": "frontline",
+      "roleTags": [
+        "frontline",
+        "engage"
+      ],
+      "raison": "**Type** : Guerrier",
       "stats": null,
       "worstMatchups": [
         "Porteur de bouclier",
@@ -2834,9 +3078,19 @@
       "type": "Mage (Contrôle)",
       "positions": "Toutes · optimal : Mid · Support",
       "optimalSlots": [
-        "Mid"
+        "Mid",
+        "Support"
       ],
-      "raison": "Mid : PM + contrôle + XP. Support alt : taunt/illusion sans or.",
+      "viableSlots": [
+        "Top"
+      ],
+      "draftJob": "control",
+      "roleTags": [
+        "engage",
+        "mage_burst",
+        "wave_clear"
+      ],
+      "raison": "**Type** : Mage (Contrôle)",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -2910,15 +3164,15 @@
         "Soldat",
         "Mage noir",
         "Nécromancien",
-        "Vampire",
-        "Chevalier magique"
+        "Chevalier magique",
+        "Vampire"
       ],
       "computedBestPairings": [
-        "Berserker",
-        "Briseur de siège",
         "Chevalier de cavalerie",
-        "Combattant",
-        "Infanterie lourde"
+        "Tueur à gages",
+        "Bombardier",
+        "Berserker",
+        "Briseur de siège"
       ],
       "draftProfile": {
         "damage": "AP",
@@ -2941,7 +3195,15 @@
       "optimalSlots": [
         "Top"
       ],
-      "raison": "2420 PV + waveclear mêlée ; regen % maximale.",
+      "viableSlots": [
+        "Jungle"
+      ],
+      "draftJob": "frontline",
+      "roleTags": [
+        "frontline",
+        "engage"
+      ],
+      "raison": "**Type** : Guerrier (Tank)",
       "stats": "AD 80→146 | PM 0 | HP 1100→2420 | Arm 40→150 | RM 30→85 | Portée 28 | MS 60→66.6",
       "worstMatchups": [
         "Chaman vaudou",
@@ -2963,7 +3225,7 @@
         "Voile d'annihilation"
       ],
       "tierMeta": "B",
-      "tierNote": "Stable, favori perso. Ex. sous buff Morgard : push seul, ult repousse 5 ennemis, push tour.",
+      "tierNote": "Stable, favori perso. Ult repousse 5 ennemis sous buff Morgard.",
       "abilities": [
         {
           "slot": "Ability 1",
@@ -3046,7 +3308,18 @@
       "optimalSlots": [
         "Jungle"
       ],
-      "raison": "Exécute 15 % PV + saignement ; MS jungle + reset combo.",
+      "viableSlots": [
+        "Mid",
+        "Top"
+      ],
+      "draftJob": "engage",
+      "roleTags": [
+        "aggressive_jungle",
+        "pick_jungle",
+        "dive",
+        "assassin"
+      ],
+      "raison": "**Type** : Assassin",
       "stats": null,
       "worstMatchups": [
         "Porteur de bouclier",
@@ -3068,7 +3341,7 @@
         "Lame perforante"
       ],
       "tierMeta": "A",
-      "tierNote": "Le plus fort quand tu domines ; gros dégâts, snowball. Si tu perds la lane et le jungle n'a pas d'avantage (slot jungle habituel) : TRÈS dur à jouer.",
+      "tierNote": "Le plus fort quand tu domines ; gros dégâts, snowball.",
       "abilities": [
         {
           "slot": "Ability 1",
@@ -3119,8 +3392,8 @@
       "computedWorstMatchups": [
         "Jiangshi",
         "Prêtre",
-        "Androïde",
         "Moine",
+        "Androïde",
         "Dokkaebi"
       ],
       "computedBestPairings": [
@@ -3128,7 +3401,7 @@
         "Mage des ombres",
         "Mage noir",
         "Mage blanc",
-        "Druide"
+        "Chevalier magique"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -3151,7 +3424,14 @@
       "optimalSlots": [
         "Support"
       ],
-      "raison": "Soins/boucliers/debuff esprits ; funnel or au carry.",
+      "viableSlots": [
+        "Mid"
+      ],
+      "draftJob": "support",
+      "roleTags": [
+        "peel"
+      ],
+      "raison": "**Type** : Support de combat",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -3231,9 +3511,9 @@
       "computedBestPairings": [
         "Archer",
         "Chasseur de boomerang",
-        "Bombardier",
         "Soldat",
-        "Joueur"
+        "Bombardier",
+        "Chasseur de fléchettes empoisonnées"
       ],
       "draftProfile": {
         "damage": "AP",
@@ -3252,11 +3532,20 @@
       "id": "jiangshi",
       "name": "Jiangshi",
       "type": "Guerrier",
-      "positions": "Toutes · optimal : Top",
+      "positions": "Toutes · optimal : Top · Support",
       "optimalSlots": [
-        "Top"
+        "Top",
+        "Support"
       ],
-      "raison": "Drain + self-heal ; sustain lane mêlée.",
+      "viableSlots": [
+        "Mid"
+      ],
+      "draftJob": "support",
+      "roleTags": [
+        "frontline",
+        "peel"
+      ],
+      "raison": "**Type** : Guerrier",
       "stats": null,
       "worstMatchups": [
         "Chaman vaudou",
@@ -3277,8 +3566,8 @@
         "Forteresse imprenable",
         "Voile d'annihilation"
       ],
-      "tierMeta": "C",
-      "tierNote": "Complément only, jamais solo carry.",
+      "tierMeta": "B",
+      "tierNote": "Complément peel ; wiki v0.4.11 B+ support — jamais solo carry.",
       "abilities": [
         {
           "slot": "Ability 1",
@@ -3357,11 +3646,20 @@
       "id": "joueur",
       "name": "Joueur",
       "type": "À distance",
-      "positions": "Toutes · optimal : Bot",
+      "positions": "Toutes · optimal : Bot · Mid",
       "optimalSlots": [
-        "Bot"
+        "Bot",
+        "Mid"
       ],
-      "raison": "AD 320 + multi-hit ;",
+      "viableSlots": [
+        "Top"
+      ],
+      "draftJob": "control",
+      "roleTags": [
+        "poke",
+        "engage"
+      ],
+      "raison": "**Type** : À distance",
       "stats": "AD 100→320 | PM 0 | HP 900→1890 | Arm 20→97 | RM 15→48 | Portée 50 | MS 54→59.9",
       "worstMatchups": [
         "Ninja",
@@ -3383,7 +3681,7 @@
         "Lame perforante"
       ],
       "tierMeta": "A",
-      "tierNote": "Moins fort : l'IA se positionne mieux ; fort en TF/contrôle, finitions au retournement difficiles.",
+      "tierNote": "Moins fort : l'IA se positionne mieux ; fort en TF/contrôle.",
       "abilities": [
         {
           "slot": "Ability 1",
@@ -3466,7 +3764,16 @@
       "optimalSlots": [
         "Jungle"
       ],
-      "raison": "MS 75 + murs + burst ; exécute épiques.",
+      "viableSlots": [
+        "Mid",
+        "Top"
+      ],
+      "draftJob": "engage",
+      "roleTags": [
+        "dive",
+        "assassin"
+      ],
+      "raison": "**Type** : Assassin",
       "stats": "AD 100→320 | PM 0 | HP 900→1780 | Arm 20→97 | RM 15→48 | Portée 23 | MS 66→75.2",
       "worstMatchups": [
         "Porteur de bouclier",
@@ -3488,7 +3795,7 @@
         "Lame perforante"
       ],
       "tierMeta": "S",
-      "tierNote": "Excellent burst, lane agréable, scale bien en late (surtout avec mod d'augmentation d'objets).",
+      "tierNote": "Excellent burst, lane agréable, scale bien en late.",
       "abilities": [
         {
           "slot": "Ability 1",
@@ -3539,8 +3846,8 @@
       "computedWorstMatchups": [
         "Jiangshi",
         "Prêtre",
-        "Androïde",
         "Moine",
+        "Androïde",
         "Dokkaebi"
       ],
       "computedBestPairings": [
@@ -3548,7 +3855,7 @@
         "Mage des ombres",
         "Mage noir",
         "Mage blanc",
-        "Druide"
+        "Chevalier magique"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -3569,9 +3876,19 @@
       "type": "Guerrier",
       "positions": "Toutes · optimal : Jungle · Top",
       "optimalSlots": [
-        "Jungle"
+        "Jungle",
+        "Top"
       ],
-      "raison": "Jungle : charges + MS. Top alt : front 2420 PV.",
+      "viableSlots": [
+        "Mid"
+      ],
+      "draftJob": "engage",
+      "roleTags": [
+        "aggressive_jungle",
+        "engage",
+        "frontline"
+      ],
+      "raison": "**Type** : Guerrier",
       "stats": null,
       "worstMatchups": [
         "Mage de glace",
@@ -3593,7 +3910,7 @@
         "Fragment de corne du géant"
       ],
       "tierMeta": "S",
-      "tierNote": "Bon lane, peut burst les range, DPS constant ; build survie = impact.",
+      "tierNote": "Bon lane, burst range, DPS constant ; tempo Serpent/objectifs.",
       "abilities": [
         {
           "slot": "Ability 1",
@@ -3676,7 +3993,15 @@
       "optimalSlots": [
         "Jungle"
       ],
-      "raison": "MS 75 + saignement ;",
+      "viableSlots": [
+        "Top"
+      ],
+      "draftJob": "engage",
+      "roleTags": [
+        "pick_jungle",
+        "dive"
+      ],
+      "raison": "**Type** : Assassin",
       "stats": "AD 100→320 | PM 0 | HP 900→1780 | Arm 25→102 | RM 15→48 | Portée 23 | MS 66→75.2",
       "worstMatchups": [
         "Porteur de bouclier",
@@ -3698,7 +4023,7 @@
         "Lame de vol de vie"
       ],
       "tierMeta": "A",
-      "tierNote": "Plus fort avec l'IA ; faible TF comme Berserker ; comeback dur si behind comme Inquisiteur.",
+      "tierNote": "Plus fort avec l'IA ; faible TF comme Berserker.",
       "abilities": [
         {
           "slot": "Ability 1",
@@ -3749,8 +4074,8 @@
       "computedWorstMatchups": [
         "Jiangshi",
         "Prêtre",
-        "Androïde",
         "Moine",
+        "Androïde",
         "Dokkaebi"
       ],
       "computedBestPairings": [
@@ -3758,7 +4083,7 @@
         "Mage des ombres",
         "Mage noir",
         "Mage blanc",
-        "Druide"
+        "Chevalier magique"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -3781,7 +4106,16 @@
       "optimalSlots": [
         "Mid"
       ],
-      "raison": "PM burst rayons ; +20 % XP.",
+      "viableSlots": [
+        "Support"
+      ],
+      "draftJob": "control",
+      "roleTags": [
+        "mage_burst",
+        "poke",
+        "wave_clear"
+      ],
+      "raison": "**Type** : Mage",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -3803,7 +4137,7 @@
         "Cristal chrono"
       ],
       "tierMeta": "S",
-      "tierNote": "Sort 1 : gros dégâts + farm ; sort 2 bonus en TF. Ult la plus forte des mages si bien réalisée. 4e mage en puissance.",
+      "tierNote": "Sort 1 : gros dégâts + farm ; ult la plus forte des mages si bien réalisée.",
       "abilities": [
         {
           "slot": "Ability 1",
@@ -3855,8 +4189,8 @@
         "Soldat",
         "Mage noir",
         "Nécromancien",
-        "Vampire",
-        "Chevalier magique"
+        "Chevalier magique",
+        "Vampire"
       ],
       "computedBestPairings": [
         "Chasseur",
@@ -3886,7 +4220,15 @@
       "optimalSlots": [
         "Support"
       ],
-      "raison": "Boucliers/barrières alliés ; peel sans or.",
+      "viableSlots": [
+        "Mid"
+      ],
+      "draftJob": "support",
+      "roleTags": [
+        "peel",
+        "frontline"
+      ],
+      "raison": "**Type** : Support de combat",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -3968,7 +4310,7 @@
         "Archer",
         "Chasseur de boomerang",
         "Soldat",
-        "Joueur"
+        "Chasseur de fléchettes empoisonnées"
       ],
       "draftProfile": {
         "damage": "AP",
@@ -3991,7 +4333,16 @@
       "optimalSlots": [
         "Mid"
       ],
-      "raison": "PM chain lightning ; +20 % XP.",
+      "viableSlots": [
+        "Top"
+      ],
+      "draftJob": "control",
+      "roleTags": [
+        "mage_burst",
+        "poke",
+        "wave_clear"
+      ],
+      "raison": "**Type** : Mage",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -4065,8 +4416,8 @@
         "Soldat",
         "Mage noir",
         "Nécromancien",
-        "Vampire",
-        "Chevalier magique"
+        "Chevalier magique",
+        "Vampire"
       ],
       "computedBestPairings": [
         "Exécuteur",
@@ -4096,7 +4447,16 @@
       "optimalSlots": [
         "Mid"
       ],
-      "raison": "PM contrôle zone ; +20 % XP.",
+      "viableSlots": [
+        "Support"
+      ],
+      "draftJob": "control",
+      "roleTags": [
+        "mage_burst",
+        "engage",
+        "wave_clear"
+      ],
+      "raison": "**Type** : Mage (Contrôle)",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -4118,7 +4478,7 @@
         "Cristal chrono"
       ],
       "tierMeta": "S",
-      "tierNote": "2e–3e mage du jeu. Avec l'IA améliorée, ne meurt que si le jungler gank ; seuls contres lane : Mage du vent, Guerrier de perche, Mage des ombres. En TF : énorme dégâts ; les alliés ne le vendent plus et peuvent trade ou save au retournement (pas toujours).",
+      "tierNote": "2e–3e mage ; énorme dégâts TF ; anti-dive.",
       "abilities": [
         {
           "slot": "Ability 1",
@@ -4170,8 +4530,8 @@
         "Soldat",
         "Mage noir",
         "Nécromancien",
-        "Vampire",
-        "Chevalier magique"
+        "Chevalier magique",
+        "Vampire"
       ],
       "computedBestPairings": [
         "Briseur de siège",
@@ -4201,7 +4561,15 @@
       "optimalSlots": [
         "Mid"
       ],
-      "raison": "PM contrôle/bannissement ; +20 % XP.",
+      "viableSlots": [
+        "Jungle"
+      ],
+      "draftJob": "control",
+      "roleTags": [
+        "mage_burst",
+        "pick_jungle"
+      ],
+      "raison": "**Type** : Mage (Contrôle)",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -4223,7 +4591,7 @@
         "Cristal chrono"
       ],
       "tierMeta": "S",
-      "tierNote": "Top mages avec Mage de glace. Énorme dégâts, stun, combo avec Double lame (immobilisation), bon contrôle ult.",
+      "tierNote": "Top mages avec Mage de glace. Énorme dégâts, stun, combo Double lame.",
       "abilities": [
         {
           "slot": "Ability 1",
@@ -4306,7 +4674,16 @@
       "optimalSlots": [
         "Mid"
       ],
-      "raison": "PM tornades/knockup ; +20 % XP.",
+      "viableSlots": [
+        "Support"
+      ],
+      "draftJob": "control",
+      "roleTags": [
+        "mage_burst",
+        "poke",
+        "wave_clear"
+      ],
+      "raison": "**Type** : Mage (Contrôle / Déplacement)",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -4328,7 +4705,7 @@
         "Bâton du sorcier"
       ],
       "tierMeta": "S",
-      "tierNote": "Toujours le mage #1. Lane via sort 1, contrôle sort 2 ; en mêlée il peut burst avec le sort 2. Ult pas énorme, mais en TF où les stuns s'alignent, il peut stun à distance — game-winning.",
+      "tierNote": "Toujours le mage #1. Ult game-winning en TF aligné.",
       "abilities": [
         {
           "slot": "Ability 1",
@@ -4411,7 +4788,15 @@
       "optimalSlots": [
         "Mid"
       ],
-      "raison": "PM malédiction ; +20 % XP.",
+      "viableSlots": [
+        "Support"
+      ],
+      "draftJob": "control",
+      "roleTags": [
+        "mage_burst",
+        "poke"
+      ],
+      "raison": "**Type** : Mage (Contrôle)",
       "stats": "AD 80→146 | PM 40→260 | HP 900→2000 | Arm 20→97 | RM 20→53 | Portée 60 | MS 54→59.9",
       "worstMatchups": [
         "Ninja",
@@ -4516,7 +4901,16 @@
       "optimalSlots": [
         "Bot"
       ],
-      "raison": "AD 320 + % PV  ; +20 % or recommandé.",
+      "viableSlots": [
+        "Top",
+        "Mid"
+      ],
+      "draftJob": "carry",
+      "roleTags": [
+        "aggressive_jungle",
+        "pick_jungle"
+      ],
+      "raison": "**Type** : À distance",
       "stats": "AD 100→320 | PM 0 | HP 900→1890 | Arm 20→97 | RM 15→48 | Portée 40 | MS 54→59.9",
       "worstMatchups": [
         "Ninja",
@@ -4538,7 +4932,7 @@
         "Lame perforante"
       ],
       "tierMeta": "S",
-      "tierNote": "DPS incomparable ; ult ≈ +1 kill ; impossible à nerf à cause des dégâts % PV max. Contre : survie + dash (Guerrier de perche, Combattant, parfois Épéiste).",
+      "tierNote": "DPS incomparable ; ult ≈ +1 kill ; dégâts % PV max.",
       "abilities": [
         {
           "slot": "Ability 1",
@@ -4617,11 +5011,20 @@
       "id": "moine",
       "name": "Moine",
       "type": "Support de combat",
-      "positions": "Toutes · optimal : Support",
+      "positions": "Toutes · optimal : Support · Mid",
       "optimalSlots": [
-        "Support"
+        "Support",
+        "Mid"
       ],
-      "raison": "Soins AoE + bouclier ult ; 2420 PV mais kit support.",
+      "viableSlots": [
+        "Top"
+      ],
+      "draftJob": "support",
+      "roleTags": [
+        "peel",
+        "frontline"
+      ],
+      "raison": "**Type** : Support de combat",
       "stats": "AD 80→146 | PM 20→130 | HP 1100→2420 | Arm 40→117 | RM 30→85 | Portée 23 | MS 60→66.6",
       "worstMatchups": [
         "Chaman vaudou",
@@ -4642,8 +5045,8 @@
         "Fragment de corne du géant",
         "Forteresse imprenable"
       ],
-      "tierMeta": "C",
-      "tierNote": "Occupe le slot de meilleurs supports ; pas devenu génie avec l'IA.",
+      "tierMeta": "B",
+      "tierNote": "Bruiser engage AoE ; wiki v0.4.11 B+ support — occupe slot des meilleurs supports.",
       "abilities": [
         {
           "slot": "Ability 1",
@@ -4672,38 +5075,38 @@
       "gridCol": 8,
       "icon": "icons/moine.png",
       "colorIdentity": {
-        "W": 13,
-        "U": 5,
+        "W": 8,
+        "U": 4,
         "B": 0,
-        "R": 0,
-        "G": 6,
+        "R": 7,
+        "G": 5,
         "dominant": [
           "W",
-          "G"
+          "R"
         ],
-        "identity": "WG",
+        "identity": "WR",
         "vector": [
-          0.5416666666666666,
-          0.20833333333333334,
+          0.3333333333333333,
+          0.16666666666666666,
           0.0,
-          0.0,
-          0.25
+          0.2916666666666667,
+          0.20833333333333334
         ],
-        "family": "support_enchanter"
+        "family": "support_engage"
       },
       "computedWorstMatchups": [
         "Exécuteur",
-        "Mage des ombres",
-        "Mage noir",
-        "Nécromancien",
-        "Archer"
+        "Enchanteur",
+        "Exorciste",
+        "Prêtre",
+        "Briseur de siège"
       ],
       "computedBestPairings": [
-        "Bombardier",
-        "Archer",
         "Chasseur de boomerang",
+        "Soldat",
+        "Bombardier",
         "Chasseur de fléchettes empoisonnées",
-        "Soldat"
+        "Joueur"
       ],
       "draftProfile": {
         "damage": "Mixed",
@@ -4726,7 +5129,15 @@
       "optimalSlots": [
         "Support"
       ],
-      "raison": "Buff AS/portée/élixir allié ; souvent adjacent au Bot.",
+      "viableSlots": [
+        "Mid"
+      ],
+      "draftJob": "support",
+      "roleTags": [
+        "engage",
+        "frontline"
+      ],
+      "raison": "**Type** : Support de combat",
       "stats": "AD 80→300 | PM 0 | HP 1000→2100 | Arm 30→107 | RM 20→64 | Portée 25 | MS 60→65.9",
       "worstMatchups": [
         "Ninja",
@@ -4806,8 +5217,8 @@
       "computedBestPairings": [
         "Chasseur de boomerang",
         "Joueur",
-        "Bombardier",
         "Soldat",
+        "Bombardier",
         "Archer"
       ],
       "draftProfile": {
@@ -4831,7 +5242,15 @@
       "optimalSlots": [
         "Jungle"
       ],
-      "raison": "AD 450 + charges 350 ; MS jungle + burst.",
+      "viableSlots": [],
+      "draftJob": "engage",
+      "roleTags": [
+        "pick_jungle",
+        "dive",
+        "assassin",
+        "split"
+      ],
+      "raison": "**Type** : Assassin",
       "stats": "AD 120→450 | PM 0 | HP 900→1780 | Arm 25→102 | RM 15→48 | Portée 23 | MS 66→75.2",
       "worstMatchups": [
         "Porteur de bouclier",
@@ -4853,7 +5272,7 @@
         "Souverain de la tempête"
       ],
       "tierMeta": "A",
-      "tierNote": "Le plus fort des A ; jungle only — 30 games d'affilée, 2 ruines ; peut solo 3 kills au retournement. Contres : Infanterie lourde, Moine. Pas S car il force 3–4 picks TF sur le reste de la draft.",
+      "tierNote": "Le plus fort des A ; jungle only — peut solo 3 kills au retournement.",
       "abilities": [
         {
           "slot": "Ability 1",
@@ -4913,7 +5332,7 @@
         "Bombardier",
         "Mage noir",
         "Mage blanc",
-        "Druide"
+        "Chevalier magique"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -4934,9 +5353,19 @@
       "type": "Mage (Invocation)",
       "positions": "Toutes · optimal : Mid · Support",
       "optimalSlots": [
-        "Mid"
+        "Mid",
+        "Support"
       ],
-      "raison": "Mid : goules scale PM/XP. Support alt : réanimation utility.",
+      "viableSlots": [
+        "Top"
+      ],
+      "draftJob": "control",
+      "roleTags": [
+        "scaling",
+        "farm_jungle",
+        "wave_clear"
+      ],
+      "raison": "**Type** : Mage (Invocation)",
       "stats": "AD 80→146 | PM 40→260 | HP 900→2000 | Arm 20→97 | RM 20→53 | Portée 60 | MS 54→59.9",
       "worstMatchups": [
         "Pyromancien",
@@ -5014,11 +5443,11 @@
         "Chevalier de cavalerie"
       ],
       "computedBestPairings": [
-        "Prêtre",
-        "Mage noir",
         "Bombardier",
         "Danseuse",
-        "Maître du fouet"
+        "Maître du fouet",
+        "Prêtre",
+        "Mage noir"
       ],
       "draftProfile": {
         "damage": "Mixed",
@@ -5037,11 +5466,21 @@
       "id": "ogre",
       "name": "Ogre",
       "type": "Guerrier (Tank)",
-      "positions": "Toutes · optimal : Top",
+      "positions": "Toutes · optimal : Top · Jungle",
       "optimalSlots": [
-        "Top"
+        "Top",
+        "Jungle"
       ],
-      "raison": "Stack PV max infini + ult x2 PV ; regen % = coeur du pick.",
+      "viableSlots": [
+        "Mid"
+      ],
+      "draftJob": "frontline",
+      "roleTags": [
+        "farm_jungle",
+        "frontline",
+        "scaling"
+      ],
+      "raison": "**Type** : Guerrier (Tank)",
       "stats": "AD 80→146 | PM 0 | HP 1100→2420 | Arm 40→150 | RM 30→85 | Portée 28 | MS 60→66.6",
       "worstMatchups": [
         "Chaman vaudou",
@@ -5146,7 +5585,15 @@
       "optimalSlots": [
         "Support"
       ],
-      "raison": "Boucliers + absorption 60 % + provocation.",
+      "viableSlots": [
+        "Top"
+      ],
+      "draftJob": "support",
+      "roleTags": [
+        "frontline",
+        "peel"
+      ],
+      "raison": "**Type** : Guerrier (Tank)",
       "stats": "AD 80→146 | PM 0 | HP 1100→2420 | Arm 40→150 | RM 30→85 | Portée 25 | MS 60→66.6",
       "worstMatchups": [
         "Chaman vaudou",
@@ -5227,8 +5674,8 @@
         "Archer",
         "Bombardier",
         "Chasseur de boomerang",
-        "Joueur",
-        "Chasseur de fléchettes empoisonnées"
+        "Chasseur de fléchettes empoisonnées",
+        "Joueur"
       ],
       "draftProfile": {
         "damage": "Mixed",
@@ -5249,9 +5696,15 @@
       "type": "Guerrier",
       "positions": "Toutes · optimal : Top · Jungle",
       "optimalSlots": [
-        "Top"
+        "Top",
+        "Jungle"
       ],
-      "raison": "Top : 2420 PV + provoc/regen %. Jungle alt : charge engage + MS.",
+      "viableSlots": [],
+      "draftJob": "frontline",
+      "roleTags": [
+        "frontline"
+      ],
+      "raison": "**Type** : Guerrier",
       "stats": "AD 80→146 | PM 0 | HP 1100→2420 | Arm 40→150 | RM 30→85 | Portée 28 | MS 60→66.6",
       "worstMatchups": [
         "Soldat",
@@ -5356,7 +5809,14 @@
       "optimalSlots": [
         "Support"
       ],
-      "raison": "Zone heal + bouclier ; funnel or au Bot.",
+      "viableSlots": [
+        "Mid"
+      ],
+      "draftJob": "support",
+      "roleTags": [
+        "peel"
+      ],
+      "raison": "**Type** : Support de combat",
       "stats": "AD 80→146 | PM 30→195 | HP 900→1780 | Arm 20→108 | RM 20→64 | Portée 60 | MS 60→66.6",
       "worstMatchups": [
         "Ninja",
@@ -5378,7 +5838,7 @@
         "Prophète de l'abîme"
       ],
       "tierMeta": "D",
-      "tierNote": "Avec Pythonisse pour fronts immortels → Pythonisse Mid, pas Mage de glace / Mage du vent Mid.",
+      "tierNote": "Sustain scaling ; Steam D car Pythonisse Mid > Mage glace/vent pour fronts immortels.",
       "abilities": [
         {
           "slot": "Ability 1",
@@ -5457,7 +5917,17 @@
       "optimalSlots": [
         "Mid"
       ],
-      "raison": "PM AoE ; +20 % XP.",
+      "viableSlots": [
+        "Top",
+        "Bot"
+      ],
+      "draftJob": "carry",
+      "roleTags": [
+        "poke",
+        "mage_burst",
+        "wave_clear"
+      ],
+      "raison": "**Type** : Mage (Dégâts de zone)",
       "stats": "AD 80→146 | PM 40→260 | HP 900→2000 | Arm 20→97 | RM 20→53 | Portée 60 | MS 54→59.9",
       "worstMatchups": [
         "Ninja",
@@ -5479,7 +5949,7 @@
         "Cristal chrono"
       ],
       "tierMeta": "S",
-      "tierNote": "Chute avec l'IA (court sous tour plus que les autres). Un des S les plus faibles ; lane et dégâts OK, mais les autres mages apportent plus. Toujours fort, mais plus comme avant :(",
+      "tierNote": "Chute avec l'IA ; lane et dégâts OK, moins dominant qu'avant.",
       "abilities": [
         {
           "slot": "Ability 1",
@@ -5532,7 +6002,7 @@
         "Briseur de siège",
         "Chevalier",
         "Chevalier de cavalerie",
-        "Combattant"
+        "Chevalier magique"
       ],
       "computedBestPairings": [
         "Mage noir",
@@ -5562,7 +6032,16 @@
       "optimalSlots": [
         "Support"
       ],
-      "raison": "Soins ciblés + porte spirituelle ; utility.",
+      "viableSlots": [
+        "Mid"
+      ],
+      "draftJob": "control",
+      "roleTags": [
+        "peel",
+        "mage_burst",
+        "wave_clear"
+      ],
+      "raison": "**Type** : Support de combat",
       "stats": "AD 80→146 | PM 30→195 | HP 900→2000 | Arm 20→108 | RM 20→64 | Portée 60 | MS 60→66.6",
       "worstMatchups": [
         "Ninja",
@@ -5584,7 +6063,7 @@
         "Voile d'annihilation"
       ],
       "tierMeta": "S",
-      "tierNote": "Du plus faible champion du jeu au plus fort support (selon l'auteur). Excellent lane grâce aux sorts 1 et 2. En late, l'ult impacte énormément. Avec la nouvelle IA, ne se expose plus : peut infliger jusqu'à ~20k dégâts et ~40k soins par game (build double PM + PV) ; pick le plus populaire. Apprend à se soigner quand on la focus — ça sauve des games.",
+      "tierNote": "Du plus faible au plus fort support ; ~20k dégâts + ~40k soins par game.",
       "abilities": [
         {
           "slot": "Ability 1",
@@ -5640,11 +6119,11 @@
         "Chevalier de cavalerie"
       ],
       "computedBestPairings": [
-        "Maître du fouet",
         "Soldat",
+        "Maître du fouet",
         "Archer",
         "Chasseur de boomerang",
-        "Joueur"
+        "Chasseur de fléchettes empoisonnées"
       ],
       "draftProfile": {
         "damage": "Mixed",
@@ -5665,9 +6144,22 @@
       "type": "À distance",
       "positions": "Toutes · optimal : Top · Bot",
       "optimalSlots": [
-        "Top"
+        "Top",
+        "Bot"
       ],
-      "raison": "Top : portée scale par NIVEAU (+3/lv), pas par or. Bot alt : dernier recours AD.",
+      "viableSlots": [
+        "Jungle",
+        "Mid"
+      ],
+      "draftJob": "carry",
+      "roleTags": [
+        "scaling",
+        "poke",
+        "frontline",
+        "wave_clear",
+        "split"
+      ],
+      "raison": "**Type** : À distance",
       "stats": "AD 100→265 | PM 0 | HP 900→1890 | Arm 20→97 | RM 15→48 | Portée 60→93 | MS 54→59.9",
       "worstMatchups": [
         "Ninja",
@@ -5689,7 +6181,7 @@
         "Lame perforante"
       ],
       "tierMeta": "S",
-      "tierNote": "Avec bons front lanes : quasi impossible à tuer, DPS énorme ; ult dévaste. Positionnement requis, mais peut solo kill.",
+      "tierNote": "Avec bons front lanes : quasi impossible à tuer, DPS énorme ; ult dévaste.",
       "abilities": [
         {
           "slot": "Ability 1",
@@ -5770,9 +6262,15 @@
       "type": "Support de combat",
       "positions": "Toutes · optimal : Support · Mid",
       "optimalSlots": [
-        "Support"
+        "Support",
+        "Mid"
       ],
-      "raison": "Support : seals CC. Mid alt : durées scale PM + XP.",
+      "viableSlots": [],
+      "draftJob": "support",
+      "roleTags": [
+        "peel"
+      ],
+      "raison": "**Type** : Support de combat",
       "stats": "AD 80→146 | PM 30→195 | HP 900→2000 | Arm 20→108 | RM 20→64 | Portée 60 | MS 60→66.6",
       "worstMatchups": [
         "Ninja",
@@ -5853,8 +6351,8 @@
         "Maître du fouet",
         "Archer",
         "Chasseur de boomerang",
-        "Joueur",
-        "Bombardier"
+        "Chasseur de fléchettes empoisonnées",
+        "Joueur"
       ],
       "draftProfile": {
         "damage": "Mixed",
@@ -5873,11 +6371,20 @@
       "id": "tireur",
       "name": "Tireur",
       "type": "À distance",
-      "positions": "Toutes · optimal : Top · Bot",
+      "positions": "Toutes · optimal : Bot · Top",
       "optimalSlots": [
+        "Bot",
         "Top"
       ],
-      "raison": "Top : kiting AS/MS, kit peu item-dépendant. Bot alt : or sous-utilisé.",
+      "viableSlots": [
+        "Mid"
+      ],
+      "draftJob": "carry",
+      "roleTags": [
+        "scaling",
+        "poke"
+      ],
+      "raison": "**Type** : À distance",
       "stats": "AD 100→320 | PM 0 | HP 900→1890 | Arm 30→107 | RM 15→48 | Portée 50 | MS 54→59.9 | AS 1.50",
       "worstMatchups": [
         "Ninja",
@@ -5899,7 +6406,7 @@
         "Lame perforante"
       ],
       "tierMeta": "B",
-      "tierNote": "Meilleur B perso ; dur à punir ; 2–3 fronts = trop d'impact.",
+      "tierNote": "Meilleur B perso ; scaling carry — besoin 2–3 fronts.",
       "abilities": [
         {
           "slot": "Ability 1",
@@ -5980,9 +6487,18 @@
       "type": "Assassin",
       "positions": "Toutes · optimal : Jungle · Bot",
       "optimalSlots": [
-        "Jungle"
+        "Jungle",
+        "Bot"
       ],
-      "raison": "Jungle : TP 250 + mark + MS. Bot alt : AD 320 si besoin gold funnel.",
+      "viableSlots": [
+        "Mid"
+      ],
+      "draftJob": "carry",
+      "roleTags": [
+        "pick_jungle",
+        "assassin"
+      ],
+      "raison": "**Type** : Assassin",
       "stats": "AD 100→320 | PM 0 | HP 900→1890 | Arm 20→97 | RM 15→48 | Portée 40 | MS 54→59.9",
       "worstMatchups": [
         "Porteur de bouclier",
@@ -6004,7 +6520,7 @@
         "Lame perforante"
       ],
       "tierMeta": "A",
-      "tierNote": "Du plus faible au ~#2 A : gros DPS, peu d'erreurs ; combo dash + burst + Tueur à gages. Très fort carry.",
+      "tierNote": "Du plus faible au ~#2 A : gros DPS, peu d'erreurs ; très fort carry.",
       "abilities": [
         {
           "slot": "Ability 1",
@@ -6054,9 +6570,9 @@
       },
       "computedWorstMatchups": [
         "Jiangshi",
+        "Moine",
         "Androïde",
         "Prêtre",
-        "Moine",
         "Double lame"
       ],
       "computedBestPairings": [
@@ -6085,9 +6601,19 @@
       "type": "Mage (Drain de vie)",
       "positions": "Toutes · optimal : Top · Mid",
       "optimalSlots": [
-        "Top"
+        "Top",
+        "Mid"
       ],
-      "raison": "Top : 2100 PV + drain sustain + regen %. Mid alt : stacks PM + XP.",
+      "viableSlots": [
+        "Jungle"
+      ],
+      "draftJob": "control",
+      "roleTags": [
+        "split",
+        "scaling",
+        "frontline"
+      ],
+      "raison": "**Type** : Mage (Drain de vie)",
       "stats": "AD 100→320 | PM 10→65 | HP 1000→2100 | Arm 30→129 | RM 20→64 | Portée 25 | MS 60→67.9",
       "worstMatchups": [
         "Chaman vaudou",
@@ -6109,7 +6635,7 @@
         "Bâton du sorcier"
       ],
       "tierMeta": "A",
-      "tierNote": "Toujours le roi du late ; l'IA combo (ult Infanterie lourde + sort 2 Vampire + ult Vampire ; sort 2 Chevalier magique + stun + sort 2 Vampire). Très agréable, tendance à feed.",
+      "tierNote": "Toujours le roi du late ; l'IA combo ult Infanterie + sorts.",
       "abilities": [
         {
           "slot": "Ability 1",
@@ -6188,11 +6714,21 @@
       "id": "p-iste",
       "name": "Épéiste",
       "type": "Guerrier",
-      "positions": "Toutes · optimal : Jungle · Top",
+      "positions": "Toutes · optimal : Top · Jungle",
       "optimalSlots": [
+        "Top",
         "Jungle"
       ],
-      "raison": "Jungle : charge reset ult + MS. Top alt : lane mêlée.",
+      "viableSlots": [
+        "Mid"
+      ],
+      "draftJob": "frontline",
+      "roleTags": [
+        "engage",
+        "split",
+        "wave_clear"
+      ],
+      "raison": "**Type** : Guerrier",
       "stats": null,
       "worstMatchups": [
         "Porteur de bouclier",
@@ -6214,7 +6750,7 @@
         "Lame de vol de vie"
       ],
       "tierMeta": "S",
-      "tierNote": "Bon early ; l'IA réalise l'ult en 5v5 puis finit. Lane faible sans CC : s'il est catch, il meurt.",
+      "tierNote": "Bon early ; l'IA réalise l'ult en 5v5. Lane faible sans CC.",
       "abilities": [
         {
           "slot": "Ability 1",

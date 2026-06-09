@@ -11,6 +11,13 @@ SKILL_DIR = Path.home() / ".cursor" / "skills" / "teamfight-manager-2"
 ABILITIES_MD = SKILL_DIR / "champions-abilities.md"
 ICONS_MD = SKILL_DIR / "champions-icons.md"
 OUTPUT = ROOT / "data" / "champions.json"
+VALID_SLOTS = frozenset({"Top", "Jungle", "Mid", "Bot", "Support"})
+
+META_SOURCES = (
+    "Steam guide IA patch (3736370046) — tiers S–D ; "
+    "TFM2 Wiki v0.4.11 (2026-06-09) — rôles draft ; "
+    "DQ7 Ban-Pick / Personal Tier — positions viables"
+)
 
 
 def norm_name(s: str) -> str:
@@ -56,6 +63,28 @@ def parse_icons_table(text: str) -> dict[str, dict]:
     return icons, by_norm
 
 
+def parse_delimited(raw: str | None) -> list[str]:
+    if not raw:
+        return []
+    out: list[str] = []
+    for part in re.split(r"\s*·\s*", raw.strip()):
+        item = part.strip()
+        if item and item not in out:
+            out.append(item)
+    return out
+
+
+def parse_slot_list(raw: str | None) -> list[str]:
+    return [s for s in parse_delimited(raw) if s in VALID_SLOTS]
+
+
+def parse_optimal_slots(positions: str | None) -> list[str]:
+    if not positions:
+        return []
+    m = re.search(r"optimal\s*:\s*(.+?)(?:\s*$)", positions)
+    return parse_slot_list(m.group(1)) if m else []
+
+
 def parse_abilities(text: str) -> list[dict]:
     sections = re.split(r"\n## ", text)
     champions = []
@@ -81,6 +110,9 @@ def parse_abilities(text: str) -> list[dict]:
         build = grab("Build optimal")
         tier_meta = grab("Tier meta")
         tier_note = grab("Note tier")
+        draft_job = grab("Rôle draft")
+        role_tags = grab("Tags")
+        viable_raw = grab("Viable")
 
         abilities = []
         for m in re.finditer(
@@ -99,15 +131,8 @@ def parse_abilities(text: str) -> list[dict]:
                 }
             )
 
-        optimal = None
-        if positions:
-            opt = re.search(r"optimal\s*:\s*([^·]+?)(?:\s*·|\s*$)", positions)
-            if opt:
-                optimal = opt.group(1).strip()
-
-        slot_opts = []
-        if positions:
-            slot_opts = [s.strip() for s in re.findall(r"optimal\s*:\s*([^·\n]+)", positions)]
+        slot_opts = parse_optimal_slots(positions)
+        viable_slots = parse_slot_list(viable_raw)
 
         champions.append(
             {
@@ -116,6 +141,9 @@ def parse_abilities(text: str) -> list[dict]:
                 "type": type_match,
                 "positions": positions,
                 "optimalSlots": slot_opts,
+                "viableSlots": viable_slots,
+                "draftJob": draft_job,
+                "roleTags": parse_delimited(role_tags),
                 "raison": raison,
                 "stats": stats,
                 "worstMatchups": [x.strip() for x in worst.split("·")] if worst else [],
@@ -149,8 +177,10 @@ def main() -> None:
             champ["icon"] = f"icons/{champ['id']}.png"
 
     payload = {
-        "version": "2026-06",
+        "version": "2026-06-v0.4.11",
+        "patchRef": "v0.4.11",
         "source": str(ABILITIES_MD),
+        "sourceNotes": META_SOURCES,
         "championCount": len(champions),
         "champions": sorted(champions, key=lambda c: c["name"]),
     }
