@@ -549,6 +549,11 @@ def inject_field(section: str, label: str, value: str | None) -> str:
     return block + section
 
 
+def grab_field(section: str, label: str) -> str | None:
+    m = re.search(rf"\*\*{re.escape(label)}\*\*\s*:\s*(.+)", section)
+    return m.group(1).strip() if m else None
+
+
 def update_section(name: str, section: str, steam: dict[str, dict[str, str]]) -> str:
     meta = CHAMPION_META.get(name)
     if not meta:
@@ -557,6 +562,7 @@ def update_section(name: str, section: str, steam: dict[str, dict[str, str]]) ->
     st = steam.get(name, {})
     tier = meta.get("tier") or st.get("tier", "C")
     note = meta.get("tierNote") or st.get("note", "")
+    existing_raison = grab_field(section, "Raison TFM2")
 
     section = re.sub(r"\n\*\*Tier meta\*\*[^\n]*", "", section)
     section = re.sub(r"\n\*\*Note tier\*\*[^\n]*", "", section)
@@ -580,7 +586,8 @@ def update_section(name: str, section: str, steam: dict[str, dict[str, str]]) ->
     )
     if viable:
         block += f"**Viable** : {viable}\n"
-    block += f"**Raison TFM2** : {meta.get('raison', '')}\n"
+    raison = meta.get("raison") or existing_raison or ""
+    block += f"**Raison TFM2** : {raison}\n"
 
     if "**Type**" in section:
         section = section.replace("**Type**", block + "**Type**", 1)

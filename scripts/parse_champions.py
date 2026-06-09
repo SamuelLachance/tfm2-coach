@@ -98,8 +98,11 @@ def parse_abilities(text: str) -> list[dict]:
         body = "\n".join(lines[1:])
 
         def grab(label: str) -> str | None:
-            m = re.search(rf"\*\*{re.escape(label)}\*\*\s*:\s*(.+)", body)
-            return m.group(1).strip() if m else None
+            m = re.search(rf"^\*\*{re.escape(label)}\*\*\s*:\s*(.*)$", body, re.M)
+            if not m:
+                return None
+            val = m.group(1).strip()
+            return val if val else None
 
         type_match = grab("Type")
         positions = grab("Positions")

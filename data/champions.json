@@ -136,7 +136,7 @@
         "scaling",
         "poke"
       ],
-      "raison": "**Type** : À distance (Marksman)",
+      "raison": "Marksman AD  ; +20 % or recommandé.",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -248,7 +248,7 @@
       "roleTags": [
         "peel"
       ],
-      "raison": "**Type** : Support de combat",
+      "raison": "Buffs AS/CDR alliés ; zéro scaling carry.",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -363,7 +363,7 @@
         "split",
         "engage"
       ],
-      "raison": "**Type** : Guerrier (DPS / Bruiser)",
+      "raison": "Top : bruiser sustain + regen % sur longs trades. Jungle alt : dash + MS jungle.",
       "stats": null,
       "worstMatchups": [
         "Chaman vaudou",
@@ -479,7 +479,7 @@
         "mage_burst",
         "wave_clear"
       ],
-      "raison": "**Type** : À distance (Artillerie)",
+      "raison": "Artillerie AD item-dépendante  ; +20 % or recommandé.",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -593,7 +593,7 @@
         "engage",
         "wave_clear"
       ],
-      "raison": "**Type** : Guerrier (Anti-structure)",
+      "raison": "Waveclear mêlée + bonus structures ; slot lane solo.",
       "stats": null,
       "worstMatchups": [
         "Soldat",
@@ -706,7 +706,7 @@
         "mage_burst",
         "wave_clear"
       ],
-      "raison": "**Type** : Mage (Contrôle / DoT)",
+      "raison": "PM + DoT % PV max ; +20 % XP scale les sorts.",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -819,7 +819,7 @@
         "dive",
         "assassin"
       ],
-      "raison": "**Type** : Assassin",
+      "raison": "Téléport + reset ult ; MS jungle + exécute épiques.",
       "stats": null,
       "worstMatchups": [
         "Porteur de bouclier",
@@ -932,7 +932,7 @@
       "roleTags": [
         "poke"
       ],
-      "raison": "**Type** : À distance",
+      "raison": "Scaling AD sur rebonds  ; +20 % or recommandé. Pas de regen Top utile.",
       "stats": null,
       "worstMatchups": [
         "Mage de barrière",
@@ -1046,7 +1046,7 @@
         "poke",
         "scaling"
       ],
-      "raison": "**Type** : À distance (Poison)",
+      "raison": "Support : ult poison sur alliés. Bot alt : carry AD empoisonneur.",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -1159,7 +1159,7 @@
         "frontline",
         "wave_clear"
       ],
-      "raison": "**Type** : Support de combat",
+      "raison": "Soins + buff +50 % PV max allié ; funnel or au carry voisin.",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -1273,7 +1273,7 @@
         "frontline",
         "engage"
       ],
-      "raison": "**Type** : Guerrier (Tank)",
+      "raison": "Provocation + zone -dégâts ; kit peel pur.",
       "stats": "AD 80→146 | PM 0 | HP 1100→2420 | Arm 40→150 | RM 30→85 | Portée 25 | MS 60→66.6",
       "worstMatchups": [
         "Chaman vaudou",
@@ -1390,7 +1390,7 @@
         "engage",
         "split"
       ],
-      "raison": "**Type** : Guerrier (Charge)",
+      "raison": "Jungle : charge + MS jungle + exécute. Top alt : front secondaire.",
       "stats": null,
       "worstMatchups": [
         "Mage de glace",
@@ -1504,7 +1504,7 @@
         "frontline",
         "mage_burst"
       ],
-      "raison": "**Type** : Guerrier (Mage)",
+      "raison": "PM + ult range/AS ; +20 % XP.",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -1620,7 +1620,7 @@
         "dive",
         "assassin"
       ],
-      "raison": "**Type** : Assassin",
+      "raison": "Téléport + frénésie ; mobilité jungle.",
       "stats": null,
       "worstMatchups": [
         "Porteur de bouclier",
@@ -1736,7 +1736,7 @@
         "engage",
         "frontline"
       ],
-      "raison": "**Type** : Guerrier",
+      "raison": "Charge CC + knockup AoE ; front lane + regen %.",
       "stats": null,
       "worstMatchups": [
         "Soldat",
@@ -1850,7 +1850,7 @@
         "scaling",
         "dive"
       ],
-      "raison": "**Type** : À distance",
+      "raison": "Stacks chakram = scaling AD ; +20 % or recommandé.",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -1962,7 +1962,7 @@
       "roleTags": [
         "engage"
       ],
-      "raison": "**Type** : Guerrier",
+      "raison": "Waveclear mêlée + bouclier/réduction ; bruiser lane.",
       "stats": null,
       "worstMatchups": [
         "Chaman vaudou",
@@ -2076,7 +2076,7 @@
         "engage",
         "dive"
       ],
-      "raison": "**Type** : Guerrier",
+      "raison": "Jungle : dash + combo immobilise. Top alt : bruiser mêlée.",
       "stats": null,
       "worstMatchups": [
         "Porteur de bouclier",
@@ -2190,7 +2190,7 @@
         "farm_jungle",
         "split"
       ],
-      "raison": "**Type** : Mage (Invocation)",
+      "raison": "Invocations PM ; +20 % XP scale durées/soins.",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -2304,7 +2304,7 @@
         "pick_jungle",
         "dive"
       ],
-      "raison": "**Type** : Assassin",
+      "raison": "Swap + peur ; burst mobile.",
       "stats": null,
       "worstMatchups": [
         "Porteur de bouclier",
@@ -2417,7 +2417,7 @@
         "peel",
         "scaling"
       ],
-      "raison": "**Type** : Support de combat",
+      "raison": "Buff portée/objets/immunité CC alliés.",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -2525,7 +2525,7 @@
       "roleTags": [
         "peel"
       ],
-      "raison": "**Type** : Support de combat",
+      "raison": "Soins + sanctuaire ; utility pure.",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -2637,7 +2637,7 @@
       "roleTags": [
         "peel"
       ],
-      "raison": "**Type** : Support de combat",
+      "raison": "Cleanse + heal burst allié ; buff sans or.",
       "stats": null,
       "worstMatchups": [
         "Chaman vaudou",
@@ -2747,7 +2747,7 @@
         "poke",
         "frontline"
       ],
-      "raison": "**Type** : Guerrier",
+      "raison": "Jungle : hook pick + MS + exécute épiques. Top alt : saignement front.",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -2861,7 +2861,7 @@
         "farm_jungle",
         "scaling"
       ],
-      "raison": "**Type** : Assassin",
+      "raison": "Stacks AS/ms sur kills ; reset dash jungle.",
       "stats": null,
       "worstMatchups": [
         "Porteur de bouclier",
@@ -2975,7 +2975,7 @@
         "frontline",
         "engage"
       ],
-      "raison": "**Type** : Guerrier",
+      "raison": "Sauts + charge ult 120 ; MS jungle.",
       "stats": null,
       "worstMatchups": [
         "Porteur de bouclier",
@@ -3090,7 +3090,7 @@
         "mage_burst",
         "wave_clear"
       ],
-      "raison": "**Type** : Mage (Contrôle)",
+      "raison": "Mid : PM + contrôle + XP. Support alt : taunt/illusion sans or.",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -3203,7 +3203,7 @@
         "frontline",
         "engage"
       ],
-      "raison": "**Type** : Guerrier (Tank)",
+      "raison": "2420 PV + waveclear mêlée ; regen % maximale.",
       "stats": "AD 80→146 | PM 0 | HP 1100→2420 | Arm 40→150 | RM 30→85 | Portée 28 | MS 60→66.6",
       "worstMatchups": [
         "Chaman vaudou",
@@ -3319,7 +3319,7 @@
         "dive",
         "assassin"
       ],
-      "raison": "**Type** : Assassin",
+      "raison": "Exécute 15 % PV + saignement ; MS jungle + reset combo.",
       "stats": null,
       "worstMatchups": [
         "Porteur de bouclier",
@@ -3431,7 +3431,7 @@
       "roleTags": [
         "peel"
       ],
-      "raison": "**Type** : Support de combat",
+      "raison": "Soins/boucliers/debuff esprits ; funnel or au carry.",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -3545,7 +3545,7 @@
         "frontline",
         "peel"
       ],
-      "raison": "**Type** : Guerrier",
+      "raison": "Drain + self-heal ; sustain lane mêlée.",
       "stats": null,
       "worstMatchups": [
         "Chaman vaudou",
@@ -3659,7 +3659,7 @@
         "poke",
         "engage"
       ],
-      "raison": "**Type** : À distance",
+      "raison": "AD 320 + multi-hit ;",
       "stats": "AD 100→320 | PM 0 | HP 900→1890 | Arm 20→97 | RM 15→48 | Portée 50 | MS 54→59.9",
       "worstMatchups": [
         "Ninja",
@@ -3773,7 +3773,7 @@
         "dive",
         "assassin"
       ],
-      "raison": "**Type** : Assassin",
+      "raison": "MS 75 + murs + burst ; exécute épiques.",
       "stats": "AD 100→320 | PM 0 | HP 900→1780 | Arm 20→97 | RM 15→48 | Portée 23 | MS 66→75.2",
       "worstMatchups": [
         "Porteur de bouclier",
@@ -3888,7 +3888,7 @@
         "engage",
         "frontline"
       ],
-      "raison": "**Type** : Guerrier",
+      "raison": "Jungle : charges + MS. Top alt : front 2420 PV.",
       "stats": null,
       "worstMatchups": [
         "Mage de glace",
@@ -4001,7 +4001,7 @@
         "pick_jungle",
         "dive"
       ],
-      "raison": "**Type** : Assassin",
+      "raison": "MS 75 + saignement ;",
       "stats": "AD 100→320 | PM 0 | HP 900→1780 | Arm 25→102 | RM 15→48 | Portée 23 | MS 66→75.2",
       "worstMatchups": [
         "Porteur de bouclier",
@@ -4115,7 +4115,7 @@
         "poke",
         "wave_clear"
       ],
-      "raison": "**Type** : Mage",
+      "raison": "PM burst rayons ; +20 % XP.",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -4228,7 +4228,7 @@
         "peel",
         "frontline"
       ],
-      "raison": "**Type** : Support de combat",
+      "raison": "Boucliers/barrières alliés ; peel sans or.",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -4342,7 +4342,7 @@
         "poke",
         "wave_clear"
       ],
-      "raison": "**Type** : Mage",
+      "raison": "PM chain lightning ; +20 % XP.",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -4456,7 +4456,7 @@
         "engage",
         "wave_clear"
       ],
-      "raison": "**Type** : Mage (Contrôle)",
+      "raison": "PM contrôle zone ; +20 % XP.",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -4569,7 +4569,7 @@
         "mage_burst",
         "pick_jungle"
       ],
-      "raison": "**Type** : Mage (Contrôle)",
+      "raison": "PM contrôle/bannissement ; +20 % XP.",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -4683,7 +4683,7 @@
         "poke",
         "wave_clear"
       ],
-      "raison": "**Type** : Mage (Contrôle / Déplacement)",
+      "raison": "PM tornades/knockup ; +20 % XP.",
       "stats": null,
       "worstMatchups": [
         "Ninja",
@@ -4796,7 +4796,7 @@
         "mage_burst",
         "poke"
       ],
-      "raison": "**Type** : Mage (Contrôle)",
+      "raison": "PM malédiction ; +20 % XP.",
       "stats": "AD 80→146 | PM 40→260 | HP 900→2000 | Arm 20→97 | RM 20→53 | Portée 60 | MS 54→59.9",
       "worstMatchups": [
         "Ninja",
@@ -4910,7 +4910,7 @@
         "aggressive_jungle",
         "pick_jungle"
       ],
-      "raison": "**Type** : À distance",
+      "raison": "AD 320 + % PV  ; +20 % or recommandé.",
       "stats": "AD 100→320 | PM 0 | HP 900→1890 | Arm 20→97 | RM 15→48 | Portée 40 | MS 54→59.9",
       "worstMatchups": [
         "Ninja",
@@ -5024,7 +5024,7 @@
         "peel",
         "frontline"
       ],
-      "raison": "**Type** : Support de combat",
+      "raison": "Soins AoE + bouclier ult ; 2420 PV mais kit support.",
       "stats": "AD 80→146 | PM 20→130 | HP 1100→2420 | Arm 40→117 | RM 30→85 | Portée 23 | MS 60→66.6",
       "worstMatchups": [
         "Chaman vaudou",
@@ -5137,7 +5137,7 @@
         "engage",
         "frontline"
       ],
-      "raison": "**Type** : Support de combat",
+      "raison": "Buff AS/portée/élixir allié ; souvent adjacent au Bot.",
       "stats": "AD 80→300 | PM 0 | HP 1000→2100 | Arm 30→107 | RM 20→64 | Portée 25 | MS 60→65.9",
       "worstMatchups": [
         "Ninja",
@@ -5250,7 +5250,7 @@
         "assassin",
         "split"
       ],
-      "raison": "**Type** : Assassin",
+      "raison": "AD 450 + charges 350 ; MS jungle + burst.",
       "stats": "AD 120→450 | PM 0 | HP 900→1780 | Arm 25→102 | RM 15→48 | Portée 23 | MS 66→75.2",
       "worstMatchups": [
         "Porteur de bouclier",
@@ -5365,7 +5365,7 @@
         "farm_jungle",
         "wave_clear"
       ],
-      "raison": "**Type** : Mage (Invocation)",
+      "raison": "Mid : goules scale PM/XP. Support alt : réanimation utility.",
       "stats": "AD 80→146 | PM 40→260 | HP 900→2000 | Arm 20→97 | RM 20→53 | Portée 60 | MS 54→59.9",
       "worstMatchups": [
         "Pyromancien",
@@ -5480,7 +5480,7 @@
         "frontline",
         "scaling"
       ],
-      "raison": "**Type** : Guerrier (Tank)",
+      "raison": "Stack PV max infini + ult x2 PV ; regen % = coeur du pick.",
       "stats": "AD 80→146 | PM 0 | HP 1100→2420 | Arm 40→150 | RM 30→85 | Portée 28 | MS 60→66.6",
       "worstMatchups": [
         "Chaman vaudou",
@@ -5593,7 +5593,7 @@
         "frontline",
         "peel"
       ],
-      "raison": "**Type** : Guerrier (Tank)",
+      "raison": "Boucliers + absorption 60 % + provocation.",
       "stats": "AD 80→146 | PM 0 | HP 1100→2420 | Arm 40→150 | RM 30→85 | Portée 25 | MS 60→66.6",
       "worstMatchups": [
         "Chaman vaudou",
@@ -5704,7 +5704,7 @@
       "roleTags": [
         "frontline"
       ],
-      "raison": "**Type** : Guerrier",
+      "raison": "Top : 2420 PV + provoc/regen %. Jungle alt : charge engage + MS.",
       "stats": "AD 80→146 | PM 0 | HP 1100→2420 | Arm 40→150 | RM 30→85 | Portée 28 | MS 60→66.6",
       "worstMatchups": [
         "Soldat",
@@ -5816,7 +5816,7 @@
       "roleTags": [
         "peel"
       ],
-      "raison": "**Type** : Support de combat",
+      "raison": "Zone heal + bouclier ; funnel or au Bot.",
       "stats": "AD 80→146 | PM 30→195 | HP 900→1780 | Arm 20→108 | RM 20→64 | Portée 60 | MS 60→66.6",
       "worstMatchups": [
         "Ninja",
@@ -5927,7 +5927,7 @@
         "mage_burst",
         "wave_clear"
       ],
-      "raison": "**Type** : Mage (Dégâts de zone)",
+      "raison": "PM AoE ; +20 % XP.",
       "stats": "AD 80→146 | PM 40→260 | HP 900→2000 | Arm 20→97 | RM 20→53 | Portée 60 | MS 54→59.9",
       "worstMatchups": [
         "Ninja",
@@ -6041,7 +6041,7 @@
         "mage_burst",
         "wave_clear"
       ],
-      "raison": "**Type** : Support de combat",
+      "raison": "Soins ciblés + porte spirituelle ; utility.",
       "stats": "AD 80→146 | PM 30→195 | HP 900→2000 | Arm 20→108 | RM 20→64 | Portée 60 | MS 60→66.6",
       "worstMatchups": [
         "Ninja",
@@ -6159,7 +6159,7 @@
         "wave_clear",
         "split"
       ],
-      "raison": "**Type** : À distance",
+      "raison": "Top : portée scale par NIVEAU (+3/lv), pas par or. Bot alt : dernier recours AD.",
       "stats": "AD 100→265 | PM 0 | HP 900→1890 | Arm 20→97 | RM 15→48 | Portée 60→93 | MS 54→59.9",
       "worstMatchups": [
         "Ninja",
@@ -6270,7 +6270,7 @@
       "roleTags": [
         "peel"
       ],
-      "raison": "**Type** : Support de combat",
+      "raison": "Support : seals CC. Mid alt : durées scale PM + XP.",
       "stats": "AD 80→146 | PM 30→195 | HP 900→2000 | Arm 20→108 | RM 20→64 | Portée 60 | MS 60→66.6",
       "worstMatchups": [
         "Ninja",
@@ -6384,7 +6384,7 @@
         "scaling",
         "poke"
       ],
-      "raison": "**Type** : À distance",
+      "raison": "Top : kiting AS/MS, kit peu item-dépendant. Bot alt : or sous-utilisé.",
       "stats": "AD 100→320 | PM 0 | HP 900→1890 | Arm 30→107 | RM 15→48 | Portée 50 | MS 54→59.9 | AS 1.50",
       "worstMatchups": [
         "Ninja",
@@ -6498,7 +6498,7 @@
         "pick_jungle",
         "assassin"
       ],
-      "raison": "**Type** : Assassin",
+      "raison": "Jungle : TP 250 + mark + MS. Bot alt : AD 320 si besoin gold funnel.",
       "stats": "AD 100→320 | PM 0 | HP 900→1890 | Arm 20→97 | RM 15→48 | Portée 40 | MS 54→59.9",
       "worstMatchups": [
         "Porteur de bouclier",
@@ -6613,7 +6613,7 @@
         "scaling",
         "frontline"
       ],
-      "raison": "**Type** : Mage (Drain de vie)",
+      "raison": "Top : 2100 PV + drain sustain + regen %. Mid alt : stacks PM + XP.",
       "stats": "AD 100→320 | PM 10→65 | HP 1000→2100 | Arm 30→129 | RM 20→64 | Portée 25 | MS 60→67.9",
       "worstMatchups": [
         "Chaman vaudou",
@@ -6728,7 +6728,7 @@
         "split",
         "wave_clear"
       ],
-      "raison": "**Type** : Guerrier",
+      "raison": "Jungle : charge reset ult + MS. Top alt : lane mêlée.",
       "stats": null,
       "worstMatchups": [
         "Porteur de bouclier",
