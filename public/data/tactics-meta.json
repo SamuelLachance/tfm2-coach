@@ -1,0 +1,4793 @@
+{
+  "version": "2026-06",
+  "tacticOptions": {
+    "focusLane": {
+      "label": "Focus de Lane",
+      "values": [
+        "Focus Top/Mid",
+        "Focus Mid/Bot",
+        "Toutes les Lanes"
+      ]
+    },
+    "earlyJungle": {
+      "label": "Style de Jungle Précoce",
+      "values": [
+        "Gank",
+        "Farm/Couverture",
+        "Contre-Jungle"
+      ]
+    },
+    "earlySerpent": {
+      "label": "Tentative de Serpent Précoce",
+      "values": [
+        "Flexible",
+        "Toujours Essayer",
+        "Céder"
+      ]
+    },
+    "topSerpent": {
+      "label": "Top Laner au Serpent Précoce",
+      "values": [
+        "Flexible",
+        "Toujours Rejoindre",
+        "Ne Pas Rejoindre"
+      ]
+    },
+    "waveMgmt": {
+      "label": "Gestion des Vagues de Sbires",
+      "values": [
+        "Priorité Ralliement",
+        "Priorité Vague"
+      ]
+    },
+    "objectivePrep": {
+      "label": "Préparation d'Objectif",
+      "values": [
+        "Split Push",
+        "Flexible",
+        "Se Regrouper"
+      ]
+    },
+    "objectiveCombat": {
+      "label": "Stratégie de Combat d'Objectif",
+      "values": [
+        "Engage Fort",
+        "Poker / Garder ses Distances"
+      ]
+    },
+    "objectiveFinish": {
+      "label": "Finalisation d'Objectif",
+      "values": [
+        "Priorité d'Élimination",
+        "Priorité de Combat"
+      ]
+    },
+    "morgard": {
+      "label": "Utilisation du Buff Morgard",
+      "values": [
+        "Split 1-3-1",
+        "Se Regrouper à 5",
+        "Split 1-4"
+      ]
+    },
+    "towerSiege": {
+      "label": "Siège de Tour",
+      "values": [
+        "Poker / Garder ses Distances",
+        "Dive"
+      ]
+    },
+    "defense": {
+      "label": "Tactiques Défensives",
+      "values": [
+        "Forcer le Combat",
+        "Défendre la Lane Pressée"
+      ]
+    },
+    "closing": {
+      "label": "Conclusion de Partie",
+      "values": [
+        "Agressif",
+        "Stable",
+        "Flexible"
+      ]
+    }
+  },
+  "slots": [
+    "Top",
+    "Jungle",
+    "Mid",
+    "Bot",
+    "Support"
+  ],
+  "jungleGuide": {
+    "version": "2026-06",
+    "source": "Jungle and Objective Tactics Guide (dq7) + coach integration",
+    "guideUrl": "https://dq7reimagined.com/teamfight-manager-2/jungle-guide/",
+    "quickSettingsIndex": [
+      {
+        "id": "early_serpent_pressure",
+        "draftGoal": "Pression Serpent early",
+        "earlyJungle": "Gank",
+        "earlySerpent": "Toujours Essayer",
+        "objectiveCombat": "Engage Fort",
+        "example": "Lancier + lanes mobiles"
+      },
+      {
+        "id": "protect_scale",
+        "draftGoal": "Protéger carry scale",
+        "earlyJungle": "Farm/Couverture",
+        "earlySerpent": "Céder",
+        "objectiveCombat": "Poker / Garder ses Distances",
+        "example": "Tireur + Prêtre/Moine"
+      },
+      {
+        "id": "pick_before_morgard",
+        "draftGoal": "Pick avant objectif",
+        "earlyJungle": "Gank",
+        "earlySerpent": "Flexible",
+        "objectiveCombat": "Poker / Garder ses Distances",
+        "example": "Ninja / Démon"
+      },
+      {
+        "id": "side_pressure_trade",
+        "draftGoal": "Trade map (pas 5v5)",
+        "earlyJungle": "Farm/Couverture",
+        "earlySerpent": "Céder",
+        "objectiveCombat": "Poker / Garder ses Distances",
+        "example": "Pyromancien / Cavalerie"
+      },
+      {
+        "id": "behind_stabilize",
+        "draftGoal": "Behind après failed setup",
+        "earlyJungle": "Farm/Couverture",
+        "earlySerpent": "Céder",
+        "objectiveCombat": "Poker / Garder ses Distances",
+        "example": "Revoir draft next game"
+      }
+    ],
+    "templates": [
+      {
+        "id": "lancer_early_serpent",
+        "key": "pressure",
+        "label": "Lancier — pression Serpent early",
+        "draft": "Lancier JG + dégâts lane early + supp engage/CC",
+        "our": {
+          "Top": "Combattant",
+          "Jungle": "Lancier",
+          "Mid": "Pyromancien",
+          "Bot": "Archer",
+          "Support": "Moine"
+        },
+        "enemy": {
+          "Top": "Porteur de bouclier",
+          "Jungle": "Ogre",
+          "Mid": "Mage de glace",
+          "Bot": "Soldat",
+          "Support": "Infanterie lourde"
+        },
+        "tactics": {
+          "focusLane": "Toutes les Lanes",
+          "earlyJungle": "Gank",
+          "earlySerpent": "Toujours Essayer",
+          "topSerpent": "Flexible",
+          "waveMgmt": "Priorité Ralliement",
+          "objectivePrep": "Se Regrouper",
+          "objectiveCombat": "Engage Fort",
+          "objectiveFinish": "Priorité de Combat",
+          "morgard": "Se Regrouper à 5",
+          "towerSiege": "Poker / Garder ses Distances",
+          "defense": "Forcer le Combat",
+          "closing": "Agressif"
+        },
+        "review": "La pression a-t-elle mené au Serpent ou retardé le jungle ennemi ?"
+      },
+      {
+        "id": "sniper_protect_scale",
+        "key": "scale",
+        "label": "Tireur — protection scale",
+        "draft": "Tireur bot + Prêtre/Pythonisse + front",
+        "our": {
+          "Top": "Chevalier de cavalerie",
+          "Jungle": "Ogre",
+          "Mid": "Mage de glace",
+          "Bot": "Tireur",
+          "Support": "Prêtre"
+        },
+        "enemy": {
+          "Top": "Infanterie lourde",
+          "Jungle": "Lancier",
+          "Mid": "Pyromancien",
+          "Bot": "Archer",
+          "Support": "Moine"
+        },
+        "tactics": {
+          "focusLane": "Focus Mid/Bot",
+          "earlyJungle": "Farm/Couverture",
+          "earlySerpent": "Céder",
+          "topSerpent": "Flexible",
+          "waveMgmt": "Priorité Vague",
+          "objectivePrep": "Flexible",
+          "objectiveCombat": "Poker / Garder ses Distances",
+          "objectiveFinish": "Priorité d'Élimination",
+          "morgard": "Se Regrouper à 5",
+          "towerSiege": "Poker / Garder ses Distances",
+          "defense": "Défendre la Lane Pressée",
+          "closing": "Stable"
+        },
+        "review": "Survécu early sans céder toute la map ?"
+      },
+      {
+        "id": "ninja_demon_pick",
+        "key": "pick",
+        "label": "Ninja / Démon — pick avant Morgard",
+        "draft": "Ninja ou Démon + Exécuteur/Bombardier + follow-up",
+        "our": {
+          "Top": "Chevalier magique",
+          "Jungle": "Ninja",
+          "Mid": "Bombardier",
+          "Bot": "Exécuteur",
+          "Support": "Combattant"
+        },
+        "enemy": {
+          "Top": "Épéiste",
+          "Jungle": "Berserker",
+          "Mid": "Mage blanc",
+          "Bot": "Tireur",
+          "Support": "Pythonisse"
+        },
+        "tactics": {
+          "focusLane": "Toutes les Lanes",
+          "earlyJungle": "Gank",
+          "earlySerpent": "Flexible",
+          "topSerpent": "Flexible",
+          "waveMgmt": "Priorité Ralliement",
+          "objectivePrep": "Flexible",
+          "objectiveCombat": "Poker / Garder ses Distances",
+          "objectiveFinish": "Priorité d'Élimination",
+          "morgard": "Split 1-4",
+          "towerSiege": "Poker / Garder ses Distances",
+          "defense": "Défendre la Lane Pressée",
+          "closing": "Flexible"
+        },
+        "review": "Picks avant objectif ou marche dans des 5v5 groupés ?"
+      },
+      {
+        "id": "pyro_cavalry_trade",
+        "key": "trade",
+        "label": "Pyromancien / Cavalerie — trade side",
+        "draft": "Pyro wave clear ou Cavalerie side",
+        "our": {
+          "Top": "Soldat",
+          "Jungle": "Chevalier de cavalerie",
+          "Mid": "Pyromancien",
+          "Bot": "Archer",
+          "Support": "Moine"
+        },
+        "enemy": {
+          "Top": "Infanterie lourde",
+          "Jungle": "Ogre",
+          "Mid": "Mage de glace",
+          "Bot": "Tireur",
+          "Support": "Porteur de bouclier"
+        },
+        "tactics": {
+          "focusLane": "Focus Top/Mid",
+          "earlyJungle": "Farm/Couverture",
+          "earlySerpent": "Céder",
+          "topSerpent": "Ne Pas Rejoindre",
+          "waveMgmt": "Priorité Vague",
+          "objectivePrep": "Split Push",
+          "objectiveCombat": "Poker / Garder ses Distances",
+          "objectiveFinish": "Flexible",
+          "morgard": "Split 1-3-1",
+          "towerSiege": "Poker / Garder ses Distances",
+          "defense": "Défendre la Lane Pressée",
+          "closing": "Flexible"
+        },
+        "review": "Trade suffisant ou snowball objectif ennemi ?"
+      }
+    ],
+    "jungleChampionFit": {
+      "Lancier": {
+        "earlyJungle": "Gank",
+        "style": "aggressive",
+        "serpent": "contest",
+        "label": "Gank / objectif — engage, tempo",
+        "verify": "Arrivé à temps au Serpent ?"
+      },
+      "Ninja": {
+        "earlyJungle": "Gank",
+        "style": "pick",
+        "serpent": "after_advantage",
+        "label": "Pick / backline — dive carry faible peel",
+        "verify": "Atteint carry avant fight obj ?"
+      },
+      "Soldat": {
+        "earlyJungle": "Farm/Couverture",
+        "style": "flex",
+        "serpent": "flexible",
+        "label": "Pression mobile / flexible",
+        "verify": "Pression réelle ou feed ?"
+      },
+      "Berserker": {
+        "earlyJungle": "Gank",
+        "style": "skirmish",
+        "serpent": "flexible",
+        "label": "Skirmish — isolations early",
+        "verify": "Avantage ou tempo donné ?"
+      },
+      "Combattant": {
+        "earlyJungle": "Gank",
+        "style": "engage",
+        "serpent": "contest",
+        "label": "CC / engage JG — start fight fiable",
+        "verify": "DPS follow-up suffisant ?"
+      },
+      "Chevalier de cavalerie": {
+        "earlyJungle": "Farm/Couverture",
+        "style": "stable_front",
+        "serpent": "delay_trade",
+        "label": "Front JG stable — présence objectif",
+        "verify": "Protège ou ignoré ?"
+      },
+      "Démon": {
+        "earlyJungle": "Gank",
+        "style": "pick",
+        "serpent": "after_advantage",
+        "label": "Dive / displacement — backline immobile",
+        "verify": "CC/peel ennemi stoppe-t-il ?"
+      },
+      "Clown": {
+        "earlyJungle": "Gank",
+        "style": "pick",
+        "serpent": "after_advantage",
+        "label": "Gank mid/bot — burst + mobilité",
+        "verify": "Ganks convertis ?"
+      },
+      "Inquisiteur": {
+        "earlyJungle": "Gank",
+        "style": "pick",
+        "serpent": "after_advantage",
+        "label": "Tempo snowball — domination early",
+        "verify": "Snowball ou behind si fail ?"
+      },
+      "Ogre": {
+        "earlyJungle": "Farm/Couverture",
+        "style": "safe",
+        "serpent": "delay",
+        "label": "Farm / front tard — lent mais tank",
+        "verify": "Comp joue autour du tank ?"
+      },
+      "Chasseur de boomerang": {
+        "earlyJungle": "Farm/Couverture",
+        "style": "flex",
+        "serpent": "flexible",
+        "label": "Gunner — mobilité, pression flexible",
+        "verify": "Pression réelle ou feed ?"
+      },
+      "Briseur de siège": {
+        "earlyJungle": "Gank",
+        "style": "engage",
+        "serpent": "contest",
+        "label": "Engage — waveclear objectif",
+        "verify": "Arrivé à temps au Serpent ?"
+      }
+    },
+    "objectiveDecisionModel": {
+      "contest": {
+        "label": "Contest immédiat",
+        "usage": "1er Serpent",
+        "when": "JG prêt, lanes mobiles, dmg/CC early",
+        "tactics": {
+          "earlySerpent": "Toujours Essayer",
+          "objectiveCombat": "Engage Fort"
+        }
+      },
+      "delay": {
+        "label": "Delay",
+        "usage": "Scale / setup faible",
+        "when": "Items, peel, position",
+        "tactics": {
+          "earlySerpent": "Céder",
+          "defense": "Défendre la Lane Pressée"
+        }
+      },
+      "pick": {
+        "label": "Pick first",
+        "usage": "Morgard / 5v5 risqué",
+        "when": "Pas win 5v5 égal",
+        "tactics": {
+          "objectiveCombat": "Poker / Garder ses Distances",
+          "objectiveFinish": "Priorité d'Élimination"
+        }
+      },
+      "trade": {
+        "label": "Trade",
+        "usage": "Mauvais setup direct",
+        "when": "Ennemi meilleur au pit",
+        "tactics": {
+          "earlySerpent": "Céder",
+          "waveMgmt": "Priorité Vague"
+        }
+      },
+      "defend": {
+        "label": "Defend",
+        "usage": "Behind",
+        "when": "Contest = morts inutiles",
+        "tactics": {
+          "defense": "Défendre la Lane Pressée",
+          "objectiveCombat": "Poker / Garder ses Distances"
+        }
+      }
+    },
+    "objectiveCombatOptions": [
+      {
+        "id": "hard_engage",
+        "value": "Engage Fort",
+        "when": "Front + CC + dmg",
+        "bestWith": [
+          "Lancier",
+          "Combattant",
+          "Moine"
+        ],
+        "risk": "Carry pas prêt"
+      },
+      {
+        "id": "poke",
+        "value": "Poker / Garder ses Distances",
+        "when": "Softening avant commit",
+        "bestWith": [
+          "Archer",
+          "Pyromancien",
+          "Bombardier",
+          "Joueur"
+        ],
+        "risk": "Dive hard ennemi"
+      },
+      {
+        "id": "protect_carry",
+        "value": "Poker / Garder ses Distances",
+        "when": "Win condition = hypercarry",
+        "bestWith": [
+          "Tireur",
+          "Prêtre",
+          "Moine"
+        ],
+        "risk": "Manque dmg secondaire"
+      },
+      {
+        "id": "pick_first",
+        "value": "Poker / Garder ses Distances",
+        "when": "Pas win 5v5 égal",
+        "bestWith": [
+          "Ninja",
+          "Démon",
+          "Exécuteur"
+        ],
+        "risk": "Peel lourd ennemi"
+      },
+      {
+        "id": "defensive",
+        "value": "Poker / Garder ses Distances",
+        "when": "Behind / timing items",
+        "bestWith": [
+          "Scale",
+          "wave clear"
+        ],
+        "risk": "Cède map"
+      }
+    ],
+    "objectiveFinishBehaviors": [
+      {
+        "id": "focus_objective",
+        "value": "Priorité de Combat",
+        "when": "Ennemi zoned, JG mort, burst obj OK",
+        "avoid": "Ennemi entre librement"
+      },
+      {
+        "id": "turn_enemy",
+        "value": "Priorité d'Élimination",
+        "when": "Ennemi walk in, comp gagne fight",
+        "avoid": "Manque dmg, obj presque fini"
+      },
+      {
+        "id": "flexible",
+        "value": "Flexible (via combat poke)",
+        "when": "Matchup incertain",
+        "avoid": "Comp a besoin d'un plan clair"
+      }
+    ],
+    "morgardClosingPlans": [
+      {
+        "id": "stable",
+        "value": "Stable",
+        "morgard": "Se Regrouper à 5",
+        "when": "Carry scale",
+        "champions": [
+          "Tireur",
+          "Prêtre",
+          "Pythonisse"
+        ],
+        "caution": "Never hit towers"
+      },
+      {
+        "id": "aggressive",
+        "value": "Agressif",
+        "morgard": "Se Regrouper à 5",
+        "when": "Ahead clair",
+        "champions": [
+          "Lancier",
+          "Combattant",
+          "Chevalier de cavalerie"
+        ],
+        "caution": "Throw vs counter-engage"
+      },
+      {
+        "id": "split",
+        "value": "Split 1-3-1 / 1-4",
+        "morgard": "Split 1-3-1",
+        "when": "Side lane fort",
+        "champions": [
+          "Vampire",
+          "Chevalier de cavalerie",
+          "Pyromancien",
+          "Berserker"
+        ],
+        "caution": "Groupe principal défend mal"
+      },
+      {
+        "id": "poke_siege",
+        "value": "Poke siege",
+        "morgard": "Se Regrouper à 5",
+        "towerSiege": "Poker / Garder ses Distances",
+        "when": "Chip safe",
+        "champions": [
+          "Archer",
+          "Joueur",
+          "Bombardier"
+        ],
+        "caution": "Hard engage ennemi"
+      },
+      {
+        "id": "defensive_close",
+        "value": "Defensive close",
+        "morgard": "Se Regrouper à 5",
+        "closing": "Stable",
+        "when": "Buff mais pas ahead",
+        "champions": [
+          "Scale",
+          "fragile"
+        ],
+        "caution": "Morgard wasted"
+      }
+    ],
+    "failureAdjustments": [
+      {
+        "pattern": "Jungle agressive → morts early",
+        "adjust": "Farm/Couverture + Serpent Céder"
+      },
+      {
+        "pattern": "JG arrive en retard à l'objectif",
+        "adjust": "Setup plus safe ou draft prio lanes"
+      },
+      {
+        "pattern": "Start objectif mais ne finit pas",
+        "adjust": "Revoir Finalisation + dégâts équipe"
+      },
+      {
+        "pattern": "Morgard gagné mais pas de push",
+        "adjust": "Morgard Split ou Siège Poker"
+      },
+      {
+        "pattern": "Comp pick → 5v5 égal",
+        "adjust": "Combat objectif → pick first (Poker)"
+      },
+      {
+        "pattern": "Comp scale contest trop tôt",
+        "adjust": "Delay Serpent + protéger carry"
+      },
+      {
+        "pattern": "Jungle safe cède tout",
+        "adjust": "Ajouter prio lanes, poke ou pression objectif"
+      }
+    ],
+    "archetypeLabels": {
+      "early_serpent_pressure": "Early Serpent pressure (Lancer)",
+      "protect_scale": "Protect scaling carry (Sniper)",
+      "pick_before_morgard": "Pick before objective (Ninja / Demon)",
+      "side_pressure_trade": "Side-pressure trade (Pyromancer / Cavalry)",
+      "behind_stabilize": "Behind — stabilize (next-match adjustment)",
+      "balanced": "Flexible / responsive (guide)"
+    },
+    "shellStyleToArchetype": {
+      "front_to_back": "early_serpent_pressure",
+      "kite_poke": "side_pressure_trade",
+      "dive_pick": "pick_before_morgard"
+    },
+    "shellIdToArchetype": {
+      "sniper_front_to_back": "early_serpent_pressure",
+      "archer_priest_kite": "side_pressure_trade",
+      "ninja_executioner_dive": "pick_before_morgard"
+    },
+    "heroJungleChampions": [
+      "Lancier",
+      "Ninja",
+      "Chasseur de boomerang",
+      "Berserker",
+      "Combattant",
+      "Chevalier de cavalerie",
+      "Démon"
+    ],
+    "tacticSlotLabels": {
+      "focusLane": "Focus de Lane",
+      "earlyJungle": "Style de Jungle Précoce",
+      "earlySerpent": "Tentative de Serpent Précoce",
+      "topSerpent": "Top Laner au Serpent Précoce",
+      "waveMgmt": "Gestion des Vagues de Sbires",
+      "objectivePrep": "Préparation d'Objectif",
+      "objectiveCombat": "Stratégie de Combat d'Objectif",
+      "objectiveFinish": "Finalisation d'Objectif",
+      "morgard": "Utilisation du Buff Morgard",
+      "towerSiege": "Siège de Tour",
+      "defense": "Tactiques Défensives",
+      "closing": "Conclusion de Partie"
+    }
+  },
+  "compGuide": {
+    "compTypes": {
+      "poke_siege": {
+        "label": "Poke / Siege",
+        "teamfight": "Pression à distance sur objectifs"
+      },
+      "poke_disengage": {
+        "label": "Poke + Disengage",
+        "teamfight": "Poke puis retrait — pas de 5v5 forcé"
+      },
+      "teamfight_engage": {
+        "label": "Teamfight / Engage",
+        "teamfight": "5v5 groupé sur Serpent/Morgard"
+      },
+      "split_push": {
+        "label": "Split push",
+        "teamfight": "Pression side + 4 mid"
+      },
+      "hypercarry": {
+        "label": "Hypercarry",
+        "teamfight": "Front-to-back, peel total"
+      },
+      "lane_tempo": {
+        "label": "Lane tempo",
+        "teamfight": "Snowball early avant scale adverse"
+      },
+      "all_in": {
+        "label": "All-in / Catch",
+        "teamfight": "CC lock + burst coordonné"
+      },
+      "pick_global": {
+        "label": "Pick / Global",
+        "teamfight": "Vision profonde, punir rotations"
+      }
+    }
+  },
+  "mtgColors": {
+    "version": "2026-06-tfm2",
+    "totalPoints": 24,
+    "colors": {
+      "W": {
+        "label": "Blanc",
+        "labelEn": "White",
+        "philosophy": "Structure & altruisme",
+        "hex": "#f5f0dc"
+      },
+      "U": {
+        "label": "Bleu",
+        "labelEn": "Blue",
+        "philosophy": "Connaissance & contrôle",
+        "hex": "#4a9fd4"
+      },
+      "B": {
+        "label": "Noir",
+        "labelEn": "Black",
+        "philosophy": "Pouvoir & sacrifice",
+        "hex": "#6b6b7a"
+      },
+      "R": {
+        "label": "Rouge",
+        "labelEn": "Red",
+        "philosophy": "Liberté & destruction",
+        "hex": "#e05238"
+      },
+      "G": {
+        "label": "Vert",
+        "labelEn": "Green",
+        "philosophy": "Croissance & tradition",
+        "hex": "#3d9e5a"
+      }
+    },
+    "pairs": {
+      "allied": [
+        [
+          "W",
+          "U"
+        ],
+        [
+          "U",
+          "B"
+        ],
+        [
+          "B",
+          "R"
+        ],
+        [
+          "R",
+          "G"
+        ],
+        [
+          "G",
+          "W"
+        ]
+      ],
+      "enemy": [
+        [
+          "W",
+          "B"
+        ],
+        [
+          "W",
+          "R"
+        ],
+        [
+          "U",
+          "R"
+        ],
+        [
+          "U",
+          "G"
+        ],
+        [
+          "B",
+          "G"
+        ]
+      ]
+    }
+  },
+  "champions": {
+    "Androïde": {
+      "id": "andro-de",
+      "type": "Guerrier (Tank / Bruiser / Utilitaire)",
+      "tags": [
+        "frontline",
+        "peel"
+      ],
+      "build": [
+        "Forteresse imprenable",
+        "Voile d'annihilation",
+        "Fragment de corne du géant"
+      ],
+      "tierMeta": "B",
+      "tierNote": "Bon tank + save allié ; plus fort qu'avant.",
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Chaman vaudou",
+        "Inquisiteur",
+        "Maître du fouet"
+      ],
+      "bestPairings": [
+        "Tireur",
+        "Chasseur de boomerang",
+        "Mage noir",
+        "Bombardier",
+        "Maître du fouet"
+      ],
+      "draftProfile": {
+        "damage": "AD",
+        "squishy": false,
+        "tanky": true,
+        "range": "melee",
+        "adRatio": 100,
+        "apRatio": 0,
+        "adShare": 1.0,
+        "apShare": 0.0,
+        "dpsWeight": 0.31,
+        "tankWeight": 1.06
+      },
+      "colorIdentity": {
+        "W": 12,
+        "U": 5,
+        "B": 0,
+        "R": 0,
+        "G": 7,
+        "dominant": [
+          "W",
+          "G"
+        ],
+        "identity": "WG",
+        "vector": [
+          0.5,
+          0.20833333333333334,
+          0.0,
+          0.0,
+          0.2916666666666667
+        ],
+        "family": "support_enchanter"
+      },
+      "family": "support_enchanter",
+      "familyLabel": "Support enchanter",
+      "compTypes": [
+        "hypercarry"
+      ]
+    },
+    "Archer": {
+      "id": "archer",
+      "type": "À distance (Marksman)",
+      "tags": [
+        "poke",
+        "scaling"
+      ],
+      "build": [
+        "Souverain de la tempête",
+        "Jugement final du seigneur de guerre",
+        "Lame perforante"
+      ],
+      "tierMeta": "A",
+      "tierNote": "Beaucoup plus jouable avec l'IA ; ult one-shot. Positionnement empêche de monter plus haut.",
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Mage de barrière",
+        "Chevalier de cavalerie",
+        "Clown"
+      ],
+      "bestPairings": [
+        "Moine",
+        "Porteur de bouclier",
+        "Médecin de la peste",
+        "Androïde",
+        "Enchanteur"
+      ],
+      "draftProfile": {
+        "damage": "AD",
+        "squishy": false,
+        "tanky": false,
+        "range": "melee",
+        "adRatio": 160,
+        "apRatio": 0,
+        "adShare": 1.0,
+        "apShare": 0.0,
+        "dpsWeight": 0.83,
+        "tankWeight": 0.0
+      },
+      "colorIdentity": {
+        "W": 4,
+        "U": 8,
+        "B": 1,
+        "R": 4,
+        "G": 7,
+        "dominant": [
+          "U",
+          "G"
+        ],
+        "identity": "UG",
+        "vector": [
+          0.16666666666666666,
+          0.3333333333333333,
+          0.041666666666666664,
+          0.16666666666666666,
+          0.2916666666666667
+        ],
+        "family": "adc_poke"
+      },
+      "family": "adc_poke",
+      "familyLabel": "ADC poke",
+      "compTypes": [
+        "poke_siege",
+        "poke_disengage"
+      ]
+    },
+    "Barde": {
+      "id": "barde",
+      "type": "Support de combat",
+      "tags": [
+        "peel"
+      ],
+      "build": [
+        "Voile d'annihilation",
+        "Souverain de la tempête",
+        "Fragment de corne du géant"
+      ],
+      "tierMeta": "D",
+      "tierNote": "Seulement draft 5 statiques spell-DPS ; sinon trop niche.",
+      "worstMatchups": [
+        "Ninja",
+        "Inquisiteur",
+        "Chaman vaudou",
+        "Clown",
+        "Chasseur"
+      ],
+      "bestPairings": [
+        "Chevalier magique",
+        "Pyromancien",
+        "Tireur",
+        "Médecin de la peste",
+        "Joueur"
+      ],
+      "draftProfile": {
+        "damage": "Mixed",
+        "squishy": false,
+        "tanky": false,
+        "range": "melee",
+        "adRatio": 0,
+        "apRatio": 0,
+        "adShare": 0.5,
+        "apShare": 0.5,
+        "dpsWeight": 0.0,
+        "tankWeight": 0.08
+      },
+      "colorIdentity": {
+        "W": 8,
+        "U": 4,
+        "B": 0,
+        "R": 8,
+        "G": 4,
+        "dominant": [
+          "W",
+          "R"
+        ],
+        "identity": "WR",
+        "vector": [
+          0.3333333333333333,
+          0.16666666666666666,
+          0.0,
+          0.3333333333333333,
+          0.16666666666666666
+        ],
+        "family": "support_engage"
+      },
+      "family": "support_engage",
+      "familyLabel": "Support engage",
+      "compTypes": [
+        "teamfight_engage",
+        "all_in"
+      ]
+    },
+    "Berserker": {
+      "id": "berserker",
+      "type": "Guerrier (DPS / Bruiser)",
+      "tags": [
+        "aggressive_jungle",
+        "engage",
+        "frontline",
+        "split"
+      ],
+      "build": [
+        "Souverain de la tempête",
+        "Jugement final du seigneur de guerre",
+        "Fragment de corne du géant"
+      ],
+      "tierMeta": "B",
+      "tierNote": "Fort mais inutile vs 3+ cibles qui se battent.",
+      "worstMatchups": [
+        "Chaman vaudou",
+        "Maître du fouet",
+        "Mage noir",
+        "Soldat",
+        "Inquisiteur"
+      ],
+      "bestPairings": [
+        "Moine",
+        "Chef",
+        "Prêtre",
+        "Enchanteur",
+        "Barde"
+      ],
+      "draftProfile": {
+        "damage": "AD",
+        "squishy": false,
+        "tanky": true,
+        "range": "melee",
+        "adRatio": 70,
+        "apRatio": 0,
+        "adShare": 1.0,
+        "apShare": 0.0,
+        "dpsWeight": 0.02,
+        "tankWeight": 0.96
+      },
+      "colorIdentity": {
+        "W": 6,
+        "U": 3,
+        "B": 3,
+        "R": 8,
+        "G": 4,
+        "dominant": [
+          "R",
+          "W"
+        ],
+        "identity": "RW",
+        "vector": [
+          0.25,
+          0.125,
+          0.125,
+          0.3333333333333333,
+          0.16666666666666666
+        ],
+        "family": "tank_engage"
+      },
+      "family": "tank_engage",
+      "familyLabel": "Tank engage",
+      "compTypes": [
+        "teamfight_engage"
+      ]
+    },
+    "Bombardier": {
+      "id": "bombardier",
+      "type": "À distance (Artillerie)",
+      "tags": [
+        "mage_burst",
+        "poke",
+        "scaling",
+        "wave_clear"
+      ],
+      "build": [
+        "Prophète de l'abîme",
+        "Bâton du sorcier",
+        "Cristal chrono"
+      ],
+      "tierMeta": "S",
+      "tierNote": "Gros dégâts, bon TF, farm rapide, jouable sur toute position sauf Support ; demande un minimum de positionnement.",
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Mage de barrière",
+        "Clown",
+        "Chevalier de cavalerie"
+      ],
+      "bestPairings": [
+        "Moine",
+        "Mage de glace",
+        "Chaman vaudou",
+        "Androïde",
+        "Porteur de bouclier"
+      ],
+      "draftProfile": {
+        "damage": "AD",
+        "squishy": false,
+        "tanky": false,
+        "range": "melee",
+        "adRatio": 300,
+        "apRatio": 0,
+        "adShare": 1.0,
+        "apShare": 0.0,
+        "dpsWeight": 1.25,
+        "tankWeight": 0.0
+      },
+      "colorIdentity": {
+        "W": 3,
+        "U": 9,
+        "B": 3,
+        "R": 7,
+        "G": 2,
+        "dominant": [
+          "U",
+          "R"
+        ],
+        "identity": "UR",
+        "vector": [
+          0.125,
+          0.375,
+          0.125,
+          0.2916666666666667,
+          0.08333333333333333
+        ],
+        "family": "adc_poke"
+      },
+      "family": "adc_poke",
+      "familyLabel": "ADC poke",
+      "compTypes": [
+        "poke_siege",
+        "poke_disengage"
+      ]
+    },
+    "Briseur de siège": {
+      "id": "briseur-de-si-ge",
+      "type": "Guerrier (Anti-structure)",
+      "tags": [
+        "aggressive_jungle",
+        "engage",
+        "frontline",
+        "wave_clear"
+      ],
+      "build": [
+        "Jugement final du seigneur de guerre",
+        "Fragment de corne du géant",
+        "Forteresse imprenable"
+      ],
+      "tierMeta": "A",
+      "tierNote": "Ganks dès lvl 1, burst TF en survivant. Difficile sous mass CC.",
+      "worstMatchups": [
+        "Soldat",
+        "Tireur",
+        "Chaman vaudou",
+        "Maître du fouet",
+        "Mage noir"
+      ],
+      "bestPairings": [
+        "Enchanteur",
+        "Moine",
+        "Nécromancien",
+        "Clown",
+        "Pythonisse"
+      ],
+      "draftProfile": {
+        "damage": "AD",
+        "squishy": false,
+        "tanky": true,
+        "range": "melee",
+        "adRatio": 240,
+        "apRatio": 0,
+        "adShare": 1.0,
+        "apShare": 0.0,
+        "dpsWeight": 0.8,
+        "tankWeight": 0.96
+      },
+      "colorIdentity": {
+        "W": 8,
+        "U": 3,
+        "B": 1,
+        "R": 7,
+        "G": 5,
+        "dominant": [
+          "W",
+          "R"
+        ],
+        "identity": "WR",
+        "vector": [
+          0.3333333333333333,
+          0.125,
+          0.041666666666666664,
+          0.2916666666666667,
+          0.20833333333333334
+        ],
+        "family": "tank_engage"
+      },
+      "family": "tank_engage",
+      "familyLabel": "Tank engage",
+      "compTypes": [
+        "teamfight_engage"
+      ]
+    },
+    "Chaman vaudou": {
+      "id": "chaman-vaudou",
+      "type": "Mage (Contrôle / DoT)",
+      "tags": [
+        "mage_burst",
+        "wave_clear"
+      ],
+      "build": [
+        "Prophète de l'abîme",
+        "Bâton du sorcier",
+        "Orbe vital"
+      ],
+      "tierMeta": "D",
+      "tierNote": "Jamais réalisé malgré 12 buffs d'affilée.",
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Clown",
+        "Inquisiteur",
+        "Tueur à gages"
+      ],
+      "bestPairings": [
+        "Infanterie lourde",
+        "Porteur de bouclier",
+        "Tireur",
+        "Prisonnier",
+        "Inquisiteur"
+      ],
+      "draftProfile": {
+        "damage": "AP",
+        "squishy": false,
+        "tanky": false,
+        "range": "melee",
+        "adRatio": 0,
+        "apRatio": 175,
+        "adShare": 0.0,
+        "apShare": 1.0,
+        "dpsWeight": 0.77,
+        "tankWeight": 0.08
+      },
+      "colorIdentity": {
+        "W": 3,
+        "U": 10,
+        "B": 2,
+        "R": 3,
+        "G": 6,
+        "dominant": [
+          "U",
+          "G"
+        ],
+        "identity": "UG",
+        "vector": [
+          0.125,
+          0.4166666666666667,
+          0.08333333333333333,
+          0.125,
+          0.25
+        ],
+        "family": "mage_control"
+      },
+      "family": "mage_control",
+      "familyLabel": "Mage contrôle",
+      "compTypes": [
+        "poke_siege",
+        "poke_disengage"
+      ]
+    },
+    "Chasseur": {
+      "id": "chasseur",
+      "type": "Assassin",
+      "tags": [
+        "assassin",
+        "dive",
+        "pick_jungle"
+      ],
+      "build": [
+        "Jugement final du seigneur de guerre",
+        "Souverain de la tempête",
+        "Lame perforante"
+      ],
+      "tierMeta": "A",
+      "tierNote": "Assassin agréable ; ult aide les TF ; 3 dash intégrés = punissable.",
+      "worstMatchups": [
+        "Porteur de bouclier",
+        "Moine",
+        "Chevalier",
+        "Fantôme",
+        "Exorciste"
+      ],
+      "bestPairings": [
+        "Mage noir",
+        "Mage de glace",
+        "Taoïste",
+        "Combattant",
+        "Chaman vaudou"
+      ],
+      "draftProfile": {
+        "damage": "AD",
+        "squishy": false,
+        "tanky": false,
+        "range": "melee",
+        "adRatio": 220,
+        "apRatio": 0,
+        "adShare": 1.0,
+        "apShare": 0.0,
+        "dpsWeight": 0.96,
+        "tankWeight": 0.0
+      },
+      "colorIdentity": {
+        "W": 0,
+        "U": 3,
+        "B": 11,
+        "R": 9,
+        "G": 1,
+        "dominant": [
+          "B",
+          "R"
+        ],
+        "identity": "BR",
+        "vector": [
+          0.0,
+          0.125,
+          0.4583333333333333,
+          0.375,
+          0.041666666666666664
+        ],
+        "family": "assassin_ad_pick"
+      },
+      "family": "assassin_ad_pick",
+      "familyLabel": "Assassin AD pick",
+      "compTypes": [
+        "pick_global",
+        "all_in"
+      ]
+    },
+    "Chasseur de boomerang": {
+      "id": "chasseur-de-boomerang",
+      "type": "À distance",
+      "tags": [
+        "poke",
+        "scaling"
+      ],
+      "build": [
+        "Souverain de la tempête",
+        "Jugement final du seigneur de guerre",
+        "Lame perforante"
+      ],
+      "tierMeta": "A",
+      "tierNote": "Relativement stable ; les autres se positionnent mieux → relativité, pas perte absolue de puissance.",
+      "worstMatchups": [
+        "Mage de barrière",
+        "Ninja",
+        "Chasseur",
+        "Chaman vaudou",
+        "Chevalier de cavalerie"
+      ],
+      "bestPairings": [
+        "Androïde",
+        "Porteur de bouclier",
+        "Moine",
+        "Infanterie lourde",
+        "Chaman vaudou"
+      ],
+      "draftProfile": {
+        "damage": "AD",
+        "squishy": false,
+        "tanky": false,
+        "range": "melee",
+        "adRatio": 155,
+        "apRatio": 0,
+        "adShare": 1.0,
+        "apShare": 0.0,
+        "dpsWeight": 0.81,
+        "tankWeight": 0.0
+      },
+      "colorIdentity": {
+        "W": 4,
+        "U": 8,
+        "B": 2,
+        "R": 4,
+        "G": 6,
+        "dominant": [
+          "U",
+          "G"
+        ],
+        "identity": "UG",
+        "vector": [
+          0.16666666666666666,
+          0.3333333333333333,
+          0.08333333333333333,
+          0.16666666666666666,
+          0.25
+        ],
+        "family": "adc_poke"
+      },
+      "family": "adc_poke",
+      "familyLabel": "ADC poke",
+      "compTypes": [
+        "poke_siege",
+        "poke_disengage"
+      ]
+    },
+    "Chasseur de fléchettes empoisonnées": {
+      "id": "chasseur-de-fl-chettes-empoisonn-es",
+      "type": "À distance (Poison)",
+      "tags": [
+        "poke",
+        "scaling"
+      ],
+      "build": [
+        "Souverain de la tempête",
+        "Jugement final du seigneur de guerre",
+        "Lame de vol de vie"
+      ],
+      "tierMeta": "S",
+      "tierNote": "Énorme gain de positionnement, gros dégâts, peut « saler » la game (rare). Cible prioritaire #3 (avec Mage blanc et Maître du fouet).",
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Chevalier de cavalerie",
+        "Clown",
+        "Mage de barrière"
+      ],
+      "bestPairings": [
+        "Médecin de la peste",
+        "Tireur",
+        "Maître du fouet",
+        "Moine",
+        "Bombardier"
+      ],
+      "draftProfile": {
+        "damage": "AD",
+        "squishy": false,
+        "tanky": false,
+        "range": "melee",
+        "adRatio": 17,
+        "apRatio": 0,
+        "adShare": 1.0,
+        "apShare": 0.0,
+        "dpsWeight": 0.35,
+        "tankWeight": 0.0
+      },
+      "colorIdentity": {
+        "W": 3,
+        "U": 8,
+        "B": 3,
+        "R": 4,
+        "G": 6,
+        "dominant": [
+          "U",
+          "G"
+        ],
+        "identity": "UG",
+        "vector": [
+          0.125,
+          0.3333333333333333,
+          0.125,
+          0.16666666666666666,
+          0.25
+        ],
+        "family": "adc_poke"
+      },
+      "family": "adc_poke",
+      "familyLabel": "ADC poke",
+      "compTypes": [
+        "poke_siege",
+        "poke_disengage"
+      ]
+    },
+    "Chef": {
+      "id": "chef",
+      "type": "Support de combat",
+      "tags": [
+        "frontline",
+        "peel",
+        "wave_clear"
+      ],
+      "build": [
+        "Fragment de corne du géant",
+        "Forteresse imprenable",
+        "Voile d'annihilation"
+      ],
+      "tierMeta": "D",
+      "tierNote": "Faible à toutes les phases.",
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Inquisiteur",
+        "Chaman vaudou",
+        "Taoïste"
+      ],
+      "bestPairings": [
+        "Berserker",
+        "Ogre",
+        "Maître du fouet",
+        "Joueur",
+        "Vampire"
+      ],
+      "draftProfile": {
+        "damage": "AP",
+        "squishy": false,
+        "tanky": true,
+        "range": "melee",
+        "adRatio": 0,
+        "apRatio": 75,
+        "adShare": 0.0,
+        "apShare": 1.0,
+        "dpsWeight": 0.0,
+        "tankWeight": 1.06
+      },
+      "colorIdentity": {
+        "W": 10,
+        "U": 4,
+        "B": 1,
+        "R": 2,
+        "G": 7,
+        "dominant": [
+          "W",
+          "G"
+        ],
+        "identity": "WG",
+        "vector": [
+          0.4166666666666667,
+          0.16666666666666666,
+          0.041666666666666664,
+          0.08333333333333333,
+          0.2916666666666667
+        ],
+        "family": "support_enchanter"
+      },
+      "family": "support_enchanter",
+      "familyLabel": "Support enchanter",
+      "compTypes": [
+        "hypercarry"
+      ]
+    },
+    "Chevalier": {
+      "id": "chevalier",
+      "type": "Guerrier (Tank)",
+      "tags": [
+        "engage",
+        "frontline"
+      ],
+      "build": [
+        "Forteresse imprenable",
+        "Fragment de corne du géant",
+        "Jugement final du seigneur de guerre"
+      ],
+      "tierMeta": "C",
+      "tierNote": "Faible avant buffs ; avec 2 fronts = TF gagnables.",
+      "worstMatchups": [
+        "Chaman vaudou",
+        "Maître du fouet",
+        "Mage noir",
+        "Invocateur d'esprit",
+        "Inquisiteur"
+      ],
+      "bestPairings": [
+        "Mage noir",
+        "Chaman vaudou",
+        "Bombardier",
+        "Tireur",
+        "Pyromancien"
+      ],
+      "draftProfile": {
+        "damage": "Mixed",
+        "squishy": false,
+        "tanky": true,
+        "range": "melee",
+        "adRatio": 0,
+        "apRatio": 0,
+        "adShare": 0.5,
+        "apShare": 0.5,
+        "dpsWeight": 0.0,
+        "tankWeight": 1.25
+      },
+      "colorIdentity": {
+        "W": 8,
+        "U": 3,
+        "B": 1,
+        "R": 7,
+        "G": 5,
+        "dominant": [
+          "W",
+          "R"
+        ],
+        "identity": "WR",
+        "vector": [
+          0.3333333333333333,
+          0.125,
+          0.041666666666666664,
+          0.2916666666666667,
+          0.20833333333333334
+        ],
+        "family": "tank_engage"
+      },
+      "family": "tank_engage",
+      "familyLabel": "Tank engage",
+      "compTypes": [
+        "teamfight_engage"
+      ]
+    },
+    "Chevalier de cavalerie": {
+      "id": "chevalier-de-cavalerie",
+      "type": "Guerrier (Charge)",
+      "tags": [
+        "aggressive_jungle",
+        "engage",
+        "frontline",
+        "split"
+      ],
+      "build": [
+        "Jugement final du seigneur de guerre",
+        "Souverain de la tempête",
+        "Fragment de corne du géant"
+      ],
+      "tierMeta": "A",
+      "tierNote": "Gros dégâts early, excellent TF sous ult, kills stables. Ordre de valeur : Jungle → Top → Bot → Mid → Support. Item PV obligatoire slot 1–2.",
+      "worstMatchups": [
+        "Mage de glace",
+        "Porteur de bouclier",
+        "Combattant",
+        "Prisonnier",
+        "Chevalier"
+      ],
+      "bestPairings": [
+        "Combattant",
+        "Prisonnier",
+        "Infanterie lourde",
+        "Mage de glace",
+        "Chasseur de fléchettes empoisonnées"
+      ],
+      "draftProfile": {
+        "damage": "AD",
+        "squishy": false,
+        "tanky": true,
+        "range": "melee",
+        "adRatio": 145,
+        "apRatio": 0,
+        "adShare": 1.0,
+        "apShare": 0.0,
+        "dpsWeight": 0.48,
+        "tankWeight": 0.96
+      },
+      "colorIdentity": {
+        "W": 7,
+        "U": 3,
+        "B": 2,
+        "R": 8,
+        "G": 4,
+        "dominant": [
+          "R",
+          "W"
+        ],
+        "identity": "RW",
+        "vector": [
+          0.2916666666666667,
+          0.125,
+          0.08333333333333333,
+          0.3333333333333333,
+          0.16666666666666666
+        ],
+        "family": "tank_engage"
+      },
+      "family": "tank_engage",
+      "familyLabel": "Tank engage",
+      "compTypes": [
+        "teamfight_engage"
+      ]
+    },
+    "Chevalier magique": {
+      "id": "chevalier-magique",
+      "type": "Guerrier (Mage)",
+      "tags": [
+        "frontline",
+        "mage_burst"
+      ],
+      "build": [
+        "Prophète de l'abîme",
+        "Voile d'annihilation",
+        "Fragment de corne du géant"
+      ],
+      "tierMeta": "C",
+      "tierNote": "Tue Ogre sans MR ; poubelle sous mass stun ; dépend des lanes pour le late.",
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Mage noir",
+        "Inquisiteur",
+        "Taoïste"
+      ],
+      "bestPairings": [
+        "Barde",
+        "Enchanteur",
+        "Médecin de la peste",
+        "Invocateur d'esprit",
+        "Moine"
+      ],
+      "draftProfile": {
+        "damage": "Mixed",
+        "squishy": false,
+        "tanky": true,
+        "range": "melee",
+        "adRatio": 0,
+        "apRatio": 0,
+        "adShare": 0.0,
+        "apShare": 1.0,
+        "dpsWeight": 0.22,
+        "tankWeight": 0.96
+      },
+      "colorIdentity": {
+        "W": 2,
+        "U": 6,
+        "B": 5,
+        "R": 7,
+        "G": 4,
+        "dominant": [
+          "R",
+          "U"
+        ],
+        "identity": "RU",
+        "vector": [
+          0.08333333333333333,
+          0.25,
+          0.20833333333333334,
+          0.2916666666666667,
+          0.16666666666666666
+        ],
+        "family": "mage_dps"
+      },
+      "family": "mage_dps",
+      "familyLabel": "Mage DPS",
+      "compTypes": [
+        "lane_tempo",
+        "all_in"
+      ]
+    },
+    "Clown": {
+      "id": "clown",
+      "type": "Assassin",
+      "tags": [
+        "aggressive_jungle",
+        "assassin",
+        "dive",
+        "pick_jungle"
+      ],
+      "build": [
+        "Prophète de l'abîme",
+        "Cristal chrono",
+        "Bâton du sorcier"
+      ],
+      "tierMeta": "B",
+      "tierNote": "Mid burst, quasi toujours 1 kill ; situatif : max 1 front, ennemis squishy.",
+      "worstMatchups": [
+        "Porteur de bouclier",
+        "Moine",
+        "Chevalier",
+        "Fantôme",
+        "Exorciste"
+      ],
+      "bestPairings": [
+        "Combattant",
+        "Mage noir",
+        "Prisonnier",
+        "Taoïste",
+        "Infanterie lourde"
+      ],
+      "draftProfile": {
+        "damage": "AD",
+        "squishy": false,
+        "tanky": false,
+        "range": "melee",
+        "adRatio": 110,
+        "apRatio": 0,
+        "adShare": 1.0,
+        "apShare": 0.0,
+        "dpsWeight": 0.56,
+        "tankWeight": 0.0
+      },
+      "colorIdentity": {
+        "W": 0,
+        "U": 2,
+        "B": 12,
+        "R": 9,
+        "G": 1,
+        "dominant": [
+          "B",
+          "R"
+        ],
+        "identity": "BR",
+        "vector": [
+          0.0,
+          0.08333333333333333,
+          0.5,
+          0.375,
+          0.041666666666666664
+        ],
+        "family": "assassin_ad_pick"
+      },
+      "family": "assassin_ad_pick",
+      "familyLabel": "Assassin AD pick",
+      "compTypes": [
+        "pick_global",
+        "all_in"
+      ]
+    },
+    "Combattant": {
+      "id": "combattant",
+      "type": "Guerrier",
+      "tags": [
+        "aggressive_jungle",
+        "engage",
+        "frontline"
+      ],
+      "build": [
+        "Jugement final du seigneur de guerre",
+        "Forteresse imprenable",
+        "Fragment de corne du géant"
+      ],
+      "tierMeta": "A",
+      "tierNote": "Contre la majorité des héros ; DPS + survie → montée en A.",
+      "worstMatchups": [
+        "Soldat",
+        "Tireur",
+        "Chaman vaudou",
+        "Maître du fouet",
+        "Mage noir"
+      ],
+      "bestPairings": [
+        "Chaman vaudou",
+        "Pyromancien",
+        "Tireur",
+        "Mage noir",
+        "Inquisiteur"
+      ],
+      "draftProfile": {
+        "damage": "AD",
+        "squishy": false,
+        "tanky": true,
+        "range": "melee",
+        "adRatio": 210,
+        "apRatio": 0,
+        "adShare": 1.0,
+        "apShare": 0.0,
+        "dpsWeight": 0.7,
+        "tankWeight": 0.96
+      },
+      "colorIdentity": {
+        "W": 8,
+        "U": 3,
+        "B": 1,
+        "R": 7,
+        "G": 5,
+        "dominant": [
+          "W",
+          "R"
+        ],
+        "identity": "WR",
+        "vector": [
+          0.3333333333333333,
+          0.125,
+          0.041666666666666664,
+          0.2916666666666667,
+          0.20833333333333334
+        ],
+        "family": "tank_engage"
+      },
+      "family": "tank_engage",
+      "familyLabel": "Tank engage",
+      "compTypes": [
+        "teamfight_engage"
+      ]
+    },
+    "Danseuse": {
+      "id": "danseuse",
+      "type": "À distance",
+      "tags": [
+        "dive",
+        "poke",
+        "scaling"
+      ],
+      "build": [
+        "Souverain de la tempête",
+        "Jugement final du seigneur de guerre",
+        "Lame perforante"
+      ],
+      "tierMeta": "B",
+      "tierNote": "Lane IA prudente → plus faible. Avant : A-tier carry ; 3 premiers kills critiques ; encore plus dur maintenant.",
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Mage de barrière",
+        "Clown",
+        "Chevalier de cavalerie"
+      ],
+      "bestPairings": [
+        "Médecin de la peste",
+        "Barde",
+        "Moine",
+        "Enchanteur",
+        "Porteur de bouclier"
+      ],
+      "draftProfile": {
+        "damage": "AD",
+        "squishy": false,
+        "tanky": false,
+        "range": "melee",
+        "adRatio": 180,
+        "apRatio": 0,
+        "adShare": 1.0,
+        "apShare": 0.0,
+        "dpsWeight": 0.84,
+        "tankWeight": 0.0
+      },
+      "colorIdentity": {
+        "W": 2,
+        "U": 8,
+        "B": 4,
+        "R": 6,
+        "G": 4,
+        "dominant": [
+          "U",
+          "R"
+        ],
+        "identity": "UR",
+        "vector": [
+          0.08333333333333333,
+          0.3333333333333333,
+          0.16666666666666666,
+          0.25,
+          0.16666666666666666
+        ],
+        "family": "adc_poke"
+      },
+      "family": "adc_poke",
+      "familyLabel": "ADC poke",
+      "compTypes": [
+        "poke_siege",
+        "poke_disengage"
+      ]
+    },
+    "Dokkaebi": {
+      "id": "dokkaebi",
+      "type": "Guerrier",
+      "tags": [
+        "engage",
+        "frontline"
+      ],
+      "build": [
+        "Jugement final du seigneur de guerre",
+        "Fragment de corne du géant",
+        "Forteresse imprenable"
+      ],
+      "tierMeta": "C",
+      "tierNote": "Fort early, TF difficile ; espace = menace.",
+      "worstMatchups": [
+        "Chaman vaudou",
+        "Maître du fouet",
+        "Soldat",
+        "Inquisiteur",
+        "Mage noir"
+      ],
+      "bestPairings": [
+        "Moine",
+        "Chef",
+        "Prêtre",
+        "Enchanteur",
+        "Chaman vaudou"
+      ],
+      "draftProfile": {
+        "damage": "AD",
+        "squishy": false,
+        "tanky": true,
+        "range": "melee",
+        "adRatio": 230,
+        "apRatio": 0,
+        "adShare": 1.0,
+        "apShare": 0.0,
+        "dpsWeight": 0.72,
+        "tankWeight": 0.96
+      },
+      "colorIdentity": {
+        "W": 6,
+        "U": 3,
+        "B": 2,
+        "R": 9,
+        "G": 4,
+        "dominant": [
+          "R",
+          "W"
+        ],
+        "identity": "RW",
+        "vector": [
+          0.25,
+          0.125,
+          0.08333333333333333,
+          0.375,
+          0.16666666666666666
+        ],
+        "family": "tank_engage"
+      },
+      "family": "tank_engage",
+      "familyLabel": "Tank engage",
+      "compTypes": [
+        "teamfight_engage"
+      ]
+    },
+    "Double lame": {
+      "id": "double-lame",
+      "type": "Guerrier",
+      "tags": [
+        "dive",
+        "engage",
+        "frontline"
+      ],
+      "build": [
+        "Jugement final du seigneur de guerre",
+        "Souverain de la tempête",
+        "Lame perforante"
+      ],
+      "tierMeta": "S",
+      "tierNote": "Toujours excellent en lane, gros dégâts, et ne meurt plus autant après les patchs. Très bon pick.",
+      "worstMatchups": [
+        "Porteur de bouclier",
+        "Moine",
+        "Ogre",
+        "Infanterie lourde",
+        "Fantôme"
+      ],
+      "bestPairings": [
+        "Combattant",
+        "Mage noir",
+        "Pyromancien",
+        "Tireur",
+        "Inquisiteur"
+      ],
+      "draftProfile": {
+        "damage": "AD",
+        "squishy": false,
+        "tanky": true,
+        "range": "melee",
+        "adRatio": 170,
+        "apRatio": 0,
+        "adShare": 1.0,
+        "apShare": 0.0,
+        "dpsWeight": 0.56,
+        "tankWeight": 0.96
+      },
+      "colorIdentity": {
+        "W": 8,
+        "U": 3,
+        "B": 1,
+        "R": 7,
+        "G": 5,
+        "dominant": [
+          "W",
+          "R"
+        ],
+        "identity": "WR",
+        "vector": [
+          0.3333333333333333,
+          0.125,
+          0.041666666666666664,
+          0.2916666666666667,
+          0.20833333333333334
+        ],
+        "family": "tank_engage"
+      },
+      "family": "tank_engage",
+      "familyLabel": "Tank engage",
+      "compTypes": [
+        "teamfight_engage"
+      ]
+    },
+    "Druide": {
+      "id": "druide",
+      "type": "Mage (Invocation)",
+      "tags": [
+        "farm_jungle",
+        "mage_burst",
+        "split"
+      ],
+      "build": [
+        "Prophète de l'abîme",
+        "Fragment de corne du géant",
+        "Voile d'annihilation"
+      ],
+      "tierMeta": "A",
+      "tierNote": "Jouable partout, meilleur Top ; le micro-contrôle du joueur se ressent : high micro = très fort. Stable.",
+      "worstMatchups": [
+        "Ninja",
+        "Pyromancien",
+        "Inquisiteur",
+        "Chasseur",
+        "Mage de foudre"
+      ],
+      "bestPairings": [
+        "Infanterie lourde",
+        "Porteur de bouclier",
+        "Chevalier",
+        "Moine",
+        "Combattant"
+      ],
+      "draftProfile": {
+        "damage": "AP",
+        "squishy": false,
+        "tanky": false,
+        "range": "melee",
+        "adRatio": 0,
+        "apRatio": 50,
+        "adShare": 0.0,
+        "apShare": 1.0,
+        "dpsWeight": 0.4,
+        "tankWeight": 0.08
+      },
+      "colorIdentity": {
+        "W": 2,
+        "U": 6,
+        "B": 5,
+        "R": 7,
+        "G": 4,
+        "dominant": [
+          "R",
+          "U"
+        ],
+        "identity": "RU",
+        "vector": [
+          0.08333333333333333,
+          0.25,
+          0.20833333333333334,
+          0.2916666666666667,
+          0.16666666666666666
+        ],
+        "family": "mage_dps"
+      },
+      "family": "mage_dps",
+      "familyLabel": "Mage DPS",
+      "compTypes": [
+        "lane_tempo",
+        "all_in"
+      ]
+    },
+    "Démon": {
+      "id": "d-mon",
+      "type": "Assassin",
+      "tags": [
+        "assassin",
+        "dive",
+        "pick_jungle"
+      ],
+      "build": [
+        "Souverain de la tempête",
+        "Jugement final du seigneur de guerre",
+        "Lame perforante"
+      ],
+      "tierMeta": "A",
+      "tierNote": "Crits + survie = 800+ DPS sans magie ; peut sembler immortel ; très vulnérable aux stuns → pas S.",
+      "worstMatchups": [
+        "Porteur de bouclier",
+        "Moine",
+        "Chevalier",
+        "Exorciste",
+        "Fantôme"
+      ],
+      "bestPairings": [
+        "Combattant",
+        "Prisonnier",
+        "Infanterie lourde",
+        "Mage de glace",
+        "Chaman vaudou"
+      ],
+      "draftProfile": {
+        "damage": "AD",
+        "squishy": false,
+        "tanky": false,
+        "range": "melee",
+        "adRatio": 70,
+        "apRatio": 0,
+        "adShare": 1.0,
+        "apShare": 0.0,
+        "dpsWeight": 0.47,
+        "tankWeight": 0.0
+      },
+      "colorIdentity": {
+        "W": 1,
+        "U": 3,
+        "B": 9,
+        "R": 7,
+        "G": 4,
+        "dominant": [
+          "B",
+          "R"
+        ],
+        "identity": "BR",
+        "vector": [
+          0.041666666666666664,
+          0.125,
+          0.375,
+          0.2916666666666667,
+          0.16666666666666666
+        ],
+        "family": "assassin_ad_pick"
+      },
+      "family": "assassin_ad_pick",
+      "familyLabel": "Assassin AD pick",
+      "compTypes": [
+        "pick_global",
+        "all_in"
+      ]
+    },
+    "Enchanteur": {
+      "id": "enchanteur",
+      "type": "Support de combat",
+      "tags": [
+        "peel",
+        "scaling"
+      ],
+      "build": [
+        "Voile d'annihilation",
+        "Fragment de corne du géant",
+        "Prophète de l'abîme"
+      ],
+      "tierMeta": "D",
+      "tierNote": "Deep late, picks isolés.",
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Clown",
+        "Chaman vaudou",
+        "Taoïste"
+      ],
+      "bestPairings": [
+        "Tireur",
+        "Maître du fouet",
+        "Joueur",
+        "Archer",
+        "Chevalier magique"
+      ],
+      "draftProfile": {
+        "damage": "AP",
+        "squishy": false,
+        "tanky": false,
+        "range": "melee",
+        "adRatio": 0,
+        "apRatio": 70,
+        "adShare": 0.0,
+        "apShare": 1.0,
+        "dpsWeight": 0.0,
+        "tankWeight": 0.08
+      },
+      "colorIdentity": {
+        "W": 11,
+        "U": 6,
+        "B": 0,
+        "R": 2,
+        "G": 5,
+        "dominant": [
+          "W",
+          "U"
+        ],
+        "identity": "WU",
+        "vector": [
+          0.4583333333333333,
+          0.25,
+          0.0,
+          0.08333333333333333,
+          0.20833333333333334
+        ],
+        "family": "support_disengage"
+      },
+      "family": "support_disengage",
+      "familyLabel": "Support disengage",
+      "compTypes": [
+        "poke_disengage"
+      ]
+    },
+    "Esprit gardien": {
+      "id": "esprit-gardien",
+      "type": "Support de combat",
+      "tags": [
+        "peel"
+      ],
+      "build": [
+        "Voile d'annihilation",
+        "Fragment de corne du géant",
+        "Prophète de l'abîme"
+      ],
+      "tierMeta": "D",
+      "tierNote": "Trois sorts faibles vs Pythonisse / Mage de barrière.",
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Inquisiteur",
+        "Chaman vaudou",
+        "Taoïste"
+      ],
+      "bestPairings": [
+        "Maître du fouet",
+        "Tireur",
+        "Archer",
+        "Chevalier magique",
+        "Bombardier"
+      ],
+      "draftProfile": {
+        "damage": "AP",
+        "squishy": false,
+        "tanky": false,
+        "range": "melee",
+        "adRatio": 0,
+        "apRatio": 60,
+        "adShare": 0.0,
+        "apShare": 1.0,
+        "dpsWeight": 0.0,
+        "tankWeight": 0.08
+      },
+      "colorIdentity": {
+        "W": 10,
+        "U": 4,
+        "B": 1,
+        "R": 2,
+        "G": 7,
+        "dominant": [
+          "W",
+          "G"
+        ],
+        "identity": "WG",
+        "vector": [
+          0.4166666666666667,
+          0.16666666666666666,
+          0.041666666666666664,
+          0.08333333333333333,
+          0.2916666666666667
+        ],
+        "family": "support_enchanter"
+      },
+      "family": "support_enchanter",
+      "familyLabel": "Support enchanter",
+      "compTypes": [
+        "hypercarry"
+      ]
+    },
+    "Exorciste": {
+      "id": "exorciste",
+      "type": "Support de combat",
+      "tags": [
+        "peel"
+      ],
+      "build": [
+        "Prophète de l'abîme",
+        "Voile d'annihilation",
+        "Fragment de corne du géant"
+      ],
+      "tierMeta": "C",
+      "tierNote": "Sort 1 et ult faibles ; slot mieux utilisé ailleurs.",
+      "worstMatchups": [
+        "Chaman vaudou",
+        "Ninja",
+        "Mage des ombres",
+        "Pyromancien",
+        "Taoïste"
+      ],
+      "bestPairings": [
+        "Combattant",
+        "Chevalier de cavalerie",
+        "Berserker",
+        "Prisonnier",
+        "Infanterie lourde"
+      ],
+      "draftProfile": {
+        "damage": "AP",
+        "squishy": false,
+        "tanky": false,
+        "range": "melee",
+        "adRatio": 0,
+        "apRatio": 10,
+        "adShare": 0.0,
+        "apShare": 1.0,
+        "dpsWeight": 0.0,
+        "tankWeight": 0.08
+      },
+      "colorIdentity": {
+        "W": 9,
+        "U": 5,
+        "B": 2,
+        "R": 3,
+        "G": 5,
+        "dominant": [
+          "W",
+          "U"
+        ],
+        "identity": "WU",
+        "vector": [
+          0.375,
+          0.20833333333333334,
+          0.08333333333333333,
+          0.125,
+          0.20833333333333334
+        ],
+        "family": "support_disengage"
+      },
+      "family": "support_disengage",
+      "familyLabel": "Support disengage",
+      "compTypes": [
+        "poke_disengage"
+      ]
+    },
+    "Exécuteur": {
+      "id": "ex-cuteur",
+      "type": "Guerrier",
+      "tags": [
+        "frontline",
+        "poke"
+      ],
+      "build": [
+        "Jugement final du seigneur de guerre",
+        "Lame perforante",
+        "Lame de vol de vie"
+      ],
+      "tierMeta": "B",
+      "tierNote": "B en contrepick S-tier ; D seul ; B en draft anti.",
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Fantôme",
+        "Loup-garou",
+        "Lame de Cirque"
+      ],
+      "bestPairings": [
+        "Combattant",
+        "Mage noir",
+        "Chaman vaudou",
+        "Pyromancien",
+        "Double lame"
+      ],
+      "draftProfile": {
+        "damage": "AD",
+        "squishy": false,
+        "tanky": true,
+        "range": "melee",
+        "adRatio": 183,
+        "apRatio": 0,
+        "adShare": 1.0,
+        "apShare": 0.0,
+        "dpsWeight": 0.57,
+        "tankWeight": 0.96
+      },
+      "colorIdentity": {
+        "W": 9,
+        "U": 5,
+        "B": 1,
+        "R": 3,
+        "G": 6,
+        "dominant": [
+          "W",
+          "G"
+        ],
+        "identity": "WG",
+        "vector": [
+          0.375,
+          0.20833333333333334,
+          0.041666666666666664,
+          0.125,
+          0.25
+        ],
+        "family": "tank_disengage"
+      },
+      "family": "tank_disengage",
+      "familyLabel": "Tank disengage",
+      "compTypes": [
+        "poke_disengage"
+      ]
+    },
+    "Fantôme": {
+      "id": "fant-me",
+      "type": "Assassin",
+      "tags": [
+        "assassin",
+        "dive",
+        "farm_jungle",
+        "scaling"
+      ],
+      "build": [
+        "Souverain de la tempête",
+        "Jugement final du seigneur de guerre",
+        "Lame perforante"
+      ],
+      "tierMeta": "B",
+      "tierNote": "Moins d'erreurs ; moins puni sur HP. Fort seulement bonne draft.",
+      "worstMatchups": [
+        "Porteur de bouclier",
+        "Chevalier",
+        "Infanterie lourde",
+        "Ogre",
+        "Moine"
+      ],
+      "bestPairings": [
+        "Taoïste",
+        "Mage noir",
+        "Combattant",
+        "Illusionniste",
+        "Chaman vaudou"
+      ],
+      "draftProfile": {
+        "damage": "AD",
+        "squishy": false,
+        "tanky": false,
+        "range": "melee",
+        "adRatio": 80,
+        "apRatio": 0,
+        "adShare": 1.0,
+        "apShare": 0.0,
+        "dpsWeight": 0.47,
+        "tankWeight": 0.0
+      },
+      "colorIdentity": {
+        "W": 2,
+        "U": 5,
+        "B": 8,
+        "R": 6,
+        "G": 3,
+        "dominant": [
+          "B",
+          "R"
+        ],
+        "identity": "BR",
+        "vector": [
+          0.08333333333333333,
+          0.20833333333333334,
+          0.3333333333333333,
+          0.25,
+          0.125
+        ],
+        "family": "assassin_ad_pick"
+      },
+      "family": "assassin_ad_pick",
+      "familyLabel": "Assassin AD pick",
+      "compTypes": [
+        "pick_global",
+        "all_in"
+      ]
+    },
+    "Guerrier de perche": {
+      "id": "guerrier-de-perche",
+      "type": "Guerrier",
+      "tags": [
+        "engage",
+        "frontline"
+      ],
+      "build": [
+        "Forteresse imprenable",
+        "Fragment de corne du géant",
+        "Jugement final du seigneur de guerre"
+      ],
+      "tierMeta": "C",
+      "tierNote": "Fort mais catch plus fréquent avec IA.",
+      "worstMatchups": [
+        "Porteur de bouclier",
+        "Moine",
+        "Chevalier",
+        "Mage de glace",
+        "Combattant"
+      ],
+      "bestPairings": [
+        "Combattant",
+        "Mage noir",
+        "Pyromancien",
+        "Chaman vaudou",
+        "Tireur"
+      ],
+      "draftProfile": {
+        "damage": "AD",
+        "squishy": false,
+        "tanky": true,
+        "range": "melee",
+        "adRatio": 200,
+        "apRatio": 0,
+        "adShare": 1.0,
+        "apShare": 0.0,
+        "dpsWeight": 0.62,
+        "tankWeight": 0.96
+      },
+      "colorIdentity": {
+        "W": 8,
+        "U": 3,
+        "B": 1,
+        "R": 7,
+        "G": 5,
+        "dominant": [
+          "W",
+          "R"
+        ],
+        "identity": "WR",
+        "vector": [
+          0.3333333333333333,
+          0.125,
+          0.041666666666666664,
+          0.2916666666666667,
+          0.20833333333333334
+        ],
+        "family": "tank_engage"
+      },
+      "family": "tank_engage",
+      "familyLabel": "Tank engage",
+      "compTypes": [
+        "teamfight_engage"
+      ]
+    },
+    "Illusionniste": {
+      "id": "illusionniste",
+      "type": "Mage (Contrôle)",
+      "tags": [
+        "engage",
+        "mage_burst",
+        "wave_clear"
+      ],
+      "build": [
+        "Prophète de l'abîme",
+        "Cristal chrono",
+        "Bâton du sorcier"
+      ],
+      "tierMeta": "B",
+      "tierNote": "IA meilleure sur sorts et position ; bon contrôle ; ult en mêlée = TF gagnable.",
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Clown",
+        "Inquisiteur",
+        "Tueur à gages"
+      ],
+      "bestPairings": [
+        "Infanterie lourde",
+        "Combattant",
+        "Inquisiteur",
+        "Tireur",
+        "Chaman vaudou"
+      ],
+      "draftProfile": {
+        "damage": "AP",
+        "squishy": false,
+        "tanky": false,
+        "range": "melee",
+        "adRatio": 0,
+        "apRatio": 200,
+        "adShare": 0.0,
+        "apShare": 1.0,
+        "dpsWeight": 0.84,
+        "tankWeight": 0.08
+      },
+      "colorIdentity": {
+        "W": 3,
+        "U": 10,
+        "B": 2,
+        "R": 3,
+        "G": 6,
+        "dominant": [
+          "U",
+          "G"
+        ],
+        "identity": "UG",
+        "vector": [
+          0.125,
+          0.4166666666666667,
+          0.08333333333333333,
+          0.125,
+          0.25
+        ],
+        "family": "mage_control"
+      },
+      "family": "mage_control",
+      "familyLabel": "Mage contrôle",
+      "compTypes": [
+        "poke_siege",
+        "poke_disengage"
+      ]
+    },
+    "Infanterie lourde": {
+      "id": "infanterie-lourde",
+      "type": "Guerrier (Tank)",
+      "tags": [
+        "engage",
+        "frontline"
+      ],
+      "build": [
+        "Forteresse imprenable",
+        "Fragment de corne du géant",
+        "Voile d'annihilation"
+      ],
+      "tierMeta": "B",
+      "tierNote": "Stable, favori perso. Ex. sous buff Morgard : push seul, ult repousse 5 ennemis, push tour.",
+      "worstMatchups": [
+        "Chaman vaudou",
+        "Maître du fouet",
+        "Soldat",
+        "Mage noir",
+        "Invocateur d'esprit"
+      ],
+      "bestPairings": [
+        "Chaman vaudou",
+        "Porteur de bouclier",
+        "Mage noir",
+        "Tireur",
+        "Inquisiteur"
+      ],
+      "draftProfile": {
+        "damage": "AD",
+        "squishy": false,
+        "tanky": true,
+        "range": "melee",
+        "adRatio": 220,
+        "apRatio": 0,
+        "adShare": 1.0,
+        "apShare": 0.0,
+        "dpsWeight": 0.69,
+        "tankWeight": 1.25
+      },
+      "colorIdentity": {
+        "W": 8,
+        "U": 3,
+        "B": 1,
+        "R": 7,
+        "G": 5,
+        "dominant": [
+          "W",
+          "R"
+        ],
+        "identity": "WR",
+        "vector": [
+          0.3333333333333333,
+          0.125,
+          0.041666666666666664,
+          0.2916666666666667,
+          0.20833333333333334
+        ],
+        "family": "tank_engage"
+      },
+      "family": "tank_engage",
+      "familyLabel": "Tank engage",
+      "compTypes": [
+        "teamfight_engage"
+      ]
+    },
+    "Inquisiteur": {
+      "id": "inquisiteur",
+      "type": "Assassin",
+      "tags": [
+        "aggressive_jungle",
+        "assassin",
+        "dive",
+        "pick_jungle"
+      ],
+      "build": [
+        "Jugement final du seigneur de guerre",
+        "Souverain de la tempête",
+        "Lame perforante"
+      ],
+      "tierMeta": "A",
+      "tierNote": "Le plus fort quand tu domines ; gros dégâts, snowball. Si tu perds la lane et le jungle n'a pas d'avantage (slot jungle habituel) : TRÈS dur à jouer.",
+      "worstMatchups": [
+        "Porteur de bouclier",
+        "Moine",
+        "Ogre",
+        "Infanterie lourde",
+        "Chevalier"
+      ],
+      "bestPairings": [
+        "Chaman vaudou",
+        "Combattant",
+        "Mage noir",
+        "Prisonnier",
+        "Double lame"
+      ],
+      "draftProfile": {
+        "damage": "AD",
+        "squishy": false,
+        "tanky": false,
+        "range": "melee",
+        "adRatio": 270,
+        "apRatio": 0,
+        "adShare": 1.0,
+        "apShare": 0.0,
+        "dpsWeight": 1.13,
+        "tankWeight": 0.0
+      },
+      "colorIdentity": {
+        "W": 0,
+        "U": 2,
+        "B": 11,
+        "R": 10,
+        "G": 1,
+        "dominant": [
+          "B",
+          "R"
+        ],
+        "identity": "BR",
+        "vector": [
+          0.0,
+          0.08333333333333333,
+          0.4583333333333333,
+          0.4166666666666667,
+          0.041666666666666664
+        ],
+        "family": "assassin_ad_pick"
+      },
+      "family": "assassin_ad_pick",
+      "familyLabel": "Assassin AD pick",
+      "compTypes": [
+        "pick_global",
+        "all_in"
+      ]
+    },
+    "Invocateur d'esprit": {
+      "id": "invocateur-d-esprit",
+      "type": "Support de combat",
+      "tags": [
+        "peel"
+      ],
+      "build": [
+        "Prophète de l'abîme",
+        "Bâton du sorcier",
+        "Voile d'annihilation"
+      ],
+      "tierMeta": "C",
+      "tierNote": "Pas assez fort vs autres supports ; aurait été haut B si meta Top inchangée.",
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Clown",
+        "Inquisiteur",
+        "Chaman vaudou"
+      ],
+      "bestPairings": [
+        "Mage noir",
+        "Chaman vaudou",
+        "Chevalier magique",
+        "Pyromancien",
+        "Mage de glace"
+      ],
+      "draftProfile": {
+        "damage": "AP",
+        "squishy": false,
+        "tanky": false,
+        "range": "melee",
+        "adRatio": 0,
+        "apRatio": 35,
+        "adShare": 0.0,
+        "apShare": 1.0,
+        "dpsWeight": 0.0,
+        "tankWeight": 0.08
+      },
+      "colorIdentity": {
+        "W": 10,
+        "U": 4,
+        "B": 1,
+        "R": 2,
+        "G": 7,
+        "dominant": [
+          "W",
+          "G"
+        ],
+        "identity": "WG",
+        "vector": [
+          0.4166666666666667,
+          0.16666666666666666,
+          0.041666666666666664,
+          0.08333333333333333,
+          0.2916666666666667
+        ],
+        "family": "support_enchanter"
+      },
+      "family": "support_enchanter",
+      "familyLabel": "Support enchanter",
+      "compTypes": [
+        "hypercarry"
+      ]
+    },
+    "Jiangshi": {
+      "id": "jiangshi",
+      "type": "Guerrier",
+      "tags": [
+        "frontline",
+        "peel"
+      ],
+      "build": [
+        "Fragment de corne du géant",
+        "Forteresse imprenable",
+        "Voile d'annihilation"
+      ],
+      "tierMeta": "C",
+      "tierNote": "Complément only, jamais solo carry.",
+      "worstMatchups": [
+        "Chaman vaudou",
+        "Maître du fouet",
+        "Inquisiteur",
+        "Soldat",
+        "Mage noir"
+      ],
+      "bestPairings": [
+        "Moine",
+        "Chef",
+        "Prêtre",
+        "Enchanteur",
+        "Chaman vaudou"
+      ],
+      "draftProfile": {
+        "damage": "Mixed",
+        "squishy": false,
+        "tanky": true,
+        "range": "melee",
+        "adRatio": 150,
+        "apRatio": 60,
+        "adShare": 0.714,
+        "apShare": 0.286,
+        "dpsWeight": 0.66,
+        "tankWeight": 1.06
+      },
+      "colorIdentity": {
+        "W": 5,
+        "U": 2,
+        "B": 2,
+        "R": 10,
+        "G": 5,
+        "dominant": [
+          "R",
+          "W"
+        ],
+        "identity": "RW",
+        "vector": [
+          0.20833333333333334,
+          0.08333333333333333,
+          0.08333333333333333,
+          0.4166666666666667,
+          0.20833333333333334
+        ],
+        "family": "support_engage"
+      },
+      "family": "support_engage",
+      "familyLabel": "Support engage",
+      "compTypes": [
+        "teamfight_engage",
+        "all_in"
+      ]
+    },
+    "Joueur": {
+      "id": "joueur",
+      "type": "À distance",
+      "tags": [
+        "engage",
+        "poke",
+        "scaling"
+      ],
+      "build": [
+        "Jugement final du seigneur de guerre",
+        "Souverain de la tempête",
+        "Lame perforante"
+      ],
+      "tierMeta": "A",
+      "tierNote": "Moins fort : l'IA se positionne mieux ; fort en TF/contrôle, finitions au retournement difficiles.",
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Mage de barrière",
+        "Chevalier de cavalerie",
+        "Taoïste"
+      ],
+      "bestPairings": [
+        "Barde",
+        "Médecin de la peste",
+        "Moine",
+        "Enchanteur",
+        "Chaman vaudou"
+      ],
+      "draftProfile": {
+        "damage": "AD",
+        "squishy": true,
+        "tanky": false,
+        "range": "long",
+        "adRatio": 80,
+        "apRatio": 0,
+        "adShare": 1.0,
+        "apShare": 0.0,
+        "dpsWeight": 0.56,
+        "tankWeight": 0.0
+      },
+      "colorIdentity": {
+        "W": 4,
+        "U": 8,
+        "B": 2,
+        "R": 4,
+        "G": 6,
+        "dominant": [
+          "U",
+          "G"
+        ],
+        "identity": "UG",
+        "vector": [
+          0.16666666666666666,
+          0.3333333333333333,
+          0.08333333333333333,
+          0.16666666666666666,
+          0.25
+        ],
+        "family": "adc_poke"
+      },
+      "family": "adc_poke",
+      "familyLabel": "ADC poke",
+      "compTypes": [
+        "poke_siege",
+        "poke_disengage"
+      ]
+    },
+    "Lame de Cirque": {
+      "id": "lame-de-cirque",
+      "type": "Assassin",
+      "tags": [
+        "assassin",
+        "dive"
+      ],
+      "build": [
+        "Jugement final du seigneur de guerre",
+        "Souverain de la tempête",
+        "Lame perforante"
+      ],
+      "tierMeta": "S",
+      "tierNote": "Excellent burst, lane agréable, scale bien en late (surtout avec mod d'augmentation d'objets).",
+      "worstMatchups": [
+        "Porteur de bouclier",
+        "Moine",
+        "Chevalier",
+        "Ogre",
+        "Fantôme"
+      ],
+      "bestPairings": [
+        "Mage noir",
+        "Taoïste",
+        "Combattant",
+        "Illusionniste",
+        "Chaman vaudou"
+      ],
+      "draftProfile": {
+        "damage": "AD",
+        "squishy": true,
+        "tanky": false,
+        "range": "melee",
+        "adRatio": 290,
+        "apRatio": 0,
+        "adShare": 1.0,
+        "apShare": 0.0,
+        "dpsWeight": 1.19,
+        "tankWeight": 0.0
+      },
+      "colorIdentity": {
+        "W": 0,
+        "U": 2,
+        "B": 12,
+        "R": 9,
+        "G": 1,
+        "dominant": [
+          "B",
+          "R"
+        ],
+        "identity": "BR",
+        "vector": [
+          0.0,
+          0.08333333333333333,
+          0.5,
+          0.375,
+          0.041666666666666664
+        ],
+        "family": "assassin_ad_pick"
+      },
+      "family": "assassin_ad_pick",
+      "familyLabel": "Assassin AD pick",
+      "compTypes": [
+        "pick_global",
+        "all_in"
+      ]
+    },
+    "Lancier": {
+      "id": "lancier",
+      "type": "Guerrier",
+      "tags": [
+        "aggressive_jungle",
+        "engage",
+        "frontline"
+      ],
+      "build": [
+        "Jugement final du seigneur de guerre",
+        "Forteresse imprenable",
+        "Fragment de corne du géant"
+      ],
+      "tierMeta": "S",
+      "tierNote": "Bon lane, peut burst les range, DPS constant ; build survie = impact.",
+      "worstMatchups": [
+        "Mage de glace",
+        "Porteur de bouclier",
+        "Combattant",
+        "Prisonnier",
+        "Soldat"
+      ],
+      "bestPairings": [
+        "Combattant",
+        "Prisonnier",
+        "Infanterie lourde",
+        "Chaman vaudou",
+        "Pyromancien"
+      ],
+      "draftProfile": {
+        "damage": "AD",
+        "squishy": false,
+        "tanky": true,
+        "range": "melee",
+        "adRatio": 200,
+        "apRatio": 0,
+        "adShare": 1.0,
+        "apShare": 0.0,
+        "dpsWeight": 0.66,
+        "tankWeight": 0.96
+      },
+      "colorIdentity": {
+        "W": 7,
+        "U": 3,
+        "B": 1,
+        "R": 8,
+        "G": 5,
+        "dominant": [
+          "R",
+          "W"
+        ],
+        "identity": "RW",
+        "vector": [
+          0.2916666666666667,
+          0.125,
+          0.041666666666666664,
+          0.3333333333333333,
+          0.20833333333333334
+        ],
+        "family": "tank_engage"
+      },
+      "family": "tank_engage",
+      "familyLabel": "Tank engage",
+      "compTypes": [
+        "teamfight_engage"
+      ]
+    },
+    "Loup-garou": {
+      "id": "loup-garou",
+      "type": "Assassin",
+      "tags": [
+        "assassin",
+        "dive",
+        "pick_jungle"
+      ],
+      "build": [
+        "Jugement final du seigneur de guerre",
+        "Souverain de la tempête",
+        "Lame de vol de vie"
+      ],
+      "tierMeta": "A",
+      "tierNote": "Plus fort avec l'IA ; faible TF comme Berserker ; comeback dur si behind comme Inquisiteur.",
+      "worstMatchups": [
+        "Porteur de bouclier",
+        "Moine",
+        "Chevalier",
+        "Ogre",
+        "Exécuteur"
+      ],
+      "bestPairings": [
+        "Exécuteur",
+        "Double lame",
+        "Combattant",
+        "Mage noir",
+        "Taoïste"
+      ],
+      "draftProfile": {
+        "damage": "AD",
+        "squishy": false,
+        "tanky": false,
+        "range": "melee",
+        "adRatio": 150,
+        "apRatio": 0,
+        "adShare": 1.0,
+        "apShare": 0.0,
+        "dpsWeight": 0.73,
+        "tankWeight": 0.0
+      },
+      "colorIdentity": {
+        "W": 1,
+        "U": 3,
+        "B": 9,
+        "R": 7,
+        "G": 4,
+        "dominant": [
+          "B",
+          "R"
+        ],
+        "identity": "BR",
+        "vector": [
+          0.041666666666666664,
+          0.125,
+          0.375,
+          0.2916666666666667,
+          0.16666666666666666
+        ],
+        "family": "assassin_ad_pick"
+      },
+      "family": "assassin_ad_pick",
+      "familyLabel": "Assassin AD pick",
+      "compTypes": [
+        "pick_global",
+        "all_in"
+      ]
+    },
+    "Mage blanc": {
+      "id": "mage-blanc",
+      "type": "Mage",
+      "tags": [
+        "mage_burst",
+        "poke",
+        "wave_clear"
+      ],
+      "build": [
+        "Prophète de l'abîme",
+        "Bâton du sorcier",
+        "Cristal chrono"
+      ],
+      "tierMeta": "S",
+      "tierNote": "Sort 1 : gros dégâts + farm ; sort 2 bonus en TF. Ult la plus forte des mages si bien réalisée. 4e mage en puissance.",
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Clown",
+        "Inquisiteur",
+        "Tueur à gages"
+      ],
+      "bestPairings": [
+        "Invocateur d'esprit",
+        "Combattant",
+        "Infanterie lourde",
+        "Porteur de bouclier",
+        "Inquisiteur"
+      ],
+      "draftProfile": {
+        "damage": "AP",
+        "squishy": false,
+        "tanky": false,
+        "range": "melee",
+        "adRatio": 0,
+        "apRatio": 60,
+        "adShare": 0.0,
+        "apShare": 1.0,
+        "dpsWeight": 0.43,
+        "tankWeight": 0.08
+      },
+      "colorIdentity": {
+        "W": 3,
+        "U": 10,
+        "B": 2,
+        "R": 3,
+        "G": 6,
+        "dominant": [
+          "U",
+          "G"
+        ],
+        "identity": "UG",
+        "vector": [
+          0.125,
+          0.4166666666666667,
+          0.08333333333333333,
+          0.125,
+          0.25
+        ],
+        "family": "mage_control"
+      },
+      "family": "mage_control",
+      "familyLabel": "Mage contrôle",
+      "compTypes": [
+        "poke_siege",
+        "poke_disengage"
+      ]
+    },
+    "Mage de barrière": {
+      "id": "mage-de-barri-re",
+      "type": "Support de combat",
+      "tags": [
+        "frontline",
+        "peel"
+      ],
+      "build": [
+        "Voile d'annihilation",
+        "Fragment de corne du géant",
+        "Prophète de l'abîme"
+      ],
+      "tierMeta": "A",
+      "tierNote": "Contre la plupart des projectiles ; faible vs mêlée. Meilleur support après Pythonisse.",
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Infanterie lourde",
+        "Prisonnier",
+        "Ogre"
+      ],
+      "bestPairings": [
+        "Archer",
+        "Chasseur de boomerang",
+        "Bombardier",
+        "Maître du fouet",
+        "Soldat"
+      ],
+      "draftProfile": {
+        "damage": "AP",
+        "squishy": false,
+        "tanky": true,
+        "range": "melee",
+        "adRatio": 0,
+        "apRatio": 120,
+        "adShare": 0.0,
+        "apShare": 1.0,
+        "dpsWeight": 0.4,
+        "tankWeight": 1.06
+      },
+      "colorIdentity": {
+        "W": 10,
+        "U": 4,
+        "B": 1,
+        "R": 2,
+        "G": 7,
+        "dominant": [
+          "W",
+          "G"
+        ],
+        "identity": "WG",
+        "vector": [
+          0.4166666666666667,
+          0.16666666666666666,
+          0.041666666666666664,
+          0.08333333333333333,
+          0.2916666666666667
+        ],
+        "family": "support_enchanter"
+      },
+      "family": "support_enchanter",
+      "familyLabel": "Support enchanter",
+      "compTypes": [
+        "hypercarry"
+      ]
+    },
+    "Mage de foudre": {
+      "id": "mage-de-foudre",
+      "type": "Mage",
+      "tags": [
+        "mage_burst",
+        "poke",
+        "wave_clear"
+      ],
+      "build": [
+        "Prophète de l'abîme",
+        "Bâton du sorcier",
+        "Cristal chrono"
+      ],
+      "tierMeta": "C",
+      "tierNote": "Bon lane, ult faible ; surtout double-tank draft.",
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Inquisiteur",
+        "Loup-garou",
+        "Tueur à gages"
+      ],
+      "bestPairings": [
+        "Mage de glace",
+        "Combattant",
+        "Chevalier magique",
+        "Invocateur d'esprit",
+        "Infanterie lourde"
+      ],
+      "draftProfile": {
+        "damage": "AP",
+        "squishy": false,
+        "tanky": false,
+        "range": "melee",
+        "adRatio": 0,
+        "apRatio": 120,
+        "adShare": 0.0,
+        "apShare": 1.0,
+        "dpsWeight": 0.59,
+        "tankWeight": 0.08
+      },
+      "colorIdentity": {
+        "W": 3,
+        "U": 10,
+        "B": 2,
+        "R": 3,
+        "G": 6,
+        "dominant": [
+          "U",
+          "G"
+        ],
+        "identity": "UG",
+        "vector": [
+          0.125,
+          0.4166666666666667,
+          0.08333333333333333,
+          0.125,
+          0.25
+        ],
+        "family": "mage_control"
+      },
+      "family": "mage_control",
+      "familyLabel": "Mage contrôle",
+      "compTypes": [
+        "poke_siege",
+        "poke_disengage"
+      ]
+    },
+    "Mage de glace": {
+      "id": "mage-de-glace",
+      "type": "Mage (Contrôle)",
+      "tags": [
+        "engage",
+        "mage_burst",
+        "wave_clear"
+      ],
+      "build": [
+        "Prophète de l'abîme",
+        "Bâton du sorcier",
+        "Cristal chrono"
+      ],
+      "tierMeta": "S",
+      "tierNote": "2e–3e mage du jeu. Avec l'IA améliorée, ne meurt que si le jungler gank ; seuls contres lane : Mage du vent, Guerrier de perche, Mage des ombres. En TF : énorme dégâts ; les alliés ne le vendent plus et peuvent trade ou save au retournement (pas toujours).",
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Démon",
+        "Inquisiteur",
+        "Fantôme"
+      ],
+      "bestPairings": [
+        "Bombardier",
+        "Chaman vaudou",
+        "Combattant",
+        "Pyromancien",
+        "Infanterie lourde"
+      ],
+      "draftProfile": {
+        "damage": "Mixed",
+        "squishy": false,
+        "tanky": false,
+        "range": "melee",
+        "adRatio": 0,
+        "apRatio": 0,
+        "adShare": 0.0,
+        "apShare": 1.0,
+        "dpsWeight": 0.23,
+        "tankWeight": 0.08
+      },
+      "colorIdentity": {
+        "W": 3,
+        "U": 10,
+        "B": 2,
+        "R": 3,
+        "G": 6,
+        "dominant": [
+          "U",
+          "G"
+        ],
+        "identity": "UG",
+        "vector": [
+          0.125,
+          0.4166666666666667,
+          0.08333333333333333,
+          0.125,
+          0.25
+        ],
+        "family": "mage_control"
+      },
+      "family": "mage_control",
+      "familyLabel": "Mage contrôle",
+      "compTypes": [
+        "poke_siege",
+        "poke_disengage"
+      ]
+    },
+    "Mage des ombres": {
+      "id": "mage-des-ombres",
+      "type": "Mage (Contrôle)",
+      "tags": [
+        "mage_burst",
+        "pick_jungle"
+      ],
+      "build": [
+        "Prophète de l'abîme",
+        "Bâton du sorcier",
+        "Cristal chrono"
+      ],
+      "tierMeta": "S",
+      "tierNote": "Top mages avec Mage de glace. Énorme dégâts, stun, combo avec Double lame (immobilisation), bon contrôle ult.",
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Fantôme",
+        "Inquisiteur",
+        "Porteur de bouclier"
+      ],
+      "bestPairings": [
+        "Inquisiteur",
+        "Tireur",
+        "Combattant",
+        "Chasseur",
+        "Pyromancien"
+      ],
+      "draftProfile": {
+        "damage": "AP",
+        "squishy": false,
+        "tanky": false,
+        "range": "melee",
+        "adRatio": 0,
+        "apRatio": 140,
+        "adShare": 0.0,
+        "apShare": 1.0,
+        "dpsWeight": 0.7,
+        "tankWeight": 0.08
+      },
+      "colorIdentity": {
+        "W": 0,
+        "U": 6,
+        "B": 12,
+        "R": 6,
+        "G": 0,
+        "dominant": [
+          "B",
+          "U"
+        ],
+        "identity": "BU",
+        "vector": [
+          0.0,
+          0.25,
+          0.5,
+          0.25,
+          0.0
+        ],
+        "family": "assassin_ap_pick"
+      },
+      "family": "assassin_ap_pick",
+      "familyLabel": "Assassin AP pick",
+      "compTypes": [
+        "pick_global",
+        "all_in"
+      ]
+    },
+    "Mage du vent": {
+      "id": "mage-du-vent",
+      "type": "Mage (Contrôle / Déplacement)",
+      "tags": [
+        "mage_burst",
+        "poke",
+        "wave_clear"
+      ],
+      "build": [
+        "Prophète de l'abîme",
+        "Cristal chrono",
+        "Bâton du sorcier"
+      ],
+      "tierMeta": "S",
+      "tierNote": "Toujours le mage #1. Lane via sort 1, contrôle sort 2 ; en mêlée il peut burst avec le sort 2. Ult pas énorme, mais en TF où les stuns s'alignent, il peut stun à distance — game-winning.",
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Inquisiteur",
+        "Mage des ombres",
+        "Démon"
+      ],
+      "bestPairings": [
+        "Combattant",
+        "Infanterie lourde",
+        "Pyromancien",
+        "Chevalier magique",
+        "Inquisiteur"
+      ],
+      "draftProfile": {
+        "damage": "AP",
+        "squishy": false,
+        "tanky": false,
+        "range": "melee",
+        "adRatio": 0,
+        "apRatio": 135,
+        "adShare": 0.0,
+        "apShare": 1.0,
+        "dpsWeight": 0.68,
+        "tankWeight": 0.08
+      },
+      "colorIdentity": {
+        "W": 3,
+        "U": 10,
+        "B": 2,
+        "R": 3,
+        "G": 6,
+        "dominant": [
+          "U",
+          "G"
+        ],
+        "identity": "UG",
+        "vector": [
+          0.125,
+          0.4166666666666667,
+          0.08333333333333333,
+          0.125,
+          0.25
+        ],
+        "family": "mage_control"
+      },
+      "family": "mage_control",
+      "familyLabel": "Mage contrôle",
+      "compTypes": [
+        "poke_siege",
+        "poke_disengage"
+      ]
+    },
+    "Mage noir": {
+      "id": "mage-noir",
+      "type": "Mage (Contrôle)",
+      "tags": [
+        "mage_burst",
+        "poke"
+      ],
+      "build": [
+        "Prophète de l'abîme",
+        "Cristal chrono",
+        "Bâton du sorcier"
+      ],
+      "tierMeta": "C",
+      "tierNote": "IA plus smart ; outclassé lane/TF par d'autres mages.",
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Clown",
+        "Inquisiteur",
+        "Tueur à gages"
+      ],
+      "bestPairings": [
+        "Infanterie lourde",
+        "Porteur de bouclier",
+        "Inquisiteur",
+        "Chaman vaudou",
+        "Tireur"
+      ],
+      "draftProfile": {
+        "damage": "AP",
+        "squishy": false,
+        "tanky": false,
+        "range": "long",
+        "adRatio": 0,
+        "apRatio": 200,
+        "adShare": 0.0,
+        "apShare": 1.0,
+        "dpsWeight": 0.84,
+        "tankWeight": 0.08
+      },
+      "colorIdentity": {
+        "W": 2,
+        "U": 12,
+        "B": 4,
+        "R": 4,
+        "G": 2,
+        "dominant": [
+          "U",
+          "B"
+        ],
+        "identity": "UB",
+        "vector": [
+          0.08333333333333333,
+          0.5,
+          0.16666666666666666,
+          0.16666666666666666,
+          0.08333333333333333
+        ],
+        "family": "mage_control"
+      },
+      "family": "mage_control",
+      "familyLabel": "Mage contrôle",
+      "compTypes": [
+        "poke_siege",
+        "poke_disengage"
+      ]
+    },
+    "Maître du fouet": {
+      "id": "ma-tre-du-fouet",
+      "type": "À distance",
+      "tags": [
+        "aggressive_jungle",
+        "pick_jungle",
+        "poke",
+        "scaling"
+      ],
+      "build": [
+        "Souverain de la tempête",
+        "Jugement final du seigneur de guerre",
+        "Lame perforante"
+      ],
+      "tierMeta": "S",
+      "tierNote": "DPS incomparable ; ult ≈ +1 kill ; impossible à nerf à cause des dégâts % PV max. Contre : survie + dash (Guerrier de perche, Combattant, parfois Épéiste).",
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Chevalier de cavalerie",
+        "Clown",
+        "Mage de barrière"
+      ],
+      "bestPairings": [
+        "Moine",
+        "Porteur de bouclier",
+        "Médecin de la peste",
+        "Androïde",
+        "Chef"
+      ],
+      "draftProfile": {
+        "damage": "AD",
+        "squishy": true,
+        "tanky": false,
+        "range": "mid",
+        "adRatio": 230,
+        "apRatio": 0,
+        "adShare": 1.0,
+        "apShare": 0.0,
+        "dpsWeight": 1.06,
+        "tankWeight": 0.0
+      },
+      "colorIdentity": {
+        "W": 1,
+        "U": 4,
+        "B": 9,
+        "R": 10,
+        "G": 0,
+        "dominant": [
+          "R",
+          "B"
+        ],
+        "identity": "RB",
+        "vector": [
+          0.041666666666666664,
+          0.16666666666666666,
+          0.375,
+          0.4166666666666667,
+          0.0
+        ],
+        "family": "assassin_ad_pick"
+      },
+      "family": "assassin_ad_pick",
+      "familyLabel": "Assassin AD pick",
+      "compTypes": [
+        "pick_global",
+        "all_in"
+      ]
+    },
+    "Moine": {
+      "id": "moine",
+      "type": "Support de combat",
+      "tags": [
+        "frontline",
+        "peel"
+      ],
+      "build": [
+        "Voile d'annihilation",
+        "Fragment de corne du géant",
+        "Forteresse imprenable"
+      ],
+      "tierMeta": "C",
+      "tierNote": "Occupe le slot de meilleurs supports ; pas devenu génie avec l'IA.",
+      "worstMatchups": [
+        "Chaman vaudou",
+        "Maître du fouet",
+        "Mage noir",
+        "Inquisiteur",
+        "Ninja"
+      ],
+      "bestPairings": [
+        "Maître du fouet",
+        "Tireur",
+        "Archer",
+        "Infanterie lourde",
+        "Chasseur de boomerang"
+      ],
+      "draftProfile": {
+        "damage": "Mixed",
+        "squishy": false,
+        "tanky": true,
+        "range": "melee",
+        "adRatio": 0,
+        "apRatio": 0,
+        "adShare": 0.5,
+        "apShare": 0.5,
+        "dpsWeight": 0.0,
+        "tankWeight": 1.22
+      },
+      "colorIdentity": {
+        "W": 13,
+        "U": 5,
+        "B": 0,
+        "R": 0,
+        "G": 6,
+        "dominant": [
+          "W",
+          "G"
+        ],
+        "identity": "WG",
+        "vector": [
+          0.5416666666666666,
+          0.20833333333333334,
+          0.0,
+          0.0,
+          0.25
+        ],
+        "family": "support_enchanter"
+      },
+      "family": "support_enchanter",
+      "familyLabel": "Support enchanter",
+      "compTypes": [
+        "hypercarry"
+      ]
+    },
+    "Médecin de la peste": {
+      "id": "m-decin-de-la-peste",
+      "type": "Support de combat",
+      "tags": [
+        "engage",
+        "frontline",
+        "peel"
+      ],
+      "build": [
+        "Prophète de l'abîme",
+        "Voile d'annihilation",
+        "Fragment de corne du géant"
+      ],
+      "tierMeta": "D",
+      "tierNote": "Jouable post-patch ; ult peut ruiner ; besoin 5 strong en mêlée groupée.",
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Inquisiteur",
+        "Chaman vaudou",
+        "Taoïste"
+      ],
+      "bestPairings": [
+        "Maître du fouet",
+        "Tireur",
+        "Archer",
+        "Joueur",
+        "Danseuse"
+      ],
+      "draftProfile": {
+        "damage": "Mixed",
+        "squishy": false,
+        "tanky": true,
+        "range": "melee",
+        "adRatio": 0,
+        "apRatio": 0,
+        "adShare": 0.5,
+        "apShare": 0.5,
+        "dpsWeight": 0.0,
+        "tankWeight": 1.06
+      },
+      "colorIdentity": {
+        "W": 5,
+        "U": 2,
+        "B": 2,
+        "R": 10,
+        "G": 5,
+        "dominant": [
+          "R",
+          "W"
+        ],
+        "identity": "RW",
+        "vector": [
+          0.20833333333333334,
+          0.08333333333333333,
+          0.08333333333333333,
+          0.4166666666666667,
+          0.20833333333333334
+        ],
+        "family": "support_engage"
+      },
+      "family": "support_engage",
+      "familyLabel": "Support engage",
+      "compTypes": [
+        "teamfight_engage",
+        "all_in"
+      ]
+    },
+    "Ninja": {
+      "id": "ninja",
+      "type": "Assassin",
+      "tags": [
+        "assassin",
+        "dive",
+        "pick_jungle",
+        "split"
+      ],
+      "build": [
+        "Jugement final du seigneur de guerre",
+        "Lame perforante",
+        "Souverain de la tempête"
+      ],
+      "tierMeta": "A",
+      "tierNote": "Le plus fort des A ; jungle only — 30 games d'affilée, 2 ruines ; peut solo 3 kills au retournement. Contres : Infanterie lourde, Moine. Pas S car il force 3–4 picks TF sur le reste de la draft.",
+      "worstMatchups": [
+        "Porteur de bouclier",
+        "Moine",
+        "Chevalier",
+        "Ogre",
+        "Fantôme"
+      ],
+      "bestPairings": [
+        "Mage noir",
+        "Taoïste",
+        "Combattant",
+        "Illusionniste",
+        "Mage de glace"
+      ],
+      "draftProfile": {
+        "damage": "AD",
+        "squishy": false,
+        "tanky": false,
+        "range": "melee",
+        "adRatio": 320,
+        "apRatio": 0,
+        "adShare": 1.0,
+        "apShare": 0.0,
+        "dpsWeight": 1.25,
+        "tankWeight": 0.0
+      },
+      "colorIdentity": {
+        "W": 0,
+        "U": 3,
+        "B": 10,
+        "R": 9,
+        "G": 2,
+        "dominant": [
+          "B",
+          "R"
+        ],
+        "identity": "BR",
+        "vector": [
+          0.0,
+          0.125,
+          0.4166666666666667,
+          0.375,
+          0.08333333333333333
+        ],
+        "family": "assassin_ad_pick"
+      },
+      "family": "assassin_ad_pick",
+      "familyLabel": "Assassin AD pick",
+      "compTypes": [
+        "pick_global",
+        "all_in"
+      ]
+    },
+    "Nécromancien": {
+      "id": "n-cromancien",
+      "type": "Mage (Invocation)",
+      "tags": [
+        "farm_jungle",
+        "mage_burst",
+        "scaling",
+        "wave_clear"
+      ],
+      "build": [
+        "Prophète de l'abîme",
+        "Bâton du sorcier",
+        "Cristal chrono"
+      ],
+      "tierMeta": "D",
+      "tierNote": "Injouable avant buffs ; nerf goules ; comp mono-DPS only.",
+      "worstMatchups": [
+        "Pyromancien",
+        "Ninja",
+        "Inquisiteur",
+        "Mage blanc",
+        "Chasseur"
+      ],
+      "bestPairings": [
+        "Infanterie lourde",
+        "Porteur de bouclier",
+        "Combattant",
+        "Chevalier",
+        "Moine"
+      ],
+      "draftProfile": {
+        "damage": "Mixed",
+        "squishy": false,
+        "tanky": false,
+        "range": "long",
+        "adRatio": 0,
+        "apRatio": 0,
+        "adShare": 0.0,
+        "apShare": 1.0,
+        "dpsWeight": 0.22,
+        "tankWeight": 0.08
+      },
+      "colorIdentity": {
+        "W": 1,
+        "U": 9,
+        "B": 5,
+        "R": 4,
+        "G": 5,
+        "dominant": [
+          "U",
+          "B"
+        ],
+        "identity": "UB",
+        "vector": [
+          0.041666666666666664,
+          0.375,
+          0.20833333333333334,
+          0.16666666666666666,
+          0.20833333333333334
+        ],
+        "family": "mage_control"
+      },
+      "family": "mage_control",
+      "familyLabel": "Mage contrôle",
+      "compTypes": [
+        "poke_siege",
+        "poke_disengage"
+      ]
+    },
+    "Ogre": {
+      "id": "ogre",
+      "type": "Guerrier (Tank)",
+      "tags": [
+        "farm_jungle",
+        "frontline",
+        "scaling"
+      ],
+      "build": [
+        "Fragment de corne du géant",
+        "Forteresse imprenable",
+        "Voile d'annihilation"
+      ],
+      "tierMeta": "C",
+      "tierNote": "Joueur agressif only ; fort tank mais faible si la team ne joue pas autour.",
+      "worstMatchups": [
+        "Chaman vaudou",
+        "Maître du fouet",
+        "Mage noir",
+        "Inquisiteur",
+        "Invocateur d'esprit"
+      ],
+      "bestPairings": [
+        "Moine",
+        "Chef",
+        "Prêtre",
+        "Chaman vaudou",
+        "Enchanteur"
+      ],
+      "draftProfile": {
+        "damage": "AD",
+        "squishy": false,
+        "tanky": true,
+        "range": "melee",
+        "adRatio": 80,
+        "apRatio": 0,
+        "adShare": 1.0,
+        "apShare": 0.0,
+        "dpsWeight": 0.05,
+        "tankWeight": 1.25
+      },
+      "colorIdentity": {
+        "W": 8,
+        "U": 4,
+        "B": 1,
+        "R": 4,
+        "G": 7,
+        "dominant": [
+          "W",
+          "G"
+        ],
+        "identity": "WG",
+        "vector": [
+          0.3333333333333333,
+          0.16666666666666666,
+          0.041666666666666664,
+          0.16666666666666666,
+          0.2916666666666667
+        ],
+        "family": "tank_disengage"
+      },
+      "family": "tank_disengage",
+      "familyLabel": "Tank disengage",
+      "compTypes": [
+        "poke_disengage"
+      ]
+    },
+    "Porteur de bouclier": {
+      "id": "porteur-de-bouclier",
+      "type": "Guerrier (Tank)",
+      "tags": [
+        "frontline",
+        "peel"
+      ],
+      "build": [
+        "Forteresse imprenable",
+        "Fragment de corne du géant",
+        "Voile d'annihilation"
+      ],
+      "tierMeta": "B",
+      "tierNote": "Tank stable, bonne survie, c'est tout.",
+      "worstMatchups": [
+        "Chaman vaudou",
+        "Maître du fouet",
+        "Invocateur d'esprit",
+        "Mage noir",
+        "Inquisiteur"
+      ],
+      "bestPairings": [
+        "Infanterie lourde",
+        "Mage noir",
+        "Tireur",
+        "Chasseur de boomerang",
+        "Chaman vaudou"
+      ],
+      "draftProfile": {
+        "damage": "Mixed",
+        "squishy": false,
+        "tanky": true,
+        "range": "melee",
+        "adRatio": 0,
+        "apRatio": 0,
+        "adShare": 0.5,
+        "apShare": 0.5,
+        "dpsWeight": 0.0,
+        "tankWeight": 1.25
+      },
+      "colorIdentity": {
+        "W": 14,
+        "U": 4,
+        "B": 0,
+        "R": 0,
+        "G": 6,
+        "dominant": [
+          "W",
+          "G"
+        ],
+        "identity": "WG",
+        "vector": [
+          0.5833333333333334,
+          0.16666666666666666,
+          0.0,
+          0.0,
+          0.25
+        ],
+        "family": "support_enchanter"
+      },
+      "family": "support_enchanter",
+      "familyLabel": "Support enchanter",
+      "compTypes": [
+        "hypercarry"
+      ]
+    },
+    "Prisonnier": {
+      "id": "prisonnier",
+      "type": "Guerrier",
+      "tags": [
+        "frontline"
+      ],
+      "build": [
+        "Forteresse imprenable",
+        "Fragment de corne du géant",
+        "Jugement final du seigneur de guerre"
+      ],
+      "tierMeta": "D",
+      "tierNote": "Chair à canon.",
+      "worstMatchups": [
+        "Soldat",
+        "Tireur",
+        "Chaman vaudou",
+        "Maître du fouet",
+        "Mage noir"
+      ],
+      "bestPairings": [
+        "Chaman vaudou",
+        "Pyromancien",
+        "Mage noir",
+        "Inquisiteur",
+        "Tireur"
+      ],
+      "draftProfile": {
+        "damage": "AD",
+        "squishy": false,
+        "tanky": true,
+        "range": "melee",
+        "adRatio": 200,
+        "apRatio": 0,
+        "adShare": 1.0,
+        "apShare": 0.0,
+        "dpsWeight": 0.62,
+        "tankWeight": 1.25
+      },
+      "colorIdentity": {
+        "W": 8,
+        "U": 3,
+        "B": 1,
+        "R": 7,
+        "G": 5,
+        "dominant": [
+          "W",
+          "R"
+        ],
+        "identity": "WR",
+        "vector": [
+          0.3333333333333333,
+          0.125,
+          0.041666666666666664,
+          0.2916666666666667,
+          0.20833333333333334
+        ],
+        "family": "tank_engage"
+      },
+      "family": "tank_engage",
+      "familyLabel": "Tank engage",
+      "compTypes": [
+        "teamfight_engage"
+      ]
+    },
+    "Prêtre": {
+      "id": "pr-tre",
+      "type": "Support de combat",
+      "tags": [
+        "peel"
+      ],
+      "build": [
+        "Voile d'annihilation",
+        "Fragment de corne du géant",
+        "Prophète de l'abîme"
+      ],
+      "tierMeta": "D",
+      "tierNote": "Avec Pythonisse pour fronts immortels → Pythonisse Mid, pas Mage de glace / Mage du vent Mid.",
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Inquisiteur",
+        "Chaman vaudou",
+        "Clown"
+      ],
+      "bestPairings": [
+        "Maître du fouet",
+        "Tireur",
+        "Berserker",
+        "Ogre",
+        "Vampire"
+      ],
+      "draftProfile": {
+        "damage": "Mixed",
+        "squishy": false,
+        "tanky": false,
+        "range": "long",
+        "adRatio": 0,
+        "apRatio": 0,
+        "adShare": 0.5,
+        "apShare": 0.5,
+        "dpsWeight": 0.0,
+        "tankWeight": 0.0
+      },
+      "colorIdentity": {
+        "W": 8,
+        "U": 7,
+        "B": 1,
+        "R": 2,
+        "G": 6,
+        "dominant": [
+          "W",
+          "U"
+        ],
+        "identity": "WU",
+        "vector": [
+          0.3333333333333333,
+          0.2916666666666667,
+          0.041666666666666664,
+          0.08333333333333333,
+          0.25
+        ],
+        "family": "support_poke"
+      },
+      "family": "support_poke",
+      "familyLabel": "Support poke",
+      "compTypes": [
+        "poke_siege",
+        "poke_disengage"
+      ]
+    },
+    "Pyromancien": {
+      "id": "pyromancien",
+      "type": "Mage (Dégâts de zone)",
+      "tags": [
+        "mage_burst",
+        "poke",
+        "wave_clear"
+      ],
+      "build": [
+        "Prophète de l'abîme",
+        "Bâton du sorcier",
+        "Cristal chrono"
+      ],
+      "tierMeta": "S",
+      "tierNote": "Chute avec l'IA (court sous tour plus que les autres). Un des S les plus faibles ; lane et dégâts OK, mais les autres mages apportent plus. Toujours fort, mais plus comme avant :(",
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Inquisiteur",
+        "Tueur à gages",
+        "Loup-garou"
+      ],
+      "bestPairings": [
+        "Combattant",
+        "Prisonnier",
+        "Infanterie lourde",
+        "Mage de glace",
+        "Invocateur d'esprit"
+      ],
+      "draftProfile": {
+        "damage": "AP",
+        "squishy": false,
+        "tanky": false,
+        "range": "long",
+        "adRatio": 0,
+        "apRatio": 145,
+        "adShare": 0.0,
+        "apShare": 1.0,
+        "dpsWeight": 0.71,
+        "tankWeight": 0.08
+      },
+      "colorIdentity": {
+        "W": 2,
+        "U": 11,
+        "B": 2,
+        "R": 6,
+        "G": 3,
+        "dominant": [
+          "U",
+          "R"
+        ],
+        "identity": "UR",
+        "vector": [
+          0.08333333333333333,
+          0.4583333333333333,
+          0.08333333333333333,
+          0.25,
+          0.125
+        ],
+        "family": "mage_control"
+      },
+      "family": "mage_control",
+      "familyLabel": "Mage contrôle",
+      "compTypes": [
+        "poke_siege",
+        "poke_disengage"
+      ]
+    },
+    "Pythonisse": {
+      "id": "pythonisse",
+      "type": "Support de combat",
+      "tags": [
+        "mage_burst",
+        "peel",
+        "wave_clear"
+      ],
+      "build": [
+        "Prophète de l'abîme",
+        "Fragment de corne du géant",
+        "Voile d'annihilation"
+      ],
+      "tierMeta": "S",
+      "tierNote": "Du plus faible champion du jeu au plus fort support (selon l'auteur). Excellent lane grâce aux sorts 1 et 2. En late, l'ult impacte énormément. Avec la nouvelle IA, ne se expose plus : peut infliger jusqu'à ~20k dégâts et ~40k soins par game (build double PM + PV) ; pick le plus populaire. Apprend à se soigner quand on la focus — ça sauve des games.",
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Inquisiteur",
+        "Chaman vaudou",
+        "Taoïste"
+      ],
+      "bestPairings": [
+        "Tireur",
+        "Maître du fouet",
+        "Archer",
+        "Chevalier magique",
+        "Druide"
+      ],
+      "draftProfile": {
+        "damage": "Mixed",
+        "squishy": false,
+        "tanky": false,
+        "range": "long",
+        "adRatio": 0,
+        "apRatio": 0,
+        "adShare": 0.0,
+        "apShare": 1.0,
+        "dpsWeight": 0.0,
+        "tankWeight": 0.08
+      },
+      "colorIdentity": {
+        "W": 4,
+        "U": 7,
+        "B": 3,
+        "R": 5,
+        "G": 5,
+        "dominant": [
+          "U",
+          "R"
+        ],
+        "identity": "UR",
+        "vector": [
+          0.16666666666666666,
+          0.2916666666666667,
+          0.125,
+          0.20833333333333334,
+          0.20833333333333334
+        ],
+        "family": "support_poke"
+      },
+      "family": "support_poke",
+      "familyLabel": "Support poke",
+      "compTypes": [
+        "poke_siege",
+        "poke_disengage"
+      ]
+    },
+    "Soldat": {
+      "id": "soldat",
+      "type": "À distance",
+      "tags": [
+        "frontline",
+        "poke",
+        "scaling",
+        "split",
+        "wave_clear"
+      ],
+      "build": [
+        "Souverain de la tempête",
+        "Jugement final du seigneur de guerre",
+        "Lame perforante"
+      ],
+      "tierMeta": "S",
+      "tierNote": "Avec bons front lanes : quasi impossible à tuer, DPS énorme ; ult dévaste. Positionnement requis, mais peut solo kill.",
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Clown",
+        "Guerrier de perche",
+        "Inquisiteur"
+      ],
+      "bestPairings": [
+        "Moine",
+        "Porteur de bouclier",
+        "Androïde",
+        "Médecin de la peste",
+        "Mage de glace"
+      ],
+      "draftProfile": {
+        "damage": "AD",
+        "squishy": true,
+        "tanky": true,
+        "range": "long",
+        "adRatio": 210,
+        "apRatio": 0,
+        "adShare": 1.0,
+        "apShare": 0.0,
+        "dpsWeight": 0.99,
+        "tankWeight": 0.32
+      },
+      "colorIdentity": {
+        "W": 4,
+        "U": 8,
+        "B": 2,
+        "R": 4,
+        "G": 6,
+        "dominant": [
+          "U",
+          "G"
+        ],
+        "identity": "UG",
+        "vector": [
+          0.16666666666666666,
+          0.3333333333333333,
+          0.08333333333333333,
+          0.16666666666666666,
+          0.25
+        ],
+        "family": "adc_poke"
+      },
+      "family": "adc_poke",
+      "familyLabel": "ADC poke",
+      "compTypes": [
+        "poke_siege",
+        "poke_disengage"
+      ]
+    },
+    "Taoïste": {
+      "id": "tao-ste",
+      "type": "Support de combat",
+      "tags": [
+        "peel"
+      ],
+      "build": [
+        "Voile d'annihilation",
+        "Prophète de l'abîme",
+        "Fragment de corne du géant"
+      ],
+      "tierMeta": "D",
+      "tierNote": "Disable agréable mais pas worth un slot sur 5.",
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Clown",
+        "Inquisiteur",
+        "Loup-garou"
+      ],
+      "bestPairings": [
+        "Inquisiteur",
+        "Chasseur",
+        "Clown",
+        "Ninja",
+        "Fantôme"
+      ],
+      "draftProfile": {
+        "damage": "Mixed",
+        "squishy": false,
+        "tanky": false,
+        "range": "long",
+        "adRatio": 0,
+        "apRatio": 0,
+        "adShare": 0.5,
+        "apShare": 0.5,
+        "dpsWeight": 0.0,
+        "tankWeight": 0.08
+      },
+      "colorIdentity": {
+        "W": 4,
+        "U": 7,
+        "B": 3,
+        "R": 5,
+        "G": 5,
+        "dominant": [
+          "U",
+          "R"
+        ],
+        "identity": "UR",
+        "vector": [
+          0.16666666666666666,
+          0.2916666666666667,
+          0.125,
+          0.20833333333333334,
+          0.20833333333333334
+        ],
+        "family": "support_poke"
+      },
+      "family": "support_poke",
+      "familyLabel": "Support poke",
+      "compTypes": [
+        "poke_siege",
+        "poke_disengage"
+      ]
+    },
+    "Tireur": {
+      "id": "tireur",
+      "type": "À distance",
+      "tags": [
+        "poke",
+        "scaling"
+      ],
+      "build": [
+        "Souverain de la tempête",
+        "Jugement final du seigneur de guerre",
+        "Lame perforante"
+      ],
+      "tierMeta": "B",
+      "tierNote": "Meilleur B perso ; dur à punir ; 2–3 fronts = trop d'impact.",
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Chevalier de cavalerie",
+        "Clown",
+        "Lame de Cirque"
+      ],
+      "bestPairings": [
+        "Moine",
+        "Porteur de bouclier",
+        "Androïde",
+        "Chaman vaudou",
+        "Médecin de la peste"
+      ],
+      "draftProfile": {
+        "damage": "Mixed",
+        "squishy": false,
+        "tanky": false,
+        "range": "long",
+        "adRatio": 0,
+        "apRatio": 0,
+        "adShare": 1.0,
+        "apShare": 0.0,
+        "dpsWeight": 0.28,
+        "tankWeight": 0.0
+      },
+      "colorIdentity": {
+        "W": 4,
+        "U": 8,
+        "B": 1,
+        "R": 4,
+        "G": 7,
+        "dominant": [
+          "U",
+          "G"
+        ],
+        "identity": "UG",
+        "vector": [
+          0.16666666666666666,
+          0.3333333333333333,
+          0.041666666666666664,
+          0.16666666666666666,
+          0.2916666666666667
+        ],
+        "family": "adc_poke"
+      },
+      "family": "adc_poke",
+      "familyLabel": "ADC poke",
+      "compTypes": [
+        "poke_siege",
+        "poke_disengage"
+      ]
+    },
+    "Tueur à gages": {
+      "id": "tueur-gages",
+      "type": "Assassin",
+      "tags": [
+        "assassin",
+        "dive",
+        "pick_jungle"
+      ],
+      "build": [
+        "Jugement final du seigneur de guerre",
+        "Souverain de la tempête",
+        "Lame perforante"
+      ],
+      "tierMeta": "A",
+      "tierNote": "Du plus faible au ~#2 A : gros DPS, peu d'erreurs ; combo dash + burst + Tueur à gages. Très fort carry.",
+      "worstMatchups": [
+        "Porteur de bouclier",
+        "Ogre",
+        "Infanterie lourde",
+        "Moine",
+        "Chevalier"
+      ],
+      "bestPairings": [
+        "Mage noir",
+        "Taoïste",
+        "Combattant",
+        "Illusionniste",
+        "Chaman vaudou"
+      ],
+      "draftProfile": {
+        "damage": "AD",
+        "squishy": true,
+        "tanky": false,
+        "range": "mid",
+        "adRatio": 70,
+        "apRatio": 0,
+        "adShare": 1.0,
+        "apShare": 0.0,
+        "dpsWeight": 0.47,
+        "tankWeight": 0.0
+      },
+      "colorIdentity": {
+        "W": 0,
+        "U": 3,
+        "B": 12,
+        "R": 9,
+        "G": 0,
+        "dominant": [
+          "B",
+          "R"
+        ],
+        "identity": "BR",
+        "vector": [
+          0.0,
+          0.125,
+          0.5,
+          0.375,
+          0.0
+        ],
+        "family": "assassin_ad_pick"
+      },
+      "family": "assassin_ad_pick",
+      "familyLabel": "Assassin AD pick",
+      "compTypes": [
+        "pick_global",
+        "all_in"
+      ]
+    },
+    "Vampire": {
+      "id": "vampire",
+      "type": "Mage (Drain de vie)",
+      "tags": [
+        "frontline",
+        "mage_burst",
+        "scaling",
+        "split"
+      ],
+      "build": [
+        "Prophète de l'abîme",
+        "Fragment de corne du géant",
+        "Bâton du sorcier"
+      ],
+      "tierMeta": "A",
+      "tierNote": "Toujours le roi du late ; l'IA combo (ult Infanterie lourde + sort 2 Vampire + ult Vampire ; sort 2 Chevalier magique + stun + sort 2 Vampire). Très agréable, tendance à feed.",
+      "worstMatchups": [
+        "Chaman vaudou",
+        "Maître du fouet",
+        "Inquisiteur",
+        "Infanterie lourde",
+        "Mage noir"
+      ],
+      "bestPairings": [
+        "Moine",
+        "Chef",
+        "Prêtre",
+        "Enchanteur",
+        "Infanterie lourde"
+      ],
+      "draftProfile": {
+        "damage": "Mixed",
+        "squishy": false,
+        "tanky": true,
+        "range": "melee",
+        "adRatio": 0,
+        "apRatio": 0,
+        "adShare": 0.0,
+        "apShare": 1.0,
+        "dpsWeight": 0.23,
+        "tankWeight": 1.06
+      },
+      "colorIdentity": {
+        "W": 2,
+        "U": 6,
+        "B": 6,
+        "R": 7,
+        "G": 3,
+        "dominant": [
+          "R",
+          "U"
+        ],
+        "identity": "RU",
+        "vector": [
+          0.08333333333333333,
+          0.25,
+          0.25,
+          0.2916666666666667,
+          0.125
+        ],
+        "family": "mage_dps"
+      },
+      "family": "mage_dps",
+      "familyLabel": "Mage DPS",
+      "compTypes": [
+        "lane_tempo",
+        "all_in"
+      ]
+    },
+    "Épéiste": {
+      "id": "p-iste",
+      "type": "Guerrier",
+      "tags": [
+        "engage",
+        "frontline",
+        "split"
+      ],
+      "build": [
+        "Jugement final du seigneur de guerre",
+        "Forteresse imprenable",
+        "Lame de vol de vie"
+      ],
+      "tierMeta": "S",
+      "tierNote": "Bon early ; l'IA réalise l'ult en 5v5 puis finit. Lane faible sans CC : s'il est catch, il meurt.",
+      "worstMatchups": [
+        "Porteur de bouclier",
+        "Mage de glace",
+        "Prisonnier",
+        "Combattant",
+        "Ogre"
+      ],
+      "bestPairings": [
+        "Combattant",
+        "Prisonnier",
+        "Mage noir",
+        "Chaman vaudou",
+        "Inquisiteur"
+      ],
+      "draftProfile": {
+        "damage": "AD",
+        "squishy": false,
+        "tanky": true,
+        "range": "melee",
+        "adRatio": 300,
+        "apRatio": 0,
+        "adShare": 1.0,
+        "apShare": 0.0,
+        "dpsWeight": 0.99,
+        "tankWeight": 0.96
+      },
+      "colorIdentity": {
+        "W": 8,
+        "U": 3,
+        "B": 1,
+        "R": 7,
+        "G": 5,
+        "dominant": [
+          "W",
+          "R"
+        ],
+        "identity": "WR",
+        "vector": [
+          0.3333333333333333,
+          0.125,
+          0.041666666666666664,
+          0.2916666666666667,
+          0.20833333333333334
+        ],
+        "family": "tank_engage"
+      },
+      "family": "tank_engage",
+      "familyLabel": "Tank engage",
+      "compTypes": [
+        "teamfight_engage"
+      ]
+    }
+  }
+}

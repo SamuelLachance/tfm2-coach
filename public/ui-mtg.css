@@ -1,0 +1,197 @@
+/* MTG pastilles + filtres couleur TFM2 */
+
+:root {
+  --mtg-w: #f8f4e8;
+  --mtg-u: #3b9fd9;
+  --mtg-b: #5a5a6e;
+  --mtg-r: #e85d3a;
+  --mtg-g: #2fa866;
+}
+
+.mtg-pastilles {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.mtg-pastille {
+  --w: calc(var(--pastille-weight, 8) / 24);
+  display: block;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
+  flex-shrink: 0;
+}
+
+.mtg-pastille--primary {
+  width: calc(12px + var(--w) * 14px);
+  height: calc(12px + var(--w) * 14px);
+}
+
+.mtg-pastille--secondary {
+  width: calc(8px + var(--w) * 10px);
+  height: calc(8px + var(--w) * 10px);
+  opacity: calc(0.55 + var(--w) * 0.45);
+}
+
+.mtg-pastille--w { background: var(--mtg-w); }
+.mtg-pastille--u { background: var(--mtg-u); }
+.mtg-pastille--b { background: var(--mtg-b); }
+.mtg-pastille--r { background: var(--mtg-r); }
+.mtg-pastille--g { background: var(--mtg-g); }
+
+.mtg-pastille--all {
+  width: 14px;
+  height: 14px;
+  background: conic-gradient(var(--mtg-w), var(--mtg-u), var(--mtg-b), var(--mtg-r), var(--mtg-g), var(--mtg-w));
+}
+
+.mtg-pastilles--card .mtg-pastille {
+  border-width: 1.5px;
+  box-shadow: none;
+}
+
+.mtg-pastilles--micro { gap: 2px; }
+.mtg-pastilles--micro .mtg-pastille--primary { width: 7px; height: 7px; }
+.mtg-pastilles--micro .mtg-pastille--secondary { width: 6px; height: 6px; opacity: 0.8; }
+
+.mtg-pastilles--detail .mtg-pastille--primary {
+  width: calc(18px + var(--w) * 16px);
+  height: calc(18px + var(--w) * 16px);
+}
+
+.mtg-filter-dots {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.mtg-dot-btn {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  transition: border-color 0.15s, transform 0.15s;
+}
+
+.mtg-dot-btn:hover { transform: scale(1.08); }
+
+.mtg-dot-btn.is-active {
+  border-color: var(--chip-color, var(--accent));
+  box-shadow: 0 0 0 1px var(--chip-color, var(--accent));
+}
+
+.mtg-dot-btn--w.is-active { --chip-color: var(--mtg-w); }
+.mtg-dot-btn--u.is-active { --chip-color: var(--mtg-u); }
+.mtg-dot-btn--b.is-active { --chip-color: var(--mtg-b); }
+.mtg-dot-btn--r.is-active { --chip-color: var(--mtg-r); }
+.mtg-dot-btn--g.is-active { --chip-color: var(--mtg-g); }
+
+.card-meta-color {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.2rem;
+}
+
+.detail-mtg {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.detail-mtg-philo {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.mtg-team-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 720px) {
+  .mtg-team-row { grid-template-columns: 1fr; }
+}
+
+.mtg-team-panel {
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.mtg-team-panel-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+}
+
+.mtg-team-panel-title {
+  font-weight: 600;
+}
+
+.mtg-team-identity {
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.mtg-team-conflicts {
+  margin: 0.4rem 0 0;
+  font-size: 0.75rem;
+  color: #e8a0a0;
+}
+
+.mtg-harmony-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 0.4rem;
+}
+
+.mtg-harmony-tag {
+  font-size: 0.65rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+}
+
+.mtg-harmony-tag--ally {
+  background: rgba(76, 175, 130, 0.15);
+  color: #8fd4b0;
+}
+
+.mtg-harmony-tag--enemy {
+  background: rgba(224, 93, 93, 0.12);
+  color: #e8a0a0;
+}
+
+.mtg-harmony-tag--shard {
+  background: rgba(120, 160, 220, 0.15);
+  color: #a8c8f0;
+}
+
+.mtg-harmony-tag--wedge {
+  background: rgba(180, 140, 220, 0.15);
+  color: #c8b0e8;
+}
+
+.mtg-harmony-tag--mono {
+  background: rgba(200, 200, 200, 0.12);
+  color: #d0d0d0;
+}
+
+.tactics-mtg-row { margin-bottom: 1rem; }

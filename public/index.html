@@ -1,0 +1,290 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TFM2 Coach â€” Draft & Tactiques</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="ui-mtg.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="header-brand">
+        <div class="logo">TFM2</div>
+        <div>
+          <h1>Coach Dashboard</h1>
+          <p class="subtitle">RÃ©fÃ©rence Â· draft live Â· tactiques</p>
+        </div>
+      </div>
+      <nav class="header-nav" aria-label="Navigation principale">
+        <button type="button" class="nav-tab active" data-view="champions">Champions</button>
+        <button type="button" class="nav-tab" data-view="items">Objets</button>
+        <button type="button" class="nav-tab" data-view="draft">Draft</button>
+        <button type="button" class="nav-tab" data-view="tactics">Tactiques</button>
+        <button type="button" class="nav-tab" data-view="patch">Patch</button>
+        <button type="button" class="nav-tab" data-view="guide">Guide</button>
+      </nav>
+      <div class="header-search" id="header-search-wrap">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="search" type="search" placeholder="Rechercher un championâ€¦ ( / )" autocomplete="off" />
+      </div>
+    </header>
+
+    <aside class="sidebar" id="sidebar-champions">
+      <section class="filter-section">
+        <h2>Tier meta</h2>
+        <div class="filter-chips" id="tier-filters">
+          <button class="chip active" data-tier="all">Tous</button>
+          <button class="chip chip-tier-s" data-tier="S">S</button>
+          <button class="chip chip-tier-a" data-tier="A">A</button>
+          <button class="chip chip-tier-b" data-tier="B">B</button>
+          <button class="chip chip-tier-c" data-tier="C">C</button>
+          <button class="chip chip-tier-d" data-tier="D">D</button>
+        </div>
+      </section>
+
+      <section class="filter-section">
+        <h2>Slot optimal</h2>
+        <div class="filter-chips" id="slot-filters">
+          <button class="chip active" data-slot="all">Tous</button>
+          <button class="chip" data-slot="Top"><span class="slot-icon">â–£</span> Top</button>
+          <button class="chip" data-slot="Jungle"><span class="slot-icon">ðŸ”¥</span> Jungle</button>
+          <button class="chip" data-slot="Mid"><span class="slot-icon">âš¡</span> Mid</button>
+          <button class="chip" data-slot="Bot"><span class="slot-icon">â—Ž</span> Bot</button>
+          <button class="chip" data-slot="Support"><span class="slot-icon">âœš</span> Support</button>
+        </div>
+      </section>
+
+      <section class="filter-section">
+        <h2>Type</h2>
+        <div class="filter-chips" id="type-filters">
+          <button class="chip active" data-type="all">Tous</button>
+          <button class="chip" data-type="Guerrier">Guerrier</button>
+          <button class="chip" data-type="Mage">Mage</button>
+          <button class="chip" data-type="Support">Support</button>
+          <button class="chip" data-type="Ã€ distance">Ã€ distance</button>
+          <button class="chip" data-type="Assassin">Assassin</button>
+        </div>
+      </section>
+
+      <section class="filter-section">
+        <h2>Couleur MTG</h2>
+        <div id="color-filters"></div>
+      </section>
+
+      <div class="sidebar-stats">
+        <span id="count-label">60 champions</span>
+        <p class="sidebar-hint" style="margin-top:0.5rem;font-size:0.75rem">Pool et tiers = onglet Patch</p>
+      </div>
+    </aside>
+
+    <aside class="sidebar guide-sidebar hidden" id="sidebar-items" aria-label="Filtres objets">
+      <section class="filter-section">
+        <h2>Tier</h2>
+        <div class="filter-chips" id="item-tier-filters">
+          <button class="chip active" data-tier="all">Tous</button>
+          <button class="chip" data-tier="5">Tier 5</button>
+          <button class="chip" data-tier="2">Tier 2</button>
+          <button class="chip" data-tier="1">Tier 1</button>
+        </div>
+      </section>
+      <div class="sidebar-stats">
+        <span id="items-count-label">â€” objets</span>
+      </div>
+    </aside>
+
+    <aside class="sidebar guide-sidebar hidden" id="sidebar-draft" aria-hidden="true"></aside>
+
+    <aside class="sidebar guide-sidebar hidden" id="sidebar-tactics" aria-label="Aide tactiques">
+      <section class="filter-section">
+        <h2>Conseil</h2>
+        <p class="sidebar-hint">Remplis les 5 lanes des deux équipes, puis clique <strong>Analyser</strong>. Les réglages correspondent aux options exactes de l'écran Tactiques in-game.</p>
+      </section>
+      <section class="filter-section" id="tactics-quick-index-section">
+        <h2>Index rapide</h2>
+        <p class="sidebar-hint">Objectif draft → jungle / Serpent / combat objectif.</p>
+        <div class="tactics-quick-index" id="tactics-quick-index"></div>
+      </section>
+      <section class="filter-section">
+        <h2>Templates guide</h2>
+        <p class="sidebar-hint">Configs complètes du guide — un clic charge la draft + analyse.</p>
+        <div class="tactics-templates" id="tactics-templates"></div>
+      </section>
+      <section class="filter-section" id="tactics-jungle-fit-section">
+        <h2>Fit jungle (7)</h2>
+        <div class="tactics-jungle-fit-ref" id="tactics-jungle-fit-ref"></div>
+      </section>
+    </aside>
+
+    <aside class="sidebar guide-sidebar hidden" id="sidebar-patch" aria-label="Patch actuel">
+      <section class="filter-section">
+        <h2>Patch</h2>
+        <label class="patch-label" for="patch-name-input">Nom de la rotation</label>
+        <input type="text" id="patch-name-input" class="patch-name-input" placeholder="Patch actuel" maxlength="80" />
+        <p class="sidebar-hint patch-sidebar-hint">Pool, tiers et positions configurÃ©s ici sâ€™appliquent au Draft, aux Tactiques et Ã  la liste Champions.</p>
+      </section>
+      <section class="filter-section">
+        <h2>Rotation</h2>
+        <p class="patch-stat" id="patch-stat-count">â€”</p>
+        <div class="patch-bulk-actions">
+          <button type="button" class="btn-secondary btn-sm" id="patch-enable-all">Tout activer</button>
+          <button type="button" class="btn-secondary btn-sm" id="patch-disable-all">Tout retirer</button>
+          <button type="button" class="btn-secondary btn-sm patch-reset-btn" id="patch-reset-defaults">RÃ©init. dÃ©fauts</button>
+        </div>
+      </section>
+      <section class="filter-section">
+        <h2>Affichage</h2>
+        <div class="filter-chips" id="patch-pool-filters">
+          <button class="chip active" data-pool="all">Tous</button>
+          <button class="chip" data-pool="enabled">En rotation</button>
+          <button class="chip" data-pool="disabled">Hors rotation</button>
+        </div>
+      </section>
+      <div class="sidebar-stats">
+        <span id="patch-save-status" class="patch-save-status">SynchronisÃ©</span>
+      </div>
+    </aside>
+
+    <aside class="sidebar guide-sidebar hidden" id="sidebar-guide" aria-label="Sommaire du guide">
+      <section class="filter-section">
+        <h2>Sommaire</h2>
+        <nav id="guide-toc" class="guide-toc"></nav>
+      </section>
+    </aside>
+
+    <main class="main" id="view-champions">
+      <div class="mobile-filters">
+        <select id="mobile-tier" aria-label="Filtrer par tier">
+          <option value="all">Tous les tiers</option>
+          <option value="S">Tier S</option>
+          <option value="A">Tier A</option>
+          <option value="B">Tier B</option>
+          <option value="C">Tier C</option>
+          <option value="D">Tier D</option>
+        </select>
+        <select id="mobile-slot" aria-label="Filtrer par slot">
+          <option value="all">Tous les slots</option>
+          <option value="Top">Top</option>
+          <option value="Jungle">Jungle</option>
+          <option value="Mid">Mid</option>
+          <option value="Bot">Bot</option>
+          <option value="Support">Support</option>
+        </select>
+        <select id="mobile-type" aria-label="Filtrer par type">
+          <option value="all">Tous les types</option>
+          <option value="Guerrier">Guerrier</option>
+          <option value="Mage">Mage</option>
+          <option value="Support">Support</option>
+          <option value="Ã€ distance">Ã€ distance</option>
+          <option value="Assassin">Assassin</option>
+        </select>
+      </div>
+      <div id="grid" class="champion-grid" aria-live="polite"></div>
+      <div id="empty" class="empty-state hidden">
+        <p>Aucun champion ne correspond Ã  votre recherche.</p>
+      </div>
+    </main>
+
+    <main class="main guide-main hidden" id="view-items">
+      <div id="items-grid" class="items-grid" aria-live="polite"></div>
+    </main>
+
+    <main class="main draft-main hidden" id="view-draft">
+      <div class="draft-layout">
+        <header class="draft-session-bar" id="draft-session-bar"></header>
+        <div id="draft-flash" class="draft-flash" role="alert" aria-live="polite"></div>
+        <div class="draft-body">
+          <div class="draft-main-col">
+            <section class="draft-board-wrap">
+              <div class="draft-board" id="draft-board"></div>
+            </section>
+            <section class="draft-pool-wrap">
+              <div class="draft-pool" id="draft-pool"></div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <main class="main tactics-main hidden" id="view-tactics">
+      <div class="tactics-layout">
+        <section class="tactics-draft">
+          <div class="draft-column our-team">
+            <h2>Notre Ã©quipe</h2>
+            <div class="tactics-slots-grid" id="our-slots"></div>
+          </div>
+          <div class="draft-vs">VS</div>
+          <div class="draft-column draft-enemy enemy-team">
+            <h2>Adversaire</h2>
+            <div class="tactics-slots-grid" id="enemy-slots"></div>
+          </div>
+        </section>
+        <p class="tactics-hint" id="tactics-focus-hint">Clique une lane, puis un champion ci-dessous (A â†’ Z)</p>
+        <section class="tactics-pool-wrap">
+          <div class="tactics-pool draft-pool" id="tactics-pool"></div>
+        </section>
+        <div class="tactics-actions">
+          <button type="button" id="import-draft-tactics" class="btn-secondary">Importer la draft</button>
+          <button type="button" id="analyze-tactics" class="btn-primary">Analyser les tactiques</button>
+          <button type="button" id="clear-tactics" class="btn-secondary">Effacer</button>
+        </div>
+        <section id="tactics-comp-score" class="tactics-comp-score hidden" aria-live="polite"></section>
+        <section id="tactics-result" class="tactics-result hidden" aria-live="polite"></section>
+      </div>
+    </main>
+
+    <main class="main patch-main hidden" id="view-patch">
+      <header class="patch-header">
+        <div>
+          <h2 class="patch-title">Patch actuel</h2>
+          <p class="patch-subtitle">DÃ©finis le pool jouable, le tier meta et les postes de chaque champion pour cette rotation.</p>
+        </div>
+        <input type="search" id="patch-search" class="patch-search" placeholder="Rechercher un championâ€¦" autocomplete="off" />
+      </header>
+      <div class="patch-table-wrap">
+        <table class="patch-table" id="patch-table">
+          <thead>
+            <tr>
+              <th scope="col">Champion</th>
+              <th scope="col">Rotation</th>
+              <th scope="col">Tier</th>
+              <th scope="col">Postes jouables</th>
+            </tr>
+          </thead>
+          <tbody id="patch-table-body"></tbody>
+        </table>
+      </div>
+      <p id="patch-empty" class="empty-state hidden">Aucun champion ne correspond Ã  la recherche.</p>
+    </main>
+
+    <main class="main guide-main hidden" id="view-guide">
+      <article id="guide-content" class="guide-content"></article>
+    </main>
+
+    <aside id="detail" class="detail-panel" aria-hidden="true">
+      <button id="close-detail" class="close-btn" aria-label="Fermer">Ã—</button>
+      <div id="detail-content"></div>
+    </aside>
+    <div id="overlay" class="overlay hidden"></div>
+  </div>
+
+  <script src="patch-config.js"></script>
+  <script src="mtg-color-pie.js?v=1"></script>
+  <script src="family-core.js?v=1"></script>
+  <script src="match-core.js?v=13"></script>
+  <script src="ability-core.js?v=1"></script>
+  <script src="beatdown-core.js?v=4"></script>
+  <script src="adaptive-engine.js?v=1"></script>
+  <script src="tfm2-draft-engine.js?v=1"></script>
+  <script src="champion-pool-ui.js?v=2"></script>
+  <script src="draft-engine.js?v=35"></script>
+  <script src="item-guide.js?v=2"></script>
+  <script src="tfm2-tactics-engine.js?v=1"></script>
+  <script src="app.js?v=3"></script>
+  <script src="draft-ui.js?v=7"></script>
+</body>
+</html>

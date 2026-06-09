@@ -1,0 +1,312 @@
+{
+  "version": "2026-06",
+  "source": "C:\\Users\\Admin\\.cursor\\skills\\teamfight-manager-2\\items.md",
+  "rules": {
+    "maxItems": 3,
+    "tierCosts": {
+      "1": 500,
+      "2": 1000,
+      "5": 2000
+    }
+  },
+  "items": [
+    {
+      "name": "Épée de fer",
+      "tier": 1,
+      "cost": 500,
+      "stats": "Dégâts d'attaque +15"
+    },
+    {
+      "name": "Dague rapide",
+      "tier": 1,
+      "cost": 500,
+      "stats": "Vitesse d'attaque +10 %"
+    },
+    {
+      "name": "Armure d'acier",
+      "tier": 1,
+      "cost": 500,
+      "stats": "Armure +20"
+    },
+    {
+      "name": "Cape mystique",
+      "tier": 1,
+      "cost": 500,
+      "stats": "Résistance magique +20"
+    },
+    {
+      "name": "Cristal arcanique",
+      "tier": 1,
+      "cost": 500,
+      "stats": "Puissance +50"
+    },
+    {
+      "name": "Orbe vital",
+      "tier": 1,
+      "cost": 500,
+      "stats": "PV +100"
+    },
+    {
+      "name": "Lame perforante",
+      "tier": 2,
+      "cost": 1000,
+      "stats": "AD +40 · Pénétration d'armure +20 %",
+      "passive": null
+    },
+    {
+      "name": "Lame de vol de vie",
+      "tier": 2,
+      "cost": 1000,
+      "stats": "AD +40 · Vol de vie +16 %",
+      "passive": null
+    },
+    {
+      "name": "Dague maudite",
+      "tier": 2,
+      "cost": 1000,
+      "stats": "AD +40",
+      "passive": "Réduction soins ennemis +40 % (2 s)"
+    },
+    {
+      "name": "Marteau brise-bouclier",
+      "tier": 2,
+      "cost": 1000,
+      "stats": "AD +40",
+      "passive": "Détruit 40 % du bouclier ennemi à l'attaque"
+    },
+    {
+      "name": "Dague de vent",
+      "tier": 2,
+      "cost": 1000,
+      "stats": "AS +8 % · MS +25 %",
+      "passive": null
+    },
+    {
+      "name": "Arc long",
+      "tier": 2,
+      "cost": 1000,
+      "stats": "AS +25 % · Portée +5",
+      "passive": null
+    },
+    {
+      "name": "Lame gardienne",
+      "tier": 2,
+      "cost": 1000,
+      "stats": "AS +25 %",
+      "passive": "Bouclier 500 si PV < 30 % (CD 15 s)"
+    },
+    {
+      "name": "Lance sauvage",
+      "tier": 2,
+      "cost": 1000,
+      "stats": "AS +25 % · Dégâts % PV max (auto) +1 %",
+      "passive": null
+    },
+    {
+      "name": "Armure de fer",
+      "tier": 2,
+      "cost": 1000,
+      "stats": "Armure +50",
+      "passive": "Armure +15 % bonus"
+    },
+    {
+      "name": "Bouclier ralentisseur",
+      "tier": 2,
+      "cost": 1000,
+      "stats": "Armure +50",
+      "passive": "Réduit AS ennemi à l'auto"
+    },
+    {
+      "name": "Plaque réfléchissante",
+      "tier": 2,
+      "cost": 1000,
+      "stats": "Armure +50 · Dégâts réfléchis +20 %",
+      "passive": null
+    },
+    {
+      "name": "Volonté inébranlable",
+      "tier": 2,
+      "cost": 1000,
+      "stats": "Armure +50",
+      "passive": null
+    },
+    {
+      "name": "Bâton du sorcier",
+      "tier": 2,
+      "cost": 1000,
+      "stats": "Puissance +110 · Pénétration magique +20 %",
+      "passive": null
+    },
+    {
+      "name": "Cristal chrono",
+      "tier": 2,
+      "cost": 1000,
+      "stats": "Puissance +110 · Réduction de récupération +20 %",
+      "passive": null
+    },
+    {
+      "name": "Orbe venimeux",
+      "tier": 2,
+      "cost": 1000,
+      "stats": "Puissance +110 · Dégâts DoT +10 %",
+      "passive": null
+    },
+    {
+      "name": "Bâton corrosif",
+      "tier": 2,
+      "cost": 1000,
+      "stats": "Puissance +110 · Dégâts compétence % PV max +1 %",
+      "passive": null
+    },
+    {
+      "name": "Cœur de vie",
+      "tier": 2,
+      "cost": 1000,
+      "stats": "PV +300 · Régénération +15/s",
+      "passive": null
+    },
+    {
+      "name": "Armure grandissante",
+      "tier": 2,
+      "cost": 1000,
+      "stats": "PV +300",
+      "passive": "+3 PV max par kill (max 90)"
+    },
+    {
+      "name": "Masse du géant",
+      "tier": 2,
+      "cost": 1000,
+      "stats": "PV +300",
+      "passive": "Dégâts % PV max +1 %"
+    },
+    {
+      "name": "Bouclier sacrificiel",
+      "tier": 2,
+      "cost": 1000,
+      "stats": "PV +300",
+      "passive": "Prend 20 % des dégâts pour l'allié le plus bas PV (70 portée)"
+    },
+    {
+      "name": "Voile d'aura",
+      "tier": 2,
+      "cost": 1000,
+      "stats": "RM +50",
+      "passive": "+20 PM aux alliés (60 portée)"
+    },
+    {
+      "name": "Cape affaiblissante",
+      "tier": 2,
+      "cost": 1000,
+      "stats": "RM +50",
+      "passive": "−20 % RM ennemis (60 portée)"
+    },
+    {
+      "name": "Linceul de flammes",
+      "tier": 2,
+      "cost": 1000,
+      "stats": "RM +50",
+      "passive": "5 mag/s aux ennemis proches"
+    },
+    {
+      "name": "Cape inflexible",
+      "tier": 2,
+      "cost": 1000,
+      "stats": "RM +50",
+      "passive": null
+    },
+    {
+      "name": "Jugement final du seigneur de guerre",
+      "tier": 5,
+      "cost": 2000,
+      "type": "DPS physique · finisher AD",
+      "stats": "Dégâts d'attaque +100 · Vol de vie +15 % · Pénétration d'armure +20 %",
+      "passive": null,
+      "typicalChampions": [
+        "Double lame",
+        "Inquisiteur",
+        "Lancier",
+        "Tueur à gages",
+        "Ninja",
+        "Épéiste"
+      ]
+    },
+    {
+      "name": "Souverain de la tempête",
+      "tier": 5,
+      "cost": 2000,
+      "type": "DPS auto-attaque · crit / AS",
+      "stats": "Vitesse d'attaque +60 % · Vitesse de déplacement +10 % · Chances de coup critique +25 %",
+      "passive": null,
+      "typicalChampions": [
+        "Archer",
+        "Tireur",
+        "Soldat",
+        "Danseuse",
+        "Maître du fouet",
+        "Démon"
+      ]
+    },
+    {
+      "name": "Forteresse imprenable",
+      "tier": 5,
+      "cost": 2000,
+      "type": "Tank · anti-DPS auto",
+      "stats": "Armure +130 · Réduction des dégâts d'attaque de base +12 %",
+      "passive": "Quand vous subissez une attaque de base, inflige 10 + 2 % de votre Armure en dégâts magiques à l'attaquant.",
+      "typicalChampions": [
+        "Infanterie lourde",
+        "Ogre",
+        "Porteur de bouclier",
+        "Moine",
+        "Androïde"
+      ]
+    },
+    {
+      "name": "Voile d'annihilation",
+      "tier": 5,
+      "cost": 2000,
+      "type": "Tank magique · anti-burst AP",
+      "stats": "Résistance magique +200 · PV +400 · Réduction des dégâts de compétence +20 % · Ténacité +50 %",
+      "passive": null,
+      "typicalChampions": [
+        "Mage de barrière",
+        "Prêtre",
+        "Pythonisse",
+        "Chevalier magique",
+        "Médecin de la peste"
+      ]
+    },
+    {
+      "name": "Prophète de l'abîme",
+      "tier": 5,
+      "cost": 2000,
+      "type": "Burst magique · finisher AP",
+      "stats": "Puissance +200 · Réduction de récupération +15 % · Pénétration magique +15 %",
+      "passive": null,
+      "typicalChampions": [
+        "Pyromancien",
+        "Mage de glace",
+        "Mage du vent",
+        "Mage blanc",
+        "Bombardier",
+        "Vampire"
+      ]
+    },
+    {
+      "name": "Fragment de corne du géant",
+      "tier": 5,
+      "cost": 2000,
+      "type": "Tank · scale PV · zone",
+      "stats": "PV +800",
+      "passive": "Restaure 40 PV/s et inflige 10 + 1 % des PV max en dégâts magiques à tous les ennemis dans une portée de 30.",
+      "typicalChampions": [
+        "Ogre",
+        "Infanterie lourde",
+        "Jiangshi",
+        "Combattant",
+        "Chevalier de cavalerie"
+      ]
+    }
+  ],
+  "tier5Count": 6
+}

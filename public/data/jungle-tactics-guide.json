@@ -1,0 +1,534 @@
+{
+  "version": "2026-06",
+  "source": "Jungle and Objective Tactics Guide (dq7) + coach integration",
+  "guideUrl": "https://dq7reimagined.com/teamfight-manager-2/jungle-guide/",
+  "quickSettingsIndex": [
+    {
+      "id": "early_serpent_pressure",
+      "draftGoal": "Pression Serpent early",
+      "earlyJungle": "Gank",
+      "earlySerpent": "Toujours Essayer",
+      "objectiveCombat": "Engage Fort",
+      "example": "Lancier + lanes mobiles"
+    },
+    {
+      "id": "protect_scale",
+      "draftGoal": "Protéger carry scale",
+      "earlyJungle": "Farm/Couverture",
+      "earlySerpent": "Céder",
+      "objectiveCombat": "Poker / Garder ses Distances",
+      "example": "Tireur + Prêtre/Moine"
+    },
+    {
+      "id": "pick_before_morgard",
+      "draftGoal": "Pick avant objectif",
+      "earlyJungle": "Gank",
+      "earlySerpent": "Flexible",
+      "objectiveCombat": "Poker / Garder ses Distances",
+      "example": "Ninja / Démon"
+    },
+    {
+      "id": "side_pressure_trade",
+      "draftGoal": "Trade map (pas 5v5)",
+      "earlyJungle": "Farm/Couverture",
+      "earlySerpent": "Céder",
+      "objectiveCombat": "Poker / Garder ses Distances",
+      "example": "Pyromancien / Cavalerie"
+    },
+    {
+      "id": "behind_stabilize",
+      "draftGoal": "Behind après failed setup",
+      "earlyJungle": "Farm/Couverture",
+      "earlySerpent": "Céder",
+      "objectiveCombat": "Poker / Garder ses Distances",
+      "example": "Revoir draft next game"
+    }
+  ],
+  "templates": [
+    {
+      "id": "lancer_early_serpent",
+      "key": "pressure",
+      "label": "Lancier — pression Serpent early",
+      "draft": "Lancier JG + dégâts lane early + supp engage/CC",
+      "our": {
+        "Top": "Combattant",
+        "Jungle": "Lancier",
+        "Mid": "Pyromancien",
+        "Bot": "Archer",
+        "Support": "Moine"
+      },
+      "enemy": {
+        "Top": "Porteur de bouclier",
+        "Jungle": "Ogre",
+        "Mid": "Mage de glace",
+        "Bot": "Soldat",
+        "Support": "Infanterie lourde"
+      },
+      "tactics": {
+        "focusLane": "Toutes les Lanes",
+        "earlyJungle": "Gank",
+        "earlySerpent": "Toujours Essayer",
+        "topSerpent": "Flexible",
+        "waveMgmt": "Priorité Ralliement",
+        "objectivePrep": "Se Regrouper",
+        "objectiveCombat": "Engage Fort",
+        "objectiveFinish": "Priorité de Combat",
+        "morgard": "Se Regrouper à 5",
+        "towerSiege": "Poker / Garder ses Distances",
+        "defense": "Forcer le Combat",
+        "closing": "Agressif"
+      },
+      "review": "La pression a-t-elle mené au Serpent ou retardé le jungle ennemi ?"
+    },
+    {
+      "id": "sniper_protect_scale",
+      "key": "scale",
+      "label": "Tireur — protection scale",
+      "draft": "Tireur bot + Prêtre/Pythonisse + front",
+      "our": {
+        "Top": "Chevalier de cavalerie",
+        "Jungle": "Ogre",
+        "Mid": "Mage de glace",
+        "Bot": "Tireur",
+        "Support": "Prêtre"
+      },
+      "enemy": {
+        "Top": "Infanterie lourde",
+        "Jungle": "Lancier",
+        "Mid": "Pyromancien",
+        "Bot": "Archer",
+        "Support": "Moine"
+      },
+      "tactics": {
+        "focusLane": "Focus Mid/Bot",
+        "earlyJungle": "Farm/Couverture",
+        "earlySerpent": "Céder",
+        "topSerpent": "Flexible",
+        "waveMgmt": "Priorité Vague",
+        "objectivePrep": "Flexible",
+        "objectiveCombat": "Poker / Garder ses Distances",
+        "objectiveFinish": "Priorité d'Élimination",
+        "morgard": "Se Regrouper à 5",
+        "towerSiege": "Poker / Garder ses Distances",
+        "defense": "Défendre la Lane Pressée",
+        "closing": "Stable"
+      },
+      "review": "Survécu early sans céder toute la map ?"
+    },
+    {
+      "id": "ninja_demon_pick",
+      "key": "pick",
+      "label": "Ninja / Démon — pick avant Morgard",
+      "draft": "Ninja ou Démon + Exécuteur/Bombardier + follow-up",
+      "our": {
+        "Top": "Chevalier magique",
+        "Jungle": "Ninja",
+        "Mid": "Bombardier",
+        "Bot": "Exécuteur",
+        "Support": "Combattant"
+      },
+      "enemy": {
+        "Top": "Épéiste",
+        "Jungle": "Berserker",
+        "Mid": "Mage blanc",
+        "Bot": "Tireur",
+        "Support": "Pythonisse"
+      },
+      "tactics": {
+        "focusLane": "Toutes les Lanes",
+        "earlyJungle": "Gank",
+        "earlySerpent": "Flexible",
+        "topSerpent": "Flexible",
+        "waveMgmt": "Priorité Ralliement",
+        "objectivePrep": "Flexible",
+        "objectiveCombat": "Poker / Garder ses Distances",
+        "objectiveFinish": "Priorité d'Élimination",
+        "morgard": "Split 1-4",
+        "towerSiege": "Poker / Garder ses Distances",
+        "defense": "Défendre la Lane Pressée",
+        "closing": "Flexible"
+      },
+      "review": "Picks avant objectif ou marche dans des 5v5 groupés ?"
+    },
+    {
+      "id": "pyro_cavalry_trade",
+      "key": "trade",
+      "label": "Pyromancien / Cavalerie — trade side",
+      "draft": "Pyro wave clear ou Cavalerie side",
+      "our": {
+        "Top": "Soldat",
+        "Jungle": "Chevalier de cavalerie",
+        "Mid": "Pyromancien",
+        "Bot": "Archer",
+        "Support": "Moine"
+      },
+      "enemy": {
+        "Top": "Infanterie lourde",
+        "Jungle": "Ogre",
+        "Mid": "Mage de glace",
+        "Bot": "Tireur",
+        "Support": "Porteur de bouclier"
+      },
+      "tactics": {
+        "focusLane": "Focus Top/Mid",
+        "earlyJungle": "Farm/Couverture",
+        "earlySerpent": "Céder",
+        "topSerpent": "Ne Pas Rejoindre",
+        "waveMgmt": "Priorité Vague",
+        "objectivePrep": "Split Push",
+        "objectiveCombat": "Poker / Garder ses Distances",
+        "objectiveFinish": "Flexible",
+        "morgard": "Split 1-3-1",
+        "towerSiege": "Poker / Garder ses Distances",
+        "defense": "Défendre la Lane Pressée",
+        "closing": "Flexible"
+      },
+      "review": "Trade suffisant ou snowball objectif ennemi ?"
+    }
+  ],
+  "jungleChampionFit": {
+    "Lancier": {
+      "earlyJungle": "Gank",
+      "style": "aggressive",
+      "serpent": "contest",
+      "label": "Gank / objectif — engage, tempo",
+      "verify": "Arrivé à temps au Serpent ?"
+    },
+    "Ninja": {
+      "earlyJungle": "Gank",
+      "style": "pick",
+      "serpent": "after_advantage",
+      "label": "Pick / backline — dive carry faible peel",
+      "verify": "Atteint carry avant fight obj ?"
+    },
+    "Soldat": {
+      "earlyJungle": "Farm/Couverture",
+      "style": "flex",
+      "serpent": "flexible",
+      "label": "Pression mobile / flexible",
+      "verify": "Pression réelle ou feed ?"
+    },
+    "Berserker": {
+      "earlyJungle": "Gank",
+      "style": "skirmish",
+      "serpent": "flexible",
+      "label": "Skirmish — isolations early",
+      "verify": "Avantage ou tempo donné ?"
+    },
+    "Combattant": {
+      "earlyJungle": "Gank",
+      "style": "engage",
+      "serpent": "contest",
+      "label": "CC / engage JG — start fight fiable",
+      "verify": "DPS follow-up suffisant ?"
+    },
+    "Chevalier de cavalerie": {
+      "earlyJungle": "Farm/Couverture",
+      "style": "stable_front",
+      "serpent": "delay_trade",
+      "label": "Front JG stable — présence objectif",
+      "verify": "Protège ou ignoré ?"
+    },
+    "Démon": {
+      "earlyJungle": "Gank",
+      "style": "pick",
+      "serpent": "after_advantage",
+      "label": "Dive / displacement — backline immobile",
+      "verify": "CC/peel ennemi stoppe-t-il ?"
+    },
+    "Clown": {
+      "earlyJungle": "Gank",
+      "style": "pick",
+      "serpent": "after_advantage",
+      "label": "Gank mid/bot — burst + mobilité",
+      "verify": "Ganks convertis ?"
+    },
+    "Inquisiteur": {
+      "earlyJungle": "Gank",
+      "style": "pick",
+      "serpent": "after_advantage",
+      "label": "Tempo snowball — domination early",
+      "verify": "Snowball ou behind si fail ?"
+    },
+    "Ogre": {
+      "earlyJungle": "Farm/Couverture",
+      "style": "safe",
+      "serpent": "delay",
+      "label": "Farm / front tard — lent mais tank",
+      "verify": "Comp joue autour du tank ?"
+    },
+    "Chasseur de boomerang": {
+      "earlyJungle": "Farm/Couverture",
+      "style": "flex",
+      "serpent": "flexible",
+      "label": "Gunner — mobilité, pression flexible",
+      "verify": "Pression réelle ou feed ?"
+    },
+    "Briseur de siège": {
+      "earlyJungle": "Gank",
+      "style": "engage",
+      "serpent": "contest",
+      "label": "Engage — waveclear objectif",
+      "verify": "Arrivé à temps au Serpent ?"
+    }
+  },
+  "objectiveDecisionModel": {
+    "contest": {
+      "label": "Contest immédiat",
+      "usage": "1er Serpent",
+      "when": "JG prêt, lanes mobiles, dmg/CC early",
+      "tactics": {
+        "earlySerpent": "Toujours Essayer",
+        "objectiveCombat": "Engage Fort"
+      }
+    },
+    "delay": {
+      "label": "Delay",
+      "usage": "Scale / setup faible",
+      "when": "Items, peel, position",
+      "tactics": {
+        "earlySerpent": "Céder",
+        "defense": "Défendre la Lane Pressée"
+      }
+    },
+    "pick": {
+      "label": "Pick first",
+      "usage": "Morgard / 5v5 risqué",
+      "when": "Pas win 5v5 égal",
+      "tactics": {
+        "objectiveCombat": "Poker / Garder ses Distances",
+        "objectiveFinish": "Priorité d'Élimination"
+      }
+    },
+    "trade": {
+      "label": "Trade",
+      "usage": "Mauvais setup direct",
+      "when": "Ennemi meilleur au pit",
+      "tactics": {
+        "earlySerpent": "Céder",
+        "waveMgmt": "Priorité Vague"
+      }
+    },
+    "defend": {
+      "label": "Defend",
+      "usage": "Behind",
+      "when": "Contest = morts inutiles",
+      "tactics": {
+        "defense": "Défendre la Lane Pressée",
+        "objectiveCombat": "Poker / Garder ses Distances"
+      }
+    }
+  },
+  "objectiveCombatOptions": [
+    {
+      "id": "hard_engage",
+      "value": "Engage Fort",
+      "when": "Front + CC + dmg",
+      "bestWith": [
+        "Lancier",
+        "Combattant",
+        "Moine"
+      ],
+      "risk": "Carry pas prêt"
+    },
+    {
+      "id": "poke",
+      "value": "Poker / Garder ses Distances",
+      "when": "Softening avant commit",
+      "bestWith": [
+        "Archer",
+        "Pyromancien",
+        "Bombardier",
+        "Joueur"
+      ],
+      "risk": "Dive hard ennemi"
+    },
+    {
+      "id": "protect_carry",
+      "value": "Poker / Garder ses Distances",
+      "when": "Win condition = hypercarry",
+      "bestWith": [
+        "Tireur",
+        "Prêtre",
+        "Moine"
+      ],
+      "risk": "Manque dmg secondaire"
+    },
+    {
+      "id": "pick_first",
+      "value": "Poker / Garder ses Distances",
+      "when": "Pas win 5v5 égal",
+      "bestWith": [
+        "Ninja",
+        "Démon",
+        "Exécuteur"
+      ],
+      "risk": "Peel lourd ennemi"
+    },
+    {
+      "id": "defensive",
+      "value": "Poker / Garder ses Distances",
+      "when": "Behind / timing items",
+      "bestWith": [
+        "Scale",
+        "wave clear"
+      ],
+      "risk": "Cède map"
+    }
+  ],
+  "objectiveFinishBehaviors": [
+    {
+      "id": "focus_objective",
+      "value": "Priorité de Combat",
+      "when": "Ennemi zoned, JG mort, burst obj OK",
+      "avoid": "Ennemi entre librement"
+    },
+    {
+      "id": "turn_enemy",
+      "value": "Priorité d'Élimination",
+      "when": "Ennemi walk in, comp gagne fight",
+      "avoid": "Manque dmg, obj presque fini"
+    },
+    {
+      "id": "flexible",
+      "value": "Flexible (via combat poke)",
+      "when": "Matchup incertain",
+      "avoid": "Comp a besoin d'un plan clair"
+    }
+  ],
+  "morgardClosingPlans": [
+    {
+      "id": "stable",
+      "value": "Stable",
+      "morgard": "Se Regrouper à 5",
+      "when": "Carry scale",
+      "champions": [
+        "Tireur",
+        "Prêtre",
+        "Pythonisse"
+      ],
+      "caution": "Never hit towers"
+    },
+    {
+      "id": "aggressive",
+      "value": "Agressif",
+      "morgard": "Se Regrouper à 5",
+      "when": "Ahead clair",
+      "champions": [
+        "Lancier",
+        "Combattant",
+        "Chevalier de cavalerie"
+      ],
+      "caution": "Throw vs counter-engage"
+    },
+    {
+      "id": "split",
+      "value": "Split 1-3-1 / 1-4",
+      "morgard": "Split 1-3-1",
+      "when": "Side lane fort",
+      "champions": [
+        "Vampire",
+        "Chevalier de cavalerie",
+        "Pyromancien",
+        "Berserker"
+      ],
+      "caution": "Groupe principal défend mal"
+    },
+    {
+      "id": "poke_siege",
+      "value": "Poke siege",
+      "morgard": "Se Regrouper à 5",
+      "towerSiege": "Poker / Garder ses Distances",
+      "when": "Chip safe",
+      "champions": [
+        "Archer",
+        "Joueur",
+        "Bombardier"
+      ],
+      "caution": "Hard engage ennemi"
+    },
+    {
+      "id": "defensive_close",
+      "value": "Defensive close",
+      "morgard": "Se Regrouper à 5",
+      "closing": "Stable",
+      "when": "Buff mais pas ahead",
+      "champions": [
+        "Scale",
+        "fragile"
+      ],
+      "caution": "Morgard wasted"
+    }
+  ],
+  "failureAdjustments": [
+    {
+      "pattern": "Jungle agressive → morts early",
+      "adjust": "Farm/Couverture + Serpent Céder"
+    },
+    {
+      "pattern": "JG arrive en retard à l'objectif",
+      "adjust": "Setup plus safe ou draft prio lanes"
+    },
+    {
+      "pattern": "Start objectif mais ne finit pas",
+      "adjust": "Revoir Finalisation + dégâts équipe"
+    },
+    {
+      "pattern": "Morgard gagné mais pas de push",
+      "adjust": "Morgard Split ou Siège Poker"
+    },
+    {
+      "pattern": "Comp pick → 5v5 égal",
+      "adjust": "Combat objectif → pick first (Poker)"
+    },
+    {
+      "pattern": "Comp scale contest trop tôt",
+      "adjust": "Delay Serpent + protéger carry"
+    },
+    {
+      "pattern": "Jungle safe cède tout",
+      "adjust": "Ajouter prio lanes, poke ou pression objectif"
+    }
+  ],
+  "archetypeLabels": {
+    "early_serpent_pressure": "Early Serpent pressure (Lancer)",
+    "protect_scale": "Protect scaling carry (Sniper)",
+    "pick_before_morgard": "Pick before objective (Ninja / Demon)",
+    "side_pressure_trade": "Side-pressure trade (Pyromancer / Cavalry)",
+    "behind_stabilize": "Behind — stabilize (next-match adjustment)",
+    "balanced": "Flexible / responsive (guide)"
+  },
+  "shellStyleToArchetype": {
+    "front_to_back": "early_serpent_pressure",
+    "kite_poke": "side_pressure_trade",
+    "dive_pick": "pick_before_morgard"
+  },
+  "shellIdToArchetype": {
+    "sniper_front_to_back": "early_serpent_pressure",
+    "archer_priest_kite": "side_pressure_trade",
+    "ninja_executioner_dive": "pick_before_morgard"
+  },
+  "heroJungleChampions": [
+    "Lancier",
+    "Ninja",
+    "Chasseur de boomerang",
+    "Berserker",
+    "Combattant",
+    "Chevalier de cavalerie",
+    "Démon"
+  ],
+  "tacticSlotLabels": {
+    "focusLane": "Focus de Lane",
+    "earlyJungle": "Style de Jungle Précoce",
+    "earlySerpent": "Tentative de Serpent Précoce",
+    "topSerpent": "Top Laner au Serpent Précoce",
+    "waveMgmt": "Gestion des Vagues de Sbires",
+    "objectivePrep": "Préparation d'Objectif",
+    "objectiveCombat": "Stratégie de Combat d'Objectif",
+    "objectiveFinish": "Finalisation d'Objectif",
+    "morgard": "Utilisation du Buff Morgard",
+    "towerSiege": "Siège de Tour",
+    "defense": "Tactiques Défensives",
+    "closing": "Conclusion de Partie"
+  }
+}

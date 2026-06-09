@@ -1,0 +1,389 @@
+{
+  "version": 1,
+  "draftFormat": {
+    "bansPerTeam": 3,
+    "pickOrder": "snake_5v5",
+    "secondBanPhase": false,
+    "note": "Early Access default — 3 bans upfront, lineup complète, pas de 2e phase ban"
+  },
+  "banPhilosophy": {
+    "principle": "Ban les menaces que ta comp ne peut pas répondre, pas le « meilleur » champion meta",
+    "threats": {
+      "fragile_carry": {
+        "label": "Carry fragile sans peel",
+        "ban": ["Ninja", "Démon", "Exécuteur"],
+        "whenEnemyHas": ["Archer", "Tireur", "Joueur", "Soldat"]
+      },
+      "lane_priority": {
+        "label": "Prio lane / push",
+        "ban": ["Épéiste", "Pyromancien", "Chevalier de cavalerie"],
+        "whenEnemyHas": ["Lancier", "Mage de glace", "Archer", "Prêtre"]
+      },
+      "dive_vs_backline": {
+        "label": "Dive vs front-to-back",
+        "ban": ["Ninja", "Démon", "Exécuteur", "Bombardier"],
+        "whenOurShell": ["sniper_front_to_back", "archer_priest_kite"]
+      },
+      "peel_vs_dive": {
+        "label": "Peel vs comp dive",
+        "ban": ["Moine", "Porteur de bouclier", "Prêtre", "Esprit gardien"],
+        "whenOurShell": ["ninja_executioner_dive"]
+      }
+    }
+  },
+  "compShells": {
+    "sniper_front_to_back": {
+      "id": "sniper_front_to_back",
+      "labelFr": "Tireur front-to-back",
+      "style": "front_to_back",
+      "champions": ["Chevalier de cavalerie", "Lancier", "Mage de glace", "Tireur", "Combattant"],
+      "slots": {
+        "Top": "Chevalier de cavalerie",
+        "Jungle": "Lancier",
+        "Mid": "Mage de glace",
+        "Bot": "Tireur",
+        "Support": "Combattant"
+      },
+      "firstPickAnchors": ["Chevalier de cavalerie", "Lancier", "Mage de glace"],
+      "cannotAnswer": ["Ninja", "Démon", "Exécuteur"],
+      "banPriority": ["Ninja", "Démon", "Exécuteur", "Moine", "Bombardier"],
+      "serpen": {
+        "plan": "fight_early",
+        "label": "Fight early Serpent",
+        "champions": ["Lancier", "Mage de glace", "Combattant"],
+        "checks": ["jungler_alive", "correct_side", "lanes_mobile", "early_damage_cc"],
+        "tactics": {
+          "earlyJungle": "Gank",
+          "earlySerpent": "Toujours Essayer",
+          "objectiveCombat": "Engage Fort",
+          "objectiveFinish": "Priorité de Combat"
+        }
+      },
+      "morgard": {
+        "plan": "force_5v5",
+        "label": "Force 5v5 front-to-back",
+        "tactics": {
+          "morgard": "Se Regrouper à 5",
+          "towerSiege": "Poker / Garder ses Distances",
+          "objectiveCombat": "Engage Fort"
+        },
+        "draftNeeds": ["frontline", "peel", "wave_clear", "marksman"]
+      }
+    },
+    "archer_priest_kite": {
+      "id": "archer_priest_kite",
+      "labelFr": "Archer-Prêtre kite",
+      "style": "kite_poke",
+      "champions": ["Épéiste", "Lancier", "Pyromancien", "Archer", "Prêtre"],
+      "slots": {
+        "Top": "Épéiste",
+        "Jungle": "Lancier",
+        "Mid": "Pyromancien",
+        "Bot": "Archer",
+        "Support": "Prêtre"
+      },
+      "firstPickAnchors": ["Épéiste", "Pyromancien", "Archer", "Prêtre"],
+      "cannotAnswer": ["Ninja", "Démon", "Combattant"],
+      "banPriority": ["Ninja", "Démon", "Chevalier de cavalerie", "Exécuteur"],
+      "serpen": {
+        "plan": "delay_trade",
+        "label": "Delay / trade Serpent",
+        "champions": ["Épéiste", "Pyromancien", "Prêtre"],
+        "checks": ["jungler_alive", "lanes_can_trade", "peel_ready"],
+        "tactics": {
+          "earlyJungle": "Farm/Couverture",
+          "earlySerpent": "Céder",
+          "objectiveCombat": "Poker / Garder ses Distances",
+          "waveMgmt": "Priorité Vague"
+        }
+      },
+      "morgard": {
+        "plan": "pick_first",
+        "label": "Pick first — pas 5v5 égal",
+        "tactics": {
+          "morgard": "Split 1-4",
+          "towerSiege": "Poker / Garder ses Distances",
+          "objectiveFinish": "Priorité d'Élimination"
+        },
+        "draftNeeds": ["poke", "peel", "wave_clear", "marksman"]
+      }
+    },
+    "ninja_executioner_dive": {
+      "id": "ninja_executioner_dive",
+      "labelFr": "Ninja-Exécuteur dive",
+      "style": "dive_pick",
+      "champions": ["Chevalier magique", "Ninja", "Bombardier", "Exécuteur", "Combattant"],
+      "altSlots": {
+        "Top": ["Moine", "Chevalier magique"]
+      },
+      "slots": {
+        "Top": "Chevalier magique",
+        "Jungle": "Ninja",
+        "Mid": "Bombardier",
+        "Bot": "Exécuteur",
+        "Support": "Combattant"
+      },
+      "firstPickAnchors": ["Ninja", "Bombardier", "Chevalier magique", "Moine"],
+      "cannotAnswer": ["Moine", "Porteur de bouclier", "Esprit gardien", "Prêtre"],
+      "banPriority": ["Moine", "Porteur de bouclier", "Prêtre", "Esprit gardien"],
+      "serpen": {
+        "plan": "punish_pick",
+        "label": "Punish / pick avant objectif",
+        "champions": ["Ninja", "Exécuteur", "Moine"],
+        "checks": ["jungler_alive", "backline_access", "follow_up_cc"],
+        "tactics": {
+          "earlyJungle": "Gank",
+          "earlySerpent": "Flexible",
+          "objectiveCombat": "Poker / Garder ses Distances",
+          "objectiveFinish": "Priorité d'Élimination"
+        }
+      },
+      "morgard": {
+        "plan": "pick_first",
+        "label": "Pick first — surplus numérique",
+        "tactics": {
+          "morgard": "Split 1-4",
+          "towerSiege": "Dive",
+          "objectiveFinish": "Priorité d'Élimination"
+        },
+        "draftNeeds": ["dive", "assassin", "burst", "mobility"]
+      }
+    }
+  },
+  "replacementChains": {
+    "Archer": ["Tireur", "Joueur", "Pyromancien"],
+    "Tireur": ["Archer", "Soldat", "Joueur"],
+    "Épéiste": ["Combattant", "Chevalier de cavalerie", "Chevalier"],
+    "Combattant": ["Porteur de bouclier", "Moine", "Chevalier de cavalerie"],
+    "Chevalier de cavalerie": ["Lancier", "Épéiste", "Combattant"],
+    "Lancier": ["Ninja", "Berserker", "Combattant"],
+    "Mage de glace": ["Pyromancien", "Mage de barrière", "Joueur"],
+    "Prêtre": ["Moine", "Porteur de bouclier", "Esprit gardien"],
+    "Médecin de la peste": ["Esprit gardien", "Pythonisse", "Prêtre"],
+    "Esprit gardien": ["Prêtre", "Moine", "Porteur de bouclier"],
+    "Porteur de bouclier": ["Moine", "Combattant", "Chevalier de cavalerie"],
+    "Ninja": ["Démon", "Exécuteur", "Clown"],
+    "Exécuteur": ["Démon", "Ninja", "Bombardier"],
+    "Démon": ["Ninja", "Exécuteur", "Chasseur"],
+    "Pyromancien": ["Mage de glace", "Joueur", "Bombardier"],
+    "Bombardier": ["Archer", "Joueur", "Pyromancien"],
+    "Joueur": ["Pyromancien", "Archer", "Bombardier"],
+    "Moine": ["Porteur de bouclier", "Prêtre", "Combattant"],
+    "Berserker": ["Lancier", "Combattant", "Chevalier de cavalerie"],
+    "Soldat": ["Tireur", "Archer", "Joueur"],
+    "Chevalier magique": ["Moine", "Combattant", "Pyromancien"]
+  },
+  "championCounters": {
+    "Archer": {
+      "goodInto": ["Épéiste", "Chevalier", "Infanterie lourde", "Ogre", "Combattant"],
+      "watchOut": ["Ninja", "Démon", "Exécuteur", "Clown"],
+      "ifBanned": ["Tireur", "Joueur", "Pyromancien"],
+      "shells": ["archer_priest_kite"],
+      "tags": ["marksman", "poke", "scaling"]
+    },
+    "Tireur": {
+      "goodInto": ["Chevalier de cavalerie", "Épéiste", "Porteur de bouclier", "Ogre"],
+      "watchOut": ["Ninja", "Démon", "Moine", "Clown"],
+      "ifBanned": ["Archer", "Soldat", "Joueur"],
+      "shells": ["sniper_front_to_back"],
+      "tags": ["marksman", "scaling", "poke"]
+    },
+    "Épéiste": {
+      "goodInto": ["Archer", "Tireur", "Pyromancien", "Bombardier", "Joueur"],
+      "watchOut": ["Mage de glace", "Pyromancien", "Lancier", "Ninja"],
+      "ifBanned": ["Combattant", "Chevalier de cavalerie", "Chevalier"],
+      "shells": ["archer_priest_kite"],
+      "tags": ["frontline", "lane_priority"]
+    },
+    "Combattant": {
+      "goodInto": ["Mage de glace", "Pyromancien", "Archer", "Bombardier"],
+      "watchOut": ["Pyromancien", "Tireur", "Joueur"],
+      "ifBanned": ["Porteur de bouclier", "Moine", "Chevalier de cavalerie"],
+      "shells": ["sniper_front_to_back", "ninja_executioner_dive"],
+      "tags": ["frontline", "engage"]
+    },
+    "Chevalier de cavalerie": {
+      "goodInto": ["Archer", "Tireur", "Joueur", "Bombardier", "Soldat"],
+      "watchOut": ["Ninja", "Moine", "Mage de glace"],
+      "ifBanned": ["Lancier", "Épéiste", "Combattant"],
+      "shells": ["sniper_front_to_back"],
+      "tags": ["frontline", "engage", "mobility"]
+    },
+    "Lancier": {
+      "goodInto": ["Épéiste", "Chevalier", "Archer", "Tireur"],
+      "watchOut": ["Exorciste", "Moine", "Porteur de bouclier"],
+      "ifBanned": ["Ninja", "Berserker", "Combattant"],
+      "shells": ["sniper_front_to_back", "archer_priest_kite"],
+      "tags": ["aggressive_jungle", "engage", "mobility"]
+    },
+    "Mage de glace": {
+      "goodInto": ["Épéiste", "Chevalier de cavalerie", "Combattant"],
+      "watchOut": ["Ninja", "Démon", "Lancier"],
+      "ifBanned": ["Pyromancien", "Mage de barrière", "Joueur"],
+      "shells": ["sniper_front_to_back"],
+      "tags": ["mage_burst", "wave_clear", "frontline"]
+    },
+    "Prêtre": {
+      "goodInto": ["Ninja", "Démon", "Lancier", "Berserker"],
+      "watchOut": ["Démon", "Bombardier", "Joueur"],
+      "ifBanned": ["Moine", "Porteur de bouclier", "Esprit gardien"],
+      "shells": ["archer_priest_kite"],
+      "tags": ["peel", "scaling"]
+    },
+    "Médecin de la peste": {
+      "goodInto": ["Chevalier de cavalerie", "Épéiste", "Ogre"],
+      "watchOut": ["Ninja", "Démon", "Exécuteur", "Bombardier"],
+      "ifBanned": ["Esprit gardien", "Pythonisse", "Prêtre"],
+      "shells": ["archer_priest_kite"],
+      "tags": ["peel", "burst_setup"]
+    },
+    "Esprit gardien": {
+      "goodInto": ["Ninja", "Démon", "Lancier", "Berserker"],
+      "watchOut": ["Bombardier", "Joueur", "Pyromancien"],
+      "ifBanned": ["Prêtre", "Moine", "Porteur de bouclier"],
+      "shells": [],
+      "tags": ["peel", "scaling"]
+    },
+    "Porteur de bouclier": {
+      "goodInto": ["Ninja", "Démon", "Exécuteur", "Lancier"],
+      "watchOut": ["Mage de glace", "Pyromancien", "Bombardier", "Joueur"],
+      "ifBanned": ["Moine", "Combattant", "Chevalier de cavalerie"],
+      "shells": [],
+      "tags": ["frontline", "peel"]
+    },
+    "Ninja": {
+      "goodInto": ["Archer", "Tireur", "Joueur", "Soldat", "Pyromancien"],
+      "watchOut": ["Moine", "Porteur de bouclier", "Prêtre", "Esprit gardien"],
+      "ifBanned": ["Démon", "Exécuteur", "Clown"],
+      "shells": ["ninja_executioner_dive"],
+      "tags": ["assassin", "dive", "pick_jungle"]
+    },
+    "Exécuteur": {
+      "goodInto": ["Prêtre", "Esprit gardien", "Archer", "Tireur"],
+      "watchOut": ["Moine", "Porteur de bouclier", "Chevalier de cavalerie"],
+      "ifBanned": ["Démon", "Ninja", "Bombardier"],
+      "shells": ["ninja_executioner_dive"],
+      "tags": ["assassin", "dive", "burst"]
+    },
+    "Démon": {
+      "goodInto": ["Archer", "Tireur", "Pyromancien", "Bombardier", "Joueur"],
+      "watchOut": ["Moine", "Prêtre", "Porteur de bouclier"],
+      "ifBanned": ["Ninja", "Exécuteur", "Chasseur"],
+      "shells": ["ninja_executioner_dive"],
+      "tags": ["dive", "assassin", "mobility"]
+    },
+    "Pyromancien": {
+      "goodInto": ["Épéiste", "Chevalier", "Combattant", "Porteur de bouclier"],
+      "watchOut": ["Ninja", "Démon", "Lancier"],
+      "ifBanned": ["Mage de glace", "Joueur", "Bombardier"],
+      "shells": ["archer_priest_kite"],
+      "tags": ["mage_burst", "wave_clear", "poke"]
+    },
+    "Bombardier": {
+      "goodInto": ["Épéiste", "Chevalier de cavalerie", "Ogre", "Porteur de bouclier"],
+      "watchOut": ["Ninja", "Démon", "Lancier"],
+      "ifBanned": ["Archer", "Joueur", "Pyromancien"],
+      "shells": ["ninja_executioner_dive"],
+      "tags": ["poke", "wave_clear"]
+    },
+    "Joueur": {
+      "goodInto": ["Épéiste", "Chevalier", "Ogre", "Porteur de bouclier"],
+      "watchOut": ["Ninja", "Démon", "Lancier", "Clown"],
+      "ifBanned": ["Pyromancien", "Archer", "Bombardier"],
+      "shells": ["archer_priest_kite"],
+      "tags": ["poke", "burst"]
+    },
+    "Moine": {
+      "goodInto": ["Ninja", "Démon", "Exécuteur", "Lancier", "Berserker"],
+      "watchOut": ["Bombardier", "Joueur", "Pyromancien", "Mage de glace"],
+      "ifBanned": ["Porteur de bouclier", "Prêtre", "Combattant"],
+      "shells": ["ninja_executioner_dive"],
+      "tags": ["peel", "frontline"]
+    },
+    "Berserker": {
+      "goodInto": ["Archer", "Tireur", "Pyromancien", "Bombardier"],
+      "watchOut": ["Moine", "Porteur de bouclier", "Prêtre", "Mage de glace"],
+      "ifBanned": ["Lancier", "Combattant", "Chevalier de cavalerie"],
+      "shells": [],
+      "tags": ["aggressive_jungle", "burst"]
+    },
+    "Soldat": {
+      "goodInto": ["Épéiste", "Chevalier", "Combattant", "Ogre"],
+      "watchOut": ["Ninja", "Démon", "Clown", "Lancier"],
+      "ifBanned": ["Tireur", "Archer", "Joueur"],
+      "shells": ["sniper_front_to_back"],
+      "tags": ["marksman", "scaling"]
+    },
+    "Chevalier magique": {
+      "goodInto": ["Archer", "Tireur", "Pyromancien", "Bombardier"],
+      "watchOut": ["Moine", "Porteur de bouclier", "Prêtre"],
+      "ifBanned": ["Moine", "Combattant", "Pyromancien"],
+      "shells": ["ninja_executioner_dive"],
+      "tags": ["dive", "mage_burst", "frontline"]
+    }
+  },
+  "serpenRules": {
+    "fight_early": {
+      "label": "Contest Serpent early",
+      "champions": ["Lancier", "Mage de glace", "Combattant", "Berserker"],
+      "burn_fast": ["Archer", "Joueur", "Tireur"]
+    },
+    "delay_trade": {
+      "label": "Delay / trade map",
+      "champions": ["Épéiste", "Pyromancien", "Prêtre", "Chevalier de cavalerie"]
+    },
+    "punish_pick": {
+      "label": "Punish avec picks",
+      "champions": ["Ninja", "Exécuteur", "Moine", "Démon"]
+    }
+  },
+  "morgardRules": {
+    "force_5v5": {
+      "label": "Force 5v5 — front + carry online",
+      "tactic": "Se Regrouper à 5"
+    },
+    "pick_first": {
+      "label": "Pick first — éviter 5v5 égal",
+      "tactic": "Split 1-4"
+    },
+    "trade_side": {
+      "label": "Trade pression side",
+      "tactic": "Split 1-3-1"
+    }
+  },
+  "playerTraits": {
+    "aggression": {
+      "high": ["Ninja", "Lancier", "Berserker", "Démon", "Exécuteur", "Clown"],
+      "low": ["Archer", "Tireur", "Prêtre", "Esprit gardien", "Pyromancien"]
+    },
+    "roaming": {
+      "high": ["Ninja", "Lancier", "Clown", "Démon", "Berserker"],
+      "low": ["Tireur", "Archer", "Ogre", "Nécromancien"]
+    },
+    "focus": {
+      "carry": ["Tireur", "Archer", "Soldat", "Vampire"],
+      "frontline": ["Porteur de bouclier", "Moine", "Chevalier de cavalerie", "Épéiste"]
+    },
+    "mental": {
+      "stable": ["Porteur de bouclier", "Prêtre", "Moine", "Mage de glace"],
+      "volatile": ["Joueur", "Berserker", "Clown", "Démon"]
+    },
+    "positioning": {
+      "backline": ["Archer", "Tireur", "Soldat", "Bombardier", "Joueur"],
+      "frontline": ["Épéiste", "Combattant", "Chevalier de cavalerie", "Porteur de bouclier"]
+    },
+    "traitSynergies": {
+      "Collaboration Attack": {
+        "bonus": ["Combattant", "Lancier", "Chevalier de cavalerie", "Berserker", "Exécuteur"]
+      },
+      "Despise Weakness": {
+        "bonus": ["Exécuteur", "Ninja", "Démon", "Berserker", "Inquisiteur"]
+      }
+    }
+  },
+  "shellCounters": {
+    "front_to_back": "ninja_executioner_dive",
+    "kite_poke": "ninja_executioner_dive",
+    "dive_pick": "sniper_front_to_back"
+  }
+}

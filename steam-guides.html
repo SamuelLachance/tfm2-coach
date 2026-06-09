@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html class=" responsive DesktopUI" lang="en"  >
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+			<meta name="viewport" content="width=device-width,initial-scale=1">
+		<meta name="theme-color" content="#171a21">
+		<title>Steam Community::Teamfight Manager 2</title>
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+	
+	
+	<link href="https://community.akamai.steamstatic.com/public/shared/css/motiva_sans.css?v=G517uopaUy8x&amp;l=english&amp;_cdn=akamai" rel="stylesheet" type="text/css">
+<link href="https://community.akamai.steamstatic.com/public/shared/css/buttons.css?v=WgcGW2rjIiQ0&amp;l=english&amp;_cdn=akamai" rel="stylesheet" type="text/css">
+<link href="https://community.akamai.steamstatic.com/public/shared/css/shared_global.css?v=gbNlmibSHyol&amp;l=english&amp;_cdn=akamai" rel="stylesheet" type="text/css">
+<link href="https://community.akamai.steamstatic.com/public/css/globalv2.css?v=Onh1dqGx99dz&amp;l=english&amp;_cdn=akamai" rel="stylesheet" type="text/css">
+<link href="https://community.akamai.steamstatic.com/public/shared/css/apphub.css?v=Cc3lqIusBDbz&amp;l=english&amp;_cdn=akamai" rel="stylesheet" type="text/css">
+<link href="https://community.akamai.steamstatic.com/public/css/skin_1/modalContent.css?v=WXAusLHclDIt&amp;l=english&amp;_cdn=akamai" rel="stylesheet" type="text/css">
+<link href="https://community.akamai.steamstatic.com/public/css/skin_1/workshop.css?v=u73tEVtH0t7f&amp;l=english&amp;_cdn=akamai" rel="stylesheet" type="text/css">
+<link href="https://community.akamai.steamstatic.com/public/css/skin_1/apphub_home.css?v=EEXcWjqgBZTE&amp;l=english&amp;_cdn=akamai" rel="stylesheet" type="text/css">
+<link href="https://community.akamai.steamstatic.com/public/css/skin_1/apphub_guides.css?v=uKiP8bDDkkAU&amp;l=english&amp;_cdn=akamai" rel="stylesheet" type="text/css">
+<link href="https://community.akamai.steamstatic.com/public/shared/css/motiva_sans.css?v=G517uopaUy8x&amp;l=english&amp;_cdn=akamai" rel="stylesheet" type="text/css">
+<link href="https://community.akamai.steamstatic.com/public/shared/css/shared_responsive.css?v=iWTBNfm6GeKS&amp;l=english&amp;_cdn=akamai" rel="stylesheet" type="text/css">
+<link href="https://community.akamai.steamstatic.com/public/shared/css/apphub_images.css?v=qtyTgHSLW-6i&amp;l=english&amp;_cdn=akamai" rel="stylesheet" type="text/css">
+<link href="https://community.akamai.steamstatic.com/public/css/skin_1/header.css?v=CMT0GkdQa1OT&amp;l=english&amp;_cdn=akamai" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+	var __PrototypePreserve=[];
+	__PrototypePreserve[0] = Array.from;
+	__PrototypePreserve[1] = Array.prototype.filter;
+	__PrototypePreserve[2] = Array.prototype.flatMap;
+	__PrototypePreserve[3] = Array.prototype.find;
+	__PrototypePreserve[4] = Array.prototype.some;
+	__PrototypePreserve[5] = Function.prototype.bind;
+	__PrototypePreserve[6] = HTMLElement.prototype.scrollTo;
+</script>
+<script type="text/javascript" src="https://community.akamai.steamstatic.com/public/javascript/prototype-1.7.js?v=npJElBnrEO6W&amp;l=english&amp;_cdn=akamai"></script>
+<script type="text/javascript">
+	Array.from = __PrototypePreserve[0] || Array.from;
+	Array.prototype.filter = __PrototypePreserve[1] || Array.prototype.filter;
+	Array.prototype.flatMap = __PrototypePreserve[2] || Array.prototype.flatMap;
+	Array.prototype.find = __PrototypePreserve[3] || Array.prototype.find;
+	Array.prototype.some = __PrototypePreserve[4] || Array.prototype.some;
+	Function.prototype.bind = __PrototypePreserve[5] || Function.prototype.bind;
+	HTMLElement.prototype.scrollTo = __PrototypePreserve[6] || HTMLElement.prototype.scrollTo;
+</script>
+<script type="text/javascript">
+	var __ScriptaculousPreserve=[];
+	__ScriptaculousPreserve[0] = Array.from;
+	__ScriptaculousPreserve[1] = Function.prototype.bind;
+	__ScriptaculousPreserve[2] = HTMLElement.prototype.scrollTo;
+</script>
+<script type="text/javascript" src="https://community.akamai.steamstatic.com/public/javascript/scriptaculous/_combined.js?v=pbdAKOcDIgbC&amp;l=english&amp;_cdn=akamai&amp;load=effects,controls,slider,dragdrop"></script>
+<script type="text/javascript">
+	Array.from = __ScriptaculousPreserve[0] || Array.from;
+	Function.prototype.bind = __ScriptaculousPreserve[1] || Function.prototype.bind;
+	HTMLElement.prototype.scrollTo = __ScriptaculousPreserve[2] || HTMLElement.prototype.scrollTo;
+delete String['__parseStyleElement'];  Prototype.Browser.WebKit = true;</script>
+<script type="text/javascript">VALVE_PUBLIC_PATH = "https:\/\/community.akamai.steamstatic.com\/public\/";</script><script type="text/javascript" src="https://community.akamai.steamstatic.com/public/javascript/global.js?v=UIxvHTQqSfxT&amp;l=english&amp;_cdn=akamai"></script>
+<script type="text/javascript" src="https://community.akamai.steamstatic.com/public/javascript/jquery-1.11.1.min.js?v=gQHVlrK4-jX-&amp;l=english&amp;_cdn=akamai"></script>
+<script type="text/javascript" src="https://community.akamai.steamstatic.com/public/shared/javascript/tooltip.js?v=k5leO7MVvAaV&amp;l=english&amp;_cdn=akamai"></script>
+<script type="text/javascript" src="https://community.akamai.steamstatic.com/public/shared/javascript/shared_global.js?v=XVPd7pNe12FB&amp;l=english&amp;_cdn=akamai"></script>
+<script type="text/javascript" src="https://community.akamai.steamstatic.com/public/shared/javascript/auth_refresh.js?v=w6QbwI-5-j2S&amp;l=english&amp;_cdn=akamai"></script>
+<script type="text/javascript">Object.seal && [ Object, Array, String, Number ].map( function( builtin ) { Object.seal( builtin.prototype ); } );</script><script type="text/javascript">$J = jQuery.noConflict();
+if ( typeof JSON != 'object' || !JSON.stringify || !JSON.parse ) { document.write( "<scr" + "ipt type=\"text\/javascript\" src=\"https:\/\/community.akamai.steamstatic.com\/public\/javascript\/json2.js?v=54NKNglvGTO8&amp;l=english&amp;_cdn=akamai\"><\/script>\n" ); };
+</script>
+		<script type="text/javascript">
+			document.addEventListener('DOMContentLoaded', function(event) {
+				SetupTooltips( { tooltipCSSClass: 'community_tooltip'} );
+		});
+		</script><script type="text/javascript" src="https://community.akamai.steamstatic.com/public/javascript/modalv2.js?v=zBXEuexVQ0FZ&amp;l=english&amp;_cdn=akamai"></script>
+<script type="text/javascript" src="https://community.akamai.steamstatic.com/public/javascript/modalContent.js?v=Ebc6wsFpyW7y&amp;l=english&amp;_cdn=akamai"></script>
+<script type="text/javascript" src="https://community.akamai.steamstatic.com/public/shared/javascript/apphub.js?v=vovOtA4iEOuy&amp;l=english&amp;_cdn=akamai"></script>
+<script type="text/javascript" src="https://community.akamai.steamstatic.com/public/javascript/apphub_home.js?v=aUDFgU6ve9e_&amp;l=english&amp;_cdn=akamai"></script>
+<script type="text/javascript" src="https://community.akamai.steamstatic.com/public/javascript/workshop_functions.js?v=xf67kNQdFh0Y&amp;l=english&amp;_cdn=akamai"></script>
+<script type="text/javascript" src="https://community.akamai.steamstatic.com/public/shared/javascript/shared_responsive_adapter.js?v=asNZNxt9kVQn&amp;l=english&amp;_cdn=akamai"></script>
+
+						<meta name="twitter:card" content="summary_large_image">
+					<meta name="Description" content="Teamfight Manager 2 - Teamfight Manager is back with more detailed tactics, management, and a new MOBA-style gameplay. Take charge of a virtual e-sports team, build the ultimate roster, and become the greatest manager!">
+			
+	<meta name="twitter:site" content="@steam" />
+
+						<meta property="og:title" content="Steam Community::Teamfight Manager 2">
+					<meta property="twitter:title" content="Steam Community::Teamfight Manager 2">
+					<meta property="og:type" content="website">
+					<meta property="fb:app_id" content="105386699540688">
+					<meta property="og:description" content="Teamfight Manager 2 - Teamfight Manager is back with more detailed tactics, management, and a new MOBA-style gameplay. Take charge of a virtual e-sports team, build the ultimate roster, and become the greatest manager!">
+					<meta property="twitter:description" content="Teamfight Manager 2 - Teamfight Manager is back with more detailed tactics, management, and a new MOBA-style gameplay. Take charge of a virtual e-sports team, build the ultimate roster, and become the greatest manager!">
+			
+	
+			<link rel="image_src" href="https://community.akamai.steamstatic.com/public/shared/images/responsive/steam_share_image.jpg">
+		<meta property="og:image" content="https://community.akamai.steamstatic.com/public/shared/images/responsive/steam_share_image.jpg">
+		<meta name="twitter:image" content="https://community.akamai.steamstatic.com/public/shared/images/responsive/steam_share_image.jpg" />
+					<meta property="og:image:secure" content="https://community.akamai.steamstatic.com/public/shared/images/responsive/steam_share_image.jpg">
+				
+	
+	
+	
+	
+	</head>
+<body class="apphub_blue responsive_page ">
+
+
+<div class="responsive_page_frame with_header">
+						<div role="navigation" class="responsive_page_menu_ctn mainmenu" aria-label="Mobile Menu">
+				<div class="responsive_page_menu"  id="responsive_page_menu">
+										<div class="mainmenu_contents">
+						<div class="mainmenu_contents_items">
+															<a class="menuitem" href="https://steamcommunity.com/login/home/?goto=app%2F3009300%2Fguides%2F">
+									Sign in								</a>
+															<a class="menuitem supernav" href="https://store.steampowered.com/" data-tooltip-type="selector" data-tooltip-content=".submenu_Store">
+				Store			</a>
+			<div class="submenu_Store" style="display: none;" data-submenuid="Store">
+														<a class="submenuitem" href="https://store.steampowered.com/">
+						Home											</a>
+														<a class="submenuitem" href="https://store.steampowered.com/explore/">
+						Discovery Queue											</a>
+														<a class="submenuitem" href="https://store.steampowered.com//wishlist/">
+						Wishlist											</a>
+														<a class="submenuitem" href="https://store.steampowered.com/points/shop/">
+						Points Shop											</a>
+														<a class="submenuitem" href="https://store.steampowered.com/news/">
+						News											</a>
+														<a class="submenuitem" href="https://store.steampowered.com/stats/">
+						Charts											</a>
+							</div>
+										<a class="menuitem supernav supernav_active" href="https://steamcommunity.com/" data-tooltip-type="selector" data-tooltip-content=".submenu_Community">
+				Community			</a>
+			<div class="submenu_Community" style="display: none;" data-submenuid="Community">
+														<a class="submenuitem" href="https://steamcommunity.com/">
+						Home											</a>
+														<a class="submenuitem" href="https://steamcommunity.com/discussions/">
+						Discussions											</a>
+														<a class="submenuitem" href="https://steamcommunity.com/workshop/">
+						Workshop											</a>
+														<a class="submenuitem" href="https://steamcommunity.com/market/">
+						Market											</a>
+														<a class="submenuitem" href="https://steamcommunity.com/?subsection=broadcasts">
+						Broadcasts											</a>
+							</div>
+										<a class="menuitem " href="https://store.steampowered.com/about/">
+				About			</a>
+										<a class="menuitem " href="https://help.steampowered.com/en/">
+				Support			</a>
+			
+							<div class="minor_menu_items">
+																								<div class="menuitem change_language_action">
+									Change language								</div>
+																																	<a class="menuitem" href="https://store.steampowered.com/mobile" target="_blank" rel="noreferrer">Get the Steam Mobile App</a>
+																									<div class="menuitem" role="link" onclick="Responsive_RequestDesktopView();">
+										View desktop website									</div>
+															</div>
+						</div>
+						<div class="mainmenu_footer_spacer  "></div>
+						<div class="mainmenu_footer">
+															<div class="mainmenu_footer_logo"><img src="https://community.akamai.steamstatic.com/public/shared/images/responsive/footerLogo_valve_new.png"></div>
+								© Valve Corporation. All rights reserved. All trademarks are property of their respective owners in the US and other countries.								<span class="mainmenu_valve_links">
+									<a href="https://store.steampowered.com/privacy_agreement/" target="_blank">Privacy Policy</a>
+									&nbsp;| &nbsp;<a href="http://www.valvesoftware.com/legal.htm" target="_blank">Legal</a>
+									&nbsp;| &nbsp;<a href="https://help.steampowered.com/faqs/view/10BB-D27A-6378-4436" target="_blank">Accessibility</a>
+									&nbsp;| &nbsp;<a href="https://store.steampowered.com/subscriber_agreement/" target="_blank">Steam Subscriber Agreement</a>
+									&nbsp;| &nbsp;<a href="https://store.steampowered.com/steam_refunds/" target="_blank">Refunds</a>
+									&nbsp;| &nbsp;<a href="https://store.steampowered.com/account/cookiepreferences/" target="_blank">Cookies</a>
+								</span>
+													</div>
+					</div>
+									</div>
+			</div>
+		
+		<div class="responsive_local_menu_tab"></div>
+
+		<div class="responsive_page_menu_ctn localmenu">
+			<div class="responsive_page_menu"  id="responsive_page_local_menu" data-panel="{&quot;onOptionsActionDescription&quot;:&quot;Filter&quot;,&quot;onOptionsButton&quot;:&quot;Responsive_ToggleLocalMenu()&quot;,&quot;onCancelButton&quot;:&quot;Responsive_ToggleLocalMenu()&quot;}">
+				<div class="localmenu_content" data-panel="{&quot;maintainY&quot;:true,&quot;bFocusRingRoot&quot;:true,&quot;flow-children&quot;:&quot;column&quot;}">
+				</div>
+			</div>
+		</div>
+
+
+
+					<div class="responsive_header">
+				<div class="responsive_header_content">
+					<div id="responsive_menu_logo">
+						<img src="https://community.akamai.steamstatic.com/public/shared/images/responsive/header_menu_hamburger.png" height="100%">
+											</div>
+					<div class="responsive_header_logo">
+						<a href="https://store.steampowered.com/">
+															<img src="https://community.akamai.steamstatic.com/public/shared/images/responsive/header_logo.png" height="36" border="0" alt="STEAM">
+													</a>
+					</div>
+									</div>
+			</div>
+		
+		<div class="responsive_page_content_overlay">
+
+		</div>
+	
+	<div class="responsive_page_content">
+
+		<div role="banner" id="global_header" data-panel="{&quot;flow-children&quot;:&quot;row&quot;}">
+	<div class="content">
+		<div class="logo">
+			<span id="logo_holder">
+									<a href="https://store.steampowered.com/" aria-label="Link to the Steam Homepage">
+						<img src="https://community.akamai.steamstatic.com/public/shared/images/header/logo_steam.svg?t=962016" width="176" height="44" alt="Link to the Steam Homepage">
+					</a>
+							</span>
+		</div>
+
+			<div role="navigation" class="supernav_container" aria-label="Global Menu">
+								<a class="menuitem supernav" href="https://store.steampowered.com/" data-tooltip-type="selector" data-tooltip-content=".submenu_Store">
+				STORE			</a>
+			<div class="submenu_Store" style="display: none;" data-submenuid="Store">
+														<a class="submenuitem" href="https://store.steampowered.com/">
+						Home											</a>
+														<a class="submenuitem" href="https://store.steampowered.com/explore/">
+						Discovery Queue											</a>
+														<a class="submenuitem" href="https://store.steampowered.com//wishlist/">
+						Wishlist											</a>
+														<a class="submenuitem" href="https://store.steampowered.com/points/shop/">
+						Points Shop											</a>
+														<a class="submenuitem" href="https://store.steampowered.com/news/">
+						News											</a>
+														<a class="submenuitem" href="https://store.steampowered.com/stats/">
+						Charts											</a>
+							</div>
+										<a class="menuitem supernav supernav_active" href="https://steamcommunity.com/" data-tooltip-type="selector" data-tooltip-content=".submenu_Community">
+				COMMUNITY			</a>
+			<div class="submenu_Community" style="display: none;" data-submenuid="Community">
+														<a class="submenuitem" href="https://steamcommunity.com/">
+						Home											</a>
+														<a class="submenuitem" href="https://steamcommunity.com/discussions/">
+						Discussions											</a>
+														<a class="submenuitem" href="https://steamcommunity.com/workshop/">
+						Workshop											</a>
+														<a class="submenuitem" href="https://steamcommunity.com/market/">
+						Market											</a>
+														<a class="submenuitem" href="https://steamcommunity.com/?subsection=broadcasts">
+						Broadcasts											</a>
+							</div>
+										<a class="menuitem " href="https://store.steampowered.com/about/">
+				About			</a>
+										<a class="menuitem " href="https://help.steampowered.com/en/">
+				SUPPORT			</a>
+				</div>
+	<script type="text/javascript">
+		jQuery(function($) {
+			$('#global_header .supernav').v_tooltip({'location':'bottom', 'destroyWhenDone': false, 'tooltipClass': 'supernav_content', 'offsetY':-6, 'offsetX': 1, 'horizontalSnap': 4, 'tooltipParent': '#global_header .supernav_container', 'correctForScreenSize': false});
+		});
+	</script>
+
+		<div id="global_actions">
+			<div role="navigation" id="global_action_menu" aria-label="Account Menu">
+									<a class="header_installsteam_btn header_installsteam_btn_green" href="https://store.steampowered.com/about/">
+						<div class="header_installsteam_btn_content">
+							Install Steam						</div>
+					</a>
+				
+				
+									<a class="global_action_link" href="https://steamcommunity.com/login/home/?goto=app%2F3009300%2Fguides%2F">sign in</a>
+											&nbsp;|&nbsp;
+						<span class="pulldown global_action_link" id="language_pulldown" onclick="ShowMenu( this, 'language_dropdown', 'right' );">language</span>
+						<div class="popup_block_new" id="language_dropdown" style="display: none;">
+							<div class="popup_body popup_menu">
+																																															<a class="popup_menu_item tight" href="?l=schinese" onclick="ChangeLanguage( 'schinese' ); return false;">
+											简体中文 (Simplified Chinese)																					</a>
+																																							<a class="popup_menu_item tight" href="?l=tchinese" onclick="ChangeLanguage( 'tchinese' ); return false;">
+											繁體中文 (Traditional Chinese)																					</a>
+																																							<a class="popup_menu_item tight" href="?l=japanese" onclick="ChangeLanguage( 'japanese' ); return false;">
+											日本語 (Japanese)																					</a>
+																																							<a class="popup_menu_item tight" href="?l=koreana" onclick="ChangeLanguage( 'koreana' ); return false;">
+											한국어 (Korean)																					</a>
+																																							<a class="popup_menu_item tight" href="?l=thai" onclick="ChangeLanguage( 'thai' ); return false;">
+											ไทย (Thai)																					</a>
+																																							<a class="popup_menu_item tight" href="?l=indonesian" onclick="ChangeLanguage( 'indonesian' ); return false;">
+											Bahasa Indonesia (Indonesian)																					</a>
+																																							<a class="popup_menu_item tight" href="?l=malay" onclick="ChangeLanguage( 'malay' ); return false;">
+											Bahasa Melayu (Malay)																							<span class="language_beta">BETA</span>
+																					</a>
+																																							<a class="popup_menu_item tight" href="?l=bulgarian" onclick="ChangeLanguage( 'bulgarian' ); return false;">
+											Български (Bulgarian)																					</a>
+																																							<a class="popup_menu_item tight" href="?l=czech" onclick="ChangeLanguage( 'czech' ); return false;">
+											Čeština (Czech)																					</a>
+																																							<a class="popup_menu_item tight" href="?l=danish" onclick="ChangeLanguage( 'danish' ); return false;">
+											Dansk (Danish)																					</a>
+																																							<a class="popup_menu_item tight" href="?l=german" onclick="ChangeLanguage( 'german' ); return false;">
+											Deutsch (German)																					</a>
+																																																	<a class="popup_menu_item tight" href="?l=spanish" onclick="ChangeLanguage( 'spanish' ); return false;">
+											Español - España (Spanish - Spain)																					</a>
+																																							<a class="popup_menu_item tight" href="?l=latam" onclick="ChangeLanguage( 'latam' ); return false;">
+											Español - Latinoamérica (Spanish - Latin America)																					</a>
+																																							<a class="popup_menu_item tight" href="?l=greek" onclick="ChangeLanguage( 'greek' ); return false;">
+											Ελληνικά (Greek)																					</a>
+																																							<a class="popup_menu_item tight" href="?l=french" onclick="ChangeLanguage( 'french' ); return false;">
+											Français (French)																					</a>
+																																							<a class="popup_menu_item tight" href="?l=italian" onclick="ChangeLanguage( 'italian' ); return false;">
+											Italiano (Italian)																					</a>
+																																							<a class="popup_menu_item tight" href="?l=hungarian" onclick="ChangeLanguage( 'hungarian' ); return false;">
+											Magyar (Hungarian)																					</a>
+																																							<a class="popup_menu_item tight" href="?l=dutch" onclick="ChangeLanguage( 'dutch' ); return false;">
+											Nederlands (Dutch)																					</a>
+																																							<a class="popup_menu_item tight" href="?l=norwegian" onclick="ChangeLanguage( 'norwegian' ); return false;">
+											Norsk (Norwegian)																					</a>
+																																							<a class="popup_menu_item tight" href="?l=polish" onclick="ChangeLanguage( 'polish' ); return false;">
+											Polski (Polish)																					</a>
+																																							<a class="popup_menu_item tight" href="?l=portuguese" onclick="ChangeLanguage( 'portuguese' ); return false;">
+											Português (Portuguese - Portugal)																					</a>
+																																							<a class="popup_menu_item tight" href="?l=brazilian" onclick="ChangeLanguage( 'brazilian' ); return false;">
+											Português - Brasil (Portuguese - Brazil)																					</a>
+																																							<a class="popup_menu_item tight" href="?l=romanian" onclick="ChangeLanguage( 'romanian' ); return false;">
+											Română (Romanian)																					</a>
+																																							<a class="popup_menu_item tight" href="?l=russian" onclick="ChangeLanguage( 'russian' ); return false;">
+											Русский (Russian)																					</a>
+																																							<a class="popup_menu_item tight" href="?l=finnish" onclick="ChangeLanguage( 'finnish' ); return false;">
+											Suomi (Finnish)																					</a>
+																																							<a class="popup_menu_item tight" href="?l=swedish" onclick="ChangeLanguage( 'swedish' ); return false;">
+											Svenska (Swedish)																					</a>
+																																							<a class="popup_menu_item tight" href="?l=turkish" onclick="ChangeLanguage( 'turkish' ); return false;">
+											Türkçe (Turkish)																					</a>
+																																							<a class="popup_menu_item tight" href="?l=vietnamese" onclick="ChangeLanguage( 'vietnamese' ); return false;">
+											Tiếng Việt (Vietnamese)																					</a>
+																																							<a class="popup_menu_item tight" href="?l=ukrainian" onclick="ChangeLanguage( 'ukrainian' ); return false;">
+											Українська (Ukrainian)																					</a>
+																									<a class="popup_menu_item tight" href="https://www.valvesoftware.com/contact?contact-person=Translation%20Team%20Feedback" target="_blank">Report a translation problem</a>
+							</div>
+						</div>
+												</div>
+					</div>
+			</div>
+</div>
+<script type="text/javascript">
+	g_sessionID = "1425dc2e0ef77beccd072048";
+	g_steamID = false;
+	g_strLanguage = "english";
+	g_SNR = '2_9_100009_';
+	g_bAllowAppImpressions = true;
+		g_ContentDescriptorPreferences = [1,3,4];
+
+	
+
+	// We always want to have the timezone cookie set for PHP to use
+	setTimezoneCookies();
+
+	$J( function() {
+
+					InitMiniprofileHovers(( 'https%3A%2F%2Fsteamcommunity.com' ));
+			InitEmoticonHovers();
+		
+		ApplyAdultContentPreferences();
+	});
+
+	$J( function() { InitEconomyHovers( "https:\/\/community.akamai.steamstatic.com\/public\/css\/skin_1\/economy.css?v=w8xSn8rq4Kcf&l=english&_cdn=akamai", "https:\/\/community.akamai.steamstatic.com\/public\/javascript\/economy_common.js?v=3TZBCEPvtfTo&l=english&_cdn=akamai", "https:\/\/community.akamai.steamstatic.com\/public\/javascript\/economy.js?v=CaivMIhnHkM4&l=english&_cdn=akamai" );});</script>
+<div id="application_config" style="display: none;"  data-config="{&quot;EUNIVERSE&quot;:1,&quot;WEB_UNIVERSE&quot;:&quot;public&quot;,&quot;LANGUAGE&quot;:&quot;english&quot;,&quot;COUNTRY&quot;:&quot;CA&quot;,&quot;MEDIA_CDN_COMMUNITY_URL&quot;:&quot;https:\/\/cdn.akamai.steamstatic.com\/steamcommunity\/public\/&quot;,&quot;MEDIA_CDN_URL&quot;:&quot;https:\/\/cdn.akamai.steamstatic.com\/&quot;,&quot;VIDEO_CDN_URL&quot;:&quot;https:\/\/video.akamai.steamstatic.com\/&quot;,&quot;COMMUNITY_CDN_URL&quot;:&quot;https:\/\/community.akamai.steamstatic.com\/&quot;,&quot;COMMUNITY_CDN_ASSET_URL&quot;:&quot;https:\/\/cdn.akamai.steamstatic.com\/steamcommunity\/public\/assets\/&quot;,&quot;STORE_CDN_URL&quot;:&quot;https:\/\/store.akamai.steamstatic.com\/&quot;,&quot;PUBLIC_SHARED_URL&quot;:&quot;https:\/\/community.akamai.steamstatic.com\/public\/shared\/&quot;,&quot;COMMUNITY_BASE_URL&quot;:&quot;https:\/\/steamcommunity.com\/&quot;,&quot;CHAT_BASE_URL&quot;:&quot;https:\/\/steamcommunity.com\/&quot;,&quot;STORE_BASE_URL&quot;:&quot;https:\/\/store.steampowered.com\/&quot;,&quot;STORE_CHECKOUT_BASE_URL&quot;:&quot;https:\/\/checkout.steampowered.com\/&quot;,&quot;IMG_URL&quot;:&quot;https:\/\/community.akamai.steamstatic.com\/public\/images\/&quot;,&quot;STEAMTV_BASE_URL&quot;:&quot;https:\/\/steam.tv\/&quot;,&quot;HELP_BASE_URL&quot;:&quot;https:\/\/help.steampowered.com\/&quot;,&quot;PARTNER_BASE_URL&quot;:&quot;https:\/\/partner.steamgames.com\/&quot;,&quot;STATS_BASE_URL&quot;:&quot;https:\/\/partner.steampowered.com\/&quot;,&quot;INTERNAL_STATS_BASE_URL&quot;:&quot;https:\/\/steamstats.valve.org\/&quot;,&quot;IN_CLIENT&quot;:false,&quot;USE_POPUPS&quot;:false,&quot;STORE_ICON_BASE_URL&quot;:&quot;https:\/\/shared.akamai.steamstatic.com\/store_item_assets\/steam\/apps\/&quot;,&quot;STORE_ITEM_BASE_URL&quot;:&quot;https:\/\/shared.akamai.steamstatic.com\/store_item_assets\/&quot;,&quot;WEBAPI_BASE_URL&quot;:&quot;https:\/\/api.steampowered.com\/&quot;,&quot;TOKEN_URL&quot;:&quot;https:\/\/steamcommunity.com\/chat\/clientjstoken&quot;,&quot;BUILD_TIMESTAMP&quot;:1780696702,&quot;PAGE_TIMESTAMP&quot;:1780698113,&quot;IN_TENFOOT&quot;:false,&quot;IN_GAMEPADUI&quot;:false,&quot;IN_CHROMEOS&quot;:false,&quot;IN_MOBILE_WEBVIEW&quot;:false,&quot;PLATFORM&quot;:&quot;unknown&quot;,&quot;BASE_URL_STORE_CDN_ASSETS&quot;:&quot;https:\/\/cdn.akamai.steamstatic.com\/store\/&quot;,&quot;EREALM&quot;:1,&quot;LOGIN_BASE_URL&quot;:&quot;https:\/\/login.steampowered.com\/&quot;,&quot;AVATAR_BASE_URL&quot;:&quot;https:\/\/avatars.akamai.steamstatic.com\/&quot;,&quot;FROM_WEB&quot;:true,&quot;WEBSITE_ID&quot;:&quot;Community&quot;,&quot;BASE_URL_SHARED_CDN&quot;:&quot;https:\/\/shared.akamai.steamstatic.com\/&quot;,&quot;CLAN_CDN_ASSET_URL&quot;:&quot;https:\/\/clan.akamai.steamstatic.com\/&quot;,&quot;COMMUNITY_ASSETS_BASE_URL&quot;:&quot;https:\/\/shared.akamai.steamstatic.com\/community_assets\/&quot;,&quot;NOW&quot;:1780698113,&quot;SUPPORT_BASE_URL&quot;:&quot;https:\/\/steamsupport.valvesoftware.com\/&quot;,&quot;SNR&quot;:&quot;2_9_100009_&quot;}" data-userinfo="{&quot;logged_in&quot;:false,&quot;country_code&quot;:&quot;CA&quot;,&quot;excluded_content_descriptors&quot;:[1,3,4]}" data-community="[]" data-loyaltystore="{&quot;webapi_token&quot;:&quot;&quot;}" data-steam_notifications="null"></div><link href="https://community.akamai.steamstatic.com/public/css/applications/community/main.css?v=Zw6Wzlrsnpqc&amp;l=english&amp;_cdn=akamai" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="https://community.akamai.steamstatic.com/public/javascript/applications/community/manifest.js?v=NLnNSHDjTyc1&amp;l=english&amp;_cdn=akamai"></script>
+<script type="text/javascript" src="https://community.akamai.steamstatic.com/public/javascript/applications/community/libraries~b28b7af69.js?v=tSE0ctzNy1Q7&amp;l=english&amp;_cdn=akamai"></script>
+<script type="text/javascript" src="https://community.akamai.steamstatic.com/public/javascript/applications/community/main.js?v=LGU6srCtdEJu&amp;l=english&amp;_cdn=akamai"></script>
+	<div id="application_root"></div>
+
+		<div role="main" class="responsive_page_template_content" id="responsive_page_template_content" data-panel="{&quot;autoFocus&quot;:true,&quot;navKey&quot;:&quot;responsive_page_template_content&quot;}" >
+
+			<script>
+	var gSearchField = null;
+
+	function FilterByTags()
+	{
+		gSearchField.ClearIfDefaultValue();
+
+		// exclusions
+		var form = $J( '#AppHubSearch' );
+
+		var exclusions = $J( ".tag_filter_control_not.checked" );
+		exclusions.each( function( index, elem ) {
+			elem = $J( elem );
+			var excludedTag = $J( "<input>", { type: 'hidden', name: "excludedtags[]", value: elem.data( 'tag' ) } );
+			form.append( excludedTag );
+		} );
+
+		form.submit();
+	}
+
+	function SelectSortMethod( url )
+	{
+		HideMenu( $('sortselect'), $('sortselect_options') );
+
+		window.location = url;
+	}
+
+	function ShowAllCategories()
+	{
+		$( 'GuideCategories' ).removeClassName( 'collapsed' );
+		$( 'ViewAllGuideCategoriesLink' ).hide();
+	}
+
+	function ToggleCategoryTagsSection()
+	{
+		var categoryTags = $( 'GuideCategoryTags' );
+		if ( categoryTags.hasClassName( 'collapsed' ) )
+		{
+			categoryTags.removeClassName( 'collapsed' );
+		}
+		else
+		{
+			categoryTags.addClassName( 'collapsed' );
+		}
+	}
+
+</script>
+
+<div id="ModalContentContainer">
+<!-- main content -->
+	<div class="apphub_Content">
+		<div class="apphub_background apphub_background_gamepad_blur" style="background-image: url('https://store.akamai.steamstatic.com/images/storepagebackground/app/3009300?t=1780379360');"></div>
+
+		<div class="apphub_HomeHeader">
+			
+
+<div class="apphub_HomeHeaderContent">
+
+
+	<script lang="js">
+		const g_bIsAppHubModerator = 0;
+	</script>
+
+	
+	
+	<div class="apphub_HeaderTop">
+		<div class="apphub_OtherSiteInfo responsive_hidden">
+			
+							<a style="position: relative; z-index: 1;" class="btnv6_blue_hoverfade btn_medium" href="https://store.steampowered.com/app/3009300?snr=2_9_100009__apphubheader" data-appid="3009300">
+					<span>Store Page</span>
+				</a>
+					</div>
+		<div class="apphub_AppDetails">
+			<div class="apphub_AppIcon"><img src="https://cdn.akamai.steamstatic.com/steamcommunity/public/images/apps/3009300/730c7584a8cd37f2332f836b8d85eb8dc8753c88.jpg"><div class="overlay"></div></div>
+			<div class="apphub_AppName ellipsis">Teamfight Manager 2</div>
+		</div>
+		<div style="clear: both"></div>
+
+		
+				<div data-panel="{&quot;maintainX&quot;:true,&quot;bFocusRingRoot&quot;:true,&quot;flow-children&quot;:&quot;row&quot;}" class="apphub_sectionTabs responsive_hidden">
+				
+	<a href="https://steamcommunity.com/app/3009300" class="apphub_sectionTab  "><span>All</span></a>
+		
+	<a href="https://steamcommunity.com/app/3009300/discussions/" class="apphub_sectionTab  "><span>Discussions</span></a>
+		
+	<a href="https://steamcommunity.com/app/3009300/screenshots/" class="apphub_sectionTab  "><span>Screenshots</span></a>
+		
+	<a href="https://steamcommunity.com/app/3009300/images/" class="apphub_sectionTab  "><span>Artwork</span></a>
+		
+	<a href="https://steamcommunity.com/app/3009300/broadcasts/" class="apphub_sectionTab  "><span>Broadcasts</span></a>
+		
+	<a href="https://steamcommunity.com/app/3009300/videos/" class="apphub_sectionTab  "><span>Videos</span></a>
+		
+	<a href="https://steamcommunity.com/app/3009300/workshop/" class="apphub_sectionTab  "><span>Workshop</span></a>
+		
+	<a href="https://steamcommunity.com/app/3009300/allnews/" class="apphub_sectionTab  "><span>News</span></a>
+		
+	<a href="https://steamcommunity.com/app/3009300/guides/" class="apphub_sectionTab active "><span>Guides</span></a>
+		
+	<a href="https://steamcommunity.com/app/3009300/reviews/" class="apphub_sectionTab  "><span>Reviews</span></a>
+			</div>
+
+		<div class="nonresponsive_hidden responsive_tab_ctn sharedfiles_responsive_tab">
+			<div class="responsive_tab_control">
+				<div class="responsive_tab_control_inner">
+										<select class="responsive_tab_select" id="responsive_tab_select6a234c015daed">
+													<option value="https://steamcommunity.com/app/3009300" >
+								All							</option>
+													<option value="https://steamcommunity.com/app/3009300/discussions/" >
+								Discussions							</option>
+													<option value="https://steamcommunity.com/app/3009300/screenshots/" >
+								Screenshots							</option>
+													<option value="https://steamcommunity.com/app/3009300/images/" >
+								Artwork							</option>
+													<option value="https://steamcommunity.com/app/3009300/broadcasts/" >
+								Broadcasts							</option>
+													<option value="https://steamcommunity.com/app/3009300/videos/" >
+								Videos							</option>
+													<option value="https://steamcommunity.com/app/3009300/workshop/" >
+								Workshop							</option>
+													<option value="https://steamcommunity.com/app/3009300/allnews/" >
+								News							</option>
+													<option value="https://steamcommunity.com/app/3009300/guides/" selected>
+								Guides							</option>
+													<option value="https://steamcommunity.com/app/3009300/reviews/" >
+								Reviews							</option>
+											</select>
+				</div>
+			</div>
+			<div class="responsive_tab_baseline"></div>
+		</div>
+	</div>
+	<div class="apphub_sectionTabsHR responsive_hidden"></div>
+
+
+	<!-- these elements are used to populate the local menu on responsive pages -->
+	<div style="display: none;">
+		<div class="responsive_local_menu apphub_responsive_menu">
+			<h3 class="ellipsis apphub_responsive_menu_title">Teamfight Manager 2</h3>
+			<div class="apphub_ResponsiveMenuCtn">
+									<a style="position: relative; z-index: 1;" class="btnv6_blue_hoverfade btn_medium" href="https://store.steampowered.com/app/3009300">
+						<span>Store Page</span>
+					</a>
+											</div>
+													<div class="localmenu_subarea">
+					<div class="subheader">
+						View Stats:
+					</div>
+											<div class="apphub_ResponsiveMenuItem" >
+							<a href="https://steamcommunity.com/stats/3009300/achievements/">Global Achievements</a>
+						</div>
+									</div>
+					</div>
+	</div>
+	<!-- end responsive menu -->
+
+	
+</div>
+
+	<div class="apphub_HeaderBottomBG_ctn">
+		<div class="apphub_HeaderBottomBG_blur"></div><div class="apphub_HeaderBottomBG"></div>
+	</div>
+		</div>
+	</div>
+	<center>
+
+		
+		<div id="ig_bottom" class="nobg apphub_Guides">
+
+						<div class="subtitle_ctn" >
+				<div class="subtitle" >Browse and rate player-created guides for this game. Or create your own and share your tips with the community.</div>
+				<a id="create_guide_btn" class="btnv6_blue_hoverfade btn_medium" href="https://steamcommunity.com/sharedfiles/editguide/?appid=3009300"><span>Create your own</span></a>
+			</div>
+
+			<div id="guides_content_ctn">
+
+				<!-- right column -->
+				
+				<div id="rightContents" class="responsive_local_menu">
+					<form id="AppHubSearch" method="GET" onkeypress="return PerformSearchOnKeypress(event);">
+					<div class="sidebar">
+						<!-- search-->
+						<div class="searchTextContainer">
+							<input value="Search Teamfight Manager 2 Guides" class="searchText defaultText" id="appHubsSearchText" type="text" name="searchText" maxlength="128" autocomplete="off" >
+							<input type="hidden" name="browsefilter" value="trend">
+							<img onclick="javascript:PerformSearch();" class="searchTextSubmitImg" src="https://community.akamai.steamstatic.com/public/images/sharedfiles/searchbox_workshop_submit.gif" width="23" height="18" border="0">
+						</div>
+						<script>
+							gSearchField = new SearchFieldWithText( 'appHubsSearchText', "Search Teamfight Manager 2 Guides", FilterByTags, 'defaultText' );
+						</script>
+												<div class="panel guide_category_tags collapsed" id="GuideCategoryTags">
+							<div class="guide_category_tags_title" onclick="ToggleCategoryTagsSection()">
+								Filter by Category								<div class="rightSectionBrowseBarArrow"></div>
+							</div>
+							<div class="rightSectionHolder">
+								<div class="rightSectionDivider"></div>
+								<div class="rightDetailsBlock">
+									<div class="rightSectionTitle"><div class="tagSearch">Show items tagged with all of the selected terms:</div></div>
+												<div class="tag_category_desc">Category</div>
+									<div class="filterOption">
+							<label data-panel="{&quot;clickOnActivate&quot;:&quot;firstChild&quot;,&quot;focusable&quot;:true}" role="button" for="13373">
+								<input onclick="IncludeTag( this );" type="checkbox" name="requiredtags[]" id="13373" value="Achievements" class="inputTagsFilter" />
+								Achievements							</label>
+							<span data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}" role="button" onclick="ExcludeTag( this )" id="excludetag_13373" class="tag_filter_control_not " data-tagid="13373" data-tag="Achievements" data-tooltip-text='Exclude results with this tag: Achievements'><img src="https://community.akamai.steamstatic.com/public/images/workshop/search_checkbox_not.svg" width="16px" height="16px"></span>
+						</div>
+												<div class="filterOption">
+							<label data-panel="{&quot;clickOnActivate&quot;:&quot;firstChild&quot;,&quot;focusable&quot;:true}" role="button" for="13088">
+								<input onclick="IncludeTag( this );" type="checkbox" name="requiredtags[]" id="13088" value="Characters" class="inputTagsFilter" />
+								Characters							</label>
+							<span data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}" role="button" onclick="ExcludeTag( this )" id="excludetag_13088" class="tag_filter_control_not " data-tagid="13088" data-tag="Characters" data-tooltip-text='Exclude results with this tag: Characters'><img src="https://community.akamai.steamstatic.com/public/images/workshop/search_checkbox_not.svg" width="16px" height="16px"></span>
+						</div>
+												<div class="filterOption">
+							<label data-panel="{&quot;clickOnActivate&quot;:&quot;firstChild&quot;,&quot;focusable&quot;:true}" role="button" for="13089">
+								<input onclick="IncludeTag( this );" type="checkbox" name="requiredtags[]" id="13089" value="Classes" class="inputTagsFilter" />
+								Classes							</label>
+							<span data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}" role="button" onclick="ExcludeTag( this )" id="excludetag_13089" class="tag_filter_control_not " data-tagid="13089" data-tag="Classes" data-tooltip-text='Exclude results with this tag: Classes'><img src="https://community.akamai.steamstatic.com/public/images/workshop/search_checkbox_not.svg" width="16px" height="16px"></span>
+						</div>
+												<div class="filterOption">
+							<label data-panel="{&quot;clickOnActivate&quot;:&quot;firstChild&quot;,&quot;focusable&quot;:true}" role="button" for="13095">
+								<input onclick="IncludeTag( this );" type="checkbox" name="requiredtags[]" id="13095" value="Co-op" class="inputTagsFilter" />
+								Co-op							</label>
+							<span data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}" role="button" onclick="ExcludeTag( this )" id="excludetag_13095" class="tag_filter_control_not " data-tagid="13095" data-tag="Co-op" data-tooltip-text='Exclude results with this tag: Co-op'><img src="https://community.akamai.steamstatic.com/public/images/workshop/search_checkbox_not.svg" width="16px" height="16px"></span>
+						</div>
+												<div class="filterOption">
+							<label data-panel="{&quot;clickOnActivate&quot;:&quot;firstChild&quot;,&quot;focusable&quot;:true}" role="button" for="13092">
+								<input onclick="IncludeTag( this );" type="checkbox" name="requiredtags[]" id="13092" value="Crafting" class="inputTagsFilter" />
+								Crafting							</label>
+							<span data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}" role="button" onclick="ExcludeTag( this )" id="excludetag_13092" class="tag_filter_control_not " data-tagid="13092" data-tag="Crafting" data-tooltip-text='Exclude results with this tag: Crafting'><img src="https://community.akamai.steamstatic.com/public/images/workshop/search_checkbox_not.svg" width="16px" height="16px"></span>
+						</div>
+												<div class="filterOption">
+							<label data-panel="{&quot;clickOnActivate&quot;:&quot;firstChild&quot;,&quot;focusable&quot;:true}" role="button" for="13087">
+								<input onclick="IncludeTag( this );" type="checkbox" name="requiredtags[]" id="13087" value="Game Modes" class="inputTagsFilter" />
+								Game Modes							</label>
+							<span data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}" role="button" onclick="ExcludeTag( this )" id="excludetag_13087" class="tag_filter_control_not " data-tagid="13087" data-tag="Game Modes" data-tooltip-text='Exclude results with this tag: Game Modes'><img src="https://community.akamai.steamstatic.com/public/images/workshop/search_checkbox_not.svg" width="16px" height="16px"></span>
+						</div>
+												<div class="filterOption">
+							<label data-panel="{&quot;clickOnActivate&quot;:&quot;firstChild&quot;,&quot;focusable&quot;:true}" role="button" for="13083">
+								<input onclick="IncludeTag( this );" type="checkbox" name="requiredtags[]" id="13083" value="Gameplay Basics" class="inputTagsFilter" />
+								Gameplay Basics							</label>
+							<span data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}" role="button" onclick="ExcludeTag( this )" id="excludetag_13083" class="tag_filter_control_not " data-tagid="13083" data-tag="Gameplay Basics" data-tooltip-text='Exclude results with this tag: Gameplay Basics'><img src="https://community.akamai.steamstatic.com/public/images/workshop/search_checkbox_not.svg" width="16px" height="16px"></span>
+						</div>
+												<div class="filterOption">
+							<label data-panel="{&quot;clickOnActivate&quot;:&quot;firstChild&quot;,&quot;focusable&quot;:true}" role="button" for="13091">
+								<input onclick="IncludeTag( this );" type="checkbox" name="requiredtags[]" id="13091" value="Loot" class="inputTagsFilter" />
+								Loot							</label>
+							<span data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}" role="button" onclick="ExcludeTag( this )" id="excludetag_13091" class="tag_filter_control_not " data-tagid="13091" data-tag="Loot" data-tooltip-text='Exclude results with this tag: Loot'><img src="https://community.akamai.steamstatic.com/public/images/workshop/search_checkbox_not.svg" width="16px" height="16px"></span>
+						</div>
+												<div class="filterOption">
+							<label data-panel="{&quot;clickOnActivate&quot;:&quot;firstChild&quot;,&quot;focusable&quot;:true}" role="button" for="13236">
+								<input onclick="IncludeTag( this );" type="checkbox" name="requiredtags[]" id="13236" value="Maps or Levels" class="inputTagsFilter" />
+								Maps or Levels							</label>
+							<span data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}" role="button" onclick="ExcludeTag( this )" id="excludetag_13236" class="tag_filter_control_not " data-tagid="13236" data-tag="Maps or Levels" data-tooltip-text='Exclude results with this tag: Maps or Levels'><img src="https://community.akamai.steamstatic.com/public/images/workshop/search_checkbox_not.svg" width="16px" height="16px"></span>
+						</div>
+												<div class="filterOption">
+							<label data-panel="{&quot;clickOnActivate&quot;:&quot;firstChild&quot;,&quot;focusable&quot;:true}" role="button" for="13090">
+								<input onclick="IncludeTag( this );" type="checkbox" name="requiredtags[]" id="13090" value="Modding or Configuration" class="inputTagsFilter" />
+								Modding or Configuration							</label>
+							<span data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}" role="button" onclick="ExcludeTag( this )" id="excludetag_13090" class="tag_filter_control_not " data-tagid="13090" data-tag="Modding or Configuration" data-tooltip-text='Exclude results with this tag: Modding or Configuration'><img src="https://community.akamai.steamstatic.com/public/images/workshop/search_checkbox_not.svg" width="16px" height="16px"></span>
+						</div>
+												<div class="filterOption">
+							<label data-panel="{&quot;clickOnActivate&quot;:&quot;firstChild&quot;,&quot;focusable&quot;:true}" role="button" for="13096">
+								<input onclick="IncludeTag( this );" type="checkbox" name="requiredtags[]" id="13096" value="Multiplayer" class="inputTagsFilter" />
+								Multiplayer							</label>
+							<span data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}" role="button" onclick="ExcludeTag( this )" id="excludetag_13096" class="tag_filter_control_not " data-tagid="13096" data-tag="Multiplayer" data-tooltip-text='Exclude results with this tag: Multiplayer'><img src="https://community.akamai.steamstatic.com/public/images/workshop/search_checkbox_not.svg" width="16px" height="16px"></span>
+						</div>
+												<div class="filterOption">
+							<label data-panel="{&quot;clickOnActivate&quot;:&quot;firstChild&quot;,&quot;focusable&quot;:true}" role="button" for="13085">
+								<input onclick="IncludeTag( this );" type="checkbox" name="requiredtags[]" id="13085" value="Secrets" class="inputTagsFilter" />
+								Secrets							</label>
+							<span data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}" role="button" onclick="ExcludeTag( this )" id="excludetag_13085" class="tag_filter_control_not " data-tagid="13085" data-tag="Secrets" data-tooltip-text='Exclude results with this tag: Secrets'><img src="https://community.akamai.steamstatic.com/public/images/workshop/search_checkbox_not.svg" width="16px" height="16px"></span>
+						</div>
+												<div class="filterOption">
+							<label data-panel="{&quot;clickOnActivate&quot;:&quot;firstChild&quot;,&quot;focusable&quot;:true}" role="button" for="13097">
+								<input onclick="IncludeTag( this );" type="checkbox" name="requiredtags[]" id="13097" value="Story or Lore" class="inputTagsFilter" />
+								Story or Lore							</label>
+							<span data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}" role="button" onclick="ExcludeTag( this )" id="excludetag_13097" class="tag_filter_control_not " data-tagid="13097" data-tag="Story or Lore" data-tooltip-text='Exclude results with this tag: Story or Lore'><img src="https://community.akamai.steamstatic.com/public/images/workshop/search_checkbox_not.svg" width="16px" height="16px"></span>
+						</div>
+												<div class="filterOption">
+							<label data-panel="{&quot;clickOnActivate&quot;:&quot;firstChild&quot;,&quot;focusable&quot;:true}" role="button" for="13094">
+								<input onclick="IncludeTag( this );" type="checkbox" name="requiredtags[]" id="13094" value="Trading" class="inputTagsFilter" />
+								Trading							</label>
+							<span data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}" role="button" onclick="ExcludeTag( this )" id="excludetag_13094" class="tag_filter_control_not " data-tagid="13094" data-tag="Trading" data-tooltip-text='Exclude results with this tag: Trading'><img src="https://community.akamai.steamstatic.com/public/images/workshop/search_checkbox_not.svg" width="16px" height="16px"></span>
+						</div>
+												<div class="filterOption">
+							<label data-panel="{&quot;clickOnActivate&quot;:&quot;firstChild&quot;,&quot;focusable&quot;:true}" role="button" for="13086">
+								<input onclick="IncludeTag( this );" type="checkbox" name="requiredtags[]" id="13086" value="Walkthroughs" class="inputTagsFilter" />
+								Walkthroughs							</label>
+							<span data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}" role="button" onclick="ExcludeTag( this )" id="excludetag_13086" class="tag_filter_control_not " data-tagid="13086" data-tag="Walkthroughs" data-tooltip-text='Exclude results with this tag: Walkthroughs'><img src="https://community.akamai.steamstatic.com/public/images/workshop/search_checkbox_not.svg" width="16px" height="16px"></span>
+						</div>
+												<div class="filterOption">
+							<label data-panel="{&quot;clickOnActivate&quot;:&quot;firstChild&quot;,&quot;focusable&quot;:true}" role="button" for="13093">
+								<input onclick="IncludeTag( this );" type="checkbox" name="requiredtags[]" id="13093" value="Weapons" class="inputTagsFilter" />
+								Weapons							</label>
+							<span data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}" role="button" onclick="ExcludeTag( this )" id="excludetag_13093" class="tag_filter_control_not " data-tagid="13093" data-tag="Weapons" data-tooltip-text='Exclude results with this tag: Weapons'><img src="https://community.akamai.steamstatic.com/public/images/workshop/search_checkbox_not.svg" width="16px" height="16px"></span>
+						</div>
+												<div class="filterOption">
+							<label data-panel="{&quot;clickOnActivate&quot;:&quot;firstChild&quot;,&quot;focusable&quot;:true}" role="button" for="13098">
+								<input onclick="IncludeTag( this );" type="checkbox" name="requiredtags[]" id="13098" value="Workshop" class="inputTagsFilter" />
+								Workshop							</label>
+							<span data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}" role="button" onclick="ExcludeTag( this )" id="excludetag_13098" class="tag_filter_control_not " data-tagid="13098" data-tag="Workshop" data-tooltip-text='Exclude results with this tag: Workshop'><img src="https://community.akamai.steamstatic.com/public/images/workshop/search_checkbox_not.svg" width="16px" height="16px"></span>
+						</div>
+									<div class="tag_category_desc">Languages</div>
+								<select class="selectTagsFilter" name="requiredtags[]" onchange="FilterByTags();" id="3a08e2e340ab29fd9263af48193cbf8e">
+					<option value="-1">< none specified ></option>
+											<option value="Bulgarian"  >Bulgarian</option>
+												<option value="schinese"  >Simplified Chinese</option>
+												<option value="tchinese"  >Traditional Chinese</option>
+												<option value="Czech"  >Czech</option>
+												<option value="Danish"  >Danish</option>
+												<option value="Dutch"  >Dutch</option>
+												<option value="English"  >English</option>
+												<option value="Finnish"  >Finnish</option>
+												<option value="French"  >French</option>
+												<option value="German"  >German</option>
+												<option value="Greek"  >Greek</option>
+												<option value="Hungarian"  >Hungarian</option>
+												<option value="Italian"  >Italian</option>
+												<option value="Japanese"  >Japanese</option>
+												<option value="Korean"  >Korean</option>
+												<option value="Norwegian"  >Norwegian</option>
+												<option value="Polish"  >Polish</option>
+												<option value="Portuguese"  >Portuguese</option>
+												<option value="brazilian"  >Portuguese (Brazil)</option>
+												<option value="Romanian"  >Romanian</option>
+												<option value="Russian"  >Russian</option>
+												<option value="Spanish"  >Spanish</option>
+												<option value="Swedish"  >Swedish</option>
+												<option value="Thai"  >Thai</option>
+												<option value="Turkish"  >Turkish</option>
+												<option value="Ukrainian"  >Ukrainian</option>
+												<option value="latam"  >Spanish-Latin America</option>
+												<option value="vietnamese"  >Vietnamese</option>
+											</select>
+														<div style="clear:both"></div>
+								</div>
+							</div>
+						</div>
+						
+						<!-- browse -->
+						<div class="panel">
+							<div class="rightSectionTopTitle">Browse by:</div>
+							<div class="rightDetailsBlock">
+												<div data-panel="{&quot;clickOnActivate&quot;:&quot;firstChild&quot;,&quot;focusable&quot;:true}" role="button" class="browseOption selected home">
+					<div class="rightbox_list_selection_background"></div>
+					<div class="rightbox_list_option_content">
+						<a href="?browsesort=home&browsefilter=home&requiredtags%5B0%5D=english&p=1">Home</a>					</div>
+				</div>
+							<div data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}" role="button" class="browseOption notSelected trend" onclick="top.location.href='?browsesort=trend&browsefilter=trend&requiredtags%5B0%5D=english&p=1';">
+				<div class="rightbox_list_option_content">
+					<a href="?browsesort=trend&browsefilter=trend&requiredtags%5B0%5D=english&p=1">Most Popular</a>				</div>
+			</div>
+						<div data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}" role="button" class="browseOption notSelected toprated" onclick="top.location.href='?browsesort=toprated&browsefilter=toprated&requiredtags%5B0%5D=english&p=1';">
+				<div class="rightbox_list_option_content">
+					<a href="?browsesort=toprated&browsefilter=toprated&requiredtags%5B0%5D=english&p=1">Top Rated All Time</a>				</div>
+			</div>
+						<div data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}" role="button" class="browseOption notSelected mostrecent" onclick="top.location.href='?browsesort=mostrecent&browsefilter=mostrecent&requiredtags%5B0%5D=english&p=1';">
+				<div class="rightbox_list_option_content">
+					<a href="?browsesort=mostrecent&browsefilter=mostrecent&requiredtags%5B0%5D=english&p=1">Most Recent</a>				</div>
+			</div>
+										</div>
+						</div>
+
+						<!-- user panel -->
+						
+						<!-- info panel -->
+						<div id="about_guides" class="panel">
+							<div class="rightSectionTopTitle">More About Guides</div>
+							<div class="rightSectionDivider"></div>
+							<div class="rightDetailsBlock">
+								<div data-panel="{&quot;focusable&quot;:true,&quot;clickOnActivate&quot;:true}" role="button" class="guideInfo" onClick="top.location.href='https://steamcommunity.com/guides'">
+									<div class="guideInfoTitle">Click here to learn more about Steam Guides</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					</form>
+				</div>
+
+				<!-- main column -->
+				<div class="apphub_ContentGuides">
+					
+												<div class="detailBox guide_categories collapsed" id="GuideCategories">
+																<div class="guides_home_section_title">Popular Categories (6)</div>
+								<div data-panel="{&quot;maintainX&quot;:true,&quot;bFocusRingRoot&quot;:true,&quot;flow-children&quot;:&quot;row&quot;}" class="category_blocks_ctn">
+																			<a class="guide_home_category_selection" href="https://steamcommunity.com/app/3009300/guides/?browsefilter=trend&requiredtags[]=Gameplay Basics&requiredtags[]=english">
+											<img class="guide_category_icon" src="https://community.akamai.steamstatic.com/public/images//sharedfiles/guides/categories/strategy_GameplayBasics_default.png?v=2">
+											<img class="guide_category_icon highlightState" src="https://community.akamai.steamstatic.com/public/images//sharedfiles/guides/categories/strategy_GameplayBasics_brightened.png">
+											<div class="guide_home_category_name">Gameplay Basics</div>
+											<div class="guide_home_category_count">2 Guides</div>
+										</a>
+																				<a class="guide_home_category_selection" href="https://steamcommunity.com/app/3009300/guides/?browsefilter=trend&requiredtags[]=Game Modes&requiredtags[]=english">
+											<img class="guide_category_icon" src="https://community.akamai.steamstatic.com/public/images//sharedfiles/guides/categories/strategy_GameMode_default.png?v=2">
+											<img class="guide_category_icon highlightState" src="https://community.akamai.steamstatic.com/public/images//sharedfiles/guides/categories/strategy_GameMode_brightened.png">
+											<div class="guide_home_category_name">Game Modes</div>
+											<div class="guide_home_category_count">1 Guide</div>
+										</a>
+																				<a class="guide_home_category_selection" href="https://steamcommunity.com/app/3009300/guides/?browsefilter=trend&requiredtags[]=Characters&requiredtags[]=english">
+											<img class="guide_category_icon" src="https://community.akamai.steamstatic.com/public/images//sharedfiles/guides/categories/strategy_Characters_default.png?v=2">
+											<img class="guide_category_icon highlightState" src="https://community.akamai.steamstatic.com/public/images//sharedfiles/guides/categories/strategy_Characters_brightened.png">
+											<div class="guide_home_category_name">Characters</div>
+											<div class="guide_home_category_count">1 Guide</div>
+										</a>
+																				<a class="guide_home_category_selection" href="https://steamcommunity.com/app/3009300/guides/?browsefilter=trend&requiredtags[]=Classes&requiredtags[]=english">
+											<img class="guide_category_icon" src="https://community.akamai.steamstatic.com/public/images//sharedfiles/guides/categories/strategy_Class_default.png?v=2">
+											<img class="guide_category_icon highlightState" src="https://community.akamai.steamstatic.com/public/images//sharedfiles/guides/categories/strategy_Class_brightened.png">
+											<div class="guide_home_category_name">Classes</div>
+											<div class="guide_home_category_count">1 Guide</div>
+										</a>
+																				<a class="guide_home_category_selection" href="https://steamcommunity.com/app/3009300/guides/?browsefilter=trend&requiredtags[]=Crafting&requiredtags[]=english">
+											<img class="guide_category_icon" src="https://community.akamai.steamstatic.com/public/images//sharedfiles/guides/categories/strategy_Crafting_default.png?v=2">
+											<img class="guide_category_icon highlightState" src="https://community.akamai.steamstatic.com/public/images//sharedfiles/guides/categories/strategy_Crafting_brightened.png">
+											<div class="guide_home_category_name">Crafting</div>
+											<div class="guide_home_category_count">1 Guide</div>
+										</a>
+																				<a class="guide_home_category_selection" href="https://steamcommunity.com/app/3009300/guides/?browsefilter=trend&requiredtags[]=Story or Lore&requiredtags[]=english">
+											<img class="guide_category_icon" src="https://community.akamai.steamstatic.com/public/images//sharedfiles/guides/categories/strategy_Story_default.png?v=2">
+											<img class="guide_category_icon highlightState" src="https://community.akamai.steamstatic.com/public/images//sharedfiles/guides/categories/strategy_Story_brightened.png">
+											<div class="guide_home_category_name">Story Or Lore</div>
+											<div class="guide_home_category_count">1 Guide</div>
+										</a>
+																		</div>
+								<div style="clear: left"></div>
+							</div>
+														<div data-panel="{&quot;flow-children&quot;:&quot;column&quot;}" class="detailBox">
+																<div class="guides_home_section_title"><img src="https://community.akamai.steamstatic.com/public/images//sharedfiles/icons/guides_popular.png">Popular Steam Guides&nbsp;<span class="guides_home_section_desc">Written guides, references, and walkthroughs</span></div>
+								<div class="guides_home_list_ctn">		<div data-panel="{&quot;clickOnActivate&quot;:&quot;firstChild&quot;}" role="button" id="sharedfile_3736370046_1982881093" class="workshopItemCollectionContainer">
+			<img src="https://images.steamusercontent.com/ugc/18217064328175867070/8F0F42785C2B4360F04AA2B07E9B8D243B3FC005/?imw=100&imh=66&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true" class="backgroundImg">
+			<a class="workshopItemCollection ugc_show_warning_image ugc" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3736370046" data-appid="3009300" data-publishedfileid="3736370046">
+				<div class="workshopItem">
+					<div class="workshopItemPreviewHolder ">
+						<img class="workshopItemPreviewImage" src="https://images.steamusercontent.com/ugc/18217064328175867070/8F0F42785C2B4360F04AA2B07E9B8D243B3FC005/?imw=200&imh=200&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true">
+					</div>
+				</div>
+				<div class="workshopItemDetails">
+					<img class="fileRating" src="https://community.akamai.steamstatic.com/public/images/sharedfiles/not-yet.png?v=2" />
+					<div class="workshopItemApp guide"></div>
+					<div class="workshopItemTitle">
+												Менеджмент для чайников					</div>
+					<div class="workshopItemAuthorLine">by&nbsp;<span class="workshopItemAuthorName">Յճօյ</span></div>
+					<div class="workshopItemShortDesc">Для тех кто ну не понимает как выигрывать в игру и как вообще че работает...</div>
+				</div>
+				<div style="clear: both"></div>
+			</a>
+		</div>
+					<script>
+				SharedFileBindMouseHover( "sharedfile_3736370046_1982881093", false, {"id":"3736370046","title":"\u041c\u0435\u043d\u0435\u0434\u0436\u043c\u0435\u043d\u0442 \u0434\u043b\u044f \u0447\u0430\u0439\u043d\u0438\u043a\u043e\u0432","description":"\u0414\u043b\u044f \u0442\u0435\u0445 \u043a\u0442\u043e \u043d\u0443 \u043d\u0435 \u043f\u043e\u043d\u0438\u043c\u0430\u0435\u0442 \u043a\u0430\u043a \u0432\u044b\u0438\u0433\u0440\u044b\u0432\u0430\u0442\u044c \u0432 \u0438\u0433\u0440\u0443 \u0438 \u043a\u0430\u043a \u0432\u043e\u043e\u0431\u0449\u0435 \u0447\u0435 \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442","user_subscribed":false,"user_favorited":false,"played":false,"appid":3009300} );
+			</script>
+				<div class="workshopItemClear" style="clear:left"></div>
+				<div data-panel="{&quot;clickOnActivate&quot;:&quot;firstChild&quot;}" role="button" id="sharedfile_3733232314_1512723490" class="workshopItemCollectionContainer">
+			<img src="https://images.steamusercontent.com/ugc/9758210201397025837/E7387F5B344DF223161437DA0A1AF5F5249F6B38/?imw=100&imh=100&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true" class="backgroundImg">
+			<a class="workshopItemCollection ugc_show_warning_image ugc" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3733232314" data-appid="3009300" data-publishedfileid="3733232314">
+				<div class="workshopItem">
+					<div class="workshopItemPreviewHolder ">
+						<img class="workshopItemPreviewImage" src="https://images.steamusercontent.com/ugc/9758210201397025837/E7387F5B344DF223161437DA0A1AF5F5249F6B38/?imw=200&imh=200&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true">
+					</div>
+				</div>
+				<div class="workshopItemDetails">
+					<img class="fileRating" src="https://community.akamai.steamstatic.com/public/images/sharedfiles/not-yet.png?v=2" />
+					<div class="workshopItemApp guide"></div>
+					<div class="workshopItemTitle">
+												团战经理2汉化资讯贴					</div>
+					<div class="workshopItemAuthorLine">by&nbsp;<span class="workshopItemAuthorName">Queki</span></div>
+					<div class="workshopItemShortDesc">本贴为团战经理2官方社区汉化组的汉化资讯贴，用于展示尚未实装进游戏的汉化内容，发布名词解释，收集汉化反馈，并招募汉化成员。...</div>
+				</div>
+				<div style="clear: both"></div>
+			</a>
+		</div>
+					<script>
+				SharedFileBindMouseHover( "sharedfile_3733232314_1512723490", false, {"id":"3733232314","title":"\u56e2\u6218\u7ecf\u74062\u6c49\u5316\u8d44\u8baf\u8d34","description":"\u672c\u8d34\u4e3a\u56e2\u6218\u7ecf\u74062\u5b98\u65b9\u793e\u533a\u6c49\u5316\u7ec4\u7684\u6c49\u5316\u8d44\u8baf\u8d34\uff0c\u7528\u4e8e\u5c55\u793a\u5c1a\u672a\u5b9e\u88c5\u8fdb\u6e38\u620f\u7684\u6c49\u5316\u5185\u5bb9\uff0c\u53d1\u5e03\u540d\u8bcd\u89e3\u91ca\uff0c\u6536\u96c6\u6c49\u5316\u53cd\u9988\uff0c\u5e76\u62db\u52df\u6c49\u5316\u6210\u5458\u3002","user_subscribed":false,"user_favorited":false,"played":false,"appid":3009300} );
+			</script>
+				<div class="workshopItemClear" style="clear:left"></div>
+		</div></div>					<div style="clear: both"></div>
+
+									</div>
+
+				</div>
+				<div style="clear: both"></div>
+				
+			</div>
+
+		</div>
+
+	</center>
+</div>
+
+
+<div id="ExternalTagSelectorDialog" class="modal_frame_image" style="display:none;">
+	<iframe id="ExternalTagSelectorDialogIFrame" width="100%" src="" scrolling="no" onload="ShowExternalTagSelectorDialog_OnLoad();"></iframe>
+</div>
+
+<div class="hover" id="workshop_item_hover" style="position:absolute; display: none; left: 0px; top: 0px;" onmouseout="HideWorkshopItemHover( this, event, $('global_hover') )">
+	<div class="shadow_ul"></div><div class="shadow_top"></div><div class="shadow_ur"></div><div class="shadow_left"></div><div class="shadow_right"></div><div class="shadow_bl"></div><div class="shadow_bottom"></div><div class="shadow_br"></div>	<div class="hover_box shadow_content">
+		<div class="content" id="global_hover_content"></div>
+		<div id="hover_user_action_history" class="hover_user_action_history" style="display: none">
+			<div id="hover_subscribed" class="hover_user_action subscribed" style="display: none">Subscribed</div>
+			<div id="hover_favorited" class="hover_user_action favorited" style="display: none">Favorited</div>
+			<div id="hover_played" class="hover_user_action played" style="display: none">Played</div>
+		</div>
+		<div id="hover_subscriptions" style="display: none">
+			<div class="contentNoTopPadding">
+			</div>
+		</div>
+	</div>
+</div>
+		</div>	<!-- responsive_page_legacy_content -->
+
+				<script>
+			RecordAppImpression( 3009300, '2_9_100009_' );
+		</script>
+		<div  data-featuretarget="footer"></div>
+	</div>	<!-- responsive_page_content -->
+
+</div>	<!-- responsive_page_frame -->
+</body>
+</html>
