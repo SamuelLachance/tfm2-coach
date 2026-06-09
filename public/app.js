@@ -1664,7 +1664,7 @@ function setView(view) {
   els.sidebarItems.classList.toggle("hidden", view !== "items");
   els.sidebarPatch.classList.toggle("hidden", view !== "patch");
   els.sidebarDraft.classList.add("hidden");
-  els.sidebarTactics.classList.add("hidden");
+  els.sidebarTactics.classList.toggle("hidden", view !== "tactics");
   els.sidebarGuide.classList.toggle("hidden", view !== "guide");
   els.headerSearchWrap.classList.toggle("hidden", view !== "champions");
 
@@ -1726,13 +1726,14 @@ async function init() {
   });
 
   try {
-    const [champRes, guideRes, itemsRes, tacticsRes, mtgRes, draftGuideRes] = await Promise.all([
+    const [champRes, guideRes, itemsRes, tacticsRes, mtgRes, draftGuideRes, jungleGuideRes] = await Promise.all([
       fetch("data/champions.json"),
       fetch("data/guide-fr.json"),
       fetch("data/items.json"),
       fetch("data/tactics-meta.json"),
       fetch("data/mtg-colors.json"),
       fetch("data/tfm2-draft-guide.json"),
+      fetch("data/tfm2-jungle-tactics-guide.json"),
     ]);
     if (!champRes.ok) throw new Error(`Champions HTTP ${champRes.status}`);
     const data = await champRes.json();
@@ -1759,6 +1760,15 @@ async function init() {
 
     if (tacticsRes.ok) {
       state.tacticsMeta = await tacticsRes.json();
+      window.TFM2Tactics?.setTacticOptions?.(state.tacticsMeta.tacticOptions);
+    }
+
+    if (jungleGuideRes.ok) {
+      state.jungleGuide = await jungleGuideRes.json();
+      window.TFM2Tactics?.setGuide?.(state.jungleGuide);
+    } else if (state.tacticsMeta?.jungleGuide) {
+      state.jungleGuide = state.tacticsMeta.jungleGuide;
+      window.TFM2Tactics?.setGuide?.(state.jungleGuide);
     }
 
     if (draftGuideRes.ok) {
@@ -1775,6 +1785,7 @@ async function init() {
     }
     buildColorFilterUI();
     setupColorFilters();
+    renderTacticsSidebar();
   } catch (err) {
     els.grid.innerHTML = `<div class="empty-state"><p>Impossible de charger les donnÃ©es.<br>Lancez le serveur local (voir README).</p><p style="margin-top:0.5rem;font-size:0.85rem;color:#8b97a8">${err.message}</p></div>`;
   }

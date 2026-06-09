@@ -234,7 +234,7 @@
   }
 
   function detectShell(names) {
-    const DG = global.TFM2DraftGuide;
+    const DG = global.TFM2GuideDraftEngine || global.TFM2DraftGuide;
     if (!DG?.detectShell || !names?.length) return null;
     const det = DG.detectShell(names);
     if (!det || det.confidence < 0.35) return null;
@@ -402,7 +402,7 @@
       } else if (tactics.earlySerpent?.value === "Toujours Essayer") {
         tactics.objectiveFinish = tactic("Priorité de Combat", "Finir obj si zoned (guide Lancier).");
       } else {
-        tactics.objectiveFinish = tactic("Flexible", "Matchup incertain — adapter (guide).");
+        tactics.objectiveFinish = tactic("Priorité d'Élimination", "Carries avant objectif par défaut (guide).");
       }
     }
 

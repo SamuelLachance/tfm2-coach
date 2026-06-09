@@ -1461,6 +1461,85 @@ body::before {
   gap: 0.35rem;
 }
 
+.tactics-quick-index {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.tactics-quick-row {
+  font-size: 0.8rem;
+  line-height: 1.4;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.tactics-quick-row:last-child {
+  border-bottom: none;
+}
+
+.tactics-quick-ex {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.15rem;
+}
+
+.jungle-fit-row {
+  font-size: 0.78rem;
+  line-height: 1.35;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.jungle-fit-row:last-child {
+  border-bottom: none;
+}
+
+.tactics-archetype-badge {
+  font-size: 0.9rem;
+  color: var(--accent);
+  margin: 0.25rem 0 0.5rem;
+}
+
+.tactics-jungler-fit {
+  font-size: 0.85rem;
+  margin: 0 0 0.5rem;
+}
+
+.tactics-shell-hints p {
+  font-size: 0.85rem;
+  margin: 0.25rem 0;
+}
+
+.tactics-checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tactics-checklist li {
+  font-size: 0.84rem;
+  margin-bottom: 0.35rem;
+  padding-left: 0.5rem;
+  border-left: 2px solid var(--border);
+}
+
+.check-kind {
+  display: inline-block;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  min-width: 4.5rem;
+}
+
+.failure-table td:first-child {
+  font-weight: 500;
+  width: 42%;
+}
+
 .template-btn {
   text-align: left;
   padding: 0.45rem 0.65rem;
