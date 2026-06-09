@@ -4,8 +4,9 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-meta = json.loads((ROOT / "public/data/tactics-meta.json").read_text(encoding="utf-8"))
-champs = json.loads((ROOT / "public/data/champions.json").read_text(encoding="utf-8"))
+tactics_meta = json.loads((ROOT / "public/data/tactics-meta.json").read_text(encoding="utf-8"))
+meta = tactics_meta.get("champions") or {}
+champs = json.loads((ROOT / "public/data/champions.json").read_text(encoding="utf-8"))["champions"]
 
 ENCHANTERS = {
     "Moine", "Porteur de bouclier", "Androïde", "Prêtre", "Enchanteur", "Barde",
@@ -41,7 +42,23 @@ def count_supports(names):
     return sum(1 for n in names if is_dedicated_support(n))
 
 
+def shell_heuristic(allies):
+    tags = set()
+    for n in allies:
+        tags.update(meta.get(n, {}).get("tags") or [])
+    has_front = "frontline" in tags
+    has_peel = "peel" in tags
+    has_marksman = "marksman" in tags or "scaling" in tags
+    if has_front and has_peel and has_marksman:
+        return "front_to_back", 55
+    return None, 0
+
+
 def main():
+    shell, pct = shell_heuristic(["Infanterie lourde", "Prêtre", "Tireur"])
+    assert shell == "front_to_back", f"expected front_to_back shell, got {shell}"
+    print(f"Shell detect: {shell} ({pct}%)")
+
     supports = [n for n in meta if is_dedicated_support(n)]
     print(f"Dedicated supports: {len(supports)}")
     print("Examples:", ", ".join(supports[:12]))

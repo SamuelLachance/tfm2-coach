@@ -141,12 +141,108 @@
 
   function phaseMultiplier(phase) {
     if (phase === "opening") {
-      return { eval: 2.0, skeleton: 1.15, synergy: 0.85, counter: 0.55, slot: 1.12, tier: 1.35, mtg: 1.25, ability: 0.9, beatdown: 1.05, guide: 1.45 };
+      return { eval: 2.0, skeleton: 1.15, synergy: 0.82, counter: 0.5, slot: 1.12, tier: 1.38, mtg: 1.28, ability: 0.9, beatdown: 1.05, guide: 1.45, plan: 0.85, deny: 1.2 };
     }
     if (phase === "closing") {
-      return { eval: 2.35, skeleton: 0.75, synergy: 0.95, counter: 1.45, slot: 1.18, tier: 0.75, mtg: 1.15, ability: 1.1, beatdown: 1.55, guide: 1.2 };
+      return { eval: 2.35, skeleton: 0.72, synergy: 1.02, counter: 1.55, slot: 1.18, tier: 0.72, mtg: 1.12, ability: 1.12, beatdown: 1.58, guide: 1.2, plan: 1.35, deny: 1.05 };
     }
-    return { eval: 2.55, skeleton: 1.35, synergy: 1.08, counter: 1.05, slot: 1.05, tier: 0.95, mtg: 1.05, ability: 1.0, beatdown: 2.05, guide: 1.35 };
+    return { eval: 2.55, skeleton: 1.32, synergy: 1.12, counter: 1.12, slot: 1.05, tier: 0.92, mtg: 1.05, ability: 1.0, beatdown: 2.05, guide: 1.35, plan: 1.15, deny: 1.1 };
+  }
+
+  const SHELL_LABELS = {
+    front_to_back: "Front-to-back (sniper)",
+    dive: "Dive (ninja/exec)",
+    kite: "Kite (archer/prêtre)",
+    tempo: "Tempo early",
+    scaling: "Scaling late",
+  };
+
+  /** Shell TFM2 : front-to-back, dive, kite — adapté des comps MOBA. */
+  function detectCompShell(allies, metaMap) {
+    if (!allies.length) return { shell: null, label: "", completeness: 0, gaps: [], carry: null };
+    const tags = teamTags(allies, metaMap);
+    const core = MC();
+    const skel = core?.teamSkeleton?.(allies, metaMap);
+    const gaps = [];
+    let completeness = 0;
+    let shell = null;
+    let carry = null;
+
+    const hasFront = tags.has("frontline") || skel?.filled?.frontline;
+    const hasPeel = tags.has("peel") || skel?.filled?.enchanter;
+    const hasDive = tags.has("dive") || tags.has("assassin");
+    const hasMarksman = tags.has("marksman") || tags.has("scaling");
+    const hasMage = tags.has("mage_burst") || skel?.filled?.mage;
+    const hasEngage = tags.has("engage");
+
+    const carryCand = allies.find((n) =>
+      (draftProfile(n, metaMap).dpsWeight ?? 0) >= 0.55 ||
+      hasTag(n, "scaling", metaMap) ||
+      hasTag(n, "marksman", metaMap)
+    );
+    if (carryCand) carry = carryCand;
+
+    if (hasFront && hasPeel && hasMarksman) {
+      shell = "front_to_back";
+      completeness = 35 + (hasMage ? 15 : 0) + (skel?.filled?.dps ? 25 : 0);
+      if (!skel?.filled?.dps) gaps.push("carry Bot");
+      if (!hasMage) gaps.push("mage AP");
+    } else if (hasDive && (hasEngage || allies.some((n) => /ninja|assassin|exécuteur/i.test(n)))) {
+      shell = "dive";
+      completeness = 30 + (hasEngage ? 22 : 0);
+      if (!hasFront && !hasEngage) gaps.push("engage");
+    } else if (hasMarksman && hasPeel && (hasMage || tags.has("poke"))) {
+      shell = "kite";
+      completeness = 28 + (hasPeel ? 20 : 0);
+      if (!hasPeel) gaps.push("peel");
+    } else if (tags.has("aggressive_jungle") || tags.has("pick_jungle")) {
+      shell = "tempo";
+      completeness = 22;
+    } else if (hasMarksman && !hasPeel) {
+      shell = "scaling";
+      completeness = 18;
+      gaps.push("peel");
+      if (!hasFront) gaps.push("frontline");
+    }
+
+    return {
+      shell,
+      label: SHELL_LABELS[shell] || shell || "",
+      completeness: Math.min(100, completeness),
+      gaps,
+      carry,
+    };
+  }
+
+  function scoreWinConditionBonus(allies, champName, metaMap) {
+    const before = detectCompShell(allies, metaMap);
+    const after = detectCompShell(allies.concat(champName), metaMap);
+    let bonus = 0;
+    const reasons = [];
+    const delta = after.completeness - before.completeness;
+    if (delta >= 12) {
+      bonus += Math.round(delta * 0.65);
+      if (after.label) reasons.push(`Shell ${after.label} (${after.completeness}%)`);
+    }
+    if (before.gaps.length > after.gaps.length && after.shell) {
+      const filled = before.gaps.find((g) => !after.gaps.includes(g));
+      if (filled) reasons.push(`Complète : ${filled}`);
+      bonus += 24;
+    }
+    if (after.completeness >= 70 && after.gaps.length <= 1) {
+      bonus += 28;
+      reasons.push("Win condition presque verrouillée");
+    }
+    return { bonus, reasons, before, after };
+  }
+
+  function counterabilityPenalty(champName, metaMap) {
+    const worst = meta(champName, metaMap).worstMatchups || [];
+    const flexSlots = (meta(champName, metaMap).optimalSlots || []).length;
+    const dp = draftProfile(champName, metaMap);
+    const specialist = (dp.dpsWeight ?? 0) >= 0.62 && flexSlots <= 1;
+    const risk = worst.length * 14 + (specialist ? 22 : 0) + (flexSlots <= 1 ? 12 : 0);
+    return { risk, poolThreat: worst.length, specialist };
   }
 
   /** Tier meta S–D — ouverture forte, closing réduit si counter disponible. */
@@ -453,6 +549,14 @@
       reasons.push("Tier S/A");
     }
 
+    const ctr = counterabilityPenalty(champName, metaMap);
+    if (ctr.risk >= 40) {
+      bonus -= Math.round(ctr.risk * 0.85);
+      if (ctr.poolThreat >= 3) reasons.push(`Counterable (${ctr.poolThreat} menaces)`);
+      else if (ctr.poolThreat >= 1) reasons.push("Blind risqué — counters connus");
+      if (ctr.specialist) reasons.push("Spécialiste — flex limité");
+    }
+
     const opts = cOptimalSlots(champName, byName, metaMap);
     if (opts.includes("Bot") && (draftProfile(champName, metaMap).dpsWeight ?? 0) >= 0.5) {
       bonus += 48;
@@ -559,6 +663,9 @@
     const abil = abilityPickLayer(champName, allies, oppNames, byName, metaMap);
     score += abil.score * pm.ability * LAYER.ability;
 
+    const winCond = scoreWinConditionBonus(allies, champName, metaMap);
+    score += winCond.bonus * (pm.plan || 1) * LAYER.mtgFamily;
+
     const reasons = [];
     const delta = afterEv.total - beforeEv.total;
     if (delta > 12) reasons.push("Renforce la comp");
@@ -567,7 +674,7 @@
     if (filledAfter < filledBefore && beforeEv.gaps?.[0]) {
       reasons.push(`Comble ${beforeEv.gaps[0]}`);
     }
-    reasons.push(...fpReasons, ...tierLayer.reasons.slice(0, 1), ...mtgFam.reasons.slice(0, 2));
+    reasons.push(...fpReasons, ...winCond.reasons.slice(0, 2), ...tierLayer.reasons.slice(0, 1), ...mtgFam.reasons.slice(0, 2));
     reasons.push(...abil.reasons.slice(0, 2));
     reasons.push(...syn.reasons.slice(0, 2), ...pair.reasons.slice(0, 2));
     reasons.push(...tags.reasons.slice(0, 2), ...roleGap.reasons.slice(0, 1));
@@ -746,6 +853,39 @@
       reasons.push("Engage vs poke");
     }
 
+    const ourShell = detectCompShell(ourNames, metaMap);
+    if (ourShell.carry && (meta(ourShell.carry, metaMap).worstMatchups || []).includes(champName)) {
+      score += 34;
+      reasons.push(`Counter carry ${ourShell.carry}`);
+    }
+    if (ourShell.shell === "front_to_back" && hasTag(champName, "dive", metaMap)) {
+      score += 28;
+      reasons.push("Dive vs front-to-back");
+    }
+    if (ourShell.completeness >= 55 && phase === "closing") {
+      score += 18;
+      reasons.push("Target ban vs notre plan");
+    }
+
+    for (const e of oppNames) {
+      const pairList = meta(e, metaMap).bestPairings || champ(e, byName, metaMap).bestPairings || [];
+      if (pairList.includes(champName)) {
+        score += 32;
+        reasons.push(`Casse duo ${e}+${champName}`);
+        break;
+      }
+      if ((meta(champName, metaMap).bestPairings || []).includes(e)) {
+        score += 24;
+        reasons.push(`Deny synergie avec ${e}`);
+        break;
+      }
+    }
+
+    if (phase === "opening" && FLEX_ANCHORS.has(champName)) {
+      score += 14;
+      reasons.push("Flex ban — cache intent");
+    }
+
     if (!reasons.length) reasons.push(`Retirer ${champName} du pool`);
 
     score += global.TFM2Adaptive?.championIdentityScore?.(champName, ourNames, oppNames, metaMap, byName) ?? 0;
@@ -808,6 +948,11 @@
   global.TFM2DraftCore = {
     TAG_NEEDS,
     LAYER,
+    SHELL_LABELS,
+    detectCompShell,
+    scoreWinConditionBonus,
+    counterabilityPenalty,
+    phaseMultiplier,
     missingTags,
     tierPickLayer,
     mtgFamilyPickLayer,
