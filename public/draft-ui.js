@@ -194,14 +194,20 @@
     }).join("");
 
     const byslot = D().pickBySlot(s, side);
+    const pinnedBySlot = {};
+    for (const p of D().sidePicks(s, side)) if (p.pinned && p.slot) pinnedBySlot[p.slot] = true;
     const orderMap = pickOrderMap(s);
     const slotCells = D().SLOTS.map((slot) => {
       const name = byslot[slot];
       const foc = focus && focus.type === "pick" && focus.side === side && focus.slot === slot;
       const swap = D().isComplete(s) && name;
       const num = orderMap[`${side}:${slot}`];
-      return `<button type="button" class="draft-cell draft-pick-cell${name ? " is-filled" : ""}${foc ? " draft-cell-focused" : ""}${swap ? " draft-pick-swappable" : ""}" data-cell="pick" data-side="${side}" data-slot="${slot}">
-        <span class="draft-slot-label">${SLOT_ICONS[slot] || ""} ${esc(D().SLOT_LABELS[slot] || slot)}${num ? `<span class="draft-pick-order">#${num}</span>` : ""}</span>
+      const pin = name && pinnedBySlot[slot];
+      const title = name
+        ? (pin ? `${name} épinglé à ce poste — clique pour libérer (auto)` : `${name} — poste auto (dynamique) · clique pour épingler`)
+        : `Cibler ${D().SLOT_LABELS[slot] || slot} pour le prochain pick`;
+      return `<button type="button" title="${esc(title)}" class="draft-cell draft-pick-cell${name ? " is-filled" : ""}${foc ? " draft-cell-focused" : ""}${swap ? " draft-pick-swappable" : ""}${pin ? " draft-pick-pinned" : ""}" data-cell="pick" data-side="${side}" data-slot="${slot}">
+        <span class="draft-slot-label">${SLOT_ICONS[slot] || ""} ${esc(D().SLOT_LABELS[slot] || slot)}${pin ? ` <span class="draft-pin-badge" title="Poste épinglé">📌</span>` : ""}${num ? `<span class="draft-pick-order">#${num}</span>` : ""}</span>
         ${name ? cellChampHtml(name) : `<span class="draft-cell-plus">+</span>`}
       </button>`;
     }).join("");
@@ -354,7 +360,10 @@
     const step = D().getStep(s);
     const action = { type: step.type, side: step.side, name };
     if (step.type === "pick") {
-      action.slot = slot || (s.focus && s.focus.slot) || D().bestSlotForChampion(name, s, step.side);
+      // slot explicite (case cliquée) = épinglé ; sinon poste auto (dynamique).
+      const userSlot = s.focus && s.focus.slot ? s.focus.slot : null;
+      action.slot = slot || userSlot || D().bestSlotForChampion(name, s, step.side);
+      action.pin = Boolean(userSlot && !slot);
     } else if (s.focus && s.focus.type === "ban" && s.focus.side === step.side) {
       action.banIndex = s.focus.banIndex;
     }
@@ -388,7 +397,20 @@
       renderAll();
       return;
     }
-    // focus la case (choisir quel poste/ban remplir)
+    // Case pick DÉJÀ remplie (draft en cours) → épingler/libérer le poste.
+    if (type === "pick") {
+      const slot = cell.dataset.slot;
+      const occupant = D().pickBySlot(s, side)[slot];
+      if (occupant) {
+        const pinned = D().togglePin(s, side, occupant);
+        invalidateRec();
+        saveDebounced();
+        renderAll();
+        flash(pinned ? `${occupant} épinglé à ${D().SLOT_LABELS[slot] || slot} 📌` : `${occupant} — poste auto (dynamique)`, "info");
+        return;
+      }
+    }
+    // Case vide → cibler ce poste/ban pour la prochaine sélection.
     if (type === "ban") s.focus = { type: "ban", side, banIndex: parseInt(cell.dataset.ban, 10) };
     else s.focus = { type: "pick", side, slot: cell.dataset.slot };
     invalidateRec();

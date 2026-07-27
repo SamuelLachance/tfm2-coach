@@ -162,6 +162,37 @@
     }
   }
 
+  /**
+   * Réassigne dynamiquement les postes d'un côté selon la logique de draft :
+   * chaque champion NON épinglé va à son meilleur poste (buff + matchup de lane
+   * vs la comp adverse). Les postes épinglés (pinned) restent fixes.
+   */
+  function reoptimizeSide(s, side) {
+    const picks = sidePicks(s, side);
+    if (!picks.length) return;
+    const names = picks.map((p) => p.name);
+    const pinned = {};
+    const pinFlag = {};
+    for (const p of picks) { pinFlag[p.name] = !!p.pinned; if (p.pinned && p.slot) pinned[p.name] = p.slot; }
+    const enemyComp = pickBySlot(s, side === "blue" ? "red" : "blue");
+    const { assignment } = Model().bestAssignment(names, enemyComp, pinned);
+    if (assignment && assignment.length) {
+      s.picks[side] = assignment.map((a) => ({ name: a.name, slot: a.slot, pinned: pinFlag[a.name] || false }));
+    }
+  }
+  function reoptimizeAll(s) {
+    // deux passes : la 2e stabilise les matchups de lane croisés entre côtés.
+    for (let i = 0; i < 2; i++) { reoptimizeSide(s, "blue"); reoptimizeSide(s, "red"); }
+  }
+  function togglePin(s, side, name) {
+    const p = sidePicks(s, side).find((x) => x.name === name);
+    if (!p) return false;
+    p.pinned = !p.pinned;
+    if (!p.pinned) reoptimizeAll(s);
+    s.updatedAt = Date.now();
+    return p.pinned;
+  }
+
   function applyAction(s, action, all = []) {
     normalizeSession(s);
     const step = getStep(s);
@@ -179,11 +210,10 @@
     } else {
       if (sidePickCount(s, step.side) >= 5) return { ok: false, error: "Picks pleins." };
       const open = openSlots(s, step.side);
-      const slot =
-        action.slot && open.includes(action.slot)
-          ? action.slot
-          : Model().bestSlotFor(name, open);
-      s.picks[step.side] = sidePicks(s, step.side).concat([{ name, slot }]);
+      const userSlot = action.slot && open.includes(action.slot) ? action.slot : null;
+      const slot = userSlot || Model().bestSlotFor(name, open);
+      s.picks[step.side] = sidePicks(s, step.side).concat([{ name, slot, pinned: Boolean(action.pin && userSlot) }]);
+      reoptimizeAll(s);
     }
     s.stepIndex++;
     s.updatedAt = Date.now();
@@ -217,8 +247,11 @@
     } else {
       if (sidePickCount(s, side) >= 5) { s.history.pop(); return { ok: false, error: "Picks pleins." }; }
       const open = openSlots(s, side);
-      const target = slot && open.includes(slot) ? slot : Model().bestSlotFor(name, open);
-      s.picks[side] = sidePicks(s, side).concat([{ name, slot: target }]);
+      const userSlot = slot && open.includes(slot) ? slot : null;
+      const target = userSlot || Model().bestSlotFor(name, open);
+      // Placement manuel dans un poste précis = épinglé (choix explicite de l'utilisateur).
+      s.picks[side] = sidePicks(s, side).concat([{ name, slot: target, pinned: Boolean(userSlot) }]);
+      reoptimizeAll(s);
     }
     resyncStepIndex(s);
     s.updatedAt = Date.now();
@@ -269,8 +302,9 @@
     if (!comp[a] && !comp[b]) return { ok: false, error: "Postes vides." };
     snapshot(s);
     s.picks[side] = s.picks[side].filter((p) => p.slot !== a && p.slot !== b);
-    if (comp[b]) s.picks[side].push({ name: comp[b], slot: a });
-    if (comp[a]) s.picks[side].push({ name: comp[a], slot: b });
+    // Échange manuel = les deux postes deviennent épinglés (choix utilisateur).
+    if (comp[b]) s.picks[side].push({ name: comp[b], slot: a, pinned: true });
+    if (comp[a]) s.picks[side].push({ name: comp[a], slot: b, pinned: true });
     s.updatedAt = Date.now();
     return { ok: true };
   }
@@ -454,6 +488,8 @@
     undo,
     resetSession,
     swapPickSlots,
+    reoptimizeAll,
+    togglePin,
     getRecommendations,
     bestSlotForChampion,
     suggestNextFocus,

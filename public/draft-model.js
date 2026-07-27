@@ -355,6 +355,61 @@
     return best;
   }
 
+  // --- Assignation dynamique des postes (par côté) ---------------------------
+  /** Edge de lane 1v1 : `name` vs le champion ennemi du MÊME poste (ordinal). */
+  function laneValue(name, enemyName) {
+    if (!enemyName) return 0;
+    const iBeat = data().counteredBy(enemyName).find((x) => x.name === name); // je counter l'ennemi
+    const beatsMe = data().counteredBy(name).find((x) => x.name === enemyName); // l'ennemi me counter
+    return (iBeat ? ordinal(iBeat.rank) : 0) - (beatsMe ? ordinal(beatsMe.rank) : 0);
+  }
+
+  /** Valeur d'un champion à un poste = exploitation du buff + matchup de lane. */
+  function assignValue(name, slot, enemyComp) {
+    return buffFit(name, slot).score * W.buff + laneValue(name, (enemyComp || {})[slot]) * W.counter;
+  }
+
+  /** Arrangements ordonnés de k éléments parmi `arr` (sans répétition). */
+  function arrangements(arr, k) {
+    if (k === 0) return [[]];
+    const out = [];
+    for (let i = 0; i < arr.length; i++) {
+      const rest = arr.slice(0, i).concat(arr.slice(i + 1));
+      for (const sub of arrangements(rest, k - 1)) out.push([arr[i], ...sub]);
+    }
+    return out;
+  }
+
+  /**
+   * Assignation OPTIMALE des postes d'une équipe (≤5 champions), maximisant
+   * Σ (buff-fit + matchup de lane vs la comp adverse). Les postes `pinned`
+   * (choisis manuellement) sont fixes ; les autres sont optimisés dynamiquement.
+   * Appelée UNE fois par pick (pas par candidat) → coût borné (≤ 5! permutations).
+   */
+  function bestAssignment(names, enemyComp = {}, pinned = {}) {
+    const list = (names || []).filter(Boolean);
+    if (!list.length) return { assignment: [], total: 0 };
+    const pinnedNames = list.filter((n) => pinned[n] && SLOTS.includes(pinned[n]));
+    const usedSlots = new Set(pinnedNames.map((n) => pinned[n]));
+    const freeNames = list.filter((n) => !pinnedNames.includes(n));
+    const freeSlots = SLOTS.filter((s) => !usedSlots.has(s));
+
+    const pinnedPart = pinnedNames.map((n) => ({ name: n, slot: pinned[n], pinned: true }));
+    const pinnedScore = pinnedNames.reduce((a, n) => a + assignValue(n, pinned[n], enemyComp), 0);
+
+    let best = null;
+    for (const slots of arrangements(freeSlots, freeNames.length)) {
+      let total = pinnedScore;
+      const assignment = pinnedPart.slice();
+      for (let i = 0; i < freeNames.length; i++) {
+        total += assignValue(freeNames[i], slots[i], enemyComp);
+        assignment.push({ name: freeNames[i], slot: slots[i], pinned: false });
+      }
+      if (!best || total > best.total) best = { assignment, total };
+    }
+    return best || { assignment: list.map((n, i) => ({ name: n, slot: SLOTS[i], pinned: false })), total: 0 };
+  }
+
   // --- Ban (avec contexte de NOTRE comp) -------------------------------------
   function scoreBan(name, ctx = {}) {
     const ourNames = (ctx.ourNames || []).filter(Boolean);
@@ -453,6 +508,7 @@
     scorePickAtSlot,
     scoreBan,
     bestSlotFor,
+    bestAssignment,
     // sous-composants (exposés pour tests / UI)
     buffFit,
     synergy,

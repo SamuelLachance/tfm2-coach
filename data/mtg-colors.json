@@ -82,24 +82,24 @@
   },
   "champions": {
     "Alchimiste": {
-      "W": 2,
-      "U": 6,
-      "B": 5,
-      "R": 7,
-      "G": 4,
+      "W": 3,
+      "U": 10,
+      "B": 2,
+      "R": 3,
+      "G": 6,
       "dominant": [
-        "R",
-        "U"
+        "U",
+        "G"
       ],
-      "identity": "RU",
+      "identity": "UG",
       "vector": [
+        0.125,
+        0.4166666666666667,
         0.08333333333333333,
-        0.25,
-        0.20833333333333334,
-        0.2916666666666667,
-        0.16666666666666666
+        0.125,
+        0.25
       ],
-      "family": "mage_dps"
+      "family": "mage_control"
     },
     "Androïde": {
       "W": 12,
@@ -901,26 +901,6 @@
       ],
       "family": "mage_control"
     },
-    "Mage de sable": {
-      "W": 3,
-      "U": 10,
-      "B": 2,
-      "R": 3,
-      "G": 6,
-      "dominant": [
-        "U",
-        "G"
-      ],
-      "identity": "UG",
-      "vector": [
-        0.125,
-        0.4166666666666667,
-        0.08333333333333333,
-        0.125,
-        0.25
-      ],
-      "family": "mage_control"
-    },
     "Mage des ombres": {
       "W": 0,
       "U": 6,
@@ -940,6 +920,26 @@
         0.0
       ],
       "family": "assassin_ap_pick"
+    },
+    "Mage du sable": {
+      "W": 3,
+      "U": 10,
+      "B": 2,
+      "R": 3,
+      "G": 6,
+      "dominant": [
+        "U",
+        "G"
+      ],
+      "identity": "UG",
+      "vector": [
+        0.125,
+        0.4166666666666667,
+        0.08333333333333333,
+        0.125,
+        0.25
+      ],
+      "family": "mage_control"
     },
     "Mage du vent": {
       "W": 3,

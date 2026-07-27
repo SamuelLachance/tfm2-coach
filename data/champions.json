@@ -22,8 +22,8 @@
         "poke",
         "wave_clear"
       ],
-      "raison": "Poison (DoT) + réduction de soins ; harcèle à distance et neutralise les compos qui vivent sur le heal. Profite du +20 % XP au Mid.",
-      "stats": null,
+      "raison": "Poison AoE + shred de résistances + anti-soin ; profite du +20 % XP au Mid pour scaler ses ratios PM.",
+      "stats": "AD 80→146 | PM 40→260 | HP 900→2000 | Arm 20→97 | RM 20→53 | Portée 60 | MS 54→59.94",
       "worstMatchups": [
         "Ninja",
         "Démon",
@@ -43,26 +43,26 @@
         "Prophète de l'abîme",
         "Cristal chrono"
       ],
-      "tierMeta": "C",
-      "tierNote": "Anti-soin + poison DoT à distance : fort *situationnellement* vs comps à sustain/heal, mais sans hard CC ni burst et fragile — puni par le dive/burst. Pick de contre plus que blind. *(kit fidèle au wiki ; valeurs chiffrées à confirmer en jeu)*",
+      "tierMeta": "B",
+      "tierNote": "Mage anti-soin / DoT : l'ult empoisonne EN ZONE et **réduit armure + résistance magique** (amplifie toute l'équipe), + double coupure de soins (50 % en zone A1, 100 % ciblé A2). Ranged sans hard CC → puni par le dive/burst, mais fort vs sustain et sur les objectifs groupés. *(stats & capacités = données in-game)*",
       "abilities": [
         {
           "slot": "Ability 1",
-          "meta": "Level 1 - 8.0s",
-          "cooldown": "8.0s",
-          "description": "Lance une fiole qui explose à l'impact, infligeant **120 + 60% de la puissance magique** en dégâts magiques et appliquant **Poison** (dégâts sur la durée) ainsi qu'une **réduction des soins de 40 % pendant 4 s** aux ennemis touchés."
+          "meta": "Level 1 - 10.0s",
+          "cooldown": "10.0s",
+          "description": "Lance une fiole qui explose et laisse une zone toxique pendant 1.0s. Les ennemis dans la zone sont **empoisonnés** pendant 3.0s, subissant **8 + 10% de la puissance magique** en dégâts magiques toutes les 0.5s, et leurs **soins sont réduits de 50%**."
         },
         {
           "slot": "Ability 2",
-          "meta": "Level 2 - 9.0s",
-          "cooldown": "9.0s",
-          "description": "Cible un ennemi, lui inflige **100 + 50% de la puissance magique** en dégâts magiques, le **prive de tout soin pendant 3 s** et le **ralentit de 40 % pendant 2 s**."
+          "meta": "Level 2 - 11.0s",
+          "cooldown": "11.0s",
+          "description": "Injecte un réactif instable à un ennemi, infligeant **90 + 55% de la puissance magique** en dégâts magiques. Pendant 2.5s, la cible **ne peut pas être soignée** et est **ralentie de 35%**."
         },
         {
           "slot": "Ultimate",
-          "meta": "Level 3 - 60.0s",
-          "cooldown": "60.0s",
-          "description": "Projette une fiole toxique en ligne droite ; au contact d'un ennemi, un **nuage de poison** circulaire se forme et **s'étend progressivement**, infligeant **80 + 40% de la puissance magique** en dégâts magiques par seconde et appliquant **Poison** aux ennemis à l'intérieur."
+          "meta": "Level 3 - 50.0s",
+          "cooldown": "50.0s",
+          "description": "Lance une fiole toxique en ligne droite. Au contact d'un champion ennemi, crée un **nuage toxique** qui s'étend jusqu'à 50 de portée pendant 4.0s. Les ennemis dans le nuage sont **empoisonnés** 4.0s, subissant **20 + 20% de la puissance magique** en dégâts magiques toutes les 0.5s, et perdent **8 + 5% de la puissance magique** d'armure ainsi que **8 + 5% de la puissance magique** de résistance magique."
         }
       ],
       "nameEn": "Alchemist",
@@ -73,44 +73,44 @@
       "gridCol": null,
       "icon": "icons/alchimiste.png",
       "colorIdentity": {
-        "W": 2,
-        "U": 6,
-        "B": 5,
-        "R": 7,
-        "G": 4,
+        "W": 3,
+        "U": 10,
+        "B": 2,
+        "R": 3,
+        "G": 6,
         "dominant": [
-          "R",
-          "U"
+          "U",
+          "G"
         ],
-        "identity": "RU",
+        "identity": "UG",
         "vector": [
+          0.125,
+          0.4166666666666667,
           0.08333333333333333,
-          0.25,
-          0.20833333333333334,
-          0.2916666666666667,
-          0.16666666666666666
+          0.125,
+          0.25
         ],
-        "family": "mage_dps"
+        "family": "mage_control"
       },
       "computedWorstMatchups": [
         "Exécuteur",
+        "Chevalier magique",
+        "Vampire",
         "Soldat",
-        "Prêtre",
-        "Berserker",
-        "Briseur de siège"
+        "Mage des ombres"
       ],
       "computedBestPairings": [
-        "Mage des ombres",
+        "Prêtre",
+        "Exécuteur",
+        "Maître du fouet",
         "Mage noir",
-        "Nécromancien",
-        "Exorciste",
-        "Androïde"
+        "Nécromancien"
       ],
       "draftProfile": {
         "damage": "Mixed",
         "squishy": false,
         "tanky": false,
-        "range": "melee",
+        "range": "long",
         "adRatio": 0,
         "apRatio": 0,
         "adShare": 0.0,
@@ -437,7 +437,7 @@
         "Mage noir",
         "Double lame",
         "Mage blanc",
-        "Enchanteur"
+        "Alchimiste"
       ],
       "computedBestPairings": [
         "Chasseur de boomerang",
@@ -555,11 +555,11 @@
         "Exorciste"
       ],
       "computedBestPairings": [
+        "Alchimiste",
         "Mage blanc",
+        "Mage du sable",
         "Mage du vent",
-        "Mage de foudre",
-        "Chasseur de boomerang",
-        "Joueur"
+        "Mage de foudre"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -785,11 +785,11 @@
         "Combattant"
       ],
       "computedBestPairings": [
+        "Alchimiste",
         "Mage blanc",
+        "Mage du sable",
         "Mage du vent",
-        "Mage de foudre",
-        "Chasseur de boomerang",
-        "Joueur"
+        "Mage de foudre"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -1348,7 +1348,7 @@
         "Mage des ombres",
         "Mage noir",
         "Nécromancien",
-        "Archer"
+        "Alchimiste"
       ],
       "computedBestPairings": [
         "Bombardier",
@@ -1582,11 +1582,11 @@
         "Exorciste"
       ],
       "computedBestPairings": [
+        "Alchimiste",
         "Mage blanc",
+        "Mage du sable",
         "Mage du vent",
-        "Mage de foudre",
-        "Chasseur de boomerang",
-        "Joueur"
+        "Mage de foudre"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -1698,9 +1698,9 @@
       "computedBestPairings": [
         "Mage noir",
         "Nécromancien",
+        "Alchimiste",
         "Mage blanc",
-        "Mage du vent",
-        "Mage de foudre"
+        "Mage du sable"
       ],
       "draftProfile": {
         "damage": "Mixed",
@@ -1931,8 +1931,8 @@
         "Chasseur de boomerang",
         "Soldat",
         "Bombardier",
-        "Mage blanc",
-        "Mage du vent"
+        "Alchimiste",
+        "Mage blanc"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -2155,10 +2155,10 @@
       ],
       "computedBestPairings": [
         "Mage blanc",
+        "Mage du sable",
         "Mage du vent",
-        "Mage de foudre",
-        "Chasseur de boomerang",
-        "Joueur"
+        "Alchimiste",
+        "Mage de foudre"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -2268,11 +2268,11 @@
         "Porteur de bouclier"
       ],
       "computedBestPairings": [
+        "Alchimiste",
         "Mage blanc",
+        "Mage du sable",
         "Mage du vent",
-        "Mage de foudre",
-        "Chasseur de boomerang",
-        "Joueur"
+        "Mage de foudre"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -2712,9 +2712,9 @@
       "computedWorstMatchups": [
         "Mage noir",
         "Nécromancien",
+        "Alchimiste",
         "Joueur",
-        "Prêtre",
-        "Soldat"
+        "Mage du sable"
       ],
       "computedBestPairings": [
         "Archer",
@@ -2935,15 +2935,15 @@
         "Mage des ombres",
         "Mage noir",
         "Nécromancien",
-        "Archer",
-        "Chaman vaudou"
+        "Alchimiste",
+        "Archer"
       ],
       "computedBestPairings": [
+        "Alchimiste",
         "Mage blanc",
+        "Mage du sable",
         "Mage du vent",
-        "Mage de foudre",
-        "Prêtre",
-        "Bombardier"
+        "Mage de foudre"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -3167,11 +3167,11 @@
         "Exorciste"
       ],
       "computedBestPairings": [
+        "Alchimiste",
         "Mage blanc",
         "Mage de foudre",
-        "Mage du vent",
-        "Mage noir",
-        "Nécromancien"
+        "Mage du sable",
+        "Mage du vent"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -3395,11 +3395,11 @@
         "Exorciste"
       ],
       "computedBestPairings": [
+        "Alchimiste",
         "Mage blanc",
+        "Mage du sable",
         "Mage du vent",
-        "Mage de foudre",
-        "Pyromancien",
-        "Chasseur de boomerang"
+        "Mage de foudre"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -3618,9 +3618,9 @@
       "computedWorstMatchups": [
         "Mage noir",
         "Nécromancien",
+        "Alchimiste",
         "Joueur",
-        "Prêtre",
-        "Soldat"
+        "Mage du sable"
       ],
       "computedBestPairings": [
         "Archer",
@@ -4080,11 +4080,11 @@
         "Exorciste"
       ],
       "computedBestPairings": [
+        "Alchimiste",
         "Mage blanc",
+        "Mage du sable",
         "Mage du vent",
-        "Mage de foudre",
-        "Chasseur de boomerang",
-        "Joueur"
+        "Mage de foudre"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -4416,8 +4416,8 @@
         "Mage des ombres",
         "Mage noir",
         "Nécromancien",
-        "Archer",
-        "Chaman vaudou"
+        "Alchimiste",
+        "Archer"
       ],
       "computedBestPairings": [
         "Bombardier",
@@ -4668,121 +4668,6 @@
       }
     },
     {
-      "id": "mage-de-sable",
-      "name": "Mage de sable",
-      "type": "Mage (DPS / Contrôle de zone)",
-      "positions": "Toutes · optimal : Mid",
-      "optimalSlots": [
-        "Mid"
-      ],
-      "viableSlots": [
-        "Bot",
-        "Top"
-      ],
-      "draftJob": "control",
-      "roleTags": [
-        "mage_burst",
-        "engage",
-        "wave_clear"
-      ],
-      "raison": "DPS magique soutenu + ult de contrôle de zone (pull AoE) ; self vitesse de déplacement et soin. Scale avec le +20 % XP au Mid.",
-      "stats": null,
-      "worstMatchups": [
-        "Ninja",
-        "Chasseur",
-        "Démon",
-        "Inquisiteur",
-        "Loup-garou"
-      ],
-      "bestPairings": [
-        "Bombardier",
-        "Pyromancien",
-        "Tireur",
-        "Infanterie lourde",
-        "Maître du fouet"
-      ],
-      "build": [
-        "Bâton du sorcier",
-        "Prophète de l'abîme",
-        "Cristal chrono"
-      ],
-      "tierMeta": "A",
-      "tierNote": "Mage de contrôle solide : ult « marais de sable » (pull AoE) = outil de teamfight/objectif fiable, + self MS/soin qui le rend dur à punir. Sous les mages S (dégâts soutenus, dépend de l'ult). *(kit fidèle au wiki ; valeurs chiffrées à confirmer en jeu)*",
-      "abilities": [
-        {
-          "slot": "Ability 1",
-          "meta": "Level 1 - 6.0s",
-          "cooldown": "6.0s",
-          "description": "Imprègne ses attaques de sable : la prochaine attaque inflige **60 + 40% de la puissance magique** en dégâts magiques supplémentaires et fait **exploser du sable** autour de la cible (dégâts magiques de zone). Peut infliger un **coup critique**."
-        },
-        {
-          "slot": "Ability 2",
-          "meta": "Level 2 - 12.0s",
-          "cooldown": "12.0s",
-          "description": "Absorbe la puissance du sable : gagne **+25 % de vitesse de déplacement pendant 3 s** et récupère **150 + 30% de la puissance magique** en PV."
-        },
-        {
-          "slot": "Ultimate",
-          "meta": "Level 3 - 55.0s",
-          "cooldown": "55.0s",
-          "description": "Crée un **marais de sable** autour d'une cible pendant 4 s. Les ennemis présents sont **continuellement aspirés vers le centre** et subissent **90 + 40% de la puissance magique** en dégâts magiques par seconde."
-        }
-      ],
-      "nameEn": "Sand Mage",
-      "visual": "Tourbillon de sable",
-      "grid": "—",
-      "gridSheet": null,
-      "gridRow": null,
-      "gridCol": null,
-      "icon": "icons/mage-de-sable.png",
-      "colorIdentity": {
-        "W": 3,
-        "U": 10,
-        "B": 2,
-        "R": 3,
-        "G": 6,
-        "dominant": [
-          "U",
-          "G"
-        ],
-        "identity": "UG",
-        "vector": [
-          0.125,
-          0.4166666666666667,
-          0.08333333333333333,
-          0.125,
-          0.25
-        ],
-        "family": "mage_control"
-      },
-      "computedWorstMatchups": [
-        "Soldat",
-        "Mage noir",
-        "Nécromancien",
-        "Chevalier magique",
-        "Vampire"
-      ],
-      "computedBestPairings": [
-        "Berserker",
-        "Briseur de siège",
-        "Chevalier",
-        "Chevalier de cavalerie",
-        "Combattant"
-      ],
-      "draftProfile": {
-        "damage": "Mixed",
-        "squishy": false,
-        "tanky": false,
-        "range": "melee",
-        "adRatio": 0,
-        "apRatio": 0,
-        "adShare": 0.0,
-        "apShare": 1.0,
-        "dpsWeight": 0.23,
-        "tankWeight": 0.08
-      }
-    },
-    {
       "id": "mage-des-ombres",
       "name": "Mage des ombres",
       "type": "Mage (Contrôle)",
@@ -4896,6 +4781,121 @@
       }
     },
     {
+      "id": "mage-du-sable",
+      "name": "Mage du sable",
+      "type": "Mage (DPS / Contrôle de zone)",
+      "positions": "Toutes · optimal : Mid",
+      "optimalSlots": [
+        "Mid"
+      ],
+      "viableSlots": [
+        "Bot",
+        "Top"
+      ],
+      "draftJob": "control",
+      "roleTags": [
+        "mage_burst",
+        "engage",
+        "wave_clear"
+      ],
+      "raison": "Dégâts magiques AoE + pull d'ult pour les objectifs/teamfights groupés ; self-peel (soin + vitesse). Scale avec le +20 % XP au Mid.",
+      "stats": "AD 80→146 | PM 40→205 | HP 900→2000 | Arm 20→97 | RM 20→53 | Portée 60 | MS 54→59.94",
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Démon",
+        "Inquisiteur",
+        "Loup-garou"
+      ],
+      "bestPairings": [
+        "Bombardier",
+        "Pyromancien",
+        "Tireur",
+        "Infanterie lourde",
+        "Maître du fouet"
+      ],
+      "build": [
+        "Bâton du sorcier",
+        "Prophète de l'abîme",
+        "Cristal chrono"
+      ],
+      "tierMeta": "A",
+      "tierNote": "Mage de contrôle/DPS : l'ult « marais de sable » **aspire les ennemis au centre** (CC AoE fiable) + auto-attaques chargées de sable pouvant **critiquer** (burst AoE) + self MS/soin qui le rend dur à punir. Sous les mages S car le pic de contrôle dépend de l'ult. *(stats & capacités = données in-game)*",
+      "abilities": [
+        {
+          "slot": "Ability 1",
+          "meta": "Level 1 - 7.0s",
+          "cooldown": "7.0s",
+          "description": "Les attaques de base **portent l'énergie du sable** et infligent **12 + 30% de la puissance magique** en dégâts magiques bonus. Ces dégâts bonus et l'explosion de sable peuvent infliger un **coup critique**. À l'activation, fait **exploser le sable** autour de la cible et inflige **100 + 80% de la puissance magique** en dégâts magiques de zone."
+        },
+        {
+          "slot": "Ability 2",
+          "meta": "Level 2 - 9.0s",
+          "cooldown": "9.0s",
+          "description": "Absorbe l'énergie du sable pendant 3.0s : augmente la **vitesse de déplacement de 20 % + 6% de la puissance magique** et **se soigne de 80 + 45% de la puissance magique**."
+        },
+        {
+          "slot": "Ultimate",
+          "meta": "Level 3 - 50.0s",
+          "cooldown": "50.0s",
+          "description": "Crée un **marais de sable** autour de la cible pendant 2.5s. Toutes les 0.5s, les ennemis à l'intérieur subissent **28 + 22% de la puissance magique** en dégâts magiques et sont **attirés vers le centre**."
+        }
+      ],
+      "nameEn": "Sand Mage",
+      "visual": "Tourbillon de sable",
+      "grid": "—",
+      "gridSheet": null,
+      "gridRow": null,
+      "gridCol": null,
+      "icon": "icons/mage-du-sable.png",
+      "colorIdentity": {
+        "W": 3,
+        "U": 10,
+        "B": 2,
+        "R": 3,
+        "G": 6,
+        "dominant": [
+          "U",
+          "G"
+        ],
+        "identity": "UG",
+        "vector": [
+          0.125,
+          0.4166666666666667,
+          0.08333333333333333,
+          0.125,
+          0.25
+        ],
+        "family": "mage_control"
+      },
+      "computedWorstMatchups": [
+        "Chevalier magique",
+        "Vampire",
+        "Soldat",
+        "Mage des ombres",
+        "Mage noir"
+      ],
+      "computedBestPairings": [
+        "Prêtre",
+        "Exécuteur",
+        "Maître du fouet",
+        "Mage noir",
+        "Nécromancien"
+      ],
+      "draftProfile": {
+        "damage": "Mixed",
+        "squishy": false,
+        "tanky": false,
+        "range": "long",
+        "adRatio": 0,
+        "apRatio": 0,
+        "adShare": 0.0,
+        "apShare": 1.0,
+        "dpsWeight": 0.23,
+        "tankWeight": 0.08
+      }
+    },
+    {
       "id": "mage-du-vent",
       "name": "Mage du vent",
       "type": "Mage (Contrôle / Déplacement)",
@@ -4987,7 +4987,7 @@
         "Nécromancien",
         "Mage des ombres",
         "Prêtre",
-        "Chasseur"
+        "Alchimiste"
       ],
       "computedBestPairings": [
         "Exécuteur",
@@ -5789,9 +5789,9 @@
       "computedBestPairings": [
         "Bombardier",
         "Prêtre",
+        "Alchimiste",
         "Mage blanc",
-        "Mage de foudre",
-        "Mage du vent"
+        "Mage de foudre"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -6012,10 +6012,10 @@
       ],
       "computedBestPairings": [
         "Mage blanc",
+        "Mage du sable",
         "Mage du vent",
         "Chasseur de boomerang",
-        "Soldat",
-        "Bombardier"
+        "Soldat"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -6923,8 +6923,8 @@
         "Mage noir",
         "Nécromancien",
         "Mage des ombres",
-        "Mage blanc",
-        "Mage du vent"
+        "Alchimiste",
+        "Mage blanc"
       ],
       "draftProfile": {
         "damage": "Mixed",
@@ -7035,11 +7035,11 @@
         "Exécuteur"
       ],
       "computedBestPairings": [
+        "Alchimiste",
         "Mage blanc",
+        "Mage du sable",
         "Mage du vent",
-        "Mage de foudre",
-        "Chasseur de boomerang",
-        "Joueur"
+        "Mage de foudre"
       ],
       "draftProfile": {
         "damage": "AD",

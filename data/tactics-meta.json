@@ -764,7 +764,7 @@
         "Prophète de l'abîme",
         "Cristal chrono"
       ],
-      "tierMeta": "C",
+      "tierMeta": "B",
       "draftJob": "control",
       "roleTags": [
         "poke",
@@ -777,7 +777,7 @@
       "optimalSlots": [
         "Mid"
       ],
-      "tierNote": "Anti-soin + poison DoT à distance : fort *situationnellement* vs comps à sustain/heal, mais sans hard CC ni burst et fragile — puni par le dive/burst. Pick de contre plus que blind. *(kit fidèle au wiki ; valeurs chiffrées à confirmer en jeu)*",
+      "tierNote": "Mage anti-soin / DoT : l'ult empoisonne EN ZONE et **réduit armure + résistance magique** (amplifie toute l'équipe), + double coupure de soins (50 % en zone A1, 100 % ciblé A2). Ranged sans hard CC → puni par le dive/burst, mais fort vs sustain et sur les objectifs groupés. *(stats & capacités = données in-game)*",
       "worstMatchups": [
         "Ninja",
         "Démon",
@@ -796,7 +796,7 @@
         "damage": "Mixed",
         "squishy": false,
         "tanky": false,
-        "range": "melee",
+        "range": "long",
         "adRatio": 0,
         "apRatio": 0,
         "adShare": 0.0,
@@ -805,30 +805,30 @@
         "tankWeight": 0.08
       },
       "colorIdentity": {
-        "W": 2,
-        "U": 6,
-        "B": 5,
-        "R": 7,
-        "G": 4,
+        "W": 3,
+        "U": 10,
+        "B": 2,
+        "R": 3,
+        "G": 6,
         "dominant": [
-          "R",
-          "U"
+          "U",
+          "G"
         ],
-        "identity": "RU",
+        "identity": "UG",
         "vector": [
+          0.125,
+          0.4166666666666667,
           0.08333333333333333,
-          0.25,
-          0.20833333333333334,
-          0.2916666666666667,
-          0.16666666666666666
+          0.125,
+          0.25
         ],
-        "family": "mage_dps"
+        "family": "mage_control"
       },
-      "family": "mage_dps",
-      "familyLabel": "Mage DPS",
+      "family": "mage_control",
+      "familyLabel": "Mage contrôle",
       "compTypes": [
-        "lane_tempo",
-        "all_in"
+        "poke_siege",
+        "poke_disengage"
       ]
     },
     "Androïde": {
@@ -3999,85 +3999,6 @@
         "poke_disengage"
       ]
     },
-    "Mage de sable": {
-      "id": "mage-de-sable",
-      "type": "Mage (DPS / Contrôle de zone)",
-      "tags": [
-        "mage_burst"
-      ],
-      "build": [
-        "Bâton du sorcier",
-        "Prophète de l'abîme",
-        "Cristal chrono"
-      ],
-      "tierMeta": "A",
-      "draftJob": "control",
-      "roleTags": [
-        "mage_burst",
-        "engage",
-        "wave_clear"
-      ],
-      "viableSlots": [
-        "Bot",
-        "Top"
-      ],
-      "optimalSlots": [
-        "Mid"
-      ],
-      "tierNote": "Mage de contrôle solide : ult « marais de sable » (pull AoE) = outil de teamfight/objectif fiable, + self MS/soin qui le rend dur à punir. Sous les mages S (dégâts soutenus, dépend de l'ult). *(kit fidèle au wiki ; valeurs chiffrées à confirmer en jeu)*",
-      "worstMatchups": [
-        "Ninja",
-        "Chasseur",
-        "Démon",
-        "Inquisiteur",
-        "Loup-garou"
-      ],
-      "bestPairings": [
-        "Bombardier",
-        "Pyromancien",
-        "Tireur",
-        "Infanterie lourde",
-        "Maître du fouet"
-      ],
-      "draftProfile": {
-        "damage": "Mixed",
-        "squishy": false,
-        "tanky": false,
-        "range": "melee",
-        "adRatio": 0,
-        "apRatio": 0,
-        "adShare": 0.0,
-        "apShare": 1.0,
-        "dpsWeight": 0.23,
-        "tankWeight": 0.08
-      },
-      "colorIdentity": {
-        "W": 3,
-        "U": 10,
-        "B": 2,
-        "R": 3,
-        "G": 6,
-        "dominant": [
-          "U",
-          "G"
-        ],
-        "identity": "UG",
-        "vector": [
-          0.125,
-          0.4166666666666667,
-          0.08333333333333333,
-          0.125,
-          0.25
-        ],
-        "family": "mage_control"
-      },
-      "family": "mage_control",
-      "familyLabel": "Mage contrôle",
-      "compTypes": [
-        "poke_siege",
-        "poke_disengage"
-      ]
-    },
     "Mage des ombres": {
       "id": "mage-des-ombres",
       "type": "Mage (Contrôle)",
@@ -4154,6 +4075,85 @@
       "compTypes": [
         "pick_global",
         "all_in"
+      ]
+    },
+    "Mage du sable": {
+      "id": "mage-du-sable",
+      "type": "Mage (DPS / Contrôle de zone)",
+      "tags": [
+        "mage_burst"
+      ],
+      "build": [
+        "Bâton du sorcier",
+        "Prophète de l'abîme",
+        "Cristal chrono"
+      ],
+      "tierMeta": "A",
+      "draftJob": "control",
+      "roleTags": [
+        "mage_burst",
+        "engage",
+        "wave_clear"
+      ],
+      "viableSlots": [
+        "Bot",
+        "Top"
+      ],
+      "optimalSlots": [
+        "Mid"
+      ],
+      "tierNote": "Mage de contrôle/DPS : l'ult « marais de sable » **aspire les ennemis au centre** (CC AoE fiable) + auto-attaques chargées de sable pouvant **critiquer** (burst AoE) + self MS/soin qui le rend dur à punir. Sous les mages S car le pic de contrôle dépend de l'ult. *(stats & capacités = données in-game)*",
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Démon",
+        "Inquisiteur",
+        "Loup-garou"
+      ],
+      "bestPairings": [
+        "Bombardier",
+        "Pyromancien",
+        "Tireur",
+        "Infanterie lourde",
+        "Maître du fouet"
+      ],
+      "draftProfile": {
+        "damage": "Mixed",
+        "squishy": false,
+        "tanky": false,
+        "range": "long",
+        "adRatio": 0,
+        "apRatio": 0,
+        "adShare": 0.0,
+        "apShare": 1.0,
+        "dpsWeight": 0.23,
+        "tankWeight": 0.08
+      },
+      "colorIdentity": {
+        "W": 3,
+        "U": 10,
+        "B": 2,
+        "R": 3,
+        "G": 6,
+        "dominant": [
+          "U",
+          "G"
+        ],
+        "identity": "UG",
+        "vector": [
+          0.125,
+          0.4166666666666667,
+          0.08333333333333333,
+          0.125,
+          0.25
+        ],
+        "family": "mage_control"
+      },
+      "family": "mage_control",
+      "familyLabel": "Mage contrôle",
+      "compTypes": [
+        "poke_siege",
+        "poke_disengage"
       ]
     },
     "Mage du vent": {
