@@ -181,7 +181,8 @@
   function cellChampHtml(name) {
     const c = coach.state.byName.get(name);
     const tier = c && c.tierMeta ? c.tierMeta : "?";
-    return `<span class="draft-cell-champ">${coach.championIconHtml ? coach.championIconHtml(c, "xs") : ""}<span class="draft-cell-name">${esc(name)}</span><span class="draft-cell-tier tier-${String(tier).toLowerCase()}">${esc(tier)}</span></span>`;
+    const icon = coach.championIconHtml ? coach.championIconHtml(c, { size: "xs", alt: name }) : "";
+    return `<span class="draft-cell-champ">${icon}<span class="draft-cell-name">${esc(name)}</span><span class="draft-cell-tier tier-${String(tier).toLowerCase()}">${esc(tier)}</span></span>`;
   }
 
   function teamColumnHtml(s, side) {
@@ -322,7 +323,7 @@
       const persoOn = perso.names.includes(c.name);
       const editTag = perso.editing ? `<span class="draft-pool-perso${persoOn ? " is-on" : ""}">${persoOn ? "★" : "☆"}</span>` : "";
       return `<button type="button" class="draft-pool-card" data-act="pool" data-name="${esc(c.name)}">
-        ${coach.championIconHtml ? coach.championIconHtml(c, "sm") : ""}
+        ${coach.championIconHtml ? coach.championIconHtml(c, { size: "sm", alt: c.name }) : ""}
         <span class="draft-pool-name">${esc(c.name)}</span>
         <span class="draft-pool-tier tier-${String(tier).toLowerCase()}">${esc(tier)}</span>
         ${scoreTag}${editTag}
@@ -503,11 +504,23 @@
     });
   }
 
+  // Renommages de champions (migration douce des sessions sauvegardées).
+  const RENAMES = { "Mage de sable": "Mage du sable" };
+  function migrateNames(s) {
+    if (!s) return s;
+    const fix = (n) => RENAMES[n] || n;
+    for (const side of ["blue", "red"]) {
+      if (Array.isArray(s.bans && s.bans[side])) s.bans[side] = s.bans[side].map((n) => (n ? fix(n) : n));
+      if (Array.isArray(s.picks && s.picks[side])) s.picks[side] = (s.picks[side] || []).map((p) => (p && p.name ? { ...p, name: fix(p.name) } : p));
+    }
+    return s;
+  }
+
   // ---- cycle de vie ----------------------------------------------------------
   function init(TFM2Coach) {
     coach = TFM2Coach;
     const loaded = loadSessions();
-    coach.state.draftSessions = loaded.sessions.map((s) => D().normalizeSession(s));
+    coach.state.draftSessions = loaded.sessions.map((s) => D().normalizeSession(migrateNames(s)));
     coach.state.activeDraftId = loaded.activeId;
     coach.state.draftPoolSearch = "";
     coach.state.ourComp = coach.state.ourComp || {};

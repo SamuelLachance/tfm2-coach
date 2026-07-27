@@ -464,6 +464,11 @@ function initials(name) {
 }
 
 function championIconHtml(champ, { size = "card", alt = "" } = {}) {
+  if (!champ) {
+    // Champion inconnu (ex. renommé / hors data) : fallback sûr, pas de crash.
+    const ini = (alt || "?").split(/[\s-]+/).filter(Boolean).slice(0, 2).map((p) => p[0]).join("").toUpperCase() || "?";
+    return `<div class="champ-icon champ-icon--fallback champ-icon--${size}" aria-label="${escapeHtml(alt || "?")}">${escapeHtml(ini)}</div>`;
+  }
   const label = alt || champ.name;
   const typeClass = getTypeClass(champ.type);
   const iconSrc = champ.icon || (champ.id ? `icons/${champ.id}.png` : "");
