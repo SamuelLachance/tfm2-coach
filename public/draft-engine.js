@@ -399,9 +399,12 @@
       const idx = s.bans[step.side].findIndex((n) => !n);
       s.focus = { type: "ban", side: step.side, banIndex: idx < 0 ? 0 : idx };
     } else {
+      // Poste NON forcé par défaut : les conseils sont dynamiques (meilleur pick,
+      // chaque champion à son meilleur poste ouvert). Un poste n'est ciblé que si
+      // l'utilisateur clique explicitement une case (onCellClick).
       const open = openSlots(s, step.side);
       const keep = s.focus && s.focus.type === "pick" && s.focus.side === step.side && open.includes(s.focus.slot) ? s.focus.slot : null;
-      s.focus = { type: "pick", side: step.side, slot: keep || open[0] || null };
+      s.focus = { type: "pick", side: step.side, slot: keep };
     }
     return s.focus;
   }

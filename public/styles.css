@@ -3350,3 +3350,8 @@ body::before {
 .draft-flash.is-visible { opacity: 1; transform: translateY(0); }
 .draft-flash--error { color: var(--danger); }
 .draft-flash--info { color: var(--text); }
+
+/* Draft — poste flexible / cible */
+.draft-turn-flex { color: var(--text-muted); font-weight: 500; }
+.draft-clear-slot { border: none; background: var(--danger-soft); color: var(--danger); border-radius: 4px; cursor: pointer; font-size: 0.7rem; padding: 0 0.35rem; margin-left: 0.15rem; }
+.draft-clear-slot:hover { background: var(--danger); color: #fff; }

@@ -764,7 +764,7 @@
         "Prophète de l'abîme",
         "Cristal chrono"
       ],
-      "tierMeta": "B",
+      "tierMeta": "C",
       "draftJob": "control",
       "roleTags": [
         "poke",
@@ -777,7 +777,7 @@
       "optimalSlots": [
         "Mid"
       ],
-      "tierNote": "Contrôle à distance + anti-soin ; punit les comps à sustain. *(valeurs provisoires — champion récent, wiki communautaire)*",
+      "tierNote": "Anti-soin + poison DoT à distance : fort *situationnellement* vs comps à sustain/heal, mais sans hard CC ni burst et fragile — puni par le dive/burst. Pick de contre plus que blind. *(kit fidèle au wiki ; valeurs chiffrées à confirmer en jeu)*",
       "worstMatchups": [
         "Ninja",
         "Démon",
@@ -4010,7 +4010,7 @@
         "Prophète de l'abîme",
         "Cristal chrono"
       ],
-      "tierMeta": "B",
+      "tierMeta": "A",
       "draftJob": "control",
       "roleTags": [
         "mage_burst",
@@ -4024,7 +4024,7 @@
       "optimalSlots": [
         "Mid"
       ],
-      "tierNote": "Mage DPS de contrôle ; ult « marais de sable » qui aspire les ennemis, fort en teamfight groupé. *(valeurs provisoires — champion récent, wiki communautaire)*",
+      "tierNote": "Mage de contrôle solide : ult « marais de sable » (pull AoE) = outil de teamfight/objectif fiable, + self MS/soin qui le rend dur à punir. Sous les mages S (dégâts soutenus, dépend de l'ult). *(kit fidèle au wiki ; valeurs chiffrées à confirmer en jeu)*",
       "worstMatchups": [
         "Ninja",
         "Chasseur",
@@ -4048,7 +4048,7 @@
         "apRatio": 0,
         "adShare": 0.0,
         "apShare": 1.0,
-        "dpsWeight": 0.22,
+        "dpsWeight": 0.23,
         "tankWeight": 0.08
       },
       "colorIdentity": {

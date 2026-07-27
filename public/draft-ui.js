@@ -161,7 +161,9 @@
     let hint = "";
     if (step.type === "pick") {
       const slot = s.focus && s.focus.slot ? s.focus.slot : null;
-      hint = slot ? ` · poste : <strong>${esc(D().SLOT_LABELS[slot] || slot)}</strong>` : "";
+      hint = slot
+        ? ` · poste ciblé : <strong>${esc(D().SLOT_LABELS[slot] || slot)}</strong> <button type="button" class="draft-clear-slot" data-act="clear-slot">✕</button>`
+        : ` · <span class="draft-turn-flex">meilleur pick — poste flexible (clique une case pour cibler un poste)</span>`;
     }
     const who = ours ? `À toi` : `Adversaire (renseigne son choix)`;
     return `<div class="draft-turn-banner ${ours ? "is-ours" : "is-enemy"}">${dot} ${who} — <strong>${kind}</strong> ${sideLabel}${hint} · <span class="draft-turn-step">${esc(D().stepLabel(s))}</span></div>`;
@@ -455,6 +457,12 @@
       if (b) sessionAction(b.dataset.act, b);
     });
     coach.els.draftBoard?.addEventListener("click", (e) => {
+      const clear = e.target.closest('[data-act="clear-slot"]');
+      if (clear) {
+        const s = active();
+        if (s && s.focus) { s.focus.slot = null; invalidateRec(); saveDebounced(); renderAll(); }
+        return;
+      }
       const cell = e.target.closest("[data-cell]");
       if (cell) onCellClick(active(), cell);
     });

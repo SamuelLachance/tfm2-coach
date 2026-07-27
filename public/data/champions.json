@@ -43,8 +43,8 @@
         "Prophète de l'abîme",
         "Cristal chrono"
       ],
-      "tierMeta": "B",
-      "tierNote": "Contrôle à distance + anti-soin ; punit les comps à sustain. *(valeurs provisoires — champion récent, wiki communautaire)*",
+      "tierMeta": "C",
+      "tierNote": "Anti-soin + poison DoT à distance : fort *situationnellement* vs comps à sustain/heal, mais sans hard CC ni burst et fragile — puni par le dive/burst. Pick de contre plus que blind. *(kit fidèle au wiki ; valeurs chiffrées à confirmer en jeu)*",
       "abilities": [
         {
           "slot": "Ability 1",
@@ -71,6 +71,7 @@
       "gridSheet": null,
       "gridRow": null,
       "gridCol": null,
+      "icon": "icons/alchimiste.png",
       "colorIdentity": {
         "W": 2,
         "U": 6,
@@ -102,8 +103,8 @@
         "Mage des ombres",
         "Mage noir",
         "Nécromancien",
-        "Androïde",
-        "Chasseur"
+        "Exorciste",
+        "Androïde"
       ],
       "draftProfile": {
         "damage": "Mixed",
@@ -1014,7 +1015,7 @@
         "Mage des ombres",
         "Mage noir",
         "Mage blanc",
-        "Alchimiste"
+        "Chevalier magique"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -1815,7 +1816,7 @@
         "Bombardier",
         "Mage des ombres",
         "Mage blanc",
-        "Alchimiste"
+        "Chevalier magique"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -2499,7 +2500,7 @@
         "Mage des ombres",
         "Mage noir",
         "Mage blanc",
-        "Alchimiste"
+        "Chevalier magique"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -3056,7 +3057,7 @@
         "Mage des ombres",
         "Mage noir",
         "Mage blanc",
-        "Alchimiste"
+        "Chevalier magique"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -3514,7 +3515,7 @@
         "Mage des ombres",
         "Mage noir",
         "Mage blanc",
-        "Alchimiste"
+        "Chevalier magique"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -3968,7 +3969,7 @@
         "Mage des ombres",
         "Mage noir",
         "Mage blanc",
-        "Alchimiste"
+        "Chevalier magique"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -4196,7 +4197,7 @@
         "Mage des ombres",
         "Mage noir",
         "Mage blanc",
-        "Alchimiste"
+        "Chevalier magique"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -4705,8 +4706,8 @@
         "Prophète de l'abîme",
         "Cristal chrono"
       ],
-      "tierMeta": "B",
-      "tierNote": "Mage DPS de contrôle ; ult « marais de sable » qui aspire les ennemis, fort en teamfight groupé. *(valeurs provisoires — champion récent, wiki communautaire)*",
+      "tierMeta": "A",
+      "tierNote": "Mage de contrôle solide : ult « marais de sable » (pull AoE) = outil de teamfight/objectif fiable, + self MS/soin qui le rend dur à punir. Sous les mages S (dégâts soutenus, dépend de l'ult). *(kit fidèle au wiki ; valeurs chiffrées à confirmer en jeu)*",
       "abilities": [
         {
           "slot": "Ability 1",
@@ -4733,6 +4734,7 @@
       "gridSheet": null,
       "gridRow": null,
       "gridCol": null,
+      "icon": "icons/mage-de-sable.png",
       "colorIdentity": {
         "W": 3,
         "U": 10,
@@ -4776,7 +4778,7 @@
         "apRatio": 0,
         "adShare": 0.0,
         "apShare": 1.0,
-        "dpsWeight": 0.22,
+        "dpsWeight": 0.23,
         "tankWeight": 0.08
       }
     },
@@ -5559,7 +5561,7 @@
         "Bombardier",
         "Mage noir",
         "Mage blanc",
-        "Alchimiste"
+        "Chevalier magique"
       ],
       "draftProfile": {
         "damage": "AD",
