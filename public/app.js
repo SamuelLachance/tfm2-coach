@@ -1772,12 +1772,14 @@ async function init() {
     }
 
     if (draftGuideRes.ok) {
-      const draftGuide = await draftGuideRes.json();
-      if (window.TFM2GuideDraftEngine?.setGuideData) {
-        window.TFM2GuideDraftEngine.setGuideData(draftGuide);
-      } else if (window.TFM2DraftGuide?.setGuideData) {
-        window.TFM2DraftGuide.setGuideData(draftGuide);
-      }
+      state.draftGuide = await draftGuideRes.json();
+    }
+    // Configure le moteur de draft reconstruit : couche de données = TOUS les champions
+    // (index inversé des counters + shells), guide = playbook « Early Access ».
+    try {
+      window.TFM2Draft?.configure?.({ champions: state.baseChampions, guide: state.draftGuide || null });
+    } catch (e) {
+      console.error("TFM2Draft.configure", e);
     }
 
     if (mtgRes.ok) {

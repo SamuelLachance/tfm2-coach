@@ -1,16 +1,39 @@
 /**
- * TFM2 Draft Engine v28 — architecture LoL (delta eval, blind pick, tier/synergy/counter/MTG).
- * Scoring primaire : TFM2DraftCore + TFM2MatchCore (pas le guide shells).
+ * TFM2 Draft Engine v1 (reconstruit) — façade `TFM2Draft`.
+ *
+ * Rôle : gérer la SESSION de draft (ordre snake, bans, picks, postes, undo) et
+ * déléguer TOUTE la notation à `TFM2DraftModel` (couche unique, groundée).
+ *
+ * Différences clés vs l'ancien moteur :
+ *   - plus de « blind pick » LoL forcé (ADC en B1, Top/Support counter-only) ;
+ *   - plus d'optimiseur de placement exponentiel (`bestLayout`) ni de « relayout » ;
+ *     le poste est choisi par l'utilisateur, avec un défaut = poste optimal si libre ;
+ *   - plus de MTG dans le score ; plus de listes de champions codées en dur.
+ *
+ * Format : 3 bans / équipe en amont puis snake 5v5 (source : guide « Early Access »),
+ * nombre de bans configurable (2 ou 3).
+ * Marche en navigateur (window.TFM2Draft) et sous Node (module.exports).
  */
-(function (global) {
-  const MC = () => global.TFM2MatchCore;
-  const SLOTS = MC()?.SLOTS || ["Top", "Jungle", "Mid", "Bot", "Support"];
-  const SLOT_LABELS = MC()?.SLOT_LABELS || { Top: "Top", Jungle: "Jungle", Mid: "Mid", Bot: "ADC", Support: "Support" };
+(function (root, factory) {
+  const api = factory(root);
+  if (typeof module !== "undefined" && module.exports) module.exports = api;
+  if (typeof root !== "undefined") root.TFM2Draft = api;
+})(typeof globalThis !== "undefined" ? globalThis : this, function (root) {
+  function pick(name) {
+    if (root && root[name]) return root[name];
+    try {
+      return require("./" + ({ TFM2DraftData: "draft-data", TFM2DraftModel: "draft-model" }[name]));
+    } catch (e) {
+      return null;
+    }
+  }
+  const Data = () => pick("TFM2DraftData");
+  const Model = () => pick("TFM2DraftModel");
 
-  /** Blind pick TFM2 : carry Bot → tempo Jungle → flex Mid ; Top/Sup counter quand matchup connu. */
-  const BLIND_PICK_SLOTS = ["Bot", "Jungle", "Mid"];
-  const LATE_MATCHUP_SLOTS = ["Support", "Top"];
+  const SLOTS = ["Top", "Jungle", "Mid", "Bot", "Support"];
+  const SLOT_LABELS = { Top: "Top", Jungle: "Jungle", Mid: "Mid", Bot: "ADC", Support: "Support" };
 
+  // Ordre snake 5v5 des picks (10 picks), après la phase de bans.
   const PICK_STEPS = [
     { type: "pick", side: "blue" }, { type: "pick", side: "red" },
     { type: "pick", side: "red" }, { type: "pick", side: "blue" },
@@ -19,30 +42,37 @@
     { type: "pick", side: "blue" }, { type: "pick", side: "red" },
   ];
 
-  const COMP_PLANS = {
-    teamfight_engage: { label: "Teamfight engage" },
-    poke_siege: { label: "Poke / siege" },
-    pick_assassin: { label: "Pick / assassins" },
-    hypercarry_bot: { label: "Hypercarry Bot" },
-    split_map: { label: "Split map" },
-    scaling_late: { label: "Scaling late" },
-    early_tempo: { label: "Tempo early" },
-    protect_carry: { label: "Protect carry" },
-  };
+  let configured = false;
 
-  const PLAN_VS_ENEMY = {};
-  const ENEMY_PLAN_ANSWERS = {};
-  const SLOT_BUFF = MC()?.SLOT_BUFF || {};
-  const MTG_COLORS = MC()?.MTG_COLORS || ["W", "U", "B", "R", "G"];
-  const COLOR_LABELS = MC()?.COLOR_LABELS || {};
-  const COLOR_HEX = MC()?.COLOR_HEX || {};
+  /** Initialise la couche de données (une fois) : champions = TOUS les champions. */
+  function configure(opts = {}) {
+    const D = Data(), M = Model();
+    if (!D || !M) throw new Error("TFM2Draft.configure: modules draft-data/draft-model absents.");
+    D.init({ champions: opts.champions, guide: opts.guide });
+    M.useData(D);
+    configured = true;
+    return configured;
+  }
+  function ensureData(fallbackChampions) {
+    if (!configured && fallbackChampions) configure({ champions: fallbackChampions, guide: null });
+  }
 
-  let recommendationCache = null;
-
-  function buildDraftSteps(n = 3) {
-    const steps = [];
-    for (let i = 0; i < n * 2; i++) steps.push({ type: "ban", side: i % 2 === 0 ? "blue" : "red" });
-    return steps.concat(PICK_STEPS);
+  // ---- Session ---------------------------------------------------------------
+  function createSession(name, ourSide = "blue", opts = {}) {
+    return normalizeSession({
+      id: `draft-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+      name: name || "Draft",
+      ourSide: ourSide === "red" ? "red" : "blue",
+      bansPerTeam: opts.bansPerTeam === 2 ? 2 : 3,
+      fearless: Boolean(opts.fearless),
+      stepIndex: 0,
+      bans: { blue: [], red: [] },
+      picks: { blue: [], red: [] },
+      focus: null,
+      history: [],
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+    });
   }
 
   function normalizeSession(s) {
@@ -51,58 +81,49 @@
     if (typeof s.fearless !== "boolean") s.fearless = false;
     if (!s.bans) s.bans = { blue: [], red: [] };
     if (!s.picks) s.picks = { blue: [], red: [] };
-    const max = s.bansPerTeam === 2 ? 2 : 3;
+    if (!Array.isArray(s.history)) s.history = [];
+    const max = s.bansPerTeam;
     for (const side of ["blue", "red"]) {
       const c = (s.bans[side] || []).filter(Boolean);
       s.bans[side] = Array.from({ length: max }, (_, i) => c[i] || null);
+      s.picks[side] = (s.picks[side] || []).filter((p) => p && p.name);
     }
     if (s.focus === undefined) s.focus = null;
-    dedupePickSlots(s);
     return s;
   }
 
-  /** Répare les sessions où plusieurs picks partagent le même poste (bug relayout). */
-  function dedupePickSlots(s) {
-    for (const side of ["blue", "red"]) {
-      const picks = s.picks[side] || [];
-      if (picks.length < 2) continue;
-      const used = new Set();
-      for (const p of picks) {
-        if (!p.slot || used.has(p.slot)) {
-          p.slot = SLOTS.find((sl) => !used.has(sl)) || p.slot || SLOTS[0];
-        }
-        used.add(p.slot);
-      }
-    }
+  function buildDraftSteps(bansPerTeam = 3) {
+    const steps = [];
+    for (let i = 0; i < bansPerTeam * 2; i++) steps.push({ type: "ban", side: i % 2 === 0 ? "blue" : "red" });
+    return steps.concat(PICK_STEPS);
+  }
+  const getSteps = (s) => buildDraftSteps(normalizeSession(s).bansPerTeam);
+  const totalSteps = (s) => getSteps(s).length;
+  const getStep = (s) => getSteps(s)[s.stepIndex] || null;
+  const isComplete = (s) => s && s.stepIndex >= totalSteps(s);
+
+  const ourSide = (s) => s.ourSide;
+  const enemySide = (s) => (s.ourSide === "blue" ? "red" : "blue");
+  const isOurTurn = (s) => { const st = getStep(s); return st && st.side === ourSide(s); };
+  const canEditFormat = (s) => s.stepIndex === 0;
+  const sidePicks = (s, side) => s.picks[side] || [];
+  const sidePickCount = (s, side) => sidePicks(s, side).length;
+
+  function pickBySlot(s, side) {
+    const m = {};
+    for (const p of sidePicks(s, side)) if (p.slot) m[p.slot] = p.name;
+    return m;
+  }
+  const openSlots = (s, side) => SLOTS.filter((sl) => !pickBySlot(s, side)[sl]);
+
+  function draftPhase(s) {
+    const d = sidePickCount(s, "blue") + sidePickCount(s, "red");
+    if (d <= 2) return "opening";
+    if (d <= 6) return "core";
+    return "closing";
   }
 
-  function createSession(name, ourSide = "blue", opts = {}) {
-    return normalizeSession({
-      id: `draft-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
-      name,
-      ourSide,
-      bansPerTeam: opts.bansPerTeam === 2 ? 2 : 3,
-      fearless: Boolean(opts.fearless),
-      stepIndex: 0,
-      bans: { blue: [], red: [] },
-      picks: { blue: [], red: [] },
-      activeSlot: "Top",
-      enemyActiveSlot: "Top",
-      focus: null,
-      history: [],
-      createdAt: Date.now(),
-      updatedAt: Date.now(),
-    });
-  }
-
-  function getSteps(s) { return buildDraftSteps(normalizeSession(s).bansPerTeam); }
-  function totalSteps(s) { return getSteps(s).length; }
-  function getStep(s) { return getSteps(s)[s.stepIndex] || null; }
-  function isComplete(s) {
-    if (!s) return false;
-    return s.stepIndex >= totalSteps(s);
-  }
-
+  // ---- Disponibilité ---------------------------------------------------------
   function fearlessUsed(all, id) {
     const out = new Set();
     for (const sess of all || []) {
@@ -112,7 +133,6 @@
     }
     return out;
   }
-
   function taken(s, all = []) {
     normalizeSession(s);
     const names = new Set();
@@ -123,365 +143,18 @@
     if (s.fearless) fearlessUsed(all, s.id).forEach((n) => names.add(n));
     return names;
   }
-
-  function available(allChamps, s, all = []) {
-    return allChamps.filter((c) => !taken(s, all).has(c.name));
+  /** Champions disponibles : pool (noms) − pris. `pool` défaut = tout le roster. */
+  function availableNames(s, pool, all = []) {
+    const t = taken(s, all);
+    const base = pool && pool.length ? pool : Data().names();
+    return base.filter((n) => !t.has(n));
   }
 
-  function sidePicks(s, side) { return s.picks[side] || []; }
-  function pickBySlot(s, side) {
-    const m = {};
-    for (const p of sidePicks(s, side)) if (p.slot) m[p.slot] = p.name;
-    return m;
-  }
-  function ourSide(s) { return s.ourSide; }
-  function enemySide(s) { return s.ourSide === "blue" ? "red" : "blue"; }
-  function isOurTurn(s) { const st = getStep(s); return st && st.side === ourSide(s); }
-  function canEditFormat(s) { return s.stepIndex === 0; }
-  function openSlots(s, side) { return SLOTS.filter((sl) => !pickBySlot(s, side)[sl]); }
-
-  function draftDepth(s) {
-    return Math.min(1, (sidePicks(s, "blue").length + sidePicks(s, "red").length) / 10);
-  }
-
-  function sidePickCount(s, side) {
-    return sidePicks(s, side).length;
-  }
-
-  function enemyPickBySlot(s, side) {
-    const opp = side === "blue" ? "red" : "blue";
-    return pickBySlot(s, opp);
-  }
-
-  function isLaneMatchupKnown(s, side, slot) {
-    const enemy = enemyPickBySlot(s, side);
-    if (slot === "Top") return Boolean(enemy.Top);
-    if (slot === "Support") return Boolean(enemy.Support) || Boolean(enemy.Bot);
-    return true;
-  }
-
-  function isBlindPickPhase(s, side) {
-    return nextBlindSlot(s, side) !== null;
-  }
-
-  function nextBlindSlotFrom(by) {
-    for (const slot of BLIND_PICK_SLOTS) {
-      if (!by[slot]) return slot;
-    }
-    return null;
-  }
-
-  function nextBlindSlot(s, side) {
-    return nextBlindSlotFrom(pickBySlot(s, side));
-  }
-
-  function pickBySlotExcluding(s, side, excludeName) {
-    const m = {};
-    for (const p of sidePicks(s, side)) {
-      if (p.name === excludeName) continue;
-      if (p.slot) m[p.slot] = p.name;
-    }
-    return m;
-  }
-
-  function openSlotsFrom(by) {
-    return SLOTS.filter((sl) => !by[sl]);
-  }
-
-  function allowedSlotsForNextPick(s, side, excludeName = null) {
-    const by = excludeName ? pickBySlotExcluding(s, side, excludeName) : pickBySlot(s, side);
-    const open = openSlotsFrom(by);
-    const nextBlind = nextBlindSlotFrom(by);
-    if (nextBlind && open.includes(nextBlind)) return [nextBlind];
-    const allowed = open.filter((sl) => BLIND_PICK_SLOTS.includes(sl));
-    for (const slot of LATE_MATCHUP_SLOTS) {
-      if (open.includes(slot) && isLaneMatchupKnown(s, side, slot)) allowed.push(slot);
-    }
-    return allowed.length ? allowed : open;
-  }
-
-  function preferredBlindSlot(s, side, excludeName = null) {
-    const allowed = allowedSlotsForNextPick(s, side, excludeName);
-    if (allowed.length) return allowed[0];
-    const by = excludeName ? pickBySlotExcluding(s, side, excludeName) : pickBySlot(s, side);
-    return openSlotsFrom(by)[0] || "Top";
-  }
-
-  function isTeamFirstPick(s, side) {
-    return sidePickCount(s, side) === 0;
-  }
-
-  function recommendedSlotForPick(s, side) {
-    return preferredBlindSlot(s, side);
-  }
-
-  function draftPhase(s) {
-    const d = sidePicks(s, "blue").length + sidePicks(s, "red").length;
-    if (d <= 2) return "opening";
-    if (d <= 6) return "core";
-    return "closing";
-  }
-
-  function invalidateRecommendationCache() { recommendationCache = null; }
-
-  function phaseWeights(depth, phase) {
-    return MC().phaseWeights(depth, phase);
-  }
-
-  function evaluateTeam(names, ctx) {
-    return MC().evaluateTeam(names, ctx);
-  }
-
-  function compareComps(ourComp, enemyComp, byName, metaMap) {
-    return MC().compareComps(ourComp, enemyComp, byName, metaMap);
-  }
-
-  function teamColorSummary(names, byName, metaMap) {
-    return MC().teamColorSummary(names, byName, metaMap);
-  }
-
-  function bestLayout(names, ctx) {
-    return MC().bestLayout(names, ctx);
-  }
-
-  function optimizeLayout(s, side, byName, meta) {
-    const names = sidePicks(s, side).map((p) => p.name);
-    if (!names.length) { s.picks[side] = []; return; }
-    const opp = side === "blue" ? "red" : "blue";
-    const ctx = {
-      byName,
-      metaMap: meta,
-      oppNames: sidePicks(s, opp).map((p) => p.name),
-      oppComp: pickBySlot(s, opp),
-      slotsLeft: 5 - names.length,
-    };
-    const { assignment } = bestLayout(names, ctx);
-    if (assignment.length) s.picks[side] = assignment;
-  }
-
-  function relayoutAll(s, ctx = {}) {
-    if (!ctx.byName) return;
-    normalizeSession(s);
-    optimizeLayout(s, "blue", ctx.byName, ctx.metaMap || {});
-    optimizeLayout(s, "red", ctx.byName, ctx.metaMap || {});
-  }
-
-  function pinChampionSlot(s, side, name, slot) {
-    if (!slot || !name) return;
-    const picks = s.picks[side];
-    const target = picks.find((p) => p.name === name);
-    if (!target || target.slot === slot) return;
-    const occupant = picks.find((p) => p.slot === slot && p.name !== name);
-    if (occupant) {
-      const old = target.slot;
-      target.slot = slot;
-      occupant.slot = old;
-    } else {
-      target.slot = slot;
-    }
-  }
-
-  /** TFM2 : tous les postes sont jouables — optimalSlots = bonus au score, pas un filtre. */
-  function playableSlotsFor(champ, meta) {
-    return SLOTS.slice();
-  }
-
-  function playsSlotFor(champ, meta, slot) {
-    return SLOTS.includes(slot);
-  }
-
-  function playsSlot(v, champ, slot, meta) {
-    return SLOTS.includes(slot);
-  }
-
-  function assignmentRespectsLaneRates() {
-    return true;
-  }
-
-  function scoringEngine() {
-    return global.TFM2DraftCore;
-  }
-
-  function scorePick(champ, s, side, byName, meta, hintSlot = null, all = []) {
-    const SE = scoringEngine();
-    const g = guideCtx(s, side, all, byName, meta);
-    const allies = sidePicks(s, side).map((p) => p.name).filter((n) => n !== champ.name);
-    const open = openSlotsForPick(s, side, champ.name);
-    if (!SE?.scorePickCandidate) {
-      return { score: 0, reasons: ["Moteur draft indisponible"], slot: hintSlot || open[0] || SLOTS[0] };
-    }
-    const preferred = preferredBlindSlot(s, side, champ.name);
-    const slotHint = hintSlot || (open.includes(preferred) ? preferred : null);
-    const result = SE.scorePickCandidate(champ.name, {
-      allies,
-      oppNames: g.oppNames,
-      oppComp: pickBySlot(s, side === "blue" ? "red" : "blue"),
-      byName,
-      metaMap: meta,
-      openSlots: open.length ? open : allowedSlotsForNextPick(s, side, champ.name),
-      hintSlot: slotHint,
-      phase: draftPhase(s),
-      sessionIndex: g.sessionIndex,
-      banCount: g.banCount,
-      takenNames: g.takenNames,
-      playerTraits: g.playerTraits,
-    });
-    let { score, reasons, slot } = result;
-    if (isBlindPickPhase(s, side) && slot && !BLIND_PICK_SLOTS.includes(slot) && nextBlindSlot(s, side)) {
-      score -= 80;
-      reasons = [`Blind ${SLOT_LABELS[nextBlindSlot(s, side)] || nextBlindSlot(s, side)} requis`, ...reasons].slice(0, 8);
-      slot = nextBlindSlot(s, side);
-    }
-    return { score, reasons, slot, eval: result.eval || null, pickMeta: result.pickMeta };
-  }
-
-  function openSlotsForPick(s, side, excludeName = null) {
-    const allowed = allowedSlotsForNextPick(s, side, excludeName);
-    const open = excludeName ? openSlotsFrom(pickBySlotExcluding(s, side, excludeName)) : openSlots(s, side);
-    return allowed.length ? allowed.filter((sl) => open.includes(sl)) : open;
-  }
-
-  function guideCtx(s, side, all, byName, meta) {
-    const opp = side === "blue" ? "red" : "blue";
-    const bans = (s.bans.blue || []).concat(s.bans.red || []).filter(Boolean);
-    return {
-      sessionIndex: (all || []).indexOf(s),
-      banCount: bans.length,
-      takenNames: taken(s, all),
-      playerTraits: s.playerTraits || [],
-      oppNames: sidePicks(s, opp).map((p) => p.name),
-      ourNames: sidePicks(s, side).map((p) => p.name),
-      ourSide: s.ourSide,
-      byName,
-      metaMap: meta,
-    };
-  }
-
-  function scoreBan(champ, s, side, byName, meta, all = []) {
-    const SE = scoringEngine();
-    const g = guideCtx(s, side, all, byName, meta);
-    if (!SE?.scoreBanCandidate) {
-      return { score: 0, reasons: ["Moteur draft indisponible"] };
-    }
-    return SE.scoreBanCandidate(champ.name, {
-      sessionSide: side,
-      oppNames: g.oppNames,
-      ourNames: g.ourNames,
-      byName,
-      metaMap: meta,
-      phase: draftPhase(s),
-      sessionIndex: g.sessionIndex,
-      banCount: g.banCount,
-      takenNames: g.takenNames,
-      playerTraits: g.playerTraits,
-    });
-  }
-
-  function scoreCandidate(s, side, champ, byName, meta, hintSlot = null, all = []) {
-    return scorePick(champ, s, side, byName, meta, hintSlot, all);
-  }
-
-  function recommendationCacheKey(s, side, all, step) {
-    const picks = ["blue", "red"].map((sd) => sidePicks(s, sd).map((p) => p.name).join(",")).join("|");
-    const bans = ["blue", "red"].map((sd) => (s.bans[sd] || []).join(",")).join("|");
-    return `${s.id}:${step?.type}:${side}:${s.stepIndex}:${picks}:${bans}:${s.fearless}`;
-  }
-
-  function getRecommendations(s, side, allChamps, all, byName, meta, limit = 12, opts = {}) {
-    normalizeSession(s);
-    const step = getStep(s);
-    const avail = available(allChamps, s, all);
-    const hintSlot =
-      opts.hintSlot ??
-      (s.focus?.type === "pick" && s.focus.side === side ? s.focus.slot : null);
-    const cacheKey = `${recommendationCacheKey(s, side, all, step)}:${hintSlot || ""}`;
-    if (recommendationCache?.key === cacheKey && recommendationCache.limit >= limit) {
-      return { ...recommendationCache.result, items: recommendationCache.result.items.slice(0, limit) };
-    }
-    if (step?.type === "ban") {
-      const items = avail
-        .map((c) => {
-          const { score, reasons } = scoreBan(c, s, side, byName, meta, all);
-          return { champion: c, score, reasons };
-        })
-        .sort((a, b) => b.score - a.score)
-        .slice(0, limit);
-      const coachHint = getDraftCoachHint(s, side, byName, meta, all);
-      const result = { type: "ban", side, items, forSide: side, coachHint };
-      recommendationCache = { key: cacheKey, limit, result };
-      return result;
-    }
-    const hint = recommendedSlotForPick(s, side);
-    const items = avail
-      .map((c) => {
-        try {
-          const { score, reasons, slot, eval: ev } = scoreCandidate(s, side, c, byName, meta, hintSlot || hint || null, all);
-          return { champion: c, score, reasons, slot, eval: ev };
-        } catch (err) {
-          console.warn("scorePick failed", c?.name, err);
-          const open = openSlots(s, side);
-          return {
-            champion: c,
-            score: 0,
-            reasons: ["Erreur scoring"],
-            slot: hintSlot || hint || open[0] || SLOTS[0],
-          };
-        }
-      })
-      .sort((a, b) => b.score - a.score)
-      .slice(0, limit);
-    const coachHint = getDraftCoachHint(s, side, byName, meta, all);
-    const result = {
-      type: "pick",
-      side,
-      slot: hint,
-      items,
-      forSide: side,
-      coachHint,
-    };
-    recommendationCache = { key: cacheKey, limit, result };
-    return result;
-  }
-
-  function applyAction(s, action, all = [], ctx = {}) {
+  // ---- Enregistrement des actions -------------------------------------------
+  function snapshot(s) {
     s.history.push(JSON.stringify({ stepIndex: s.stepIndex, bans: s.bans, picks: s.picks }));
-    const step = getStep(s);
-    if (!step) return { ok: false, error: "Draft terminé." };
-    if (taken(s, all).has(action.championName)) {
-      if (s.fearless && fearlessUsed(all, s.id).has(action.championName)) {
-        return { ok: false, error: "Champion indisponible (fearless)." };
-      }
-      return { ok: false, error: "Champion déjà pris ou banni." };
-    }
-    if (step.type === "ban") {
-      let idx = action.banIndex ?? s.bans[step.side].findIndex((n) => !n);
-      if (idx < 0) return { ok: false, error: "Bans pleins." };
-      s.bans[step.side][idx] = action.championName;
-    } else {
-      if (!ctx.byName) return { ok: false, error: "Données manquantes." };
-      const list = sidePicks(s, step.side).filter((p) => p.name !== action.championName);
-      if (list.length >= 5) return { ok: false, error: "Picks pleins." };
-      clearFromBoard(s, action.championName);
-      const targetSlot = action.slot && openSlots(s, step.side).includes(action.slot)
-        ? action.slot
-        : SLOTS[0];
-      s.picks[step.side] = list.concat([{ name: action.championName, slot: targetSlot }]);
-      try {
-        relayoutAll(s, ctx);
-      } catch (err) {
-        console.warn("relayoutAll after pick", err);
-      }
-      if (action.slot) pinChampionSlot(s, step.side, action.championName, action.slot);
-    }
-    s.stepIndex++;
-    s.updatedAt = Date.now();
-    invalidateRecommendationCache();
-    if (step.type === "pick") {
-      return { ok: true, slot: s.picks[step.side].find((p) => p.name === action.championName)?.slot };
-    }
-    return { ok: true };
+    if (s.history.length > 40) s.history.shift();
   }
-
   function clearFromBoard(s, name) {
     for (const side of ["blue", "red"]) {
       s.bans[side] = s.bans[side].map((n) => (n === name ? null : n));
@@ -489,22 +162,75 @@
     }
   }
 
-  function undo(s) {
-    if (!s.history.length) return false;
-    Object.assign(s, JSON.parse(s.history.pop()));
+  function applyAction(s, action, all = []) {
+    normalizeSession(s);
+    const step = getStep(s);
+    if (!step) return { ok: false, error: "Draft terminé." };
+    const name = action.championName || action.name;
+    if (!name) return { ok: false, error: "Champion manquant." };
+    if (taken(s, all).has(name)) {
+      return { ok: false, error: s.fearless ? "Indisponible (fearless)." : "Déjà pris ou banni." };
+    }
+    snapshot(s);
+    if (step.type === "ban") {
+      const idx = action.banIndex ?? s.bans[step.side].findIndex((n) => !n);
+      if (idx < 0 || idx >= s.bansPerTeam) return { ok: false, error: "Bans pleins." };
+      s.bans[step.side][idx] = name;
+    } else {
+      if (sidePickCount(s, step.side) >= 5) return { ok: false, error: "Picks pleins." };
+      const open = openSlots(s, step.side);
+      const slot =
+        action.slot && open.includes(action.slot)
+          ? action.slot
+          : Model().bestSlotFor(name, open);
+      s.picks[step.side] = sidePicks(s, step.side).concat([{ name, slot }]);
+    }
+    s.stepIndex++;
     s.updatedAt = Date.now();
-    invalidateRecommendationCache();
-    return true;
+    if (step.type === "pick") {
+      return { ok: true, slot: sidePicks(s, step.side).find((p) => p.name === name)?.slot };
+    }
+    return { ok: true };
   }
 
-  function resetSession(s) {
-    s.stepIndex = 0;
-    s.bans = { blue: [], red: [] };
-    s.picks = { blue: [], red: [] };
-    s.history = [];
-    s.focus = null;
+  /** Assignation manuelle libre (hors ordre) — édition d'un board déjà rempli. */
+  function manualAssign(s, action, all = []) {
+    normalizeSession(s);
+    const { type, side, name, slot, banIndex } = action;
+    snapshot(s);
+    if (!name) {
+      if (type === "ban" && banIndex != null) s.bans[side][banIndex] = null;
+      else if (type === "pick" && slot) s.picks[side] = s.picks[side].filter((p) => p.slot !== slot);
+      resyncStepIndex(s);
+      s.updatedAt = Date.now();
+      return { ok: true };
+    }
+    if (taken(s, all).has(name) && !s.bans[side].includes(name) && !sidePicks(s, side).some((p) => p.name === name)) {
+      s.history.pop();
+      return { ok: false, error: "Indisponible." };
+    }
+    clearFromBoard(s, name);
+    if (type === "ban") {
+      const idx = banIndex ?? s.bans[side].findIndex((n) => !n);
+      if (idx < 0 || idx >= s.bansPerTeam) { s.history.pop(); return { ok: false, error: "Bans pleins." }; }
+      s.bans[side][idx] = name;
+    } else {
+      if (sidePickCount(s, side) >= 5) { s.history.pop(); return { ok: false, error: "Picks pleins." }; }
+      const open = openSlots(s, side);
+      const target = slot && open.includes(slot) ? slot : Model().bestSlotFor(name, open);
+      s.picks[side] = sidePicks(s, side).concat([{ name, slot: target }]);
+    }
+    resyncStepIndex(s);
     s.updatedAt = Date.now();
-    invalidateRecommendationCache();
+    return { ok: true, slot: sidePicks(s, side).find((p) => p.name === name)?.slot };
+  }
+
+  function recordAction(s, action, all = []) {
+    const step = getStep(s);
+    if (step && step.type === action.type && step.side === action.side && !action.forceManual) {
+      return applyAction(s, { championName: action.name, slot: action.slot, banIndex: action.banIndex }, all);
+    }
+    return manualAssign(s, action, all);
   }
 
   function resyncStepIndex(s) {
@@ -522,363 +248,216 @@
     s.stepIndex = steps.length;
   }
 
+  function undo(s) {
+    if (!s.history.length) return false;
+    Object.assign(s, JSON.parse(s.history.pop()));
+    s.updatedAt = Date.now();
+    return true;
+  }
+  function resetSession(s) {
+    s.stepIndex = 0;
+    s.bans = { blue: [], red: [] };
+    s.picks = { blue: [], red: [] };
+    s.history = [];
+    s.focus = null;
+    s.updatedAt = Date.now();
+  }
   function swapPickSlots(s, side, a, b) {
     normalizeSession(s);
-    const comp = pickBySlot(s, side);
-    const na = comp[a];
-    const nb = comp[b];
-    if (!na && !nb) return { ok: false, error: "Postes vides." };
     if (a === b) return { ok: false, error: "Même poste." };
-    s.history.push(JSON.stringify({ stepIndex: s.stepIndex, bans: s.bans, picks: s.picks }));
+    const comp = pickBySlot(s, side);
+    if (!comp[a] && !comp[b]) return { ok: false, error: "Postes vides." };
+    snapshot(s);
     s.picks[side] = s.picks[side].filter((p) => p.slot !== a && p.slot !== b);
-    if (nb) s.picks[side].push({ name: nb, slot: a });
-    if (na) s.picks[side].push({ name: na, slot: b });
+    if (comp[b]) s.picks[side].push({ name: comp[b], slot: a });
+    if (comp[a]) s.picks[side].push({ name: comp[a], slot: b });
     s.updatedAt = Date.now();
-    invalidateRecommendationCache();
-    const slotLabel = (sl, n) => `${SLOT_LABELS[sl] || sl}${n ? `: ${n}` : ""}`;
-    const message = na && nb
-      ? `${slotLabel(a, na)} ↔ ${slotLabel(b, nb)}`
-      : `${na || nb} → ${SLOT_LABELS[na ? b : a] || (na ? b : a)}`;
-    return { ok: true, message };
-  }
-
-  function manualAssign(s, action, all = [], ctx = {}) {
-    s.history.push(JSON.stringify({ stepIndex: s.stepIndex, bans: s.bans, picks: s.picks }));
-    normalizeSession(s);
-    const { type, side, name, slot: hintSlot, banIndex } = action;
-    const { byName, metaMap } = ctx;
-    if (!name) {
-      if (type === "ban" && banIndex != null) s.bans[side][banIndex] = null;
-      else if (type === "pick" && hintSlot) {
-        s.picks[side] = s.picks[side].filter((p) => p.slot !== hintSlot);
-      }
-      resyncStepIndex(s);
-      s.updatedAt = Date.now();
-      invalidateRecommendationCache();
-      return { ok: true };
-    }
-    if (
-      taken(s, all).has(name) &&
-      !s.bans[side].includes(name) &&
-      !sidePicks(s, side).some((p) => p.name === name)
-    ) {
-      return { ok: false, error: "Indisponible." };
-    }
-    clearFromBoard(s, name);
-    if (type === "ban") {
-      const max = s.bansPerTeam === 2 ? 2 : 3;
-      let idx = banIndex ?? s.bans[side].findIndex((n) => !n);
-      if (idx < 0 || idx >= max) return { ok: false, error: "Bans pleins." };
-      s.bans[side][idx] = name;
-    } else {
-      const list = sidePicks(s, side).filter((p) => p.name !== name);
-      if (list.length >= 5) return { ok: false, error: "Picks pleins." };
-      const targetSlot = hintSlot && openSlots(s, side).includes(hintSlot) ? hintSlot : SLOTS[0];
-      s.picks[side] = list.concat([{ name, slot: targetSlot }]);
-      relayoutAll(s, ctx);
-      if (hintSlot) pinChampionSlot(s, side, name, hintSlot);
-      const placed = s.picks[side].find((p) => p.name === name);
-      if (!placed) return { ok: false, error: "Placement impossible." };
-      resyncStepIndex(s);
-      s.updatedAt = Date.now();
-      invalidateRecommendationCache();
-      return { ok: true, slot: placed.slot };
-    }
-    resyncStepIndex(s);
-    s.updatedAt = Date.now();
-    invalidateRecommendationCache();
     return { ok: true };
   }
 
-  function recordAction(s, action, all = [], ctx = {}) {
-    const step = getStep(s);
-    if (step && step.type === action.type && step.side === action.side && !action.forceManual) {
-      const result = applyAction(
-        s,
-        { championName: action.name, slot: action.slot, banIndex: action.banIndex },
-        all,
-        ctx
-      );
-      if (result.ok && action.type === "pick") {
-        result.slot = s.picks[action.side]?.find((p) => p.name === action.name)?.slot;
-      }
-      return result;
-    }
-    return manualAssign(s, action, all, ctx);
+  // ---- Recommandations -------------------------------------------------------
+  function focusSlotForPick(s, side) {
+    if (s.focus && s.focus.type === "pick" && s.focus.side === side && s.focus.slot) return s.focus.slot;
+    return null;
   }
 
-  function suggestNextFocus(s, byName, meta, all = []) {
+  /**
+   * Recommandations pour l'étape courante.
+   * opts.pool : noms jouables (patch/pool perso) ; opts.hintSlot : poste ciblé.
+   */
+  function getRecommendations(s, side, opts = {}) {
+    normalizeSession(s);
+    const D = Data(), M = Model();
+    const step = getStep(s);
+    const all = opts.allSessions || [];
+    const avail = availableNames(s, opts.pool, all);
+    const allies = sidePicks(s, side).map((p) => p.name);
+    const enemies = sidePicks(s, side === "blue" ? "red" : "blue").map((p) => p.name);
+    const phase = draftPhase(s);
+
+    if (step && step.type === "ban") {
+      const ourNames = sidePicks(s, ourSide(s)).map((p) => p.name);
+      const enemyNames = sidePicks(s, enemySide(s)).map((p) => p.name);
+      const items = avail
+        .map((n) => { const r = M.scoreBan(n, { ourNames, enemyNames, phase }); return { name: n, champion: D.get(n), score: r.score, reasons: r.reasons }; })
+        .sort((a, b) => b.score - a.score)
+        .slice(0, opts.limit || 12);
+      return { type: "ban", side, items, coachHint: banHint(s, side), plan: null };
+    }
+
+    const hintSlot = opts.hintSlot || focusSlotForPick(s, side);
+    const open = openSlots(s, side);
+    const items = avail
+      .map((n) => {
+        const r = M.scorePick(n, { allies, enemies, slot: hintSlot && open.includes(hintSlot) ? hintSlot : null, openSlots: open, phase });
+        return { name: n, champion: D.get(n), score: r.score, slot: r.slot, reasons: r.reasons, warnings: r.warnings };
+      })
+      .sort((a, b) => b.score - a.score)
+      .slice(0, opts.limit || 12);
+
+    return {
+      type: "pick",
+      side,
+      slot: hintSlot || (items[0] && items[0].slot) || open[0] || null,
+      items,
+      coachHint: pickHint(s, side, allies, enemies),
+      plan: livePlan(s, side),
+    };
+  }
+
+  function pickHint(s, side, allies, enemies) {
+    const M = Model();
+    const lead = M.detectShell(allies);
+    const parts = [];
+    if (lead) parts.push(`Plan : ${lead.shell.label}`);
+    const carry = allies.find((a) => M.isFragileCarry(a));
+    if (carry && !allies.some((a) => M.providesProtection(a))) parts.push(`Pense à protéger ${carry}`);
+    if (!allies.length) parts.push("Ouverture : champion flexible, fort et difficile à contrer");
+    return parts.join(" · ") || "Meilleur pick pour le poste et la comp";
+  }
+  function banHint(s, side) {
+    return "Ban ce qui counter notre plan ou complète un duo adverse fort";
+  }
+
+  // ---- Analyse live ----------------------------------------------------------
+  function toComps(s) {
+    const fill = (m) => { const o = {}; for (const sl of SLOTS) o[sl] = m[sl] || ""; return o; };
+    return { ourComp: fill(pickBySlot(s, ourSide(s))), enemyComp: fill(pickBySlot(s, enemySide(s))) };
+  }
+  function slotOf(s, side) {
+    const m = {};
+    for (const p of sidePicks(s, side)) if (p.slot) m[p.name] = p.slot;
+    return m;
+  }
+  function livePlan(s, side) {
+    const M = Model();
+    const our = sidePicks(s, side).map((p) => p.name);
+    const enemy = sidePicks(s, side === "blue" ? "red" : "blue").map((p) => p.name);
+    if (!our.length) return null;
+    const lead = M.detectShell(our);
+    return {
+      shell: lead ? lead.shell.label : null,
+      win: our.length && enemy.length ? M.winEstimate(our, enemy, slotOf(s, side), slotOf(s, side === "blue" ? "red" : "blue")) : null,
+    };
+  }
+  /** Comparaison de deux comps complètes → estimation (remplace l'ancien win% bidon). */
+  function compareComps(ourComp, enemyComp) {
+    const M = Model();
+    const our = SLOTS.map((sl) => ourComp[sl]).filter(Boolean);
+    const enemy = SLOTS.map((sl) => enemyComp[sl]).filter(Boolean);
+    if (our.length < 5 || enemy.length < 5) return { complete: false, ourCount: our.length, enemyCount: enemy.length };
+    const invert = (comp) => { const o = {}; for (const sl of SLOTS) if (comp[sl]) o[comp[sl]] = sl; return o; };
+    const win = M.winEstimate(our, enemy, invert(ourComp), invert(enemyComp));
+    return { complete: true, win, margin: win.margin };
+  }
+  function analyzeLive(s) {
+    const M = Model();
+    const our = sidePicks(s, ourSide(s)).map((p) => p.name);
+    const enemy = sidePicks(s, enemySide(s)).map((p) => p.name);
+    const notes = [];
+    const lead = M.detectShell(our);
+    if (lead) notes.push(`Identité : ${lead.shell.label}`);
+    const carry = our.find((a) => M.isFragileCarry(a));
+    if (carry && !our.some((a) => M.providesProtection(a))) notes.push(`Carry ${carry} sans protection`);
+    if (our.length && enemy.length) {
+      const w = M.winEstimate(our, enemy, slotOf(s, ourSide(s)), slotOf(s, enemySide(s)));
+      notes.push(`${w.verdict} (${Math.round(w.ourPct * 100)}%, estimation)`);
+    }
+    return { notes: notes.slice(0, 6) };
+  }
+
+  function bestSlotForChampion(name, s, side) {
+    return Model().bestSlotFor(name, openSlots(s, side));
+  }
+
+  function suggestNextFocus(s) {
     normalizeSession(s);
     if (isComplete(s)) { s.focus = null; return null; }
     const step = getStep(s);
     if (!step) return null;
     if (step.type === "ban") {
-      const max = s.bansPerTeam === 2 ? 2 : 3;
-      for (let i = 0; i < max; i++) {
-        if (!s.bans[step.side][i]) {
-          s.focus = { type: "ban", side: step.side, banIndex: i };
-          return s.focus;
-        }
-      }
+      const idx = s.bans[step.side].findIndex((n) => !n);
+      s.focus = { type: "ban", side: step.side, banIndex: idx < 0 ? 0 : idx };
     } else {
       const open = openSlots(s, step.side);
-      const hinted =
-        s.focus?.type === "pick" && s.focus.side === step.side && s.focus.slot && open.includes(s.focus.slot)
-          ? s.focus.slot
-          : null;
-      const slot = hinted || (byName && meta ? suggestSlot(s, step.side, meta, byName, all) : open[0]);
-      s.focus = { type: "pick", side: step.side, slot: slot || undefined };
-      return s.focus;
+      const keep = s.focus && s.focus.type === "pick" && s.focus.side === step.side && open.includes(s.focus.slot) ? s.focus.slot : null;
+      s.focus = { type: "pick", side: step.side, slot: keep || open[0] || null };
     }
-    s.focus = null;
-    return null;
-  }
-
-  function syncLegacySlots(s) {
-    if (!s.focus || s.focus.type !== "pick" || s.focus.slot) return;
-    const side = s.focus.side;
-    const open = openSlots(s, side);
-    if (!open.length) return;
-    if (side === ourSide(s)) s.activeSlot = open[0];
-    else s.enemyActiveSlot = open[0];
-  }
-
-  function getDraftCoachHint(s, side, byName, meta, all = []) {
-    const slot = preferredBlindSlot(s, side);
-    const label = SLOT_LABELS[slot] || slot;
-    const n = sidePickCount(s, side) + 1;
-    const parts = [];
-    const core = MC();
-
-    if (byName && meta && core?.evaluateTeam) {
-      const allies = sidePicks(s, side).map((p) => p.name);
-      const opp = side === "blue" ? "red" : "blue";
-      const oppNames = sidePicks(s, opp).map((p) => p.name);
-      const ev = core.evaluateTeam(allies, {
-        byName,
-        metaMap: meta,
-        oppNames,
-        slotsLeft: openSlots(s, side).length,
-      });
-      if (ev.color?.combination?.name) parts.push(ev.color.combination.name);
-      else if (ev.color?.identity) parts.push(`Couleurs ${ev.color.identity}`);
-      if (ev.gaps?.[0]) parts.push(`Manque ${ev.gaps[0]}`);
-    }
-
-    const step = getStep(s);
-    if (step?.type === "ban") {
-      const base = "Ban menace — tier flex · deny MTG · counter notre comp";
-      return parts.length ? `${parts.join(" · ")} · ${base}` : base;
-    }
-
-    if (isTeamFirstPick(s, side)) {
-      return parts.length
-        ? `${parts.join(" · ")} · Blind 1 : ADC · Top/Sup counter only`
-        : "Blind 1 : ADC obligatoire · Top/Sup = counter pick uniquement";
-    }
-    if (isBlindPickPhase(s, side)) {
-      const blind =
-        slot === "Bot"
-          ? `Blind ${n} : ADC (dur à punir)`
-          : slot === "Jungle"
-            ? `Blind ${n} : Jungle · Top/Sup interdits`
-            : slot === "Mid"
-              ? `Blind ${n} : Mid · Top/Sup après matchup adverse`
-              : `Blind ${n} : ${label} · Top/Sup = counter only`;
-      return parts.length ? `${parts.join(" · ")} · ${blind}` : blind;
-    }
-    if (LATE_MATCHUP_SLOTS.includes(slot)) {
-      const lane = isLaneMatchupKnown(s, side, slot)
-        ? `Pick ${label} : matchup révélé · counter possible`
-        : `Pick ${label} · blind ADC/Jgl/Mid épuisés`;
-      return parts.length ? `${parts.join(" · ")} · ${lane}` : lane;
-    }
-    const base = `Pick : ${label} · Synergies · Trinité MTG · skeleton`;
-    return parts.length ? `${parts.join(" · ")} · ${base}` : base;
-  }
-
-  function actionLabel(s, byName, meta, all = []) {
-    let base;
-    const f = s.focus;
-    if (f) {
-      const fr = f.side === "blue" ? "Bleu" : "Rouge";
-      if (f.type === "ban") base = `Ban ${fr} → champion`;
-      else if (f.type === "swap") {
-        const sl = f.slot ? (SLOT_LABELS[f.slot] || f.slot) : "";
-        base = isComplete(s)
-          ? `Échanger (${fr}) — ${sl} → choisis le 2e poste`
-          : `Swap ${fr} · ${sl} → 2e poste`;
-      } else {
-        const sl = f.slot ? (SLOT_LABELS[f.slot] || f.slot) : "";
-        base = sl ? `Pick ${fr} · ${sl} → champion` : `Pick ${fr} → choisis un poste puis un champion`;
-      }
-    } else if (isComplete(s)) {
-      base = "Draft terminée — clique deux postes (même équipe) pour échanger";
-    } else {
-      const step = getStep(s);
-      if (!step) return null;
-      base = step.type === "pick" ? "Pick → champion" : "Ban → champion";
-    }
-    if (byName && meta && !isComplete(s)) {
-      const step = getStep(s);
-      const side = f?.side || step?.side;
-      if (side && (step?.type === "pick" || step?.type === "ban")) {
-        try {
-          const hint = getDraftCoachHint(s, side, byName, meta, all);
-          if (hint) return `${base} · ${hint}`;
-        } catch (err) {
-          console.warn("actionLabel coach hint", err);
-        }
-      }
-    }
-    return base;
-  }
-
-  function suggestSlot(s, side, meta, byName, all = []) {
-    const open = openSlots(s, side);
-    const preferred = preferredBlindSlot(s, side);
-    if (preferred && open.includes(preferred)) return preferred;
-
-    if (isBlindPickPhase(s, side)) {
-      for (const sl of BLIND_PICK_SLOTS) {
-        if (open.includes(sl)) return sl;
-      }
-    }
-
-    const core = MC();
-    const names = sidePicks(s, side).map((p) => p.name);
-    if (core?.evaluateTeam && names.length) {
-      const ev = core.evaluateTeam(names, { metaMap: meta, byName, slotsLeft: open.length });
-      const skel = ev.skeleton || {};
-      if (!skel.frontline && open.includes("Top") && isLaneMatchupKnown(s, side, "Top")) return "Top";
-      if (!skel.enchanter && open.includes("Support") && isLaneMatchupKnown(s, side, "Support")) return "Support";
-      if (!skel.wave_clear && open.includes("Mid")) return "Mid";
-    }
-    return open[0] || "Top";
-  }
-
-  function resolvePickSlot(s, side, name, byName, meta, hint, obj) {
-    const c = obj || { name };
-    return scorePick(c, s, side, byName, meta, hint).slot;
-  }
-
-  function bestSlotForChampion(c, s, side, meta, hint) {
-    return resolvePickSlot(s, side, c?.name, null, meta, hint, c);
-  }
-
-  function toComps(s) {
-    const fill = (m) => {
-      const o = {};
-      for (const sl of SLOTS) o[sl] = m[sl] || "";
-      return o;
-    };
-    return {
-      ourComp: fill(pickBySlot(s, ourSide(s))),
-      enemyComp: fill(pickBySlot(s, enemySide(s))),
-    };
-  }
-
-  function analyzeLive(s, meta, byName, all = []) {
-    const core = MC();
-    const our = sidePicks(s, ourSide(s)).map((p) => p.name);
-    const en = sidePicks(s, enemySide(s)).map((p) => p.name);
-    const notes = [];
-
-    if (core?.evaluateTeam) {
-      const ev = core.evaluateTeam(our, {
-        metaMap: meta,
-        byName,
-        oppNames: en,
-        slotsLeft: 5 - our.length,
-      });
-      const b = ev.breakdown || {};
-      if (b.counter > 40) notes.push("Avantage counter vs adversaire");
-      else if (b.counter < -15 && en.length >= 2) notes.push("Comp adverse favorisée");
-      if (b.synergy >= 90) notes.push("Synergie paires forte");
-      else if (our.length >= 3 && b.synergy < 35) notes.push("Synergie insuffisante");
-      if (ev.color?.combination?.name) notes.push(`Identité ${ev.color.combination.name}`);
-      for (const g of (ev.gaps || []).slice(0, 3)) notes.push(`Manque ${g}`);
-    }
-    return { ourTags: [], enemyTags: [], notes: notes.slice(0, 8) };
+    return s.focus;
   }
 
   function stepLabel(s) {
     const steps = getSteps(s);
     const st = steps[s.stepIndex];
-    if (!st) return "Draft terminé";
+    if (!st) return "Draft terminée";
     const side = st.side === "blue" ? "Bleu" : "Rouge";
     const bans = steps.filter((x) => x.type === "ban").length;
     if (st.type === "ban") return `Ban ${s.stepIndex + 1}/${bans} — ${side}`;
     return `Pick ${s.stepIndex - bans + 1}/${steps.filter((x) => x.type === "pick").length} — ${side}`;
   }
-
   function formatSummary(s) {
     normalizeSession(s);
-    return [`${s.bansPerTeam} bans · algo LoL/MTG`, s.fearless ? "Fearless" : null].filter(Boolean).join(" · ");
+    return [`${s.bansPerTeam} bans · snake 5v5`, s.fearless ? "Fearless" : null].filter(Boolean).join(" · ");
   }
 
-  global.TFM2Draft = {
+  return {
     SLOTS,
-    BLIND_PICK_SLOTS,
-    LATE_MATCHUP_SLOTS,
+    SLOT_LABELS,
     PICK_STEPS,
-    PLAN_VS_ENEMY,
-    ENEMY_PLAN_ANSWERS,
-    SLOT_BUFF,
-    COMP_PLANS,
-    buildDraftSteps,
-    normalizeSession,
+    configure,
+    ensureData,
+    isConfigured: () => configured,
     createSession,
+    normalizeSession,
+    buildDraftSteps,
     getSteps,
     totalSteps,
     getStep,
     isComplete,
-    fearlessUsedNames: fearlessUsed,
-    takenNames: taken,
-    availableChampions: available,
-    sidePicks,
-    pickBySlot,
     ourSide,
     enemySide,
     isOurTurn,
     canEditFormat,
-    isTeamFirstPick,
-    isBlindPickPhase,
-    nextBlindSlot,
-    allowedSlotsForNextPick,
-    preferredBlindSlot,
-    recommendedSlotForPick,
-    suggestSlot,
-    bestSlotForChampion,
-    resolvePickSlot,
-    relayoutAllPickSlots: relayoutAll,
-    optimizeTeamLayout: optimizeLayout,
-    getRecommendations,
-    invalidateRecommendationCache,
-    getDraftCoachHint,
+    sidePicks,
+    pickBySlot,
+    openSlots,
+    draftPhase,
+    takenNames: taken,
+    availableNames,
     applyAction,
-    recordAction,
     manualAssign,
-    actionLabel,
-    suggestNextFocus,
-    syncLegacySlots,
+    recordAction,
     resyncStepIndex,
     undo,
     resetSession,
     swapPickSlots,
+    getRecommendations,
+    bestSlotForChampion,
+    suggestNextFocus,
     toComps,
+    compareComps,
     analyzeLive,
     stepLabel,
     formatSummary,
-    scorePick: (c, s, side, slot, meta, byName) => scorePick(c, s, side, byName, meta, slot),
-    scoreBan,
-    evaluateTeam,
-    phaseWeights,
-    draftPhase,
-    compareComps,
-    teamColorSummary,
-    MTG_COLORS,
-    COLOR_LABELS,
-    COLOR_HEX,
   };
-})(typeof window !== "undefined" ? window : globalThis);
+});

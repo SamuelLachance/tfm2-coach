@@ -3,8 +3,121 @@
   "patchRef": "v0.4.11",
   "source": "C:\\Users\\Admin\\.cursor\\skills\\teamfight-manager-2\\champions-abilities.md",
   "sourceNotes": "Steam guide IA patch (3736370046) — tiers S–D ; TFM2 Wiki v0.4.11 (2026-06-09) — rôles draft ; DQ7 Ban-Pick / Personal Tier — positions viables",
-  "championCount": 60,
+  "championCount": 62,
   "champions": [
+    {
+      "id": "alchimiste",
+      "name": "Alchimiste",
+      "type": "Mage (Poison / DoT / Anti-soin)",
+      "positions": "Toutes · optimal : Mid",
+      "optimalSlots": [
+        "Mid"
+      ],
+      "viableSlots": [
+        "Support",
+        "Bot"
+      ],
+      "draftJob": "control",
+      "roleTags": [
+        "poke",
+        "wave_clear"
+      ],
+      "raison": "Poison (DoT) + réduction de soins ; harcèle à distance et neutralise les compos qui vivent sur le heal. Profite du +20 % XP au Mid.",
+      "stats": null,
+      "worstMatchups": [
+        "Ninja",
+        "Démon",
+        "Loup-garou",
+        "Tueur à gages",
+        "Chasseur"
+      ],
+      "bestPairings": [
+        "Infanterie lourde",
+        "Chevalier de cavalerie",
+        "Tireur",
+        "Moine",
+        "Combattant"
+      ],
+      "build": [
+        "Orbe venimeux",
+        "Prophète de l'abîme",
+        "Cristal chrono"
+      ],
+      "tierMeta": "B",
+      "tierNote": "Contrôle à distance + anti-soin ; punit les comps à sustain. *(valeurs provisoires — champion récent, wiki communautaire)*",
+      "abilities": [
+        {
+          "slot": "Ability 1",
+          "meta": "Level 1 - 8.0s",
+          "cooldown": "8.0s",
+          "description": "Lance une fiole qui explose à l'impact, infligeant **120 + 60% de la puissance magique** en dégâts magiques et appliquant **Poison** (dégâts sur la durée) ainsi qu'une **réduction des soins de 40 % pendant 4 s** aux ennemis touchés."
+        },
+        {
+          "slot": "Ability 2",
+          "meta": "Level 2 - 9.0s",
+          "cooldown": "9.0s",
+          "description": "Cible un ennemi, lui inflige **100 + 50% de la puissance magique** en dégâts magiques, le **prive de tout soin pendant 3 s** et le **ralentit de 40 % pendant 2 s**."
+        },
+        {
+          "slot": "Ultimate",
+          "meta": "Level 3 - 60.0s",
+          "cooldown": "60.0s",
+          "description": "Projette une fiole toxique en ligne droite ; au contact d'un ennemi, un **nuage de poison** circulaire se forme et **s'étend progressivement**, infligeant **80 + 40% de la puissance magique** en dégâts magiques par seconde et appliquant **Poison** aux ennemis à l'intérieur."
+        }
+      ],
+      "nameEn": "Alchemist",
+      "visual": "Fiole verte / gaz toxique",
+      "grid": "—",
+      "gridSheet": null,
+      "gridRow": null,
+      "gridCol": null,
+      "colorIdentity": {
+        "W": 2,
+        "U": 6,
+        "B": 5,
+        "R": 7,
+        "G": 4,
+        "dominant": [
+          "R",
+          "U"
+        ],
+        "identity": "RU",
+        "vector": [
+          0.08333333333333333,
+          0.25,
+          0.20833333333333334,
+          0.2916666666666667,
+          0.16666666666666666
+        ],
+        "family": "mage_dps"
+      },
+      "computedWorstMatchups": [
+        "Exécuteur",
+        "Soldat",
+        "Prêtre",
+        "Berserker",
+        "Briseur de siège"
+      ],
+      "computedBestPairings": [
+        "Mage des ombres",
+        "Mage noir",
+        "Nécromancien",
+        "Androïde",
+        "Chasseur"
+      ],
+      "draftProfile": {
+        "damage": "Mixed",
+        "squishy": false,
+        "tanky": false,
+        "range": "melee",
+        "adRatio": 0,
+        "apRatio": 0,
+        "adShare": 0.0,
+        "apShare": 1.0,
+        "dpsWeight": 0.22,
+        "tankWeight": 0.08
+      }
+    },
     {
       "id": "andro-de",
       "name": "Androïde",
@@ -901,7 +1014,7 @@
         "Mage des ombres",
         "Mage noir",
         "Mage blanc",
-        "Chevalier magique"
+        "Alchimiste"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -1702,7 +1815,7 @@
         "Bombardier",
         "Mage des ombres",
         "Mage blanc",
-        "Chevalier magique"
+        "Alchimiste"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -2386,7 +2499,7 @@
         "Mage des ombres",
         "Mage noir",
         "Mage blanc",
-        "Chevalier magique"
+        "Alchimiste"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -2943,7 +3056,7 @@
         "Mage des ombres",
         "Mage noir",
         "Mage blanc",
-        "Chevalier magique"
+        "Alchimiste"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -3401,7 +3514,7 @@
         "Mage des ombres",
         "Mage noir",
         "Mage blanc",
-        "Chevalier magique"
+        "Alchimiste"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -3855,7 +3968,7 @@
         "Mage des ombres",
         "Mage noir",
         "Mage blanc",
-        "Chevalier magique"
+        "Alchimiste"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -4083,7 +4196,7 @@
         "Mage des ombres",
         "Mage noir",
         "Mage blanc",
-        "Chevalier magique"
+        "Alchimiste"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -4550,6 +4663,120 @@
         "adShare": 0.0,
         "apShare": 1.0,
         "dpsWeight": 0.23,
+        "tankWeight": 0.08
+      }
+    },
+    {
+      "id": "mage-de-sable",
+      "name": "Mage de sable",
+      "type": "Mage (DPS / Contrôle de zone)",
+      "positions": "Toutes · optimal : Mid",
+      "optimalSlots": [
+        "Mid"
+      ],
+      "viableSlots": [
+        "Bot",
+        "Top"
+      ],
+      "draftJob": "control",
+      "roleTags": [
+        "mage_burst",
+        "engage",
+        "wave_clear"
+      ],
+      "raison": "DPS magique soutenu + ult de contrôle de zone (pull AoE) ; self vitesse de déplacement et soin. Scale avec le +20 % XP au Mid.",
+      "stats": null,
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Démon",
+        "Inquisiteur",
+        "Loup-garou"
+      ],
+      "bestPairings": [
+        "Bombardier",
+        "Pyromancien",
+        "Tireur",
+        "Infanterie lourde",
+        "Maître du fouet"
+      ],
+      "build": [
+        "Bâton du sorcier",
+        "Prophète de l'abîme",
+        "Cristal chrono"
+      ],
+      "tierMeta": "B",
+      "tierNote": "Mage DPS de contrôle ; ult « marais de sable » qui aspire les ennemis, fort en teamfight groupé. *(valeurs provisoires — champion récent, wiki communautaire)*",
+      "abilities": [
+        {
+          "slot": "Ability 1",
+          "meta": "Level 1 - 6.0s",
+          "cooldown": "6.0s",
+          "description": "Imprègne ses attaques de sable : la prochaine attaque inflige **60 + 40% de la puissance magique** en dégâts magiques supplémentaires et fait **exploser du sable** autour de la cible (dégâts magiques de zone). Peut infliger un **coup critique**."
+        },
+        {
+          "slot": "Ability 2",
+          "meta": "Level 2 - 12.0s",
+          "cooldown": "12.0s",
+          "description": "Absorbe la puissance du sable : gagne **+25 % de vitesse de déplacement pendant 3 s** et récupère **150 + 30% de la puissance magique** en PV."
+        },
+        {
+          "slot": "Ultimate",
+          "meta": "Level 3 - 55.0s",
+          "cooldown": "55.0s",
+          "description": "Crée un **marais de sable** autour d'une cible pendant 4 s. Les ennemis présents sont **continuellement aspirés vers le centre** et subissent **90 + 40% de la puissance magique** en dégâts magiques par seconde."
+        }
+      ],
+      "nameEn": "Sand Mage",
+      "visual": "Tourbillon de sable",
+      "grid": "—",
+      "gridSheet": null,
+      "gridRow": null,
+      "gridCol": null,
+      "colorIdentity": {
+        "W": 3,
+        "U": 10,
+        "B": 2,
+        "R": 3,
+        "G": 6,
+        "dominant": [
+          "U",
+          "G"
+        ],
+        "identity": "UG",
+        "vector": [
+          0.125,
+          0.4166666666666667,
+          0.08333333333333333,
+          0.125,
+          0.25
+        ],
+        "family": "mage_control"
+      },
+      "computedWorstMatchups": [
+        "Soldat",
+        "Mage noir",
+        "Nécromancien",
+        "Chevalier magique",
+        "Vampire"
+      ],
+      "computedBestPairings": [
+        "Berserker",
+        "Briseur de siège",
+        "Chevalier",
+        "Chevalier de cavalerie",
+        "Combattant"
+      ],
+      "draftProfile": {
+        "damage": "Mixed",
+        "squishy": false,
+        "tanky": false,
+        "range": "melee",
+        "adRatio": 0,
+        "apRatio": 0,
+        "adShare": 0.0,
+        "apShare": 1.0,
+        "dpsWeight": 0.22,
         "tankWeight": 0.08
       }
     },
@@ -5332,7 +5559,7 @@
         "Bombardier",
         "Mage noir",
         "Mage blanc",
-        "Chevalier magique"
+        "Alchimiste"
       ],
       "draftProfile": {
         "damage": "AD",
@@ -6826,5 +7053,6 @@
       }
     }
   ],
+  "mtgVersion": "2026-06-tfm2",
   "matchupVersion": "2026-06-mtg"
 }

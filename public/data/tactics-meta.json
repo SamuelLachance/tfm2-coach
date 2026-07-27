@@ -753,6 +753,84 @@
     }
   },
   "champions": {
+    "Alchimiste": {
+      "id": "alchimiste",
+      "type": "Mage (Poison / DoT / Anti-soin)",
+      "tags": [
+        "mage_burst"
+      ],
+      "build": [
+        "Orbe venimeux",
+        "Prophète de l'abîme",
+        "Cristal chrono"
+      ],
+      "tierMeta": "B",
+      "draftJob": "control",
+      "roleTags": [
+        "poke",
+        "wave_clear"
+      ],
+      "viableSlots": [
+        "Support",
+        "Bot"
+      ],
+      "optimalSlots": [
+        "Mid"
+      ],
+      "tierNote": "Contrôle à distance + anti-soin ; punit les comps à sustain. *(valeurs provisoires — champion récent, wiki communautaire)*",
+      "worstMatchups": [
+        "Ninja",
+        "Démon",
+        "Loup-garou",
+        "Tueur à gages",
+        "Chasseur"
+      ],
+      "bestPairings": [
+        "Infanterie lourde",
+        "Chevalier de cavalerie",
+        "Tireur",
+        "Moine",
+        "Combattant"
+      ],
+      "draftProfile": {
+        "damage": "Mixed",
+        "squishy": false,
+        "tanky": false,
+        "range": "melee",
+        "adRatio": 0,
+        "apRatio": 0,
+        "adShare": 0.0,
+        "apShare": 1.0,
+        "dpsWeight": 0.22,
+        "tankWeight": 0.08
+      },
+      "colorIdentity": {
+        "W": 2,
+        "U": 6,
+        "B": 5,
+        "R": 7,
+        "G": 4,
+        "dominant": [
+          "R",
+          "U"
+        ],
+        "identity": "RU",
+        "vector": [
+          0.08333333333333333,
+          0.25,
+          0.20833333333333334,
+          0.2916666666666667,
+          0.16666666666666666
+        ],
+        "family": "mage_dps"
+      },
+      "family": "mage_dps",
+      "familyLabel": "Mage DPS",
+      "compTypes": [
+        "lane_tempo",
+        "all_in"
+      ]
+    },
     "Androïde": {
       "id": "andro-de",
       "type": "Guerrier (Tank / Bruiser / Utilitaire)",
@@ -3892,6 +3970,85 @@
         "adShare": 0.0,
         "apShare": 1.0,
         "dpsWeight": 0.23,
+        "tankWeight": 0.08
+      },
+      "colorIdentity": {
+        "W": 3,
+        "U": 10,
+        "B": 2,
+        "R": 3,
+        "G": 6,
+        "dominant": [
+          "U",
+          "G"
+        ],
+        "identity": "UG",
+        "vector": [
+          0.125,
+          0.4166666666666667,
+          0.08333333333333333,
+          0.125,
+          0.25
+        ],
+        "family": "mage_control"
+      },
+      "family": "mage_control",
+      "familyLabel": "Mage contrôle",
+      "compTypes": [
+        "poke_siege",
+        "poke_disengage"
+      ]
+    },
+    "Mage de sable": {
+      "id": "mage-de-sable",
+      "type": "Mage (DPS / Contrôle de zone)",
+      "tags": [
+        "mage_burst"
+      ],
+      "build": [
+        "Bâton du sorcier",
+        "Prophète de l'abîme",
+        "Cristal chrono"
+      ],
+      "tierMeta": "B",
+      "draftJob": "control",
+      "roleTags": [
+        "mage_burst",
+        "engage",
+        "wave_clear"
+      ],
+      "viableSlots": [
+        "Bot",
+        "Top"
+      ],
+      "optimalSlots": [
+        "Mid"
+      ],
+      "tierNote": "Mage DPS de contrôle ; ult « marais de sable » qui aspire les ennemis, fort en teamfight groupé. *(valeurs provisoires — champion récent, wiki communautaire)*",
+      "worstMatchups": [
+        "Ninja",
+        "Chasseur",
+        "Démon",
+        "Inquisiteur",
+        "Loup-garou"
+      ],
+      "bestPairings": [
+        "Bombardier",
+        "Pyromancien",
+        "Tireur",
+        "Infanterie lourde",
+        "Maître du fouet"
+      ],
+      "draftProfile": {
+        "damage": "Mixed",
+        "squishy": false,
+        "tanky": false,
+        "range": "melee",
+        "adRatio": 0,
+        "apRatio": 0,
+        "adShare": 0.0,
+        "apShare": 1.0,
+        "dpsWeight": 0.22,
         "tankWeight": 0.08
       },
       "colorIdentity": {
